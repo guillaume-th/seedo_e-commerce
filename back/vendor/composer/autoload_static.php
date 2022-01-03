@@ -333,7 +333,22 @@ class ComposerStaticInit9ec557b139f771290a5e0a820a08e1af
     );
 
     public static $classMap = array (
+        'App\\Entity\\Adress' => __DIR__ . '/../..' . '/src/Entity/Adress.php',
+        'App\\Entity\\Article' => __DIR__ . '/../..' . '/src/Entity/Article.php',
+        'App\\Entity\\Category' => __DIR__ . '/../..' . '/src/Entity/Category.php',
+        'App\\Entity\\Comment' => __DIR__ . '/../..' . '/src/Entity/Comment.php',
+        'App\\Entity\\Order' => __DIR__ . '/../..' . '/src/Entity/Order.php',
+        'App\\Entity\\Photo' => __DIR__ . '/../..' . '/src/Entity/Photo.php',
+        'App\\Entity\\User' => __DIR__ . '/../..' . '/src/Entity/User.php',
         'App\\Kernel' => __DIR__ . '/../..' . '/src/Kernel.php',
+        'App\\Repository\\AdressRepository' => __DIR__ . '/../..' . '/src/Repository/AdressRepository.php',
+        'App\\Repository\\ArticleRepository' => __DIR__ . '/../..' . '/src/Repository/ArticleRepository.php',
+        'App\\Repository\\CategoryRepository' => __DIR__ . '/../..' . '/src/Repository/CategoryRepository.php',
+        'App\\Repository\\CommentRepository' => __DIR__ . '/../..' . '/src/Repository/CommentRepository.php',
+        'App\\Repository\\OrderRepository' => __DIR__ . '/../..' . '/src/Repository/OrderRepository.php',
+        'App\\Repository\\OrdersArticleRepository' => __DIR__ . '/../..' . '/src/Repository/OrdersArticleRepository.php',
+        'App\\Repository\\PhotoRepository' => __DIR__ . '/../..' . '/src/Repository/PhotoRepository.php',
+        'App\\Repository\\UserRepository' => __DIR__ . '/../..' . '/src/Repository/UserRepository.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Doctrine\\Bundle\\DoctrineBundle\\Attribute\\AsEntityListener' => __DIR__ . '/..' . '/doctrine/doctrine-bundle/Attribute/AsEntityListener.php',

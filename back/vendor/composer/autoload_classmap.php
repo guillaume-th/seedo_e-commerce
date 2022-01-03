@@ -6,7 +6,22 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Entity\\Adress' => $baseDir . '/src/Entity/Adress.php',
+    'App\\Entity\\Article' => $baseDir . '/src/Entity/Article.php',
+    'App\\Entity\\Category' => $baseDir . '/src/Entity/Category.php',
+    'App\\Entity\\Comment' => $baseDir . '/src/Entity/Comment.php',
+    'App\\Entity\\Order' => $baseDir . '/src/Entity/Order.php',
+    'App\\Entity\\Photo' => $baseDir . '/src/Entity/Photo.php',
+    'App\\Entity\\User' => $baseDir . '/src/Entity/User.php',
     'App\\Kernel' => $baseDir . '/src/Kernel.php',
+    'App\\Repository\\AdressRepository' => $baseDir . '/src/Repository/AdressRepository.php',
+    'App\\Repository\\ArticleRepository' => $baseDir . '/src/Repository/ArticleRepository.php',
+    'App\\Repository\\CategoryRepository' => $baseDir . '/src/Repository/CategoryRepository.php',
+    'App\\Repository\\CommentRepository' => $baseDir . '/src/Repository/CommentRepository.php',
+    'App\\Repository\\OrderRepository' => $baseDir . '/src/Repository/OrderRepository.php',
+    'App\\Repository\\OrdersArticleRepository' => $baseDir . '/src/Repository/OrdersArticleRepository.php',
+    'App\\Repository\\PhotoRepository' => $baseDir . '/src/Repository/PhotoRepository.php',
+    'App\\Repository\\UserRepository' => $baseDir . '/src/Repository/UserRepository.php',
     'Attribute' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'Doctrine\\Bundle\\DoctrineBundle\\Attribute\\AsEntityListener' => $vendorDir . '/doctrine/doctrine-bundle/Attribute/AsEntityListener.php',
