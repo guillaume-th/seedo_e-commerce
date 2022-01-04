@@ -9,6 +9,7 @@ export default function Connexion() {
                 <form action="POST">
                     <label htmlFor="email">Email : <input type="email" /></label>
                     <label htmlFor="password">Password : <input type="password"/></label>
+                    <button type="submit">Connexion</button>
                 </form>
                 <p>Vous n'avez pas de compte ? <button onClick={() => setOption('inscription')}>Inscrivez vous</button>.</p>
             </div>
@@ -25,6 +26,7 @@ export default function Connexion() {
                     <label htmlFor="email">Email : <input type="email" name="" id="" /></label>
                     <label htmlFor="password">Mot de passe : <input type="password" id="password" /></label>
                     <label htmlFor="confirm-password">Confirmez le mot de passe : <input type="password" id="confirm-password" /></label>
+                    <button type="submit">Inscrire</button>
                 </form>
                 <p>Vous avez déjà un compte ? <button onClick={() => setOption('connexion')}>Connectez vous</button>.</p>
             </div>
