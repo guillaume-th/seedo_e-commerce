@@ -19,18 +19,18 @@ class ConnexionController extends AbstractController
         $request->getPathInfo();
         $email = $request->request->get('email');
         $password = $request->request->get('password');
-        // var_dump($request);
 
         $User = $this->getDoctrine()
             ->getRepository(User::class)
             ->findBy([
                 'email' => $email,
             ]);
-        var_dump($User);
+        // var_dump($User);
         if ($User) {
-            $password_bdd = $User->get('password');
+            $password_bdd = $User[0]->getPassword();
 
-            if (password_verify(password_hash($password, PASSWORD_DEFAULT), $$password_bdd)) {
+            if (password_verify($password, $password_bdd)) {
+            $id = $User[0]->getId();
                 $result = 'ok';
             } else {
                 $result = 'fail';
@@ -38,8 +38,16 @@ class ConnexionController extends AbstractController
         } else {
             $result = 'fail';
         }
+        if(isset($id)){
         return $this->json([
-            'message' => $result,
+            'status' => $result,
+            'user_id' => $id,
         ]);
+    }else{
+        return $this->json([
+            'status' => $result,
+        ]);
+    }
+
     }
 }
