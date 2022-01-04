@@ -29,7 +29,18 @@ class UserController extends AbstractController
      * @Route("/{id}", name="user", methods={"GET"})
      */
     public function show(User $user): Response
-    {
+    {   
+        $adresses = []; 
+        dump($user->getAdresses());
+        foreach($user->getAdresses() as $adress){
+            array_push($adresses, [
+                "street" => $adress->getStreet(),
+                "number" => $adress->getNumber(),
+                "country" => $adress->getCountry(), 
+                "postal_code" => $adress->getPostalCode(),
+            ]);
+        }
+        // dump($user->getAdresses()->getStreet()); 
         return $this->json([
             "lastname" => $user->getLastname(),
             "firstname" => $user->getFirstname(),
@@ -40,6 +51,7 @@ class UserController extends AbstractController
             "cvv" => $user->getCvv(),
             "expiration_CB" => $user->getExpirationCB(),
             "numberCB" => $user->getNumberCB(),
+            "adresses" => $adresses, 
         ]);
     }
 
