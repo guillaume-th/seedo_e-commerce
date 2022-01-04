@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\UserType;
+use App\Entity\Adress;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,15 +16,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class UserController extends AbstractController
 {
-    /**
-     * @Route("/", name="user_index", methods={"GET"})
-     */
-    public function index(UserRepository $userRepository): Response
-    {
-        return $this->render('user/index.html.twig', [
-            'users' => $userRepository->findAll(),
-        ]);
-    }
 
     /**
      * @Route("/new", name="user_new", methods={"GET", "POST"})
@@ -38,18 +29,18 @@ class UserController extends AbstractController
      * @Route("/{id}", name="user", methods={"GET"})
      */
     public function show(User $user): Response
-    { 
+    {
         return $this->json([
-            "lastname" => $user->getLastname(), 
-            "firstname" => $user->getFirstname(), 
-            "email" => $user->getEmail(), 
-            "telephone" => $user->getTelephone(), 
-            "id" => $user->getId(), 
+            "lastname" => $user->getLastname(),
+            "firstname" => $user->getFirstname(),
+            "email" => $user->getEmail(),
+            "telephone" => $user->getTelephone(),
+            "id" => $user->getId(),
             "creation_date" => $user->getCreationDate(),
             "cvv" => $user->getCvv(),
-            "expiration_CB" => $user->getExpirationCB(), 
+            "expiration_CB" => $user->getExpirationCB(),
             "numberCB" => $user->getNumberCB(),
-    ]); 
+        ]);
     }
 
     /**
@@ -59,25 +50,73 @@ class UserController extends AbstractController
     {
         $user->setEmail($request->request->get('email'));
         $user->setPassword($request->request->get('password'));
-        $user->setPassword($request->request->get('password'));
-        $user->setPassword($request->request->get('password'));
-        $user->setPassword($request->request->get('password'));
-        $entityManager->flush(); 
+        $user->setTelephone($request->request->get('telephone'));
+        $user->setFirstname($request->request->get('firstname'));
+        $user->setLastname($request->request->get('lastname'));
+        $user->setCvv($request->request->get('cvv'));
+        $user->setExpirationCB($request->request->get('expiration_CB'));
+        $user->setNumberCB($request->request->get('number_CB'));
+        $entityManager->flush();
+
         return $this->json([
             "status" => "ok",
-        ]); 
+            "data" => [
+                "lastname" => $user->getLastname(),
+                "firstname" => $user->getFirstname(),
+                "email" => $user->getEmail(),
+                "telephone" => $user->getTelephone(),
+                "id" => $user->getId(),
+                "creation_date" => $user->getCreationDate(),
+                "cvv" => $user->getCvv(),
+                "expiration_CB" => $user->getExpirationCB(),
+                "numberCB" => $user->getNumberCB(),
+            ]
+        ]);
     }
 
     /**
-     * @Route("/{id}", name="user_delete", methods={"POST"})
+     * @Route("/{id}/adress", name="adress_new", methods={"GET", "POST"})
+     */
+    public function addAdress(Request $request, User $user,  EntityManagerInterface $entityManager): Response
+    {
+        $adress = new Adress();
+        $adress->setStreet($request->request->get("street"));
+        $adress->setNumber($request->request->get("number"));
+        $adress->setCountry($request->request->get("country"));
+        $adress->setPostalCode($request->request->get("postal_code"));
+        $user->addAdress($adress); 
+        $entityManager->persist($adress); 
+        $entityManager->persist($user); 
+        $entityManager->flush(); 
+
+        return $this->json([
+            "status" => "ok",
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/adress/edit", name="adress_edit", methods={"GET", "POST"})
+     */
+    public function editAdress(Request $request, Adress $adress,  EntityManagerInterface $entityManager): Response
+    {
+        $adress->setStreet($request->request->get("street"));
+        $adress->setNumber($request->request->get("number"));
+        $adress->setCountry($request->request->get("country"));
+        $adress->setPostalCode($request->request->get("postal_code"));
+        $entityManager->flush();
+
+        return $this->json([
+            "status" => "ok",
+        ]);
+    }
+
+    /**
+     * @Route("/delete/{id}", name="user_delete", methods={"POST"})
      */
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($user);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('user_index', [], Response::HTTP_SEE_OTHER);
+        $entityManager->remove($user); 
+        $entityManager->flush(); 
+        return $this->json(["status" => "ok"]); 
     }
 }
