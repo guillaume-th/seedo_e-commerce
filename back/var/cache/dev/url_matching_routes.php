@@ -8,6 +8,7 @@
 return [
     false, // $matchHost
     [ // $staticRoutes
+        '/connexion' => [[['_route' => 'connexion', '_controller' => 'App\\Controller\\ConnexionController::index'], null, ['POST' => 0], null, false, false, null]],
     ],
     [ // $regexpList
         0 => '{^(?'

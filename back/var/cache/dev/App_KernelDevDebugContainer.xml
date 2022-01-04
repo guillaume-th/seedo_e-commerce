@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
   <parameters>
-    <parameter key="kernel.project_dir">/home/jemleym/e-commerce/api</parameter>
+    <parameter key="kernel.project_dir">/home/wac/e-commerce/W-WEB-502-PAR-2-1-ecommerce-jeremie.leymarie/back</parameter>
     <parameter key="kernel.environment">dev</parameter>
     <parameter key="kernel.runtime_environment">%env(default:kernel.environment:APP_RUNTIME_ENV)%</parameter>
     <parameter key="kernel.debug">true</parameter>
-    <parameter key="kernel.build_dir">/home/jemleym/e-commerce/api/var/cache/dev</parameter>
-    <parameter key="kernel.cache_dir">/home/jemleym/e-commerce/api/var/cache/dev</parameter>
-    <parameter key="kernel.logs_dir">/home/jemleym/e-commerce/api/var/log</parameter>
+    <parameter key="kernel.build_dir">/home/wac/e-commerce/W-WEB-502-PAR-2-1-ecommerce-jeremie.leymarie/back/var/cache/dev</parameter>
+    <parameter key="kernel.cache_dir">/home/wac/e-commerce/W-WEB-502-PAR-2-1-ecommerce-jeremie.leymarie/back/var/cache/dev</parameter>
+    <parameter key="kernel.logs_dir">/home/wac/e-commerce/W-WEB-502-PAR-2-1-ecommerce-jeremie.leymarie/back/var/log</parameter>
     <parameter key="kernel.bundles" type="collection">
       <parameter key="FrameworkBundle">Symfony\Bundle\FrameworkBundle\FrameworkBundle</parameter>
       <parameter key="DoctrineBundle">Doctrine\Bundle\DoctrineBundle\DoctrineBundle</parameter>
@@ -16,19 +16,19 @@
     </parameter>
     <parameter key="kernel.bundles_metadata" type="collection">
       <parameter key="FrameworkBundle" type="collection">
-        <parameter key="path">/home/jemleym/e-commerce/api/vendor/symfony/framework-bundle</parameter>
+        <parameter key="path">/home/wac/e-commerce/W-WEB-502-PAR-2-1-ecommerce-jeremie.leymarie/back/vendor/symfony/framework-bundle</parameter>
         <parameter key="namespace">Symfony\Bundle\FrameworkBundle</parameter>
       </parameter>
       <parameter key="DoctrineBundle" type="collection">
-        <parameter key="path">/home/jemleym/e-commerce/api/vendor/doctrine/doctrine-bundle</parameter>
+        <parameter key="path">/home/wac/e-commerce/W-WEB-502-PAR-2-1-ecommerce-jeremie.leymarie/back/vendor/doctrine/doctrine-bundle</parameter>
         <parameter key="namespace">Doctrine\Bundle\DoctrineBundle</parameter>
       </parameter>
       <parameter key="DoctrineMigrationsBundle" type="collection">
-        <parameter key="path">/home/jemleym/e-commerce/api/vendor/doctrine/doctrine-migrations-bundle</parameter>
+        <parameter key="path">/home/wac/e-commerce/W-WEB-502-PAR-2-1-ecommerce-jeremie.leymarie/back/vendor/doctrine/doctrine-migrations-bundle</parameter>
         <parameter key="namespace">Doctrine\Bundle\MigrationsBundle</parameter>
       </parameter>
       <parameter key="MakerBundle" type="collection">
-        <parameter key="path">/home/jemleym/e-commerce/api/vendor/symfony/maker-bundle/src</parameter>
+        <parameter key="path">/home/wac/e-commerce/W-WEB-502-PAR-2-1-ecommerce-jeremie.leymarie/back/vendor/symfony/maker-bundle/src</parameter>
         <parameter key="namespace">Symfony\Bundle\MakerBundle</parameter>
       </parameter>
     </parameter>
@@ -57,7 +57,7 @@
     <parameter key="kernel.enabled_locales" type="collection"/>
     <parameter key="kernel.error_controller">error_controller</parameter>
     <parameter key="debug.file_link_format">null</parameter>
-    <parameter key="cache.prefix.seed">_/home/jemleym/e-commerce/api.App_KernelDevDebugContainer</parameter>
+    <parameter key="cache.prefix.seed">_/home/wac/e-commerce/W-WEB-502-PAR-2-1-ecommerce-jeremie.leymarie/back.App_KernelDevDebugContainer</parameter>
     <parameter key="session.metadata.storage_key">_sf2_meta</parameter>
     <parameter key="session.storage.options" type="collection">
       <parameter key="cache_limiter" type="string">0</parameter>
@@ -66,11 +66,11 @@
       <parameter key="cookie_samesite">lax</parameter>
       <parameter key="gc_probability">1</parameter>
     </parameter>
-    <parameter key="session.save_path">/home/jemleym/e-commerce/api/var/cache/dev/sessions</parameter>
+    <parameter key="session.save_path">/home/wac/e-commerce/W-WEB-502-PAR-2-1-ecommerce-jeremie.leymarie/back/var/cache/dev/sessions</parameter>
     <parameter key="session.metadata.update_threshold">0</parameter>
     <parameter key="data_collector.templates" type="collection"/>
     <parameter key="debug.error_handler.throw_at">-1</parameter>
-    <parameter key="debug.container.dump">/home/jemleym/e-commerce/api/var/cache/dev/App_KernelDevDebugContainer.xml</parameter>
+    <parameter key="debug.container.dump">/home/wac/e-commerce/W-WEB-502-PAR-2-1-ecommerce-jeremie.leymarie/back/var/cache/dev/App_KernelDevDebugContainer.xml</parameter>
     <parameter key="router.request_context.host">localhost</parameter>
     <parameter key="router.request_context.scheme">http</parameter>
     <parameter key="router.request_context.base_url"></parameter>
@@ -143,7 +143,7 @@
     <parameter key="doctrine.orm.second_level_cache.cache_configuration.class">Doctrine\ORM\Cache\CacheConfiguration</parameter>
     <parameter key="doctrine.orm.second_level_cache.regions_configuration.class">Doctrine\ORM\Cache\RegionsConfiguration</parameter>
     <parameter key="doctrine.orm.auto_generate_proxy_classes">true</parameter>
-    <parameter key="doctrine.orm.proxy_dir">/home/jemleym/e-commerce/api/var/cache/dev/doctrine/orm/Proxies</parameter>
+    <parameter key="doctrine.orm.proxy_dir">/home/wac/e-commerce/W-WEB-502-PAR-2-1-ecommerce-jeremie.leymarie/back/var/cache/dev/doctrine/orm/Proxies</parameter>
     <parameter key="doctrine.orm.proxy_namespace">Proxies</parameter>
     <parameter key="doctrine.migrations.preferred_em">null</parameter>
     <parameter key="doctrine.migrations.preferred_connection">null</parameter>
@@ -155,6 +155,13 @@
     <service id="kernel" class="App\Kernel" public="true" synthetic="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="routing.route_loader"/>
+    </service>
+    <service id="App\Controller\ConnexionController" class="App\Controller\ConnexionController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.GNc8e5B.App\Controller\ConnexionController"/>
+      </call>
     </service>
     <service id="App\Repository\AdressRepository" class="App\Repository\AdressRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
@@ -257,7 +264,7 @@
       </argument>
     </service>
     <service id="http_cache.store" class="Symfony\Component\HttpKernel\HttpCache\Store">
-      <argument>/home/jemleym/e-commerce/api/var/cache/dev/http_cache</argument>
+      <argument>/home/wac/e-commerce/W-WEB-502-PAR-2-1-ecommerce-jeremie.leymarie/back/var/cache/dev/http_cache</argument>
     </service>
     <service id="url_helper" class="Symfony\Component\HttpFoundation\UrlHelper">
       <argument type="service" id="request_stack"/>
@@ -267,7 +274,7 @@
       <tag name="container.no_preload"/>
       <argument type="tagged_iterator" tag="kernel.cache_warmer"/>
       <argument>true</argument>
-      <argument>/home/jemleym/e-commerce/api/var/cache/dev/App_KernelDevDebugContainerDeprecations.log</argument>
+      <argument>/home/wac/e-commerce/W-WEB-502-PAR-2-1-ecommerce-jeremie.leymarie/back/var/cache/dev/App_KernelDevDebugContainerDeprecations.log</argument>
     </service>
     <service id="cache_clearer" class="Symfony\Component\HttpKernel\CacheClearer\ChainCacheClearer" public="true">
       <tag name="container.private" package="symfony/framework-bundle" version="5.2"/>
@@ -393,7 +400,7 @@
       </argument>
       <argument>UTF-8</argument>
       <argument type="service" id="debug.file_link_formatter" on-invalid="null"/>
-      <argument>/home/jemleym/e-commerce/api</argument>
+      <argument>/home/wac/e-commerce/W-WEB-502-PAR-2-1-ecommerce-jeremie.leymarie/back</argument>
       <argument type="service">
         <service>
           <argument type="service" id="request_stack"/>
@@ -426,7 +433,7 @@
       <tag name="console.command"/>
       <tag name="container.no_preload"/>
       <argument type="service" id="filesystem"/>
-      <argument>/home/jemleym/e-commerce/api</argument>
+      <argument>/home/wac/e-commerce/W-WEB-502-PAR-2-1-ecommerce-jeremie.leymarie/back</argument>
       <call method="setName">
         <argument>assets:install</argument>
       </call>
@@ -586,7 +593,7 @@
       <tag name="console.command"/>
       <tag name="container.no_preload"/>
       <argument>dev</argument>
-      <argument>/home/jemleym/e-commerce/api</argument>
+      <argument>/home/wac/e-commerce/W-WEB-502-PAR-2-1-ecommerce-jeremie.leymarie/back</argument>
       <call method="setName">
         <argument>debug:dotenv</argument>
       </call>
@@ -714,9 +721,9 @@
     <service id="cache.app" class="Symfony\Component\Cache\Adapter\FilesystemAdapter" public="true">
       <tag name="cache.pool"/>
       <tag name="kernel.reset" method="reset"/>
-      <argument>PA-n67HWru</argument>
+      <argument>gRuKq0ABa4</argument>
       <argument>0</argument>
-      <argument>/home/jemleym/e-commerce/api/var/cache/dev/pools/app</argument>
+      <argument>/home/wac/e-commerce/W-WEB-502-PAR-2-1-ecommerce-jeremie.leymarie/back/var/cache/dev/pools/app</argument>
       <argument type="service" id="cache.default_marshaller" on-invalid="ignore"/>
       <call method="setLogger">
         <argument type="service" id="logger" on-invalid="ignore"/>
@@ -728,50 +735,50 @@
     <service id="cache.system" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="true">
       <tag name="cache.pool"/>
       <tag name="kernel.reset" method="reset"/>
-      <argument>YIiwQUdAJW</argument>
+      <argument>0ocecD91-6</argument>
       <argument>0</argument>
       <argument>%container.build_id%</argument>
-      <argument>/home/jemleym/e-commerce/api/var/cache/dev/pools/system</argument>
+      <argument>/home/wac/e-commerce/W-WEB-502-PAR-2-1-ecommerce-jeremie.leymarie/back/var/cache/dev/pools/system</argument>
       <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
     <service id="cache.validator" class="Symfony\Component\Cache\Adapter\AdapterInterface">
       <tag name="cache.pool"/>
       <tag name="kernel.reset" method="reset"/>
-      <argument>0xBgYEpg3X</argument>
+      <argument>ZLD3-Qy+5U</argument>
       <argument>0</argument>
       <argument>%container.build_id%</argument>
-      <argument>/home/jemleym/e-commerce/api/var/cache/dev/pools/system</argument>
+      <argument>/home/wac/e-commerce/W-WEB-502-PAR-2-1-ecommerce-jeremie.leymarie/back/var/cache/dev/pools/system</argument>
       <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
     <service id="cache.serializer" class="Symfony\Component\Cache\Adapter\AdapterInterface">
       <tag name="cache.pool"/>
       <tag name="kernel.reset" method="reset"/>
-      <argument>o4pmuxcj7y</argument>
+      <argument>bgIYMbFjr-</argument>
       <argument>0</argument>
       <argument>%container.build_id%</argument>
-      <argument>/home/jemleym/e-commerce/api/var/cache/dev/pools/system</argument>
+      <argument>/home/wac/e-commerce/W-WEB-502-PAR-2-1-ecommerce-jeremie.leymarie/back/var/cache/dev/pools/system</argument>
       <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
     <service id="cache.annotations" class="Symfony\Component\Cache\Adapter\AdapterInterface">
       <tag name="cache.pool"/>
       <tag name="kernel.reset" method="reset"/>
-      <argument>z1iseryS62</argument>
+      <argument>I5Jl-JM78z</argument>
       <argument>0</argument>
       <argument>%container.build_id%</argument>
-      <argument>/home/jemleym/e-commerce/api/var/cache/dev/pools/system</argument>
+      <argument>/home/wac/e-commerce/W-WEB-502-PAR-2-1-ecommerce-jeremie.leymarie/back/var/cache/dev/pools/system</argument>
       <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
     <service id="cache.property_info" class="Symfony\Component\Cache\Adapter\AdapterInterface">
       <tag name="cache.pool"/>
       <tag name="kernel.reset" method="reset"/>
-      <argument>ifJ-i79dGZ</argument>
+      <argument>pmbrfE3znI</argument>
       <argument>0</argument>
       <argument>%container.build_id%</argument>
-      <argument>/home/jemleym/e-commerce/api/var/cache/dev/pools/system</argument>
+      <argument>/home/wac/e-commerce/W-WEB-502-PAR-2-1-ecommerce-jeremie.leymarie/back/var/cache/dev/pools/system</argument>
       <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
@@ -781,7 +788,7 @@
       <argument></argument>
       <argument>0</argument>
       <argument>%container.build_id%</argument>
-      <argument>/home/jemleym/e-commerce/api/var/cache/dev/pools/system</argument>
+      <argument>/home/wac/e-commerce/W-WEB-502-PAR-2-1-ecommerce-jeremie.leymarie/back/var/cache/dev/pools/system</argument>
       <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
@@ -811,7 +818,7 @@
       <tag name="monolog.logger" channel="cache"/>
       <argument></argument>
       <argument>0</argument>
-      <argument>/home/jemleym/e-commerce/api/var/cache/dev/pools/app</argument>
+      <argument>/home/wac/e-commerce/W-WEB-502-PAR-2-1-ecommerce-jeremie.leymarie/back/var/cache/dev/pools/app</argument>
       <argument type="service" id="cache.default_marshaller" on-invalid="ignore"/>
       <call method="setLogger">
         <argument type="service" id="logger" on-invalid="ignore"/>
@@ -969,7 +976,7 @@
       <argument>true</argument>
     </service>
     <service id="session.storage.factory.mock_file" class="Symfony\Component\HttpFoundation\Session\Storage\MockFileSessionStorageFactory">
-      <argument>/home/jemleym/e-commerce/api/var/cache/dev/sessions</argument>
+      <argument>/home/wac/e-commerce/W-WEB-502-PAR-2-1-ecommerce-jeremie.leymarie/back/var/cache/dev/sessions</argument>
       <argument>MOCKSESSID</argument>
       <argument type="service">
         <service class="Symfony\Component\HttpFoundation\Session\Storage\MetadataBag">
@@ -1001,7 +1008,7 @@
     <service id="session.handler.native_file" class="Symfony\Component\HttpFoundation\Session\Storage\Handler\StrictSessionHandler">
       <argument type="service">
         <service class="Symfony\Component\HttpFoundation\Session\Storage\Handler\NativeFileSessionHandler">
-          <argument>/home/jemleym/e-commerce/api/var/cache/dev/sessions</argument>
+          <argument>/home/wac/e-commerce/W-WEB-502-PAR-2-1-ecommerce-jeremie.leymarie/back/var/cache/dev/sessions</argument>
         </service>
       </argument>
     </service>
@@ -1322,7 +1329,7 @@
       <argument type="service" id=".service_locator.WOytlHA.router.default"/>
       <argument>kernel::loadRoutes</argument>
       <argument type="collection">
-        <argument key="cache_dir">/home/jemleym/e-commerce/api/var/cache/dev</argument>
+        <argument key="cache_dir">/home/wac/e-commerce/W-WEB-502-PAR-2-1-ecommerce-jeremie.leymarie/back/var/cache/dev</argument>
         <argument key="debug">true</argument>
         <argument key="generator_class">Symfony\Component\Routing\Generator\CompiledUrlGenerator</argument>
         <argument key="generator_dumper_class">Symfony\Component\Routing\Generator\Dumper\CompiledUrlGeneratorDumper</argument>
@@ -1361,7 +1368,7 @@
       <argument type="service" id="request_stack"/>
       <argument type="service" id="router.request_context" on-invalid="ignore"/>
       <argument type="service" id="logger" on-invalid="ignore"/>
-      <argument>/home/jemleym/e-commerce/api</argument>
+      <argument>/home/wac/e-commerce/W-WEB-502-PAR-2-1-ecommerce-jeremie.leymarie/back</argument>
       <argument>true</argument>
     </service>
     <service id="Symfony\Bundle\FrameworkBundle\Controller\RedirectController" class="Symfony\Bundle\FrameworkBundle\Controller\RedirectController" public="true">
@@ -1428,13 +1435,13 @@
     <service id="annotations.cache_warmer" class="Symfony\Bundle\FrameworkBundle\CacheWarmer\AnnotationsCacheWarmer">
       <tag name="kernel.cache_warmer"/>
       <argument type="service" id="annotations.reader"/>
-      <argument>/home/jemleym/e-commerce/api/var/cache/dev/annotations.php</argument>
+      <argument>/home/wac/e-commerce/W-WEB-502-PAR-2-1-ecommerce-jeremie.leymarie/back/var/cache/dev/annotations.php</argument>
       <argument>#^Symfony\\(?:Component\\HttpKernel\\|Bundle\\FrameworkBundle\\Controller\\(?!.*Controller$))#</argument>
       <argument>true</argument>
     </service>
     <service id="annotations.cache_adapter" class="Symfony\Component\Cache\Adapter\PhpArrayAdapter">
       <tag name="container.hot_path"/>
-      <argument>/home/jemleym/e-commerce/api/var/cache/dev/annotations.php</argument>
+      <argument>/home/wac/e-commerce/W-WEB-502-PAR-2-1-ecommerce-jeremie.leymarie/back/var/cache/dev/annotations.php</argument>
       <argument type="service" id="cache.annotations"/>
       <factory class="Symfony\Component\Cache\Adapter\PhpArrayAdapter" method="create"/>
     </service>
@@ -1445,7 +1452,7 @@
     </service>
     <service id="secrets.vault" class="Symfony\Bundle\FrameworkBundle\Secrets\SodiumVault">
       <tag name="container.env_var_loader"/>
-      <argument>/home/jemleym/e-commerce/api/config/secrets/%env(default:kernel.environment:APP_RUNTIME_ENV)%</argument>
+      <argument>/home/wac/e-commerce/W-WEB-502-PAR-2-1-ecommerce-jeremie.leymarie/back/config/secrets/%env(default:kernel.environment:APP_RUNTIME_ENV)%</argument>
       <argument type="service" id="secrets.decryption_key" on-invalid="ignore"/>
     </service>
     <service id="secrets.decryption_key" class="Symfony\Component\String\LazyString">
@@ -1454,7 +1461,7 @@
       <factory class="Symfony\Component\String\LazyString" method="fromCallable"/>
     </service>
     <service id="secrets.local_vault" class="Symfony\Bundle\FrameworkBundle\Secrets\DotenvVault">
-      <argument>/home/jemleym/e-commerce/api/.env.dev.local</argument>
+      <argument>/home/wac/e-commerce/W-WEB-502-PAR-2-1-ecommerce-jeremie.leymarie/back/.env.dev.local</argument>
     </service>
     <service id="doctrine.dbal.logger.chain" class="Doctrine\DBAL\Logging\LoggerChain">
       <argument type="collection">
@@ -1589,7 +1596,7 @@
         </service>
       </argument>
     </service>
-    <service id=".1_ServiceLocator~7SyXCVN" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".1_ServiceLocator~f3Y0Bd9" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <argument type="collection"/>
     </service>
     <service id="doctrine.orm.proxy_cache_warmer" class="Symfony\Bridge\Doctrine\CacheWarmer\ProxyCacheWarmer">
@@ -1788,7 +1795,7 @@
         <argument type="service" id=".doctrine.orm.default_metadata_driver"/>
       </call>
       <call method="setProxyDir">
-        <argument>/home/jemleym/e-commerce/api/var/cache/dev/doctrine/orm/Proxies</argument>
+        <argument>/home/wac/e-commerce/W-WEB-502-PAR-2-1-ecommerce-jeremie.leymarie/back/var/cache/dev/doctrine/orm/Proxies</argument>
       </call>
       <call method="setProxyNamespace">
         <argument>Proxies</argument>
@@ -1818,7 +1825,7 @@
     <service id="doctrine.orm.default_annotation_metadata_driver" class="Doctrine\ORM\Mapping\Driver\AnnotationDriver">
       <argument type="service" id="annotations.cached_reader"/>
       <argument type="collection">
-        <argument>/home/jemleym/e-commerce/api/src/Entity</argument>
+        <argument>/home/wac/e-commerce/W-WEB-502-PAR-2-1-ecommerce-jeremie.leymarie/back/src/Entity</argument>
       </argument>
     </service>
     <service id="cache.doctrine.orm.default.metadata" class="Symfony\Component\Cache\Adapter\ArrayAdapter"/>
@@ -1871,7 +1878,7 @@
     <service id="doctrine.migrations.configuration" class="Doctrine\Migrations\Configuration\Configuration">
       <call method="addMigrationsDirectory">
         <argument>DoctrineMigrations</argument>
-        <argument>/home/jemleym/e-commerce/api/migrations</argument>
+        <argument>/home/wac/e-commerce/W-WEB-502-PAR-2-1-ecommerce-jeremie.leymarie/back/migrations</argument>
       </call>
       <call method="setAllOrNothing">
         <argument>false</argument>
@@ -2018,7 +2025,7 @@
       <argument type="service" id="filesystem"/>
       <argument type="service" id="maker.autoloader_util"/>
       <argument type="service" id="maker.file_link_formatter"/>
-      <argument>/home/jemleym/e-commerce/api</argument>
+      <argument>/home/wac/e-commerce/W-WEB-502-PAR-2-1-ecommerce-jeremie.leymarie/back</argument>
       <argument>null</argument>
     </service>
     <service id="maker.autoloader_finder" class="Symfony\Bundle\MakerBundle\Util\ComposerAutoloaderFinder">
@@ -2107,7 +2114,7 @@
       <tag name="maker.command"/>
       <argument type="service" id="maker.file_manager"/>
       <argument type="service" id="maker.doctrine_helper"/>
-      <argument>/home/jemleym/e-commerce/api</argument>
+      <argument>/home/wac/e-commerce/W-WEB-502-PAR-2-1-ecommerce-jeremie.leymarie/back</argument>
       <argument type="service" id="maker.generator"/>
       <argument type="service" id="maker.entity_class_generator"/>
     </service>
@@ -2179,8 +2186,11 @@
     </service>
     <service id="maker.maker.make_migration" class="Symfony\Bundle\MakerBundle\Maker\MakeMigration">
       <tag name="maker.command"/>
-      <argument>/home/jemleym/e-commerce/api</argument>
+      <argument>/home/wac/e-commerce/W-WEB-502-PAR-2-1-ecommerce-jeremie.leymarie/back</argument>
     </service>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\ConnexionController" class="App\Controller\ConnexionController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\ConnexionController" class="App\Controller\ConnexionController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\ConnexionController" class="App\Controller\ConnexionController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\AdressRepository" class="App\Repository\AdressRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\AdressRepository" class="App\Repository\AdressRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ArticleRepository" class="App\Repository\ArticleRepository" autowire="true" abstract="true"/>
@@ -2609,6 +2619,23 @@
       <argument type="service" id=".service_locator.KLVvNIq"/>
     </service>
     <service id="logger" class="Symfony\Component\HttpKernel\Log\Logger"/>
+    <service id=".service_locator.GNc8e5B" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="doctrine" type="service_closure" id="doctrine" on-invalid="ignore"/>
+        <argument key="http_kernel" type="service_closure" id="http_kernel" on-invalid="ignore"/>
+        <argument key="parameter_bag" type="service_closure" id="parameter_bag" on-invalid="ignore"/>
+        <argument key="request_stack" type="service_closure" id="request_stack" on-invalid="ignore"/>
+        <argument key="router" type="service_closure" id="router.default" on-invalid="ignore"/>
+        <argument key="session" type="service_closure" id=".session.deprecated" on-invalid="ignore"/>
+      </argument>
+    </service>
+    <service id=".service_locator.GNc8e5B.App\Controller\ConnexionController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\ConnexionController"/>
+      <argument>App\Controller\ConnexionController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.GNc8e5B" method="withContext"/>
+    </service>
     <service id=".service_locator.WOytlHA" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -3264,6 +3291,7 @@
     <service id=".service_locator.0GV1BZZ" alias=".service_locator.gSv9zYw"/>
     <service id=".service_locator.YxNo8ZP" alias=".service_locator.zxMugcL"/>
     <service id=".service_locator.4hi2aOY" alias=".service_locator.bBRwv06"/>
+    <service id=".service_locator.W9y3dzm" alias=".service_locator.GNc8e5B"/>
     <service id="event_dispatcher" alias="debug.event_dispatcher" public="true"/>
     <service id="controller_resolver" alias="debug.controller_resolver"/>
     <service id="argument_resolver" alias="debug.argument_resolver"/>
@@ -3278,6 +3306,7 @@
     <service id="doctrine.orm.default_metadata_driver" alias=".doctrine.orm.default_metadata_driver"/>
     <service id=".service_locator._5g_Wvc" alias=".service_locator.KfwZsne"/>
     <service id=".service_locator.JBAFp66" alias=".service_locator.KfbR3DY"/>
+    <service id=".service_locator.INaR5pD" alias=".service_locator.GNc8e5B"/>
     <service id=".service_locator.L0rFhJm" alias=".service_locator.GVyCdgr"/>
   </services>
 </container>
