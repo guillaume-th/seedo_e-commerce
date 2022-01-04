@@ -57,19 +57,15 @@ class UserController extends AbstractController
      */
     public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-
-            return $this->redirectToRoute('user_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('user/edit.html.twig', [
-            'user' => $user,
-            'form' => $form,
-        ]);
+        $user->setEmail($request->request->get('email'));
+        $user->setPassword($request->request->get('password'));
+        $user->setPassword($request->request->get('password'));
+        $user->setPassword($request->request->get('password'));
+        $user->setPassword($request->request->get('password'));
+        $entityManager->flush(); 
+        return $this->json([
+            "status" => "ok",
+        ]); 
     }
 
     /**
