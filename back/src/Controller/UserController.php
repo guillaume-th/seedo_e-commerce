@@ -48,14 +48,32 @@ class UserController extends AbstractController
      */
     public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
-        $user->setEmail($request->request->get('email'));
-        $user->setPassword($request->request->get('password'));
-        $user->setTelephone($request->request->get('telephone'));
-        $user->setFirstname($request->request->get('firstname'));
-        $user->setLastname($request->request->get('lastname'));
-        $user->setCvv($request->request->get('cvv'));
-        $user->setExpirationCB($request->request->get('expiration_CB'));
-        $user->setNumberCB($request->request->get('number_CB'));
+        $email = $request->request->get('email');
+        $pass = $request->request->get('password');
+        $tel = $request->request->get('telephone');
+        $firstname = $request->request->get('firstname');
+        $lastname = $request->request->get('lastname');
+        $cvv = $request->request->get('cvv');
+        $expiration = $request->request->get('expiration_CB');
+        $number = $request->request->get('number_CB');
+
+        if ($email !== "")
+            $user->setEmail($email);
+        if ($pass !== "")
+            $user->setPassword(password_hash($pass, PASSWORD_DEFAULT));
+        if ($tel !== "")
+            $user->setTelephone($tel);
+        if ($firstname !== "")
+            $user->setFirstname($firstname);
+        if ($lastname !== "")
+            $user->setLastname($lastname);
+        if ($cvv !== "")
+            $user->setCvv($cvv);
+        if ($expiration !== "")
+            $user->setExpirationCB($expiration);
+        if ($number !== "")
+            $user->setNumberCB($number);
+
         $entityManager->flush();
 
         return $this->json([
@@ -84,10 +102,10 @@ class UserController extends AbstractController
         $adress->setNumber($request->request->get("number"));
         $adress->setCountry($request->request->get("country"));
         $adress->setPostalCode($request->request->get("postal_code"));
-        $user->addAdress($adress); 
-        $entityManager->persist($adress); 
-        $entityManager->persist($user); 
-        $entityManager->flush(); 
+        $user->addAdress($adress);
+        $entityManager->persist($adress);
+        $entityManager->persist($user);
+        $entityManager->flush();
 
         return $this->json([
             "status" => "ok",
@@ -113,10 +131,10 @@ class UserController extends AbstractController
     /**
      * @Route("/delete/{id}", name="user_delete", methods={"POST"})
      */
-    public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    public function delete(User $user, EntityManagerInterface $entityManager): Response
     {
-        $entityManager->remove($user); 
-        $entityManager->flush(); 
-        return $this->json(["status" => "ok"]); 
+        $entityManager->remove($user);
+        $entityManager->flush();
+        return $this->json(["status" => "ok"]);
     }
 }
