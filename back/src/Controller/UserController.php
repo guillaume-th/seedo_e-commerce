@@ -18,11 +18,51 @@ class UserController extends AbstractController
 {
 
     /**
-     * @Route("/new", name="user_new", methods={"GET", "POST"})
+     * @Route("/inscription", name="user_new", methods={"GET", "POST"})
      */
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $user = new User();
+
+        $email = $request->request->get('email');
+        $password = $request->request->get('password');
+        $confirm_password = $request->request->get('confirm_password');
+        $firstname = $request->request->get('firstname');
+        $lastname = $request->request->get('lastname');
+        $creation_date = new \DateTime();
+
+        $mail = $this->getDoctrine()
+            ->getRepository(User::class)
+            ->findBy([
+                'email' => $email,
+            ]);
+
+        if (!$mail) {
+            if ($confirm_password == $password) {
+                $password = password_hash($password, PASSWORD_DEFAULT);
+                $user = new User();
+                $user->setemail($email);
+                $user->setFirstname($firstname);
+                $user->setLastname($lastname);
+                $user->setPassword($password);
+                $user->setCreationDate($creation_date);
+
+                $entityManager->persist($user);
+
+                $entityManager->flush();
+
+                return $this->json([
+                    'status' => "ok",
+                ]);
+            } else {
+                return $this->json([
+                    'status' => "passwords dont match",
+                ]);
+            }
+        } else {
+            return $this->json([
+                'status' => "email taken",
+            ]);
+        }
     }
 
     /**
@@ -41,6 +81,7 @@ class UserController extends AbstractController
             ]);
         }
         // dump($user->getAdresses()->getStreet()); 
+    
         return $this->json([
             "lastname" => $user->getLastname(),
             "firstname" => $user->getFirstname(),
