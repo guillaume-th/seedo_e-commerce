@@ -153,6 +153,7 @@ export default function Connexion() {
           <label htmlFor="firstname">
             Prénom :{" "}
             <input
+              name="firstname"
               type="text"
               id="firstname"
               placeholder="Prenom"
@@ -163,6 +164,7 @@ export default function Connexion() {
           <label htmlFor="lastname">
             Nom :{" "}
             <input
+              name="lastname"
               type="text"
               id="lastname"
               placeholder="Nom"
@@ -171,11 +173,13 @@ export default function Connexion() {
             />
           </label>
           <label htmlFor="email">
-            Email : <input type="text" id="email" placeholder="Email" />
+            Email :{" "}
+            <input name="email" type="text" id="email" placeholder="Email" />
           </label>
           <label htmlFor="password">
             Mot de passe :{" "}
             <input
+              name="password"
               type="password"
               id="password"
               placeholder="Mot de passe"
@@ -187,6 +191,7 @@ export default function Connexion() {
           <label htmlFor="confirm_password">
             Confirmez le mot de passe :{" "}
             <input
+              name="password_confirm"
               type="password"
               id="confirm_password"
               placeholder="Confirmez le mot de passe"
