@@ -45,13 +45,22 @@ class UserController extends AbstractController
                 $user->setLastname($lastname);
                 $user->setPassword($password);
                 $user->setCreationDate($creation_date);
+                $user->setAdmin(false);
 
                 $entityManager->persist($user);
 
                 $entityManager->flush();
 
+                $User = $this->getDoctrine()
+                    ->getRepository(User::class)
+                    ->findBy([
+                        'email' => $email,
+                    ]);
+
                 return $this->json([
                     'status' => "ok",
+                    'user_id' => $User[0]->getId(),
+                    'admin' => $User[0]->getAdmin(),
                 ]);
             } else {
                 return $this->json([
@@ -183,7 +192,7 @@ class UserController extends AbstractController
                 "country" => $adress->getCountry(),
                 "postal_code" => $adress->getPostalCode(),
                 "city" => $adress->getCity(),
-                "id" => $adress->getId(), 
+                "id" => $adress->getId(),
             ]);
         }
 
