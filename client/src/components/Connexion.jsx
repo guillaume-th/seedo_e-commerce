@@ -4,12 +4,16 @@ export default function Connexion() {
     const [option, setOption] = useState('connexion')
 
     function verifInscriptionForm(object){
-        const email = document.querySelector('#email')
+        const firstname = document.querySelector('#firstname');
+        const lastname = document.querySelector('#lastname');
+        const email = document.querySelector('#email');
+        const password = document.querySelector('#password');
+        const passwordVerif = document.querySelector('#confirm-password');
         const regexEmail = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/
         if(object.target.id === 'inscription'){
             if(email.value.match(regexEmail)){
                 // console.log(object.target.children[0].children[0].value.match(regexEmail))
-                console.log('OK')
+                console.log(level)
             }
         }
     }
@@ -55,8 +59,8 @@ export default function Connexion() {
                     e.preventDefault();
                     verifInscriptionForm(e);
                 }}>
-                    <label htmlFor="firstname">Prénom : <input type="text" placeholder="Prenom"/></label>
-                    <label htmlFor="lastname">Nom : <input type="text" placeholder="Nom"/></label>
+                    <label htmlFor="firstname">Prénom : <input type="text" id="firstname" placeholder="Prenom"/></label>
+                    <label htmlFor="lastname">Nom : <input type="text" id="lastname" placeholder="Nom"/></label>
                     <label htmlFor="email">Email : <input type="text" id="email" placeholder="Email"/></label>
                     <label htmlFor="password">Mot de passe : <input type="password" id="password" placeholder="Mot de passe" onChange={(e)=>{levelPassword(e.target.value)}}/></label>
                     <label htmlFor="confirm-password">Confirmez le mot de passe : <input type="password" id="confirm-password" placeholder="Confirmez le mot de passe"/></label>
