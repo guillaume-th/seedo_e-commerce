@@ -12,5 +12,36 @@ Response =
     color: string,
     creation_date: DATE,
     updated_date: DATE,
-  
 }
+
+// POST connection 
+Request =
+{
+    body : {
+        email : string, 
+        password : string, 
+    }
+}
+
+Response =
+{
+    status : "ok|wrong password|wrong username"
+}
+
+//POST inscription
+Request = 
+{
+    body : {
+        firstname : string, 
+        lastname : string, 
+        email : string, 
+        password : string, 
+        confirm_password : string, 
+    }
+}
+
+Response =
+{
+    status : "ok|email taken|passwords don't match"
+}
+
