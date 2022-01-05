@@ -3,12 +3,10 @@ import React, { useState } from "react";
 export default function Connexion() {
     const [option, setOption] = useState('connexion')
 
-    function verifForm(object){
-        const regexEmail = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/
+    function verifInscriptionForm(object){
         const email = document.querySelector('#email')
-        // const password = object.target.children[0].children[1].value
-        console.log(email)
-        if(object.target.id === 'connexion'){
+        const regexEmail = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/
+        if(object.target.id === 'inscription'){
             if(email.value.match(regexEmail)){
                 // console.log(object.target.children[0].children[0].value.match(regexEmail))
                 console.log('OK')
@@ -16,12 +14,29 @@ export default function Connexion() {
         }
     }
 
+    function levelPassword(password){
+        let level = 0;
+        if(password.match(/[A-Z]/)){
+            level++
+        }
+        if(password.match(/[a-z]/)){
+            level++
+        }
+        if(password.match(/\W/)){
+            level++
+        }
+        if(password.match(/\d/)){
+            level++
+        }
+        return level
+    }
+
     function ConnexionForm(){
         return (
             <div className='connexion-form'>
                 <form id="connexion" onSubmit={(e) => {
                     e.preventDefault();
-                    verifForm(e);
+                    // verifForm(e);
                 }}>
                     <label htmlFor="email">Email : <input type="email" id="email" placeholder="Email"/></label>
                     <label htmlFor="password">Password : <input type="password" id="password" placeholder="Mot de passe"/></label>
@@ -38,16 +53,17 @@ export default function Connexion() {
             <div>
                 <form id="inscription" onSubmit={(e) => {
                     e.preventDefault();
-                    verifForm(e);
+                    verifInscriptionForm(e);
                 }}>
                     <label htmlFor="firstname">Prénom : <input type="text" placeholder="Prenom"/></label>
                     <label htmlFor="lastname">Nom : <input type="text" placeholder="Nom"/></label>
-                    <label htmlFor="email">Email : <input type="email" id="email" placeholder="Email"/></label>
-                    <label htmlFor="password">Mot de passe : <input type="password" id="password" placeholder="Mot de passe"/></label>
+                    <label htmlFor="email">Email : <input type="text" id="email" placeholder="Email"/></label>
+                    <label htmlFor="password">Mot de passe : <input type="password" id="password" placeholder="Mot de passe" onChange={(e)=>{levelPassword(e.target.value)}}/></label>
                     <label htmlFor="confirm-password">Confirmez le mot de passe : <input type="password" id="confirm-password" placeholder="Confirmez le mot de passe"/></label>
                     <button type="submit">Inscrire</button>
                 </form>
                 <p>Vous avez déjà un compte ? <button onClick={() => setOption('connexion')}>Connectez vous</button></p>
+                {/* <p>{passwordLevel}</p> */}
             </div>
         )
     }
