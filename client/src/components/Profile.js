@@ -15,12 +15,19 @@ export default function Profile() {
 
     const submitUserData = (e) => {
         e.preventDefault();
+        const data = new FormData(userForm.current);
         fetch(`${API_URL}/user/${user_id}/edit`,
             {
                 method: "POST",
-                body: {}
+                body: data,
             })
-            .then((res) => res)
+            .then((res) => res.json())
+            .then((res) => {
+                if (res.status === "ok") {
+                    setUser(res.data);
+                }
+            })
+            .catch((error) => console.error(error));
     }
     return (
         <form ref={userForm} onSubmit={submitUserData}>
