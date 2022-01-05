@@ -197,7 +197,7 @@ class UserController extends AbstractController
                 "creation_date" => $user->getCreationDate(),
                 "cvv" => $user->getCvv(),
                 "expiration_CB" => $user->getExpirationCB(),
-                "numberCB" => $user->getNumberCB(),
+                "number_CB" => $user->getNumberCB(),
                 "adresses" => $adresses,
             ]
         ];
