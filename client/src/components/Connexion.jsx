@@ -17,7 +17,7 @@ export default function Connexion() {
     const lastname = document.querySelector("#lastname");
     const email = document.querySelector("#email");
     const password = document.querySelector("#password");
-    const passwordVerif = document.querySelector("#confirm-password");
+    const passwordVerif = document.querySelector("#confirm_password");
     const regexEmail = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/;
     if (form.id === "inscription") {
       // firstname check
@@ -134,7 +134,7 @@ export default function Connexion() {
             if (verifInscriptionForm(e.target)) {
               let formData = new FormData(e.target);
               const options = {
-                url: "http://localhost:3000/user/inscription",
+                url: "http://localhost:8000/user/inscription",
                 method: "POST",
                 headers: {
                   Accept: "application/json",
@@ -184,11 +184,11 @@ export default function Connexion() {
               }}
             />
           </label>
-          <label htmlFor="confirm-password">
+          <label htmlFor="confirm_password">
             Confirmez le mot de passe :{" "}
             <input
               type="password"
-              id="confirm-password"
+              id="confirm_password"
               placeholder="Confirmez le mot de passe"
             />
           </label>
