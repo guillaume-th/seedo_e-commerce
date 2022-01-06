@@ -119,10 +119,13 @@ export default function Connexion() {
     })
       .then((res) => res.json())
       .then((res) => {
-        // console.log(res);
+        console.log(res);
         if (res.status === "ok") {
         }
-        localStorage.setItem("user_id", res.user_id);
+        if (res.status != "fail") {
+          localStorage.setItem("user_id", res.user_id);
+          localStorage.setItem("admin", res.admin);
+        }
       })
       .catch((error) => console.error(error));
   }
