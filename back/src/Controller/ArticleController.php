@@ -15,13 +15,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ArticleController extends AbstractController
 {
-    /**
-     * @Route("/{id}", name="article", methods={"GET"})
-     */
-    public function show(Article $article): Response
-    {
-        return $this->json($this->getArticleData($article));
-    }
 
     /**
      * @Route("/all", name="article_all", methods={"GET"})
@@ -34,6 +27,47 @@ class ArticleController extends AbstractController
             array_push($data, $this->getArticleData($article));
         }
         return $this->json($data);
+    }
+
+
+    /**
+     * @Route("/new", name="article_new", methods={"POST"})
+     */
+    public function addArticle(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $article = new Article();
+        $article->setName($request->request->get("name"));
+        $article->setDescription($request->request->get("description"));
+        $article->setWeight($request->request->get("weight"));
+        $article->setColor($request->request->get("color"));
+        $article->setQuantity($request->request->get("quantity"));
+        $article->setPrice($request->request->get("price"));
+        $article->setPrice($request->request->get("promo"));
+        $article->setCreationDate(new \Datetime());
+        $article->setUpdatedDate(new \Datetime());
+        $article->setNew(true); 
+        $cat_arr = explode(",", $request->request->get("categories"));
+        foreach ($cat_arr as $value) {
+            $value = trim(strtolower($value));
+            $category = new Category();
+            $category->setName($value);
+            $entityManager->flush();
+        }
+
+        $entityManager->persist($article);
+        $entityManager->flush();
+
+        $data = $this->getArticleData($article);
+        $data["status"] = "ok";
+        return $this->json($data);
+    }
+
+    /**
+     * @Route("/{id}", name="article", methods={"GET"})
+     */
+    public function show(Article $article): Response
+    {
+        return $this->json($this->getArticleData($article));
     }
 
 
@@ -51,7 +85,8 @@ class ArticleController extends AbstractController
         $price = $request->request->get("price");
         $promo = $request->request->get("promo");
         $cat = $request->request->get("categories");
-
+        $article->setUpdatedDate(new \Datetime());
+        $article->setNew(true); 
         if ($name !== "")
             $article->setName($name);
         if ($description !== "")
@@ -84,35 +119,7 @@ class ArticleController extends AbstractController
         return $this->json($data);
     }
 
-    /**
-     * @Route("/new", name="article_new", methods={"GET", "POST"})
-     */
-    public function addArticle(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $article = new Article();
-        $article->setName($request->request->get("name"));
-        $article->setDescription($request->request->get("description"));
-        $article->setWeight($request->request->get("weight"));
-        $article->setColor($request->request->get("color"));
-        $article->setQuantity($request->request->get("quantity"));
-        $article->setPrice($request->request->get("price"));
-        $article->setPrice($request->request->get("promo"));
 
-        $cat_arr = explode(",", $request->request->get("categories"));
-        foreach ($cat_arr as $value) {
-            $value = trim(strtolower($value));
-            $category = new Category();
-            $category->setName($value);
-            $entityManager->flush();
-        }
-        
-        $entityManager->persist($article);
-        $entityManager->flush();
-
-        $data = $this->getArticleData($article);
-        $data["status"] = "ok";
-        return $this->json($data);
-    }
 
     /**
      * @Route("/delete/{id}", name="delete", methods={"GET"})

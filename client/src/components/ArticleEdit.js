@@ -17,7 +17,7 @@ export default function ArticleEdit() {
 
     const edit = (e) => {
         e.preventDefault();
-        const data = new FormData(editForm);
+        const data = new FormData(editForm.current);
         fetch(`${API_URL}/article/${id}/edit`, {
             method: "POST",
             body: data,
@@ -43,6 +43,8 @@ export default function ArticleEdit() {
                     <input name="quantity" type="number" defaultValue={data.quantity}></input>
                     <label>Promo</label>
                     <input name="promo" type="number" defaultValue={data.promo} minLength={0} maxLength={100}></input>
+                    <label>Price</label>
+                    <input type="number" name="price" defaultValue={data.quantity}></input>
                     <label>Catégorie(s)</label>
                     <input name="categories" type="text" placeholder="Catégorie 1, catégorie 2" defaultValue={data.categories} minLength={0} maxLength={100}></input>
                     <input type="submit" value="Sauvegarder les modifications"></input>
