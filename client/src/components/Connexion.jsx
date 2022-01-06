@@ -1,11 +1,12 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Navigate } from "react-router-dom";
+import React, { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default function Connexion() {
   const [option, setOption] = useState("connexion");
   const connexionForm = useRef();
   const inscriptionForm = useRef();
+  const navigate = useNavigate(); 
 
   // if(localStorage.getItem("user_id")){
   //   console.log("CONNECTED");
@@ -113,6 +114,7 @@ export default function Connexion() {
         .then((res) => {
           // console.log(res);
           if (res.status === "ok") {
+              navigate("/"); 
           }
         })
         .catch((error) => console.error(error));
@@ -126,9 +128,13 @@ export default function Connexion() {
     })
       .then((res) => res.json())
       .then((res) => {
-        // console.log(res);
+        console.log(res);
         if (res.status === "ok") {
+            navigate("/"); 
+        }
+        if (res.status != "fail") {
           localStorage.setItem("user_id", res.user_id);
+          localStorage.setItem("admin", res.admin);
         }
       })
       .catch((error) => console.error(error));
@@ -244,7 +250,7 @@ export default function Connexion() {
 
   return (
     <>
-      <h1>Lorem ipsum dolor sit amet.</h1>
+      <h1>{option[0].toUpperCase() + option.slice(1, option.length)}</h1>
       {option === "connexion" ? <ConnexionForm /> : <InscriptionForm />}
     </>
   );
