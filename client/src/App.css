@@ -5,5 +5,63 @@ height: 60px;
 
 .back{
 
-  background: url('../src/nav/marron.jpeg');
+  background:rgb(188, 222, 171);
+ 
+  border-bottom:1px solid rgb(104, 240, 104);
+}
+.but{
+  color:white;
+  /* background-color:rgb(166, 211, 155) */
+  position: relative;
+  right: 45px;
+}
+.title{
+ 
+width:160px;
+
+}
+
+.User{
+ 
+  padding-left:10px;
+  width:50px;
+  
+}
+
+.graine{
+  width:60px;
+}
+
+.loupe{
+
+width : 15px;
+color:green;
+}
+
+form input:focus button{
+  background-color: green;
+}
+
+.search{
+  color:white;
+  background-color: rgb(166, 211, 155);
+  /* height:40px; */
+  width:500px;
+  border: 0;
+}
+.Shop > path {
+  fill: "white";
+}
+.Shop{
+ 
+  padding-right:10px;
+  width:50px;
+  fill: #FFFFFF;
+}
+.search_bar{
+  display:flex;
+  margin:0px;
+  padding:0px;
+  /* background-color: rgb(166, 211, 155);
+  border-radius: 10px; */
 }
