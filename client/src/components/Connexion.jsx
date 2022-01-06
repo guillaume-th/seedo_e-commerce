@@ -93,7 +93,6 @@ export default function Connexion() {
     if (password.match(/\d/)) {
       level++;
     }
-    console.log(level);
     return level;
   }
 
