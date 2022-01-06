@@ -45,6 +45,7 @@ class UserController extends AbstractController
                 $user->setLastname($lastname);
                 $user->setPassword($password);
                 $user->setCreationDate($creation_date);
+                $user->setAdmin(false); 
 
                 $entityManager->persist($user);
 
