@@ -42,23 +42,40 @@ class ArticleController extends AbstractController
         $article->setColor($request->request->get("color"));
         $article->setQuantity($request->request->get("quantity"));
         $article->setPrice($request->request->get("price"));
-        $article->setPrice($request->request->get("promo"));
+        $article->setPromo($request->request->get("promo"));
         $article->setCreationDate(new \Datetime());
         $article->setUpdatedDate(new \Datetime());
-        $article->setNew(true); 
+        $article->setNew(true);
         $cat_arr = explode(",", $request->request->get("categories"));
+
         foreach ($cat_arr as $value) {
             $value = trim(strtolower($value));
-            $category = new Category();
-            $category->setName($value);
-            $entityManager->flush();
+            $existing_cat = $this->getDoctrine()->getRepository(Category::class)->findBy([
+                "name" => $value
+            ]);
+            if ($existing_cat) {
+                $article->addCategory($existing_cat[0]);
+            } else {
+                $category = new Category();
+                $category->setName($value);
+                $entityManager->persist($category);
+                $article->addCategory($category);
+            }
         }
 
 
         $entityManager->persist($article);
         $entityManager->flush();
-        $data = $this->getArticleData($article);
-        $data["status"] = "ok";
+        // foreach ($article->getCategories() as $value) {
+        //     dump($value->getName());
+        // }
+
+        $articles =  $this->getDoctrine()->getRepository(Article::class)->findAll();
+        $data = [];
+        foreach ($articles as $article) {
+            array_push($data, $this->getArticleData($article));
+        }
+
         return $this->json($data);
     }
 
@@ -86,7 +103,7 @@ class ArticleController extends AbstractController
         $promo = $request->request->get("promo");
         $cat = $request->request->get("categories");
         $article->setUpdatedDate(new \Datetime());
-        $article->setNew(true); 
+        $article->setNew(true);
         if ($name !== "")
             $article->setName($name);
         if ($description !== "")
@@ -103,16 +120,18 @@ class ArticleController extends AbstractController
             $article->setPromo($promo);
         if ($cat !== "") {
             $cat_arr = explode(",", $cat);
+            foreach ($article->getCategories() as $existing_cat) {
+                $article->removeCategory($existing_cat);
+            }
             foreach ($cat_arr as $value) {
                 $value = trim(strtolower($value));
-                foreach ($article->getCategories() as $existing_cat) {
-                    $article->removeCategory($existing_cat);
-                }
                 $category = new Category();
                 $category->setName($value);
-                $entityManager->flush();
+                $article->addCategory($category);
+                $entityManager->persist($category);
             }
         }
+        $entityManager->persist($article);
         $entityManager->flush();
         $data = $this->getArticleData($article);
         $data["status"] = "ok";
@@ -144,6 +163,7 @@ class ArticleController extends AbstractController
             ]);
         }
         foreach ($article->getCategories() as $cat) {
+            // dump($cat);
             array_push($categories, [
                 "name" => $cat->getName(),
                 "id" => $cat->getId(),
@@ -152,7 +172,7 @@ class ArticleController extends AbstractController
 
         return [
             "data" => [
-                "categories" => implode(", ", $categories),
+                "categories" => $categories,
                 "photos" => $photos,
                 "id" => $article->getId(),
                 "name" => $article->getName(),

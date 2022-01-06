@@ -12,7 +12,17 @@ export default function ArticleListing() {
     useEffect(() => {
         fetch(`${API_URL}/article/all`)
             .then(res => res.json())
-            .then(res => {setData(res); console.log(res)})
+            .then(res => {
+                res.forEach((e) => {
+                    let str = "";
+                    e.data.categories.forEach((elt) => {
+                        str += elt.name + ", ";
+                    });
+                    e.data.categoriesName = str.slice(0, str.length - 2);
+                });
+                setData(res);
+
+            })
             .catch(err => console.error(err));
     }, []);
 
@@ -23,12 +33,23 @@ export default function ArticleListing() {
     const add = (e) => {
         e.preventDefault();
         const data = new FormData(form.current);
+        console.log(data.get("categories")); 
         fetch(`${API_URL}/article/new`, {
             method: "POST",
             body: data,
         })
             .then(res => res.json())
-            .then(res => setData(res.data))
+            .then(res => {
+                console.log(res); 
+                let str = "";   
+                res.forEach((e) => {
+                    e.data.categories.forEach((elt) => {
+                        str += elt.name + ", ";
+                    });
+                    e.data.categoriesName = str.slice(0, str.length - 2);
+                });
+                setData(res);
+            })
             .catch(err => console.error(err));
     }
 
@@ -47,9 +68,9 @@ export default function ArticleListing() {
                     <label>Quantité</label>
                     <input name="quantity" type="number"></input>
                     <label>Price</label>
-                    <input type="number" name="price" defaultValue={data.quantity}></input>
+                    <input type="number" name="price" ></input>
                     <label>Promo</label>
-                    <input name="promo" type="number" minLength={0} maxLength={100}></input>
+                    <input name="promo" type="number" min={0} max={100}></input>
                     <label>Catégorie(s)</label>
                     <input name="categories" type="text" placeholder="Catégorie 1, catégorie 2" minLength={0} maxLength={100}></input>
                     <input type="submit" value="Sauvegarder les modifications"></input>
@@ -60,6 +81,7 @@ export default function ArticleListing() {
                             <div key={e.data.id}>
                                 <h3>{e.data.name}</h3>
                                 <p>{e.data.price} €</p>
+                                <p>{e.data.categoriesName}</p>
                                 {admin === "true" &&
                                     <button onClick={() => editArticle(e.data.id)}>Edit</button>
                                 }
