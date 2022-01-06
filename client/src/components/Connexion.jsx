@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import axios from "axios";
+const API_URL = process.env.REACT_APP_API_URL;
 
 export default function Connexion() {
   const [option, setOption] = useState("connexion");
+  const connexionForm = useRef();
+  const inscriptionForm = useRef();
 
   function verifInscriptionForm(form) {
     const verified = [];
@@ -101,6 +104,8 @@ export default function Connexion() {
       <div className="connexion-form">
         <form
           id="connexion"
+          encType="multipart/form-data"
+          ref={connexionForm}
           onSubmit={(e) => {
             e.preventDefault();
           }}
@@ -130,30 +135,23 @@ export default function Connexion() {
         <form
           encType="multipart/form-data"
           id="inscription"
+          ref={inscriptionForm}
           onSubmit={async (e) => {
             e.preventDefault();
+            const data = new FormData(inscriptionForm.current);
             if (verifInscriptionForm(e.target)) {
-              let formData = new FormData(e.target);
-              console.log(formData.get("firstname"));
-              console.log(formData.get("lastname"));
-              console.log(formData.get("email"));
-              console.log(formData.get("password"));
-              console.log(formData.get("confirm_password"));
-              const options = {
-                url: "http://localhost:8004/user/inscription",
+              console.log(`${API_URL}/user/inscription`);
+              fetch(`${API_URL}/user/inscription`, {
                 method: "POST",
-                headers: {
-                  // Accept: "application/json",
-                  "Content-Type": "application/json;charset=UTF-8",
-                  "Access-Control-Allow-Origin": "*",
-                },
-                data: {
-                  formData,
-                },
-              };
-              axios(options).then((response) => {
-                console.log(response.status);
-              });
+                body: data,
+              })
+                .then((res) => res.json())
+                .then((res) => {
+                  console.log(res);
+                  if (res.status === "ok") {
+                  }
+                })
+                .catch((error) => console.error(error));
             }
           }}
         >
