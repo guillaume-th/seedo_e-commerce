@@ -145,7 +145,7 @@ class ArticleController extends AbstractController
 
         return [
             "data" => [
-                "categories" => $categories,
+                "categories" => implode(", ", $categories),
                 "photos" => $photos,
                 "id" => $article->getId(),
                 "name" => $article->getName(),
