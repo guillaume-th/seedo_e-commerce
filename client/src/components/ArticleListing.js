@@ -8,6 +8,7 @@ export default function ArticleListing() {
     const navigate = useNavigate();
     const form = useRef();
     const admin = localStorage.getItem("admin");
+    const [refresh, setRefresh] = useState(null);
 
     useEffect(() => {
         fetch(`${API_URL}/article/all`)
@@ -24,7 +25,7 @@ export default function ArticleListing() {
 
             })
             .catch(err => console.error(err));
-    }, []);
+    }, [refresh]);
 
     const editArticle = (id) => {
         navigate("/article/edit/" + id);
@@ -33,15 +34,15 @@ export default function ArticleListing() {
     const add = (e) => {
         e.preventDefault();
         const data = new FormData(form.current);
-        console.log(data.get("categories")); 
+        console.log(data.get("categories"));
         fetch(`${API_URL}/article/new`, {
             method: "POST",
             body: data,
         })
             .then(res => res.json())
             .then(res => {
-                console.log(res); 
-                let str = "";   
+                console.log(res);
+                let str = "";
                 res.forEach((e) => {
                     e.data.categories.forEach((elt) => {
                         str += elt.name + ", ";
@@ -51,6 +52,17 @@ export default function ArticleListing() {
                 setData(res);
             })
             .catch(err => console.error(err));
+    };
+
+    const deleteArticle = (id) => {
+        fetch(`${API_URL}/article/delete/${id}`)
+            .then((res) => res.json())
+            .then((res) => {
+                if (res.status === "ok") {
+                    setRefresh(Math.random());
+                }
+            })
+            .catch((err) => console.error(err));
     }
 
     if (data) {
@@ -83,7 +95,10 @@ export default function ArticleListing() {
                                 <p>{e.data.price} €</p>
                                 <p>{e.data.categoriesName}</p>
                                 {admin === "true" &&
-                                    <button onClick={() => editArticle(e.data.id)}>Edit</button>
+                                    <div>
+                                        <button onClick={() => editArticle(e.data.id)}>Edit</button>
+                                        <button onClick={() => deleteArticle(e.data.id)}>Delete</button>
+                                    </div>
                                 }
                             </div>
                         )
