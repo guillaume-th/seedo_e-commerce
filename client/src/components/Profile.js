@@ -1,4 +1,5 @@
 import { useRef, useEffect, useState } from "react";
+import '../styles/Profile.css'
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default function Profile() {
@@ -78,7 +79,10 @@ export default function Profile() {
 
     if (user) {
         return (
-            <div>
+
+            <div className="e_com-footer">
+                <h1>PROFILE</h1>
+
                 <form ref={userForm} onSubmit={submitUserData} encType="multipart/form-data">
                     <input type="text" name="firstname" placeholder="Prénom" defaultValue={user.firstname}></input>
                     <input type="text" name="lastname" placeholder="Nom de famille" defaultValue={user.lastname}></input>
@@ -131,7 +135,12 @@ export default function Profile() {
                         <button onClick={() => setModalOpen(false)}>Annuler</button>
                     </div>
                 }
-                <button onClick={() => localStorage.clear()}>Logout</button>
+
+                <div className="ocean">
+                    <div className="wave"></div>
+                    <div className="wave"></div>
+                </div>
+
             </div>
         );
     }

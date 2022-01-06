@@ -5,12 +5,13 @@ import ArticleEdit from './components/ArticleEdit';
 import ArticleListing from './components/ArticleListing';
 import Home from "./components/Home";
 import Connexion from './components/Connexion';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
-    <Router basename='/'>
-      <div className="App">
-          <Home />
+    <div className="App">
+      <Router basename='/'>
+        <Home />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
@@ -18,8 +19,8 @@ function App() {
           <Route path="/articles" element={<ArticleListing />} />
           <Route path="/auth" element={<Connexion />} />
         </Routes>
-      </div>
-    </Router>
+      </Router>
+    </div>
   );
 }
 
