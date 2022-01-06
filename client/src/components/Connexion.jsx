@@ -1,5 +1,4 @@
 import React, { useState, useRef } from "react";
-import axios from "axios";
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default function Connexion() {
@@ -40,8 +39,7 @@ export default function Connexion() {
       if (
         lastname.value.length > 30 ||
         lastname.value.length < 1 ||
-        lastname.value.match(/\d/) ||
-        lastname.value.match(/\W/)
+        lastname.value.match(/\d/)
       ) {
         lastname.style.backgroundColor = "red";
         verified[1] = "";
@@ -58,7 +56,7 @@ export default function Connexion() {
         verified[2] = "email";
       }
       // password check
-      if (password.value.length > 50 || password.value.length < 8) {
+      if (password.value.length > 50 && password.value.length < 8) {
         password.style.backgroundColor = "red";
         verified[3] = "";
       } else {
@@ -75,8 +73,7 @@ export default function Connexion() {
       }
     }
     if (JSON.stringify(verified) === JSON.stringify(mustBeVerified)) {
-      let formData = new FormData(form);
-      return formData;
+      return true;
     } else {
       return false;
     }
@@ -96,7 +93,39 @@ export default function Connexion() {
     if (password.match(/\d/)) {
       level++;
     }
+    console.log(level);
     return level;
+  }
+
+  function sendFormInscription(element, data) {
+    if (verifInscriptionForm(element.target)) {
+      fetch(`${API_URL}/user/inscription`, {
+        method: "POST",
+        body: data,
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          // console.log(res);
+          if (res.status === "ok") {
+          }
+        })
+        .catch((error) => console.error(error));
+    }
+  }
+
+  function sendFormConnexion(data) {
+    fetch(`${API_URL}/connexion`, {
+      method: "POST",
+      body: data,
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        // console.log(res);
+        if (res.status === "ok") {
+        }
+        localStorage.setItem("user_id", res.user_id);
+      })
+      .catch((error) => console.error(error));
   }
 
   function ConnexionForm() {
@@ -106,16 +135,24 @@ export default function Connexion() {
           id="connexion"
           encType="multipart/form-data"
           ref={connexionForm}
-          onSubmit={(e) => {
+          onSubmit={async (e) => {
             e.preventDefault();
+            let data = new FormData(connexionForm.current);
+            sendFormConnexion(data);
           }}
         >
           <label htmlFor="email">
-            Email : <input type="email" id="email" placeholder="Email" />
+            Email :{" "}
+            <input name="email" type="email" id="email" placeholder="Email" />
           </label>
           <label htmlFor="password">
             Password :{" "}
-            <input type="password" id="password" placeholder="Mot de passe" />
+            <input
+              name="password"
+              type="password"
+              id="password"
+              placeholder="Mot de passe"
+            />
           </label>
           <button type="submit">Connexion</button>
         </form>
@@ -139,20 +176,7 @@ export default function Connexion() {
           onSubmit={async (e) => {
             e.preventDefault();
             const data = new FormData(inscriptionForm.current);
-            if (verifInscriptionForm(e.target)) {
-              console.log(`${API_URL}/user/inscription`);
-              fetch(`${API_URL}/user/inscription`, {
-                method: "POST",
-                body: data,
-              })
-                .then((res) => res.json())
-                .then((res) => {
-                  console.log(res);
-                  if (res.status === "ok") {
-                  }
-                })
-                .catch((error) => console.error(error));
-            }
+            sendFormInscription(e, data);
           }}
         >
           <label htmlFor="firstname">
