@@ -69,31 +69,8 @@ class UserController extends AbstractController
      * @Route("/{id}", name="user", methods={"GET"})
      */
     public function show(User $user): Response
-    {   
-        $adresses = []; 
-        dump($user->getAdresses());
-        foreach($user->getAdresses() as $adress){
-            array_push($adresses, [
-                "street" => $adress->getStreet(),
-                "number" => $adress->getNumber(),
-                "country" => $adress->getCountry(), 
-                "postal_code" => $adress->getPostalCode(),
-            ]);
-        }
-        // dump($user->getAdresses()->getStreet()); 
-    
-        return $this->json([
-            "lastname" => $user->getLastname(),
-            "firstname" => $user->getFirstname(),
-            "email" => $user->getEmail(),
-            "telephone" => $user->getTelephone(),
-            "id" => $user->getId(),
-            "creation_date" => $user->getCreationDate(),
-            "cvv" => $user->getCvv(),
-            "expiration_CB" => $user->getExpirationCB(),
-            "numberCB" => $user->getNumberCB(),
-            "adresses" => $adresses, 
-        ]);
+    {
+        return $this->json($this->getUserData($user));
     }
 
     /**
@@ -101,6 +78,7 @@ class UserController extends AbstractController
      */
     public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
+
         $email = $request->request->get('email');
         $pass = $request->request->get('password');
         $tel = $request->request->get('telephone');
@@ -109,6 +87,18 @@ class UserController extends AbstractController
         $cvv = $request->request->get('cvv');
         $expiration = $request->request->get('expiration_CB');
         $number = $request->request->get('number_CB');
+
+
+        $adresses = [];
+        foreach ($user->getAdresses() as $adress) {
+            array_push($adresses, [
+                "street" => $adress->getStreet(),
+                "number" => $adress->getNumber(),
+                "country" => $adress->getCountry(),
+                "postal_code" => $adress->getPostalCode(),
+                "city" => $adress->getCity(),
+            ]);
+        }
 
         if ($email !== "")
             $user->setEmail($email);
@@ -128,21 +118,9 @@ class UserController extends AbstractController
             $user->setNumberCB($number);
 
         $entityManager->flush();
-
-        return $this->json([
-            "status" => "ok",
-            "data" => [
-                "lastname" => $user->getLastname(),
-                "firstname" => $user->getFirstname(),
-                "email" => $user->getEmail(),
-                "telephone" => $user->getTelephone(),
-                "id" => $user->getId(),
-                "creation_date" => $user->getCreationDate(),
-                "cvv" => $user->getCvv(),
-                "expiration_CB" => $user->getExpirationCB(),
-                "numberCB" => $user->getNumberCB(),
-            ]
-        ]);
+        $data = $this->getUserData($user);
+        $data["status"] = "ok";
+        return $this->json($data);
     }
 
     /**
@@ -154,31 +132,34 @@ class UserController extends AbstractController
         $adress->setStreet($request->request->get("street"));
         $adress->setNumber($request->request->get("number"));
         $adress->setCountry($request->request->get("country"));
+        $adress->setCity($request->request->get("city"));
         $adress->setPostalCode($request->request->get("postal_code"));
         $user->addAdress($adress);
         $entityManager->persist($adress);
         $entityManager->persist($user);
         $entityManager->flush();
 
-        return $this->json([
-            "status" => "ok",
-        ]);
+        $data = $this->getUserData($user);
+        $data["status"] = "ok";
+        return $this->json($data);
     }
 
+
     /**
-     * @Route("/{id}/adress/edit", name="adress_edit", methods={"GET", "POST"})
+     * @Route("/adress/{id}/edit", name="adress_edit", methods={"GET", "POST"})
      */
     public function editAdress(Request $request, Adress $adress,  EntityManagerInterface $entityManager): Response
     {
         $adress->setStreet($request->request->get("street"));
         $adress->setNumber($request->request->get("number"));
+        $adress->setCity($request->request->get("city"));
         $adress->setCountry($request->request->get("country"));
         $adress->setPostalCode($request->request->get("postal_code"));
         $entityManager->flush();
-
-        return $this->json([
-            "status" => "ok",
-        ]);
+        $user = $this->getDoctrine()->getRepository(User::class)->find($request->request->get("user_id"));
+        $data = $this->getUserData($user);
+        $data["status"] = "ok";
+        return $this->json($data);
     }
 
     /**
@@ -189,5 +170,36 @@ class UserController extends AbstractController
         $entityManager->remove($user);
         $entityManager->flush();
         return $this->json(["status" => "ok"]);
+    }
+
+
+    public function getUserData(User $user)
+    {
+        $adresses = [];
+        foreach ($user->getAdresses() as $adress) {
+            array_push($adresses, [
+                "street" => $adress->getStreet(),
+                "number" => $adress->getNumber(),
+                "country" => $adress->getCountry(),
+                "postal_code" => $adress->getPostalCode(),
+                "city" => $adress->getCity(),
+                "id" => $adress->getId(), 
+            ]);
+        }
+
+        return [
+            "data" => [
+                "lastname" => $user->getLastname(),
+                "firstname" => $user->getFirstname(),
+                "email" => $user->getEmail(),
+                "telephone" => $user->getTelephone(),
+                "id" => $user->getId(),
+                "creation_date" => $user->getCreationDate(),
+                "cvv" => $user->getCvv(),
+                "expiration_CB" => $user->getExpirationCB(),
+                "number_CB" => $user->getNumberCB(),
+                "adresses" => $adresses,
+            ]
+        ];
     }
 }
