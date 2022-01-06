@@ -128,17 +128,24 @@ export default function Connexion() {
     return (
       <div>
         <form
+          encType="multipart/form-data"
           id="inscription"
           onSubmit={async (e) => {
             e.preventDefault();
             if (verifInscriptionForm(e.target)) {
               let formData = new FormData(e.target);
+              console.log(formData.get("firstname"));
+              console.log(formData.get("lastname"));
+              console.log(formData.get("email"));
+              console.log(formData.get("password"));
+              console.log(formData.get("confirm_password"));
               const options = {
-                url: "http://localhost:8000/user/inscription",
+                url: "http://localhost:8004/user/inscription",
                 method: "POST",
                 headers: {
-                  Accept: "application/json",
+                  // Accept: "application/json",
                   "Content-Type": "application/json;charset=UTF-8",
+                  "Access-Control-Allow-Origin": "*",
                 },
                 data: {
                   formData,
@@ -191,7 +198,7 @@ export default function Connexion() {
           <label htmlFor="confirm_password">
             Confirmez le mot de passe :{" "}
             <input
-              name="password_confirm"
+              name="confirm_password"
               type="password"
               id="confirm_password"
               placeholder="Confirmez le mot de passe"
