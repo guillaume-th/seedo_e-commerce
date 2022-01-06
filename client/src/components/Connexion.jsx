@@ -1,10 +1,17 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { Navigate } from "react-router-dom";
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default function Connexion() {
   const [option, setOption] = useState("connexion");
   const connexionForm = useRef();
   const inscriptionForm = useRef();
+
+  // if(localStorage.getItem("user_id")){
+  //   console.log("CONNECTED");
+  //   //Navigate("/profile");
+  // }
+
 
   function verifInscriptionForm(form) {
     const verified = [];
@@ -121,8 +128,8 @@ export default function Connexion() {
       .then((res) => {
         // console.log(res);
         if (res.status === "ok") {
+          localStorage.setItem("user_id", res.user_id);
         }
-        localStorage.setItem("user_id", res.user_id);
       })
       .catch((error) => console.error(error));
   }
