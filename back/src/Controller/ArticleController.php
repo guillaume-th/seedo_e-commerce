@@ -54,9 +54,9 @@ class ArticleController extends AbstractController
             $entityManager->flush();
         }
 
+
         $entityManager->persist($article);
         $entityManager->flush();
-
         $data = $this->getArticleData($article);
         $data["status"] = "ok";
         return $this->json($data);
