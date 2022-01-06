@@ -1,4 +1,5 @@
 import { useRef, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import '../styles/Profile.css'
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -10,12 +11,18 @@ export default function Profile() {
     const user_id = localStorage.getItem("user_id");
     const [modalOpen, setModalOpen] = useState(false);
     const [editedAdress, setEditedAdress] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        fetch(`${API_URL}/user/${user_id}`)
-            .then((res) => res.json())
-            .then((res) => setUser(res.data))
-            .catch((err) => console.error(err));
+        if (user_id === null) {
+            navigate("/auth");
+        } else {
+            fetch(`${API_URL}/user/${user_id}`)
+                .then((res) => res.json())
+                .then((res) => setUser(res.data))
+                .catch((err) => console.error(err));
+        }
+
     }, []);
 
     const submitUserData = (e) => {
@@ -121,6 +128,13 @@ export default function Profile() {
                     <input required type="text" className="input-profile" name="country" placeholder="Pays"></input>
                     <input required type="submit" value="Ajouter cette adresse"></input>
                 </form>
+                <button onClick={
+                    () => {
+                        localStorage.clear()
+                        navigate("/");
+                    }
+                }> Logout</button>
+
                 {modalOpen &&
                     <div id="adress-modal">
                         <form ref={editAdressForm} onSubmit={editAdress} encType="multipart/form-data">

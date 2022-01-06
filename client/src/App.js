@@ -5,13 +5,14 @@ import ArticleEdit from './components/ArticleEdit';
 import ArticleListing from './components/ArticleListing';
 import Home from "./components/Home";
 import Connexion from './components/Connexion';
+import Nav from './nav/navbar'; 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
     <div className="App">
       <Router basename='/'>
-        <Home />
+        <Nav/>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />

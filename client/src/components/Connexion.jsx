@@ -108,7 +108,7 @@ export default function Connexion() {
         .then((res) => {
           // console.log(res);
           if (res.status === "ok") {
-              navigate("/profile"); 
+              navigate("/"); 
           }
         })
         .catch((error) => console.error(error));
@@ -124,7 +124,7 @@ export default function Connexion() {
       .then((res) => {
         console.log(res);
         if (res.status === "ok") {
-            navigate("/profile"); 
+            navigate("/"); 
         }
         if (res.status != "fail") {
           localStorage.setItem("user_id", res.user_id);
