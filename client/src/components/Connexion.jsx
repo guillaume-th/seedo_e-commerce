@@ -8,6 +8,12 @@ export default function Connexion() {
   const inscriptionForm = useRef();
   const navigate = useNavigate(); 
 
+  // if(localStorage.getItem("user_id")){
+  //   console.log("CONNECTED");
+  //   //Navigate("/profile");
+  // }
+
+
   function verifInscriptionForm(form) {
     const verified = [];
     const mustBeVerified = [
