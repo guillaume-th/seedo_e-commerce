@@ -13,19 +13,19 @@ export default function Navbar() {
     const navigate = useNavigate();
     return (
         <div className='back'>
-            <nav class="navbar navbar-expand-lg">
-                <div class="container-fluid">
-                    <div class="logo" onClick={()=> navigate("/")}>
-                        <img class="graine" src={Graine} alt="Seed_logo" />
-                        <img class="title" src={Title} alt="" />
+            <nav className="navbar navbar-expand-lg">
+                <div className="container-fluid">
+                    <div className="logo clickable" onClick={()=> navigate("/")} >
+                        <img className="graine" src={Graine} alt="Seed_logo" />
+                        <img className="title" src={Title} alt="" />
                     </div>
-                    <form class="d-flex search_bar px-0">
-                        <input class="form-control search pr-0" type="text" placeholder="Search" />
-                        <button class="btn but"><img class="loupe" src={Search} alt="search_logo" /></button>
+                    <form className="d-flex search_bar px-0">
+                        <input className="form-control search pr-0" type="text" placeholder="Search" />
+                        <button className="btn but"><img className="loupe" src={Search} alt="search_logo" /></button>
                     </form>
-                    <div class="icon">
-                        <img class="Shop" src={Shop} alt="Shop_logo" />
-                        <img class="User" src={User} onClick={() => navigate("/profile")} alt="User_logo" />
+                    <div className="icon">
+                        <img className="Shop clickable" src={Shop} alt="Shop_logo" />
+                        <img className="User clickable" src={User} onClick={() => navigate("/profile")} alt="User_logo" />
                     </div>
                 </div>
             </nav>

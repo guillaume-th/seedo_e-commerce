@@ -182,6 +182,7 @@ export default function Connexion() {
           onSubmit={async (e) => {
             e.preventDefault();
             const data = new FormData(inscriptionForm.current);
+            console.log(data.get("password")); 
             sendFormInscription(e, data);
           }}
         >
