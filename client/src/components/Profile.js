@@ -1,6 +1,5 @@
 import { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import '../styles/Profile.css'
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default function Profile() {
@@ -22,7 +21,11 @@ export default function Profile() {
                 .then((res) => setUser(res.data))
                 .catch((err) => console.error(err));
         }
-
+        window.addEventListener("keydown", (e)=>{
+            if(e.key === "Escape"){
+                setModalOpen(false); 
+            }
+        });
     }, []);
 
     const submitUserData = (e) => {

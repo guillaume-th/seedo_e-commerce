@@ -14,8 +14,8 @@ export default function Navbar() {
             <div id="logo" onClick={()=> navigate("/")}>
                 <img id="graine" src={Logo} alt="Seed_logo" />
             </div>
-            <form class="search_bar">
-                <input class="search" type="text" placeholder="Search" />
+            <form className="search_bar">
+                <input className="search" id="search" type="text" placeholder="Search" />
                 <img id="loupe" src={Search} alt="search_logo" />
             </form>
             <div id="icon">
