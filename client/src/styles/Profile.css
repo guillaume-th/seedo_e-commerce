@@ -1,4 +1,4 @@
-/* .e_com-footer{
+.e_com-footer{
 
   height: 100vh;
   background: linear-gradient(ellipse at bottom, rgba(255, 254, 234, 1) 0%, rgba(255, 254, 234, 1) 35%, #60e9bb 100%);
@@ -30,6 +30,8 @@ input[type="submit"], button {
   color: green;
   padding: 10px 20px 5px 20px;
   text-transform: uppercase;
+  border-radius: .25rem;
+  outline: none;
 }
 
 /* 

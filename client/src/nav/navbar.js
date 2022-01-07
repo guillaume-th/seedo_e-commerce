@@ -5,7 +5,6 @@ import Logo from './logo.png';
 import Search from './searchWhite.png'
 import { useNavigate } from 'react-router-dom';
 
-// import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 export default function Navbar() {

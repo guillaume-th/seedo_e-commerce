@@ -7,17 +7,32 @@ body {
   background: linear-gradient(180deg, rgba(131, 209, 94, 0.54) 0%, rgb(146, 199, 102) 100%);
   background-repeat: no-repeat;
   min-height : 100vh; 
-  font-family: "Raleway","Montserrat", "Segoe UI", sans-serif !important;
+  font-family: "Montserrat", "Segoe UI", sans-serif !important;
+  font-size: 1.5rem;
 }
 
 .clickable{
   cursor: pointer;
 }
 
-input, p, div {
-  font-family: "Raleway","Montserrat", "Segoe UI", sans-serif !important;
+
+label{
+  width: 150px;
+}  
+
+input, input::placeholder, button, textarea{
+  font-size: 1.25rem;
+  border-radius: .25rem;
 }
 
+button{
+  margin : 1rem; 
+}
+
+h1, h3{
+  color : white; 
+  margin : 1rem; 
+}
 html {
   background: linear-gradient(180deg, rgba(131, 209, 94, 0.54) 0%, rgba(255, 255, 255, 0) 100%);
 }

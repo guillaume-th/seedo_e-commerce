@@ -87,10 +87,11 @@ export default function Profile() {
     if (user) {
         return (
 
-            <div className="e_com-footer">
+            // <div className="e_com-footer">
+            <div className="wrapper">
                 <h1>PROFILE</h1>
 
-                <form ref={userForm} onSubmit={submitUserData} encType="multipart/form-data">
+                <form className="vertical-form" ref={userForm} onSubmit={submitUserData} encType="multipart/form-data">
                     <input type="text" name="firstname" placeholder="Prénom" defaultValue={user.firstname}></input>
                     <input type="text" name="lastname" placeholder="Nom de famille" defaultValue={user.lastname}></input>
                     <input type="text" name="email" placeholder="Email" defaultValue={user.email}></input>
@@ -120,7 +121,7 @@ export default function Profile() {
                 {user.adresses.length < 1 &&
                     <p>Pas d'adresse enregistrée</p>
                 }
-                <form ref={newAdressForm} onSubmit={addAdress} encType="multipart/form-data">
+                <form className="vertical-form" ref={newAdressForm} onSubmit={addAdress} encType="multipart/form-data">
                     <input required type="text" className="input-profile" name="number" placeholder="Numéro"></input>
                     <input required type="text" className="input-profile" name="street" placeholder="Rue"></input>
                     <input required type="text" className="input-profile" name="city" placeholder="Ville"></input>
@@ -135,9 +136,9 @@ export default function Profile() {
                     }
                 }> Logout</button>
 
-                {modalOpen &&
-                    <div id="adress-modal">
-                        <form ref={editAdressForm} onSubmit={editAdress} encType="multipart/form-data">
+                {modalOpen && 
+                    <div id="adress-modal" class="modal">
+                        <form className="vertical-form" ref={editAdressForm} onSubmit={editAdress} encType="multipart/form-data">
                             <input required type="text" name="number" placeholder="Numéro" defaultValue={editedAdress.number}></input>
                             <input required type="text" name="street" placeholder="Rue" defaultValue={editedAdress.street}></input>
                             <input required type="text" name="city" placeholder="Ville" defaultValue={editedAdress.city}></input>
@@ -154,8 +155,8 @@ export default function Profile() {
                     <div className="wave"></div>
                     <div className="wave"></div>
                 </div>
-
             </div>
+            // </div>
         );
     }
     else {

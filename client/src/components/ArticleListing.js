@@ -41,9 +41,8 @@ export default function ArticleListing() {
         })
             .then(res => res.json())
             .then(res => {
-                console.log(res);
-                let str = "";
                 res.forEach((e) => {
+                    let str = "";
                     e.data.categories.forEach((elt) => {
                         str += elt.name + ", ";
                     });
@@ -52,6 +51,7 @@ export default function ArticleListing() {
                 setData(res);
             })
             .catch(err => console.error(err));
+
     };
 
     const deleteArticle = (id) => {
@@ -68,28 +68,6 @@ export default function ArticleListing() {
     if (data) {
         return (
             <div>
-                {admin === "true" &&
-
-                    <form encType="multipart/form-data" ref={form} onSubmit={add}>
-                        <label>Nom de l'article</label>
-                        <input name="name" type="text"></input>
-                        <label>Description</label>
-                        <textarea name="description"></textarea>
-                        <label>Poids</label>
-                        <input name="weight" type="text" ></input>
-                        <label>Couleur</label>
-                        <input name="color" type="text"></input>
-                        <label>Quantité</label>
-                        <input name="quantity" type="number"></input>
-                        <label>Price</label>
-                        <input type="number" name="price" ></input>
-                        <label>Promo</label>
-                        <input name="promo" type="number" min={0} max={100}></input>
-                        <label>Catégorie(s)</label>
-                        <input name="categories" type="text" placeholder="Catégorie 1, catégorie 2" minLength={0} maxLength={100}></input>
-                        <input type="submit" value="Ajouter cet article"></input>
-                    </form>
-                }
                 {
                     data.map((e) => {
                         return (
@@ -106,6 +84,29 @@ export default function ArticleListing() {
                             </div>
                         )
                     })
+                }
+                {admin === "true" &&
+                    <div className="wrapper">
+                        <form encType="multipart/form-data" className="vertical-form" style={{ width: "50%", marginTop : "5rem" }} ref={form} onSubmit={add}>
+                            <label>Nom de l'article</label>
+                            <input name="name" type="text"></input>
+                            <label>Description</label>
+                            <textarea name="description"></textarea>
+                            <label>Poids</label>
+                            <input name="weight" type="text" ></input>
+                            <label>Couleur</label>
+                            <input name="color" type="text"></input>
+                            <label>Quantité</label>
+                            <input name="quantity" type="number"></input>
+                            <label>Price</label>
+                            <input type="number" name="price" ></input>
+                            <label>Promo</label>
+                            <input name="promo" type="number" min={0} max={100}></input>
+                            <label>Catégorie(s)</label>
+                            <input name="categories" type="text" placeholder="Catégorie 1, catégorie 2" minLength={0} maxLength={100}></input>
+                            <input type="submit" value="Ajouter cet article"></input>
+                        </form>
+                    </div>
                 }
             </div>
         );

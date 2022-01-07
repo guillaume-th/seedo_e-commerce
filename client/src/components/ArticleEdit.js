@@ -51,7 +51,7 @@ export default function ArticleEdit() {
                     <label>Promo</label>
                     <input name="promo" type="number" defaultValue={data.promo} minLength={0} maxLength={100}></input>
                     <label>Price</label>
-                    <input type="number" name="price" defaultValue={data.quantity}></input>
+                    <input type="number" name="price" defaultValue={data.price}></input>
                     <label>Catégorie(s)</label>
                     <input name="categories" type="text" placeholder="Catégorie 1, catégorie 2" defaultValue={data.categoriesName} minLength={0} maxLength={100}></input>
                     <input type="submit" value="Sauvegarder les modifications"></input>
