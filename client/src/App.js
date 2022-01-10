@@ -8,6 +8,7 @@ import ArticleListing from './components/ArticleListing';
 import Home from "./components/Home";
 import Connexion from './components/Connexion';
 import Nav from './nav/navbar';
+import Order from "./components/Order";
 import { useState } from "react";
 
 function App() {
@@ -21,8 +22,10 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/article/edit/:id" element={<ArticleEdit />} />
-          <Route path="/articles" element={<ArticleListing  />} />
+          <Route path="/articles" element={<ArticleListing />} />
           <Route path="/auth" element={<Connexion />} />
+          <Route path="/order" element={<Order />} />
+          <Route path="/order-confirm" element={<OrderConfirm />} />
         </Routes>
       </Router>
     </div>
