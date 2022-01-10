@@ -98,6 +98,7 @@ export default function ArticleListing() {
                                 <h3>{e.data.name}</h3>
                                 <p>{e.data.price} €</p>
                                 <p>{e.data.categoriesName}</p>
+                                {console.log(e.data)}
                                 {admin === "true" &&
                                     <div>
                                         <button onClick={() => editArticle(e.data.id)}>Edit</button>
