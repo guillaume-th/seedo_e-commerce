@@ -9,6 +9,7 @@ export default function ArticleListing() {
     const form = useRef();
     const admin = localStorage.getItem("admin");
     const [refresh, setRefresh] = useState(null);
+    const [quantity, setQuantity] = useState(1);
 
     useEffect(() => {
         fetch(`${API_URL}/article/all`)
@@ -65,6 +66,25 @@ export default function ArticleListing() {
             .catch((err) => console.error(err));
     }
 
+    const addToCart = (e, product) => {
+        e.preventDefault();
+        console.log(localStorage.getItem("cart"));
+        let cart = JSON.parse(localStorage.getItem("cart"));
+        if (cart === "" || cart === null) {
+            cart = [];
+        }
+        product.data.selectedQuantity = document.getElementById(product.data.id).value;
+
+        for (let i = cart.length - 1; i >= 0; i--) {
+            if (cart[i].id === product.data.id) {
+                product.data.selectedQuantity = parseInt(cart[i].selectedQuantity) + parseInt(product.data.selectedQuantity);
+                cart.splice(i, 1);
+            }
+        }
+        cart.push(product.data);
+        localStorage.setItem("cart", JSON.stringify(cart));
+    }
+
     if (data) {
         return (
             <div>
@@ -81,13 +101,17 @@ export default function ArticleListing() {
                                         <button onClick={() => deleteArticle(e.data.id)}>Delete</button>
                                     </div>
                                 }
+                                <form onSubmit={(event) => addToCart(event, e)}>
+                                    <input type="number" id={e.data.id} defaultValue={1}></input>
+                                    <input type="submit" value="Add to Cart" />
+                                </form>
                             </div>
                         )
                     })
                 }
                 {admin === "true" &&
                     <div className="wrapper">
-                        <form encType="multipart/form-data" className="vertical-form" style={{ width: "50%", marginTop : "5rem" }} ref={form} onSubmit={add}>
+                        <form encType="multipart/form-data" className="vertical-form" style={{ width: "50%", marginTop: "5rem" }} ref={form} onSubmit={add}>
                             <label>Nom de l'article</label>
                             <input name="name" type="text"></input>
                             <label>Description</label>
