@@ -8,7 +8,7 @@ import Cart from "../components/Cart";
 import { useState } from "react";
 
 
-export default function Navbar() {
+export default function Navbar(props) {
     const navigate = useNavigate();
     const [openCart, setOpenCart] = useState(false);
 
@@ -29,7 +29,7 @@ export default function Navbar() {
                 <img id="Shop" src={Shop} alt="Shop_logo" onClick={handleCart} />
                 <img id="User" src={User} onClick={() => navigate("/profile")} alt="User_logo" />
                 {openCart &&
-                    <Cart />
+                    <Cart cart={props.cart} />
                 }
             </div>
         </div>

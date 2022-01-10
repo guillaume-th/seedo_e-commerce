@@ -1,17 +1,22 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { updateCart } from "../CartSlice";
 const API_URL = process.env.REACT_APP_API_URL;
+
 
 
 export default function ArticleListing() {
     const [data, setData] = useState(null);
+    const cart = useSelector((state) => state.cart.value);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const form = useRef();
     const admin = localStorage.getItem("admin");
     const [refresh, setRefresh] = useState(null);
-    const [quantity, setQuantity] = useState(1);
 
     useEffect(() => {
+
         fetch(`${API_URL}/article/all`)
             .then(res => res.json())
             .then(res => {
@@ -35,7 +40,6 @@ export default function ArticleListing() {
     const add = (e) => {
         e.preventDefault();
         const data = new FormData(form.current);
-        console.log(data.get("categories"));
         fetch(`${API_URL}/article/new`, {
             method: "POST",
             body: data,
@@ -68,21 +72,20 @@ export default function ArticleListing() {
 
     const addToCart = (e, product) => {
         e.preventDefault();
-        console.log(localStorage.getItem("cart"));
-        let cart = JSON.parse(localStorage.getItem("cart"));
-        if (cart === "" || cart === null) {
-            cart = [];
-        }
-        product.data.selectedQuantity = document.getElementById(product.data.id).value;
+        let cartTemp = [...cart];
+        // let cartTemp = JSON.parse(localStorage.getItem("cart")) || [];
+        let obj ={...product.data};
+        obj.selectedQuantity = Number(document.getElementById(product.data.id).value);
 
         for (let i = cart.length - 1; i >= 0; i--) {
-            if (cart[i].id === product.data.id) {
-                product.data.selectedQuantity = parseInt(cart[i].selectedQuantity) + parseInt(product.data.selectedQuantity);
-                cart.splice(i, 1);
+            if (cart[i].id === obj.id) {
+                obj.selectedQuantity = Number(cart[i].selectedQuantity) + Number(obj.selectedQuantity);
+                cartTemp.splice(i, 1);
             }
         }
-        cart.push(product.data);
-        localStorage.setItem("cart", JSON.stringify(cart));
+        cartTemp.push(obj);
+        dispatch(updateCart(cartTemp));
+        localStorage.setItem("cart", JSON.stringify(cartTemp));
     }
 
     if (data) {

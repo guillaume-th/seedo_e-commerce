@@ -1,19 +1,29 @@
 import { useState, useEffect } from "react";
+import { useSelector } from 'react-redux'
 
 export default function Cart() {
-    const [data, setData] = useState(null);
+    const cart = useSelector((state) => state.cart.value);
 
     useEffect(() => {
-        setData(JSON.parse(localStorage.getItem("cart")));
-    }, []);
+        // setData(JSON.parse(localStorage.getItem("cart")));
+    }, [cart]);
 
-    if (data) {
+    const reduce = () => {
+
+        let total = cart[0].price * cart[0].selectedQuantity;
+        for (let i = 1; i < cart.length; i++) {
+            total += cart[i].price * cart[i].selectedQuantity;
+        }
+        return total; 
+    }
+
+    if (cart.length > 0) {
         return (
             <div className="cart">
                 {
-                    data.map((e) => {
+                    cart.map((e) => {
                         return (
-                            <div>
+                            <div key={e.id}>
                                 <p style={{ marginBottom: ".25rem" }}>{e.name}</p>
                                 <div style={{ display: "flex", justifyContent: "space-between" }}>
                                     <p>{e.selectedQuantity}</p>
@@ -24,7 +34,7 @@ export default function Cart() {
                     })
                 }
                 <div>
-                    <p style={{ marginBottom: ".25rem" }}> Total : {data.reduce((a, b) => (a.selectedQuantity * a.price) + (b.selectedQuantity * b.price))}</p>
+                    <p style={{ marginBottom: ".25rem" }}> Total : {reduce()}</p>
                     {/* <div style={{ display: "flex", justifyContent: "space-between" }}>
                         <p>{e.selectedQuantity}</p>
                         <p>{e.price * e.selectedQuantity} €</p>
