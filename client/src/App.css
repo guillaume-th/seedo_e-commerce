@@ -5,14 +5,15 @@
   justify-content: space-between;
 }
 
-#graine{
-  width:200px;
+#graine {
+  width: 200px;
 }
 
-#loupe{
-  width : 20px; height: 20px;
+#loupe {
+  width: 20px;
+  height: 20px;
   position: relative;
-  left : -30px;
+  left: -45px;
   cursor: pointer;
 }
 
@@ -27,20 +28,46 @@
   margin-right: 20px;
 }
 
-#icon {
-  width: 100px;
+
+
+#connexion, #inscription, .vertical-form {
   display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-  margin-right: 30px;
+  flex-direction: column;
 }
 
 .search{
   width: 80%;
+}
+
+.wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background-color: rgb(166, 211, 155);
-  border-radius: 20px;
-  border : solid white 2px;
-  padding: 10px;
+  width: 50%;
+}
+
+.cart {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.719);
+  height: 50vh;
+  width: 300px;
+  top: 70px;
+  right: 50px;
+  font-size: 1.25rem;
+  border-radius: .5rem;
+  padding: .5rem;
+  color: rgb(130, 168, 121);
+  overflow-y: scroll;
 }
 
 .search:focus {
@@ -52,4 +79,27 @@
   margin-top: 10px;
   width: 40vw;
   min-width:200px;
+}
+
+#icon {
+  position: relative;
+}
+
+.cart-total {
+  position: absolute;
+  bottom: 2rem;
+  width: 100%;
+}
+
+.order-adress:hover {
+  cursor: pointer;
+  background-color: rgb(188, 222, 171);
+}
+
+.selected-adress {
+  background-color: rgb(188, 222, 171);
+}
+
+.error{
+  color : red; 
 }
