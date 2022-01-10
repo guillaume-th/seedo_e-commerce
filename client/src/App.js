@@ -9,6 +9,7 @@ import Home from "./components/Home";
 import Connexion from './components/Connexion';
 import Nav from './nav/navbar';
 import Order from "./components/Order";
+import OrderConfirm from './components/OrderConfirm';
 import { useState } from "react";
 
 function App() {

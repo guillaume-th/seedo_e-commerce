@@ -72,5 +72,15 @@
   width: 100%;
 }
 
-.order {
+.order-adress:hover {
+  cursor: pointer;
+  background-color: rgb(188, 222, 171);
+}
+
+.selected-adress {
+  background-color: rgb(188, 222, 171);
+}
+
+.error{
+  color : red; 
 }
