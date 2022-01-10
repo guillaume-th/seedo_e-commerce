@@ -1,7 +1,7 @@
 import React from 'react';
-import User from './user.svg';
-import Shop from './shop.svg';
-import Logo from './logo.png';
+import User from './userGreen.png';
+import Shop from './shopGreen.png';
+import Logo from './logoSeedo.png';
 import Search from './searchWhite.png'
 import { useNavigate } from 'react-router-dom';
 
