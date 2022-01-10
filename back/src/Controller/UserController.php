@@ -111,8 +111,8 @@ class UserController extends AbstractController
 
         if ($email !== "")
             $user->setEmail($email);
-        if ($pass !== "")
-            $user->setPassword(password_hash($pass, PASSWORD_DEFAULT));
+        // if ($pass !== "")
+        //     $user->setPassword(password_hash($pass, PASSWORD_DEFAULT));
         if ($tel !== "")
             $user->setTelephone($tel);
         if ($firstname !== "")

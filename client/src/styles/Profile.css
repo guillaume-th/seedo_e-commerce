@@ -1,0 +1,107 @@
+.e_com-footer{
+
+  height: 100vh;
+  background: linear-gradient(ellipse at bottom, rgba(255, 254, 234, 1) 0%, rgba(255, 254, 234, 1) 35%, #60e9bb 100%);
+  overflow: hidden;
+}
+
+input[type="text"], input[type="password"], input[type="email"], input[type="number"], textarea {
+  margin: 1rem;
+  border: 2px solid white;
+  border-radius: .25rem;
+  padding: 10px 20px 5px 20px;
+  color: white;
+  background-color: transparent;
+  text-transform: uppercase;
+}
+
+input {
+  outline: none;
+}
+
+input::placeholder {
+  text-transform: uppercase;
+  color: white;
+
+}
+
+input[type="submit"], button {
+  background-color: white;
+  color: green;
+  padding: 10px 20px 5px 20px;
+  text-transform: uppercase;
+  border-radius: .25rem;
+  outline: none;
+}
+
+#search {
+  background-color: rgb(166, 211, 155);
+  border-radius: 20px;
+  border: solid white 2px;
+  padding:.65rem;
+}
+
+#icon {
+  width: 100px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  margin-right: 30px;
+}
+
+
+.search:focus {
+  outline: solid greenyellow 3px;
+}
+
+.search_bar {
+  margin-top: 14px;
+  min-width: 200px;
+}
+
+
+/* 
+.ocean {
+  height: 5%;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: #015871;
+}
+
+.wave {
+  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/85486/wave.svg) repeat-x;
+  position: absolute;
+  top: -198px;
+  width: 6400px;
+  height: 198px;
+  animation: wave 7s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
+  transform: translate3d(0, 0, 0);
+}
+
+.wave:nth-of-type(2) {
+  top: -175px;
+  animation: wave 7s cubic-bezier(0.36, 0.45, 0.63, 0.53) -.125s infinite, swell 7s ease -1.25s infinite;
+  opacity: 1;
+}
+
+@keyframes wave {
+  0% {
+    margin-left: 0;
+  }
+
+  100% {
+    margin-left: -1600px;
+  }
+}
+
+@keyframes swell {
+  0%, 100% {
+    transform: translate3d(0, -25px, 0);
+  }
+
+  50% {
+    transform: translate3d(0, 5px, 0);
+  }
+} */

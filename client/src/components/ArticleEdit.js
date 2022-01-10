@@ -11,7 +11,14 @@ export default function ArticleEdit() {
     useEffect(() => {
         fetch(`${API_URL}/article/${id}`)
             .then(res => res.json())
-            .then(res => setData(res.data))
+            .then(res => {
+                let str = "";
+                res.data.categories.forEach((elt) => {
+                    str += elt.name + ", ";
+                });
+                res.data.categoriesName = str.slice(0, str.length-2);
+                setData(res.data)
+            })
             .catch(err => console.error(err));
     }, []);
 
@@ -44,9 +51,9 @@ export default function ArticleEdit() {
                     <label>Promo</label>
                     <input name="promo" type="number" defaultValue={data.promo} minLength={0} maxLength={100}></input>
                     <label>Price</label>
-                    <input type="number" name="price" defaultValue={data.quantity}></input>
+                    <input type="number" name="price" defaultValue={data.price}></input>
                     <label>Catégorie(s)</label>
-                    <input name="categories" type="text" placeholder="Catégorie 1, catégorie 2" defaultValue={data.categories} minLength={0} maxLength={100}></input>
+                    <input name="categories" type="text" placeholder="Catégorie 1, catégorie 2" defaultValue={data.categoriesName} minLength={0} maxLength={100}></input>
                     <input type="submit" value="Sauvegarder les modifications"></input>
                 </form>
             );

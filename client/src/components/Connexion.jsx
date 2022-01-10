@@ -1,10 +1,18 @@
 import React, { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default function Connexion() {
   const [option, setOption] = useState("connexion");
   const connexionForm = useRef();
   const inscriptionForm = useRef();
+  const navigate = useNavigate();
+
+  // if(localStorage.getItem("user_id")){
+  //   console.log("CONNECTED");
+  //   //Navigate("/profile");
+  // }
+
 
   function verifInscriptionForm(form) {
     const verified = [];
@@ -106,6 +114,7 @@ export default function Connexion() {
         .then((res) => {
           // console.log(res);
           if (res.status === "ok") {
+            navigate("/");
           }
         })
         .catch((error) => console.error(error));
@@ -121,6 +130,7 @@ export default function Connexion() {
       .then((res) => {
         console.log(res);
         if (res.status === "ok") {
+          navigate("/");
         }
         if (res.status != "fail") {
           localStorage.setItem("user_id", res.user_id);
@@ -143,19 +153,13 @@ export default function Connexion() {
             sendFormConnexion(data);
           }}
         >
-          <label htmlFor="email">
-            Email :{" "}
             <input name="email" type="email" id="email" placeholder="Email" />
-          </label>
-          <label htmlFor="password">
-            Password :{" "}
             <input
               name="password"
               type="password"
               id="password"
               placeholder="Mot de passe"
             />
-          </label>
           <button type="submit">Connexion</button>
         </form>
         <p>
@@ -170,7 +174,7 @@ export default function Connexion() {
 
   function InscriptionForm() {
     return (
-      <div>
+      <div className="inscription-form">
         <form
           encType="multipart/form-data"
           id="inscription"
@@ -178,11 +182,10 @@ export default function Connexion() {
           onSubmit={async (e) => {
             e.preventDefault();
             const data = new FormData(inscriptionForm.current);
+            console.log(data.get("password"));
             sendFormInscription(e, data);
           }}
         >
-          <label htmlFor="firstname">
-            Prénom :{" "}
             <input
               name="firstname"
               type="text"
@@ -191,9 +194,6 @@ export default function Connexion() {
               minLength={1}
               maxLength={30}
             />
-          </label>
-          <label htmlFor="lastname">
-            Nom :{" "}
             <input
               name="lastname"
               type="text"
@@ -202,32 +202,22 @@ export default function Connexion() {
               minLength={1}
               maxLength={30}
             />
-          </label>
-          <label htmlFor="email">
-            Email :{" "}
             <input name="email" type="text" id="email" placeholder="Email" />
-          </label>
-          <label htmlFor="password">
-            Mot de passe :{" "}
-            <input
-              name="password"
-              type="password"
-              id="password"
-              placeholder="Mot de passe"
-              onChange={(e) => {
-                levelPassword(e.target.value);
-              }}
-            />
-          </label>
-          <label htmlFor="confirm_password">
-            Confirmez le mot de passe :{" "}
-            <input
-              name="confirm_password"
-              type="password"
-              id="confirm_password"
-              placeholder="Confirmez le mot de passe"
-            />
-          </label>
+          <input
+            name="password"
+            type="password"
+            id="password"
+            placeholder="Mot de passe"
+            onChange={(e) => {
+              levelPassword(e.target.value);
+            }}
+          />
+          <input
+            name="confirm_password"
+            type="password"
+            id="confirm_password"
+            placeholder="Confirmez le mot de passe"
+          />
           <button type="submit">Inscrire</button>
         </form>
         <p>
@@ -239,9 +229,9 @@ export default function Connexion() {
   }
 
   return (
-    <>
-      <h1>Lorem ipsum dolor sit amet.</h1>
+    <div className="wrapper">
+      <h1>{option[0].toUpperCase() + option.slice(1, option.length)}</h1>
       {option === "connexion" ? <ConnexionForm /> : <InscriptionForm />}
-    </>
+    </div>
   );
 }
