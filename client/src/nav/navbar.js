@@ -1,34 +1,27 @@
 import React from 'react';
-import Graine from './seed.png';
 import User from './user.svg';
 import Shop from './shop.svg';
-import Title from './title.png';
-import Search from './search.svg'
+import Logo from './logo.png';
+import Search from './searchWhite.png'
 import { useNavigate } from 'react-router-dom';
 
-// import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 export default function Navbar() {
     const navigate = useNavigate();
     return (
-        <div className='back'>
-            <nav class="navbar navbar-expand-lg">
-                <div class="container-fluid">
-                    <div class="logo" onClick={()=> navigate("/")}>
-                        <img class="graine" src={Graine} alt="Seed_logo" />
-                        <img class="title" src={Title} alt="" />
-                    </div>
-                    <form class="d-flex search_bar px-0">
-                        <input class="form-control search pr-0" type="text" placeholder="Search" />
-                        <button class="btn but"><img class="loupe" src={Search} alt="search_logo" /></button>
-                    </form>
-                    <div class="icon">
-                        <img class="Shop" src={Shop} alt="Shop_logo" />
-                        <img class="User" src={User} onClick={() => navigate("/profile")} alt="User_logo" />
-                    </div>
-                </div>
-            </nav>
+        <div id="navbar">
+            <div id="logo" onClick={()=> navigate("/")}>
+                <img id="graine" src={Logo} alt="Seed_logo" />
+            </div>
+            <form className="search_bar">
+                <input className="search" id="search" type="text" placeholder="Search" />
+                <img id="loupe" src={Search} alt="search_logo" />
+            </form>
+            <div id="icon">
+                <img id="Shop" src={Shop} alt="Shop_logo" />
+                <img id="User" src={User} onClick={() => navigate("/profile")} alt="User_logo" />
+            </div>
         </div>
     )
 }

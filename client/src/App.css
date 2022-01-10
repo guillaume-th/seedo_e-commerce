@@ -1,67 +1,49 @@
-/* .marron{
-width:100%;
-height: 60px;
-} */
-
-.back{
-
-  background:rgb(188, 222, 171);
- 
-  border-bottom:1px solid rgb(104, 240, 104);
+#navbar {
+  display: flex;
+  background: rgb(188, 222, 171);
+  padding: 10px;
+  justify-content: space-between;
 }
-.but{
-  color:white;
-  /* background-color:rgb(166, 211, 155) */
+
+#graine {
+  width: 200px;
+}
+
+#loupe {
+  width: 20px;
+  height: 20px;
   position: relative;
-  right: 45px;
-}
-.title{
- 
-width:160px;
-
+  left: -45px;
+  cursor: pointer;
 }
 
-.User{
- 
-  padding-left:10px;
-  width:50px;
-  
+#User, #Shop {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  margin-right: 20px;
 }
 
-.graine{
-  width:60px;
+
+
+#connexion, #inscription, .vertical-form {
+  display: flex;
+  flex-direction: column;
 }
 
-.loupe{
-
-width : 15px;
-color:green;
+.wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
-form input:focus button{
-  background-color: green;
-}
-
-.search{
-  color:white;
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background-color: rgb(166, 211, 155);
-  /* height:40px; */
-  width:500px;
-  border: 0;
-}
-.Shop > path {
-  fill: "white";
-}
-.Shop{
- 
-  padding-right:10px;
-  width:50px;
-  fill: #FFFFFF;
-}
-.search_bar{
-  display:flex;
-  margin:0px;
-  padding:0px;
-  /* background-color: rgb(166, 211, 155);
-  border-radius: 10px; */
+  width : 50%; 
 }
