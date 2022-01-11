@@ -1,3 +1,32 @@
+/********************/
+/******ALL***********/
+/********************/
+
+input:focus {
+  outline: solid greenyellow 3px;
+}
+
+.wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(166, 211, 155);
+  width : 50%; 
+}
+
+/********************/
+/****NAVBARRE********/
+/********************/
+
 #navbar {
   display: flex;
   background: rgb(188, 222, 171);
@@ -42,32 +71,46 @@
   margin-right: 30px;
 }
 
-input:focus {
-  outline: solid greenyellow 3px;
-}
-
 .search_bar {
   min-width: 200px;
 }
+
+/************************/
+/*******CONNECTION*******/
+/************************/
 
 #connexion, #inscription, .vertical-form {
   display: flex;
   flex-direction: column;
 }
 
-.wrapper {
-  width: 100%;
+/************************/
+/*******SHOP*************/
+/************************/
+
+#gallery {
+  width: 70vw;
+  margin: 20px auto;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  flex-wrap: wrap;
 }
 
-.modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: rgb(166, 211, 155);
-  width : 50%; 
+.thumbnail {
+  width: 200px;
+  margin: 10px;
+  overflow: hidden;
+  border: 2px solid honeydew;
+  cursor: pointer;
+}
+
+.thumbnail p {
+  margin: 10px;
+}
+
+.thumbnail:hover {
+  -webkit-transform:scale(1.25); /* Safari and Chrome */
+  -moz-transform:scale(1.25); /* Firefox */
+  -ms-transform:scale(1.25); /* IE 9 */
+  -o-transform:scale(1.25); /* Opera */
+  transform:scale(1.25);
 }
