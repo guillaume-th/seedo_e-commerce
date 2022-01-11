@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import Placeholder from "./placeholder.png";
 const API_URL = process.env.REACT_APP_API_URL;
 
 
@@ -68,11 +69,13 @@ export default function ArticleListing() {
     if (data) {
         return (
             <div>
+                <div id="gallery">
                 {
                     data.map((e) => {
                         return (
-                            <div key={e.data.id}>
-                                <h3>{e.data.name}</h3>
+                            <div key={e.data.id} className="thumbnail">
+                                <img src={Placeholder} alt="some seeds" />
+                                <h4>{e.data.name}</h4>
                                 <p>{e.data.price} €</p>
                                 <p>{e.data.categoriesName}</p>
                                 {console.log(e.data)}
@@ -86,6 +89,7 @@ export default function ArticleListing() {
                         )
                     })
                 }
+                </div>
                 {admin === "true" &&
                     <div className="wrapper">
                         <form encType="multipart/form-data" className="vertical-form" style={{ width: "50%", marginTop : "5rem" }} ref={form} onSubmit={add}>
