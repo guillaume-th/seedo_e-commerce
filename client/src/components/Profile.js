@@ -21,22 +21,22 @@ export default function Profile() {
                 .then((res) => setUser(res.data))
                 .catch((err) => console.error(err));
         }
-        window.addEventListener("keydown", (e)=>{
-            if(e.key === "Escape"){
-                setModalOpen(false); 
+        window.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+                setModalOpen(false);
             }
         });
+        /* eslint-disable */
     }, []);
 
     const submitUserData = (e) => {
         e.preventDefault();
         const data = new FormData(userForm.current);
 
-        fetch(`${API_URL}/user/${user_id}/edit`,
-            {
-                method: "POST",
-                body: data,
-            })
+        fetch(`${API_URL}/user/${user_id}/edit`, {
+            method: "POST",
+            body: data,
+        })
             .then((res) => res.json())
             .then((res) => {
                 if (res.status === "ok") {
@@ -44,16 +44,15 @@ export default function Profile() {
                 }
             })
             .catch((error) => console.error(error));
-    }
+    };
 
     const addAdress = (e) => {
         e.preventDefault();
         const data = new FormData(newAdressForm.current);
-        fetch(`${API_URL}/user/${user_id}/adress`,
-            {
-                method: "POST",
-                body: data,
-            })
+        fetch(`${API_URL}/user/${user_id}/adress`, {
+            method: "POST",
+            body: data,
+        })
             .then((res) => res.json())
             .then((res) => {
                 if (res.status === "ok") {
@@ -65,27 +64,7 @@ export default function Profile() {
             console.log(elt);
             elt.value = "";
         }
-    }
-
-    const editAdress = (e) => {
-        e.preventDefault();
-        const data = new FormData(editAdressForm.current);
-
-        setModalOpen(false);
-        fetch(`${API_URL}/user/adress/${editedAdress.id}/edit`,
-            {
-                method: "POST",
-                body: data,
-            })
-            .then((res) => res.json())
-            .then((res) => {
-                if (res.status === "ok") {
-                    setUser(res.data);
-                }
-            })
-            .catch((error) => console.error(error));
-
-    }
+    };
 
     if (user) {
         return (
@@ -93,18 +72,25 @@ export default function Profile() {
             // <div className="e_com-footer">
             <div className="wrapper">
                 <h1>PROFILE</h1>
+                <div className="profile-section">
 
-                <form className="vertical-form" ref={userForm} onSubmit={submitUserData} encType="multipart/form-data">
-                    <input type="text" name="firstname" placeholder="Prénom" defaultValue={user.firstname}></input>
-                    <input type="text" name="lastname" placeholder="Nom de famille" defaultValue={user.lastname}></input>
-                    <input type="text" name="email" placeholder="Email" defaultValue={user.email}></input>
-                    <input type="text" name="telephone" placeholder="Téléphone" defaultValue={user.telephone}></input>
-                    <h3>Coordonnées bancaires</h3>
-                    <input type="text" name="number_CB" placeholder="Numéro de carte bancaire" minLength={16} maxLength={16} defaultValue={user.number_CB}></input>
-                    <input type="text" name="cvv" placeholder="CVV" minLength={3} maxLength={3} defaultValue={user.cvv}></input>
-                    <input type="text" name="expiration_CB" placeholder="Date d'expiration" minLength={5} maxLength={5} defaultValue={user.expiration_CB}></input>
-                    <input type="submit" value="Sauvegarder les modifications"></input>
-                </form>
+                    <form className="vertical-form" ref={userForm} onSubmit={submitUserData} encType="multipart/form-data">
+                        <div className="user-details">
+                            <h3>Coordonnées</h3>
+                            <input type="text" name="firstname" placeholder="Prénom" defaultValue={user.firstname}></input>
+                            <input type="text" name="lastname" placeholder="Nom de famille" defaultValue={user.lastname}></input>
+                            <input type="text" name="email" placeholder="Email" defaultValue={user.email}></input>
+                            <input type="text" name="telephone" placeholder="Téléphone" defaultValue={user.telephone}></input>
+                        </div>
+                        <div className="bank-details">
+                            <h3>Coordonnées bancaires</h3>
+                            <input type="text" name="number_CB" placeholder="Numéro de carte bancaire" minLength={16} maxLength={16} defaultValue={user.number_CB}></input>
+                            <input type="text" name="cvv" placeholder="CVV" minLength={3} maxLength={3} defaultValue={user.cvv}></input>
+                            <input type="text" name="expiration_CB" placeholder="Date d'expiration" minLength={5} maxLength={5} defaultValue={user.expiration_CB}></input>
+                        </div>
+                        <input type="submit" value="Sauvegarder les modifications"></input>
+                    </form>
+                </div>
                 <h3>Vos adresses</h3>
                 {
                     user.adresses.map((e) => {
@@ -139,20 +125,55 @@ export default function Profile() {
                     }
                 }> Logout</button>
 
-                {modalOpen && 
+                {modalOpen && (
                     <div id="adress-modal" class="modal">
-                        <form className="vertical-form" ref={editAdressForm} onSubmit={editAdress} encType="multipart/form-data">
-                            <input required type="text" name="number" placeholder="Numéro" defaultValue={editedAdress.number}></input>
-                            <input required type="text" name="street" placeholder="Rue" defaultValue={editedAdress.street}></input>
-                            <input required type="text" name="city" placeholder="Ville" defaultValue={editedAdress.city}></input>
-                            <input required type="text" name="postal_code" placeholder="Code Postal" defaultValue={editedAdress.postal_code}></input>
-                            <input required type="text" name="country" placeholder="Pays" defaultValue={editedAdress.country}></input>
+                        <form
+                            className="vertical-form"
+                            ref={editAdressForm}
+                            onSubmit={editAdress}
+                            encType="multipart/form-data"
+                        >
+                            <input
+                                required
+                                type="text"
+                                name="number"
+                                placeholder="Numéro"
+                                defaultValue={editedAdress.number}
+                            ></input>
+                            <input
+                                required
+                                type="text"
+                                name="street"
+                                placeholder="Rue"
+                                defaultValue={editedAdress.street}
+                            ></input>
+                            <input
+                                required
+                                type="text"
+                                name="city"
+                                placeholder="Ville"
+                                defaultValue={editedAdress.city}
+                            ></input>
+                            <input
+                                required
+                                type="text"
+                                name="postal_code"
+                                placeholder="Code Postal"
+                                defaultValue={editedAdress.postal_code}
+                            ></input>
+                            <input
+                                required
+                                type="text"
+                                name="country"
+                                placeholder="Pays"
+                                defaultValue={editedAdress.country}
+                            ></input>
                             <input required type="submit" value="Sauvegarder"></input>
                             <input type="hidden" name="user_id" value={user_id}></input>
                         </form>
                         <button onClick={() => setModalOpen(false)}>Annuler</button>
                     </div>
-                }
+                )}
 
                 <div className="ocean">
                     <div className="wave"></div>
@@ -161,12 +182,7 @@ export default function Profile() {
             </div>
             // </div>
         );
+    } else {
+        return <p>Chargement en cours...</p>;
     }
-    else {
-        return (
-            <p>Chargement en cours...</p>
-        );
-    }
-
-
 }
