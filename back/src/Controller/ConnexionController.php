@@ -47,7 +47,6 @@ class ConnexionController extends AbstractController
     }else{
         return $this->json([
             'status' => $result,
-            'admin' => $User[0]->getAdmin(),
         ]);
     }
 
