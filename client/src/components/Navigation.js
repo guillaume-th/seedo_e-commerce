@@ -35,7 +35,7 @@ export default function Navbar(props) {
 
       <div id="icon">
         {admin &&
-          <img src={AdminLogo} alt="Admin-logo" id="Admin"/>
+          <img src={AdminLogo} alt="Admin-logo" id="Admin" onClick={()=>navigate("/admin-panel")}/>
         }
         <img id="Shop" src={Shop} alt="Shop_logo" onClick={handleCart} />
         <img

@@ -11,6 +11,7 @@ import Nav from "./components/Navigation";
 import Order from "./components/Order";
 import OrderConfirm from "./components/OrderConfirm";
 import AdminArticles from "./components/admin/AdminArticles";
+import AdminPanel from "./components/admin/AdminPanel";
 import { useSelector, useDispatch } from "react-redux";
 import { updateAdmin } from "./AdminSlice";
 import { useEffect } from "react";
@@ -23,13 +24,13 @@ function App() {
   const user_id = localStorage.getItem("user_id");
 
   useEffect(() => {
-    console.log(admin, user_id); 
+    console.log(admin, user_id);
     if (user_id) {
       fetch(`${API_URL}/user/${user_id}`)
-      .then((res) => res.json())
-      .then((res) => {
-        dispatch(updateAdmin(res.data.admin));
-      })
+        .then((res) => res.json())
+        .then((res) => {
+          dispatch(updateAdmin(res.data.admin));
+        })
     }
   }, []);
 
@@ -45,7 +46,7 @@ function App() {
           <Route path="/auth" element={<Connexion />} />
           <Route path="/order" element={<Order />} />
           <Route path="/order-confirm" element={<OrderConfirm />} />
-          <Route path="/admin-articles" element={<AdminArticles />} />
+          <Route path="/admin-panel" element={<AdminPanel/>}/>
         </Routes>
       </Router>
     </div>

@@ -128,3 +128,11 @@ input:focus {
 .error{
   color : red; 
 }
+
+.admin-tab{
+  margin : .5rem; 
+  cursor: pointer;
+}
+.selected-tab {
+  font-weight: 600;
+}
