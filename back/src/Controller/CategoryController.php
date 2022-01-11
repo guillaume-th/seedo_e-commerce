@@ -29,4 +29,16 @@ class CategoryController extends AbstractController
         }
         return $this->json($result);
     }
+
+    /**
+     * @Route("/{id}", name="category_by_id", methods={"GET"})
+     */
+    public function getCategoryById($id)
+    {
+        $request = $this->getDoctrine()->getRepository(Category::class)
+            ->findBy([
+                'id' => $id,
+            ]);;
+        dd($request);
+    }
 }
