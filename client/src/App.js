@@ -11,11 +11,8 @@ import Nav from "./components/Navigation";
 import Order from "./components/Order";
 import OrderConfirm from "./components/OrderConfirm";
 import AdminArticles from "./components/admin/AdminArticles";
-<<<<<<< HEAD
 import Category from "./components/Category";
-=======
 import AdminPanel from "./components/admin/AdminPanel";
->>>>>>> 42a8e31f0692db9fe29c7cd384abc8f390d114bb
 import { useSelector, useDispatch } from "react-redux";
 import { updateAdmin } from "./AdminSlice";
 import { useEffect } from "react";
@@ -52,7 +49,7 @@ function App() {
           <Route path="/order-confirm" element={<OrderConfirm />} />
           <Route path="/admin-articles" element={<AdminArticles />} />
           <Route path="/admin-category" element={<Category />} />
-          <Route path="/admin-panel" element={<AdminPanel/>}/>
+          <Route path="/admin-panel" element={<AdminPanel />} />
         </Routes>
       </Router>
     </div>
