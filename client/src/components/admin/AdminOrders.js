@@ -18,7 +18,8 @@ export default function AdminOrders() {
         const res = [];
         data.forEach((e) => {
             let found = res.find((elt) => elt.name === e.name);
-            if (found) {
+            console.log(found); 
+            if (found !== undefined) {
                 res[res.indexOf(found)].quantity++;
             }
             else {
@@ -52,7 +53,7 @@ export default function AdminOrders() {
                             <p>Articles : </p>
                             <ul>
                                 {
-                                    transformData(e.article).map(i => {
+                                    e.article.map(i => {
                                         return (
                                             <li key={i.id}>
                                                 {i.name} x {i.quantity}

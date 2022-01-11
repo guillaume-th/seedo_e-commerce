@@ -88,7 +88,8 @@ export default function OrderConfirm() {
           order_price: reduce(),
           articles_id: array,
         };
-
+        console.log(data);
+        
         fetch(`${API_URL}/order/new`, {
           method: "POST",
           body: JSON.stringify(data),
