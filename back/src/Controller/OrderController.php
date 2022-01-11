@@ -18,20 +18,38 @@ use App\Entity\User;
 class OrderController extends AbstractController
 {
     /**
-     * @Route("/all", name="order" methods={"GET"})
+     * @Route("/all", name="order", methods={"GET"})
      */
-    public function index(): Response
+    public function index_order(): Response
     {
         $orders =  $this->getDoctrine()->getRepository(Order::class)->findAll();
         $data = [];
-        foreach ($orders as $order) {
-            array_push($data, $this->$order);
+        $orderarticle =[];
+        foreach ( $orders as $order ) {
+            foreach ($order->getArticles() as $value) {
+                array_push($orderarticle,[
+                    'id' => $value->getId(),
+                    'name' => $value->getName(),
+                    'price' => $value->getPrice(),
+                ]);
+            }
+            array_push($data,[
+                "id" => $order->getId(),
+                "status" => $order->getStatus(),
+                "creation_date" => $order->getCreationDate(),
+                "user" => [
+                    "id_user" => $order->getUser()->getId(),
+                    "email_user" => $order->getUser()->getEmail(),
+                    "firstname_user" => $order->getUser()->getFirstname(),
+                    "lastname_user" => $order->getUser()->getLastname(),
+                ],
+                "article" => $orderarticle,
+                "OrderPrice" => $order->getOrderPrice()
+            ]);
         }
-
-        return $this->json([
-            'status' => $data,
-        ]);
+        return $this->json(['result' => $data]);
     }
+
     /**
      * @Route("/new", name="order_new", methods={"POST"})
      */
@@ -41,7 +59,8 @@ class OrderController extends AbstractController
         $Order->setCreationDate(new \DateTime());
         $user = $this->getDoctrine()->getRepository(User::class)->find($request->request->get("user_id"));
         $Order->setUser($user);
-        $Order->setStatus('en Cours');
+        $Order->setStatus('en cours');
+        $Order->setOrderPrice($request->request->get("OrderPrice"));
         dd($request->request->get("articles_id"));
         foreach ($request->request->get("articles_id") as $value) {
         $quantity = $this->getDoctrine()->getRepository(Article::class)->find($value->get('quantity'));
@@ -57,19 +76,16 @@ class OrderController extends AbstractController
         $entityManager->persist($Order);
         $entityManager->flush();
         $data["status"] = "ok";
-        return $this->json($data);
+        // return $this->json($data);
     }
+
      /**
-     * @Route("/{id}", name="order_selected")
+     * @Route("/{id}", name="order_selected" , methods={POST})
      */
     public function SelectedOrder(Request $request, Order $order,  EntityManagerInterface $entityManager): Response
     {
-
         dd($order);
 
-        return $this->json([
-            'status' => $order,
-        ]);
     }
 
 }
