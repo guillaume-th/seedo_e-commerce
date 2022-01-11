@@ -13,6 +13,7 @@ import OrderConfirm from "./components/OrderConfirm";
 import { useState } from "react";
 
 function App() {
+  /* eslint-disable */
   const [cart, setCart] = useState(null);
 
   return (
