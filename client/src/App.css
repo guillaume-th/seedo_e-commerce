@@ -1,6 +1,6 @@
 #navbar {
   display: flex;
-  background:rgb(188, 222, 171);
+  background:rgba(224, 252, 209, 0.562);
   padding: 15px;
   justify-content: space-between;
 }
@@ -33,7 +33,8 @@
 }
 
 #search {
-  background-color: rgb(166, 211, 155);
+  /* background-color: rgb(166, 211, 155); */
+  background-color:#22ff055b;
   border-radius: 20px;
   border: solid white 2px;
   padding:.65rem;
