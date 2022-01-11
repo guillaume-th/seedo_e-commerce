@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Adress;
 use App\Entity\Article;
 use App\Entity\Order;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,16 +25,16 @@ class OrderController extends AbstractController
     {
         $orders =  $this->getDoctrine()->getRepository(Order::class)->findAll();
         $data = [];
-        $orderarticle =[];
-        foreach ( $orders as $order ) {
+        $orderarticle = [];
+        foreach ($orders as $order) {
             foreach ($order->getArticles() as $value) {
-                array_push($orderarticle,[
+                array_push($orderarticle, [
                     'id' => $value->getId(),
                     'name' => $value->getName(),
                     'price' => $value->getPrice(),
                 ]);
             }
-            array_push($data,[
+            array_push($data, [
                 "id" => $order->getId(),
                 "status" => $order->getStatus(),
                 "creation_date" => $order->getCreationDate(),
@@ -53,39 +54,44 @@ class OrderController extends AbstractController
     /**
      * @Route("/new", name="order_new", methods={"POST"})
      */
-    public function addorder(Request $request, Article $Article,  EntityManagerInterface $entityManager): Response
+    public function addorder(Request $requests, EntityManagerInterface $entityManager): Response
     {
+        $count=0;
+        $request = json_decode($requests->getContent(), true);
         $Order = new Order();
         $Order->setCreationDate(new \DateTime());
-        $user = $this->getDoctrine()->getRepository(User::class)->find($request->request->get("user_id"));
+        $user = $this->getDoctrine()->getRepository(User::class)->find($request["user_id"]);
         $Order->setUser($user);
         $Order->setStatus('en cours');
-        $Order->setOrderPrice($request->request->get("OrderPrice"));
-        dd($request->request->get("articles_id"));
-        foreach ($request->request->get("articles_id") as $value) {
-        $quantity = $this->getDoctrine()->getRepository(Article::class)->find($value->get('quantity'));
-            if($quantity>$value->get('quantity')){
+        $Order->setOrderPrice($request["order_price"]);
+        $adress = $this->getDoctrine()->getRepository(Adress::class)->findOneBy([
+            "street" => $request["adress"]["street"],
+            "country" => $request["adress"]["country"],
+        ]);
+        $Order->setAdress($adress);
+        foreach ($request["articles_id"] as $value) {
+            $quantity = $this->getDoctrine()->getRepository(Article::class)->find($value['id']);
+            if ($quantity->getQuantity() < $value['quantity']) {
                 $data["status"] = "out of stock";
                 return $this->json($data);
             }
-            for ($i=0; $i < $value->get('quantity') ; $i++) { 
-                $article = $this->getDoctrine()->getRepository(Article::class)->find($value->get('id'));
-            $Order->addArticle($article);
+            for ($i = 0; $i < $value['quantity']; $i++) {
+                $article = $this->getDoctrine()->getRepository(Article::class)->find($value['id']);
+                $Order->addArticle($article);
+                $count++;
             }
         }
         $entityManager->persist($Order);
         $entityManager->flush();
         $data["status"] = "ok";
-        // return $this->json($data);
+        return $this->json($data);
     }
 
-     /**
-     * @Route("/{id}", name="order_selected" , methods={POST})
+    /**
+     * @Route("/{id}", name="order_selected" , methods={"POST"})
      */
     public function SelectedOrder(Request $request, Order $order,  EntityManagerInterface $entityManager): Response
     {
         dd($order);
-
     }
-
 }
