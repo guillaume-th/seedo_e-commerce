@@ -1,15 +1,15 @@
-import './App.css';
+import "./App.css";
 import "./index.css";
-import './styles/Profile.css'
+import "./styles/Profile.css";
 import { Route, Routes, HashRouter as Router } from "react-router-dom";
-import Profile from './components/Profile';
-import ArticleEdit from './components/ArticleEdit';
-import ArticleListing from './components/ArticleListing';
+import Profile from "./components/Profile";
+import ArticleEdit from "./components/ArticleEdit";
+import ArticleListing from "./components/ArticleListing";
 import Home from "./components/Home";
-import Connexion from './components/Connexion';
-import Nav from './nav/navbar';
+import Connexion from "./components/Connexion";
+import Nav from "./components/Navigation";
 import Order from "./components/Order";
-import OrderConfirm from './components/OrderConfirm';
+import OrderConfirm from "./components/OrderConfirm";
 import { useState } from "react";
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
 
   return (
     <div className="App">
-      <Router basename='/'>
+      <Router basename="/">
         <Nav cart={cart} />
         <Routes>
           <Route path="/" element={<Home />} />
