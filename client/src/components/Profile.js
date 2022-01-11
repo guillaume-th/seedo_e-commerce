@@ -93,18 +93,25 @@ export default function Profile() {
             // <div className="e_com-footer">
             <div className="wrapper">
                 <h1>PROFILE</h1>
-
+                        <div className="profile-section">
+                            
                 <form className="vertical-form" ref={userForm} onSubmit={submitUserData} encType="multipart/form-data">
-                    <input type="text" name="firstname" placeholder="Prénom" defaultValue={user.firstname}></input>
+                  <div className="user-details">
+                  <h3>Coordonnées</h3>
+                  <input type="text" name="firstname" placeholder="Prénom" defaultValue={user.firstname}></input>
                     <input type="text" name="lastname" placeholder="Nom de famille" defaultValue={user.lastname}></input>
                     <input type="text" name="email" placeholder="Email" defaultValue={user.email}></input>
                     <input type="text" name="telephone" placeholder="Téléphone" defaultValue={user.telephone}></input>
+                  </div>
+                    <div className="bank-details">
                     <h3>Coordonnées bancaires</h3>
                     <input type="text" name="number_CB" placeholder="Numéro de carte bancaire" minLength={16} maxLength={16} defaultValue={user.number_CB}></input>
                     <input type="text" name="cvv" placeholder="CVV" minLength={3} maxLength={3} defaultValue={user.cvv}></input>
                     <input type="text" name="expiration_CB" placeholder="Date d'expiration" minLength={5} maxLength={5} defaultValue={user.expiration_CB}></input>
+                    </div>
                     <input type="submit" value="Sauvegarder les modifications"></input>
                 </form>
+                        </div>
                 <h3>Vos adresses</h3>
                 {
                     user.adresses.map((e) => {
