@@ -124,66 +124,64 @@ export default function Profile() {
                         navigate("/");
                     }
                 }> Logout</button>
-
-
-                        {modalOpen && (
-                            <div id="adress-modal" class="modal">
-                                <form
-                                    className="vertical-form"
-                                    ref={editAdressForm}
-                                    onSubmit={editAdress}
-                                    encType="multipart/form-data"
-                                >
-                                    <input
-                                        required
-                                        type="text"
-                                        name="number"
-                                        placeholder="Numéro"
-                                        defaultValue={editedAdress.number}
-                                    ></input>
-                                    <input
-                                        required
-                                        type="text"
-                                        name="street"
-                                        placeholder="Rue"
-                                        defaultValue={editedAdress.street}
-                                    ></input>
-                                    <input
-                                        required
-                                        type="text"
-                                        name="city"
-                                        placeholder="Ville"
-                                        defaultValue={editedAdress.city}
-                                    ></input>
-                                    <input
-                                        required
-                                        type="text"
-                                        name="postal_code"
-                                        placeholder="Code Postal"
-                                        defaultValue={editedAdress.postal_code}
-                                    ></input>
-                                    <input
-                                        required
-                                        type="text"
-                                        name="country"
-                                        placeholder="Pays"
-                                        defaultValue={editedAdress.country}
-                                    ></input>
-                                    <input required type="submit" value="Sauvegarder"></input>
-                                    <input type="hidden" name="user_id" value={user_id}></input>
-                                </form>
-                                <button onClick={() => setModalOpen(false)}>Annuler</button>
-                            </div>
-                        )}
-
-                        <div className="ocean">
-                            <div className="wave"></div>
-                            <div className="wave"></div>
-                        </div>
+                {modalOpen && (
+                    <div id="adress-modal" class="modal">
+                        <form
+                            className="vertical-form"
+                            ref={editAdressForm}
+                            onSubmit={editAdress}
+                            encType="multipart/form-data"
+                        >
+                            <input
+                                required
+                                type="text"
+                                name="number"
+                                placeholder="Numéro"
+                                defaultValue={editedAdress.number}
+                            ></input>
+                            <input
+                                required
+                                type="text"
+                                name="street"
+                                placeholder="Rue"
+                                defaultValue={editedAdress.street}
+                            ></input>
+                            <input
+                                required
+                                type="text"
+                                name="city"
+                                placeholder="Ville"
+                                defaultValue={editedAdress.city}
+                            ></input>
+                            <input
+                                required
+                                type="text"
+                                name="postal_code"
+                                placeholder="Code Postal"
+                                defaultValue={editedAdress.postal_code}
+                            ></input>
+                            <input
+                                required
+                                type="text"
+                                name="country"
+                                placeholder="Pays"
+                                defaultValue={editedAdress.country}
+                            ></input>
+                            <input required type="submit" value="Sauvegarder"></input>
+                            <input type="hidden" name="user_id" value={user_id}></input>
+                        </form>
+                        <button onClick={() => setModalOpen(false)}>Annuler</button>
                     </div>
-      // </div>
-                );
-  } else {
-    return <p>Chargement en cours...</p>;
-  }
+                )}
+
+                <div className="ocean">
+                    <div className="wave"></div>
+                    <div className="wave"></div>
+                </div>
+            </div>
+            // </div>
+        );
+    } else {
+        return <p>Chargement en cours...</p>;
+    }
 }
