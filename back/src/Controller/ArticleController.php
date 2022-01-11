@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Entity\Category;
+use App\Entity\Photo;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -43,6 +44,12 @@ class ArticleController extends AbstractController
         $article->setQuantity($request->request->get("quantity"));
         $article->setPrice($request->request->get("price"));
         $article->setPromo($request->request->get("promo"));
+        if ($request->request->get("photo") !== "") {
+            $photo = new Photo();
+            $photo->setImgLink($request->request->get("photo"));
+            $entityManager->persist($photo);
+            $article->addPhoto($photo);
+        }
         $article->setCreationDate(new \Datetime());
         $article->setUpdatedDate(new \Datetime());
         $article->setNew(true);
@@ -138,7 +145,34 @@ class ArticleController extends AbstractController
         return $this->json($data);
     }
 
-
+    /**
+     * @Route("/add-photos/{id}", name="add_photos", methods={"POST"})
+     */
+    public function addPhoto(Request $request, Article $article, EntityManagerInterface $entityManager): Response
+    {
+        $array = json_decode($request->getContent());
+        foreach ($array as $photo) {
+            $p = new Photo();
+            $p->setImgLink($photo);
+            $article->addPhoto($p);
+            $entityManager->persist($p);
+        }
+        $entityManager->flush();
+        $data = $this->getArticleData($article);
+        $data["status"] = "ok";
+        return $this->json($data);
+    }
+    /**
+     * @Route("/remove-photo/{id}/{photo}", name="add_photos", methods={"GET"})
+     */
+    public function deletePhoto(Article $article, EntityManagerInterface $entityManager, $photo):Response{
+        $p = $this->getDoctrine()->getRepository(Photo::class)->find($photo);
+        $article->removePhoto($p); 
+        $entityManager->remove($p);
+        $entityManager->flush(); 
+        $data = $this->getArticleData($article);
+        return $this->json($data);
+    }
 
     /**
      * @Route("/delete/{id}", name="delete", methods={"GET"})
@@ -158,9 +192,13 @@ class ArticleController extends AbstractController
         $photos = [];
 
         foreach ($article->getPhotos() as $photo) {
-            array_push($photos, [
-                "img_link" => $photo->getImgLink(),
-            ]);
+            array_push(
+                $photos,
+                [
+                    "imgLink" => $photo->getImgLink(),
+                    "id" => $photo->getId(),
+                ]
+            );
         }
         foreach ($article->getCategories() as $cat) {
             // dump($cat);
