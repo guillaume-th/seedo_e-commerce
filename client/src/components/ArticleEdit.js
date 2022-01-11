@@ -2,25 +2,23 @@ import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 const API_URL = process.env.REACT_APP_API_URL;
 
-
 export default function ArticleEdit() {
     const editForm = useRef();
-    const photoForm = useRef();
     const { id } = useParams();
     const [data, setData] = useState(null);
-
+    /* eslint-disable */
     useEffect(() => {
         fetch(`${API_URL}/article/${id}`)
-            .then(res => res.json())
-            .then(res => {
+            .then((res) => res.json())
+            .then((res) => {
                 let str = "";
                 res.data.categories.forEach((elt) => {
                     str += elt.name + ", ";
                 });
                 res.data.categoriesName = str.slice(0, str.length - 2);
-                setData(res.data)
+                setData(res.data);
             })
-            .catch(err => console.error(err));
+            .catch((err) => console.error(err));
     }, []);
 
     const edit = (e) => {
@@ -30,10 +28,10 @@ export default function ArticleEdit() {
             method: "POST",
             body: data,
         })
-            .then(res => res.json())
-            .then(res => setData(res.data))
-            .catch(err => console.error(err));
-    }
+            .then((res) => res.json())
+            .then((res) => setData(res.data))
+            .catch((err) => console.error(err));
+    };
 
     const addPhoto = e => {
         e.preventDefault();
