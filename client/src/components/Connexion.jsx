@@ -13,7 +13,6 @@ export default function Connexion() {
   //   //Navigate("/profile");
   // }
 
-
   function verifInscriptionForm(form) {
     const verified = [];
     const mustBeVerified = [
@@ -132,7 +131,7 @@ export default function Connexion() {
         if (res.status === "ok") {
           navigate("/");
         }
-        if (res.status != "fail") {
+        if (res.status !== "fail") {
           localStorage.setItem("user_id", res.user_id);
           localStorage.setItem("admin", res.admin);
         }
@@ -153,13 +152,13 @@ export default function Connexion() {
             sendFormConnexion(data);
           }}
         >
-            <input name="email" type="email" id="email" placeholder="Email" />
-            <input
-              name="password"
-              type="password"
-              id="password"
-              placeholder="Mot de passe"
-            />
+          <input name="email" type="email" id="email" placeholder="Email" />
+          <input
+            name="password"
+            type="password"
+            id="password"
+            placeholder="Mot de passe"
+          />
           <button type="submit">Connexion</button>
         </form>
         <p>
@@ -186,23 +185,23 @@ export default function Connexion() {
             sendFormInscription(e, data);
           }}
         >
-            <input
-              name="firstname"
-              type="text"
-              id="firstname"
-              placeholder="Prenom"
-              minLength={1}
-              maxLength={30}
-            />
-            <input
-              name="lastname"
-              type="text"
-              id="lastname"
-              placeholder="Nom"
-              minLength={1}
-              maxLength={30}
-            />
-            <input name="email" type="text" id="email" placeholder="Email" />
+          <input
+            name="firstname"
+            type="text"
+            id="firstname"
+            placeholder="Prenom"
+            minLength={1}
+            maxLength={30}
+          />
+          <input
+            name="lastname"
+            type="text"
+            id="lastname"
+            placeholder="Nom"
+            minLength={1}
+            maxLength={30}
+          />
+          <input name="email" type="text" id="email" placeholder="Email" />
           <input
             name="password"
             type="password"
