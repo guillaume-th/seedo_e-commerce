@@ -19,6 +19,26 @@ use Symfony\Component\Routing\Annotation\Route;
 class CategoryController extends AbstractController
 {
     /**
+     * @Route("/new", name="create_category", methods={"POST"})
+     */
+    public function addCategory(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $category = new Category();
+        $check = $this->getDoctrine()->getRepository(Category::class)
+            ->findBy([
+                'name' => $request->request->get("name"),
+            ]);;
+        if ($check) {
+            return $this->json(['status' => 'Already exist']);
+        } else {
+            $category->setName($request->request->get("name"));
+            $entityManager->persist($category);
+            $entityManager->flush();
+            return $this->json(['status' => 'ok']);
+        }
+    }
+
+    /**
      * @Route("/all", name="category_index", methods={"GET"})
      */
     public function getAll(CategoryRepository $categoryRepository): Response
