@@ -62,6 +62,28 @@ class CategoryController extends AbstractController
             ]);;
         return $this->json(["id" => $request[0]->getId(), "name" => $request[0]->getName()]);
     }
+
+    /**
+     * @Route("/{id}/edit", name="category_update", methods={"POST"})
+     */
+    public function editCategory(Request $request, Category $category, EntityManagerInterface $entityManager): Response
+    {
+        $name = $request->request->get("name");
+        $check = $this->getDoctrine()->getRepository(Category::class)
+            ->findBy([
+                'name' => $name,
+            ]);
+
+        if ($name !== "" && !$check) {
+            $category->setName($name);
+            $entityManager->persist($category);
+            $entityManager->flush();
+            return $this->json(['status' => 'ok']);
+        } else {
+            return $this->json(['status' => 'Already exist']);
+        }
+    }
+
     /**
      * @Route("/delete/{id}", name="category_delete", methods={"POST"})
      */
