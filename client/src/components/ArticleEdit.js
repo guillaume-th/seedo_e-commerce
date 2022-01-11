@@ -4,10 +4,8 @@ const API_URL = process.env.REACT_APP_API_URL;
 
 export default function ArticleEdit() {
     const editForm = useRef();
-    const photoForm = useRef(); 
     const { id } = useParams();
     const [data, setData] = useState(null);
-    const [photoCounter, setPhotoCounter] = useState(0);
 
     /* eslint-disable */
     useEffect(() => {
@@ -38,9 +36,9 @@ export default function ArticleEdit() {
 
     const addPhoto = e => {
         e.preventDefault();
-        const photos = []; 
-        for(let elt of document.getElementsByClassName("photo")){
-            photos.push(elt.value); 
+        const photos = [];
+        for (let elt of document.getElementsByClassName("photo")) {
+            photos.push(elt.value);
         }
         fetch(`${API_URL}/article/add-photos/${id}`, {
             method: "POST",
@@ -48,7 +46,7 @@ export default function ArticleEdit() {
         })
             .then(res => res.json())
             .then(res => {
-                setData(res.data); 
+                setData(res.data);
             })
             .catch(err => console.error(err));
 
@@ -60,6 +58,15 @@ export default function ArticleEdit() {
         input.placeholder = "http://url_de_votre_image";
         input.classList.add("photo");
         document.getElementById("photo-inputs").appendChild(input);
+    }
+
+    const deletePhoto = (id_photo) => {
+        fetch(`${API_URL}/article/remove-photo/${id}/${id_photo}`)
+            .then(res => res.json())
+            .then(res => {
+                setData(res.data);
+            })
+            .catch(err => console.error(err));
     }
 
     if (localStorage.getItem("admin") === "true") {
@@ -87,13 +94,16 @@ export default function ArticleEdit() {
                     </form>
                     <h3>Photos</h3>
                     {
-                        data.photos.map(e =>{
-                            return(
-                                <img src={e}/>
+                        data.photos.map(e => {
+                            return (
+                                <div>
+                                    <img src={e.imgLink} />
+                                    <button onClick={() => deletePhoto(e.id)}>Supprimer</button>
+                                </div>
                             )
                         })
                     }
-                    <form id="photo-form" encType="multipart/form-data" ref={photoForm} onSubmit={addPhoto} className="">
+                    <form id="photo-form" encType="multipart/form-data" onSubmit={addPhoto} className="">
                         <div id="photo-inputs">
                             <input type="text" name="photo" className="photo" placeholder="http://url_de_votre_image"></input>
                         </div>

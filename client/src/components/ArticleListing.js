@@ -20,7 +20,7 @@ export default function ArticleListing() {
         fetch(`${API_URL}/article/all`)
             .then(res => res.json())
             .then(res => {
-                console.log(res); 
+                console.log(res);
                 res.forEach((e) => {
                     let str = "";
                     e.data.categories.forEach((elt) => {
@@ -71,11 +71,37 @@ export default function ArticleListing() {
             .catch((err) => console.error(err));
     }
 
+    const addPhotoInput = () => {
+        const input = document.createElement("input");
+        input.type = "text";
+        input.placeholder = "http://url_de_votre_image";
+        input.classList.add("photo");
+        document.getElementById("photo-inputs").appendChild(input);
+    }
+
+    const addPhoto = e => {
+        e.preventDefault();
+        const photos = [];
+        for (let elt of document.getElementsByClassName("photo")) {
+            photos.push(elt.value);
+        }
+        fetch(`${API_URL}/article/add-photos/`, {
+            method: "POST",
+            body: JSON.stringify(photos),
+        })
+            .then(res => res.json())
+            .then(res => {
+                setData(res.data);
+            })
+            .catch(err => console.error(err));
+
+    }
+
     const addToCart = (e, product) => {
         e.preventDefault();
         let cartTemp = [...cart];
         // let cartTemp = JSON.parse(localStorage.getItem("cart")) || [];
-        let obj ={...product.data};
+        let obj = { ...product.data };
         obj.selectedQuantity = Number(document.getElementById(product.data.id).value);
 
         for (let i = cart.length - 1; i >= 0; i--) {
@@ -99,6 +125,10 @@ export default function ArticleListing() {
                                 <h3>{e.data.name}</h3>
                                 <p>{e.data.price} €</p>
                                 <p>{e.data.categoriesName}</p>
+                                {e.data.photos[0] &&
+                                    <img src={e.data.photos[0].imgLink}></img>
+
+                                }
                                 {console.log(e.data)}
                                 {admin === "true" &&
                                     <div>
@@ -133,6 +163,7 @@ export default function ArticleListing() {
                             <input name="promo" type="number" min={0} max={100}></input>
                             <label>Catégorie(s)</label>
                             <input name="categories" type="text" placeholder="Catégorie 1, catégorie 2" minLength={0} maxLength={100}></input>
+                            <input name="photo" type="text" placeholder="http://url_de_votre_image" defaultValue={""}></input>
                             <input type="submit" value="Ajouter cet article"></input>
                         </form>
                     </div>

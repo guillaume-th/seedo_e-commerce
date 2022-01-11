@@ -44,6 +44,12 @@ class ArticleController extends AbstractController
         $article->setQuantity($request->request->get("quantity"));
         $article->setPrice($request->request->get("price"));
         $article->setPromo($request->request->get("promo"));
+        if ($request->request->get("photo") !== "") {
+            $photo = new Photo();
+            $photo->setImgLink($request->request->get("photo"));
+            $entityManager->persist($photo);
+            $article->addPhoto($photo);
+        }
         $article->setCreationDate(new \Datetime());
         $article->setUpdatedDate(new \Datetime());
         $article->setNew(true);
@@ -153,8 +159,19 @@ class ArticleController extends AbstractController
         }
         $entityManager->flush();
         $data = $this->getArticleData($article);
-        $data["status"] = "ok"; 
-        return $this->json($data); 
+        $data["status"] = "ok";
+        return $this->json($data);
+    }
+    /**
+     * @Route("/remove-photo/{id}/{photo}", name="add_photos", methods={"GET"})
+     */
+    public function deletePhoto(Article $article, EntityManagerInterface $entityManager, $photo):Response{
+        $p = $this->getDoctrine()->getRepository(Photo::class)->find($photo);
+        $article->removePhoto($p); 
+        $entityManager->remove($p);
+        $entityManager->flush(); 
+        $data = $this->getArticleData($article);
+        return $this->json($data);
     }
 
     /**
@@ -177,7 +194,10 @@ class ArticleController extends AbstractController
         foreach ($article->getPhotos() as $photo) {
             array_push(
                 $photos,
-                $photo->getImgLink(),
+                [
+                    "imgLink" => $photo->getImgLink(),
+                    "id" => $photo->getId(),
+                ]
             );
         }
         foreach ($article->getCategories() as $cat) {
