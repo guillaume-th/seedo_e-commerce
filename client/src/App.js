@@ -37,9 +37,9 @@ function App() {
   return (
     <div className="App">
       <Router basename="/">
-        {/* <Nav /> */}
+        <Nav />
         <Routes>
-          {/* <Route path="/" element={<Home />} /> */}
+          <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/article/edit/:id" element={<ArticleEdit />} />
           <Route path="/articles" element={<ArticleListing />} />
@@ -47,7 +47,7 @@ function App() {
           <Route path="/order" element={<Order />} />
           <Route path="/order-confirm" element={<OrderConfirm />} />
           <Route path="/admin-articles" element={<AdminArticles />} />
-          <Route path="/" element={<Category />} />
+          <Route path="/admin-category" element={<Category />} />
         </Routes>
       </Router>
     </div>
