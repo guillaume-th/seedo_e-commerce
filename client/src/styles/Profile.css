@@ -1,5 +1,4 @@
 .e_com-footer{
-
   height: 100vh;
   background: linear-gradient(ellipse at bottom, rgba(255, 254, 234, 1) 0%, rgba(255, 254, 234, 1) 35%, #60e9bb 100%);
   overflow: hidden;
@@ -34,30 +33,6 @@ input[type="submit"], button {
   outline: none;
 }
 
-#search {
-  background-color: rgb(166, 211, 155);
-  border-radius: 20px;
-  border: solid white 2px;
-  padding:.65rem;
-}
-
-#icon {
-  width: 100px;
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-  margin-right: 30px;
-}
-
-
-.search:focus {
-  outline: solid greenyellow 3px;
-}
-
-.search_bar {
-  margin-top: 14px;
-  min-width: 200px;
-}
 
 
 /* 
