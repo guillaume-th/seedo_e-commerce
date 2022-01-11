@@ -41,6 +41,17 @@ class Order
      */
     private $articles;
 
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $order_price;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Adress::class, inversedBy="orders")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $adress;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
@@ -107,6 +118,30 @@ class Order
     public function removeArticle(Article $article): self
     {
         $this->articles->removeElement($article);
+
+        return $this;
+    }
+
+    public function getOrderPrice(): ?float
+    {
+        return $this->order_price;
+    }
+
+    public function setOrderPrice(float $order_price): self
+    {
+        $this->order_price = $order_price;
+
+        return $this;
+    }
+
+    public function getAdress(): ?Adress
+    {
+        return $this->adress;
+    }
+
+    public function setAdress(?Adress $adress): self
+    {
+        $this->adress = $adress;
 
         return $this;
     }

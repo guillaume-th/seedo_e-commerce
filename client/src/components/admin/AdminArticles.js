@@ -18,7 +18,6 @@ export default function ArticleListing() {
         fetch(`${API_URL}/article/all`)
             .then(res => res.json())
             .then(res => {
-                console.log(res);
                 res.forEach((e) => {
                     let str = "";
                     e.data.categories.forEach((elt) => {
@@ -69,53 +68,10 @@ export default function ArticleListing() {
             .catch((err) => console.error(err));
     }
 
-    const addToCart = (e, product) => {
-        e.preventDefault();
-        let cartTemp = [...cart];
-        // let cartTemp = JSON.parse(localStorage.getItem("cart")) || [];
-        let obj = { ...product.data };
-        obj.selectedQuantity = Number(document.getElementById(product.data.id).value);
-
-        for (let i = cart.length - 1; i >= 0; i--) {
-            if (cart[i].id === obj.id) {
-                obj.selectedQuantity = Number(cart[i].selectedQuantity) + Number(obj.selectedQuantity);
-                cartTemp.splice(i, 1);
-            }
-        }
-        cartTemp.push(obj);
-        dispatch(updateCart(cartTemp));
-        localStorage.setItem("cart", JSON.stringify(cartTemp));
-    }
 
     if (data) {
         return (
             <div>
-                {
-                    data.map((e) => {
-                        return (
-                            <div key={e.data.id}>
-                                <h3>{e.data.name}</h3>
-                                <p>{e.data.price} €</p>
-                                <p>{e.data.categoriesName}</p>
-                                {e.data.photos[0] &&
-                                    <img src={e.data.photos[0].imgLink}></img>
-
-                                }
-                                {console.log(e.data)}
-                                {admin === "true" &&
-                                    <div>
-                                        <button onClick={() => editArticle(e.data.id)}>Edit</button>
-                                        <button onClick={() => deleteArticle(e.data.id)}>Delete</button>
-                                    </div>
-                                }
-                                <form onSubmit={(event) => addToCart(event, e)}>
-                                    <input type="number" id={e.data.id} defaultValue={1}></input>
-                                    <input type="submit" value="Add to Cart" />
-                                </form>
-                            </div>
-                        )
-                    })
-                }
                 <div className="wrapper">
                     <form encType="multipart/form-data" className="vertical-form" style={{ width: "50%", marginTop: "5rem" }} ref={form} onSubmit={add}>
                         <label>Nom de l'article</label>
@@ -138,6 +94,26 @@ export default function ArticleListing() {
                         <input type="submit" value="Ajouter cet article"></input>
                     </form>
                 </div>
+                {
+                    data.map((e) => {
+                        return (
+                            <div key={e.data.id}>
+                                <h3>{e.data.name}</h3>
+                                <p>{e.data.price} €</p>
+                                <p>{e.data.categoriesName}</p>
+                                {e.data.photos[0] &&
+                                    <img src={e.data.photos[0].imgLink}></img>
+
+                                }
+                                <div>
+                                    <button onClick={() => editArticle(e.data.id)}>Edit</button>
+                                    <button onClick={() => deleteArticle(e.data.id)}>Delete</button>
+                                </div>
+                            </div>
+                        )
+                    })
+                }
+
             </div>
         );
     }
