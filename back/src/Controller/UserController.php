@@ -208,6 +208,7 @@ class UserController extends AbstractController
                 "expiration_CB" => $user->getExpirationCB(),
                 "number_CB" => $user->getNumberCB(),
                 "adresses" => $adresses,
+                "admin" => $user->getAdmin()
             ]
         ];
     }
