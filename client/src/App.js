@@ -11,6 +11,7 @@ import Nav from "./components/Navigation";
 import Order from "./components/Order";
 import OrderConfirm from "./components/OrderConfirm";
 import AdminArticles from "./components/admin/AdminArticles";
+import Category from "./components/Category";
 import { useSelector, useDispatch } from "react-redux";
 import { updateAdmin } from "./AdminSlice";
 import { useEffect } from "react";
@@ -18,27 +19,27 @@ const API_URL = process.env.REACT_APP_API_URL;
 
 function App() {
   /* eslint-disable */
-  const admin = useSelector(state => state.admin.value);
+  const admin = useSelector((state) => state.admin.value);
   const dispatch = useDispatch();
   const user_id = localStorage.getItem("user_id");
 
   useEffect(() => {
-    console.log(admin, user_id); 
+    console.log(admin, user_id);
     if (user_id) {
       fetch(`${API_URL}/user/${user_id}`)
-      .then((res) => res.json())
-      .then((res) => {
-        dispatch(updateAdmin(res.data.admin));
-      })
+        .then((res) => res.json())
+        .then((res) => {
+          dispatch(updateAdmin(res.data.admin));
+        });
     }
   }, []);
 
   return (
     <div className="App">
       <Router basename="/">
-        <Nav />
+        {/* <Nav /> */}
         <Routes>
-          <Route path="/" element={<Home />} />
+          {/* <Route path="/" element={<Home />} /> */}
           <Route path="/profile" element={<Profile />} />
           <Route path="/article/edit/:id" element={<ArticleEdit />} />
           <Route path="/articles" element={<ArticleListing />} />
@@ -46,6 +47,7 @@ function App() {
           <Route path="/order" element={<Order />} />
           <Route path="/order-confirm" element={<OrderConfirm />} />
           <Route path="/admin-articles" element={<AdminArticles />} />
+          <Route path="/" element={<Category />} />
         </Routes>
       </Router>
     </div>
