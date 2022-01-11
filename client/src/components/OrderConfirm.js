@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { updateCart } from "../CartSlice";
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default function OrderConfirm() {
@@ -12,6 +13,7 @@ export default function OrderConfirm() {
   const CBForm = useRef();
   const cart = useSelector((state) => state.cart.value);
   const [error, setError] = useState(null);
+  const dispatch = useDispatch(); 
 
   useEffect(() => {
     if (user_id === null) {
@@ -93,7 +95,7 @@ export default function OrderConfirm() {
         })
           .then((res) => res.json())
           .then((res) => {
-            console.log(res);
+            dispatch(updateCart([])); 
             if (res.status === "ok") {
             }
           })
