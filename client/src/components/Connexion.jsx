@@ -13,7 +13,6 @@ export default function Connexion() {
   //   //Navigate("/profile");
   // }
 
-
   function verifInscriptionForm(form) {
     const verified = [];
     const mustBeVerified = [
@@ -132,7 +131,7 @@ export default function Connexion() {
         if (res.status === "ok") {
           navigate("/");
         }
-        if (res.status != "fail") {
+        if (res.status !== "fail") {
           localStorage.setItem("user_id", res.user_id);
           localStorage.setItem("admin", res.admin);
         }
