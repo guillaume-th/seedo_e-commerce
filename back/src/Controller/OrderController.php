@@ -19,7 +19,7 @@ use App\Entity\User;
 class OrderController extends AbstractController
 {
     /**
-     * @Route("/all", name="order", methods={"GET"})
+     * @Route("/all", name="order_all", methods={"GET"})
      */
     public function index_order(): Response
     {
@@ -81,12 +81,13 @@ class OrderController extends AbstractController
                 $quantityfinal  = $quantity->getQuantity() - $value['quantity'];
                 $quantity->setQuantity($quantityfinal);
             }
+            $article = $this->getDoctrine()->getRepository(Article::class)->find($value['id']);
             for ($i = 0; $i < $value['quantity']; $i++) {
-                $article = $this->getDoctrine()->getRepository(Article::class)->find($value['id']);
                 $Order->addArticle($article);
                 $count++;
             }
         }
+        // dd($Order->getArticles(),$count);
         $entityManager->persist($Order);
         $entityManager->flush();
         $data["status"] = "ok";
@@ -188,7 +189,7 @@ class OrderController extends AbstractController
     }
 
        /**
-     * @Route("/remove/{id}", name="order_remove", methods={"POST"})
+     * @Route("/remove/{id}", name="order_remove", methods={"GET"})
      */
     public function remove_order(Order $order,EntityManagerInterface $entityManager): Response
     {
