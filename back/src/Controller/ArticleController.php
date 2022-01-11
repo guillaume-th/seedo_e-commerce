@@ -138,7 +138,15 @@ class ArticleController extends AbstractController
         return $this->json($data);
     }
 
+    /**
+     * @Route("/add-photos/{id}", name="add_photos", methods={"POST"})
+     */
+    public function addPhoto(Request $request, Article $article): Response
+    {
+        dump($request->request); 
 
+        return $this->json(["status" => "ok"]);
+    }
 
     /**
      * @Route("/delete/{id}", name="delete", methods={"GET"})
