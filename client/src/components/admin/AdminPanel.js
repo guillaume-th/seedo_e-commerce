@@ -1,4 +1,5 @@
 import AdminArticles from "./AdminArticles";
+import AdminOrders from "./AdminOrders";
 import { useState, useEffect } from "react";
 
 export default function AdminPanel() {
@@ -22,6 +23,13 @@ export default function AdminPanel() {
             <div className="admin-content">
                 {activeTab === 1 &&
                     <AdminArticles />
+                }
+                {activeTab === 2  &&
+                    <div></div>
+
+                }
+                {activeTab === 3 &&
+                    <AdminOrders/>
                 }
             </div>
         </div>

@@ -105,7 +105,6 @@ export default function ArticleListing() {
                                     <img src={e.data.photos[0].imgLink}></img>
 
                                 }
-                                {console.log(e.data)}
                                 <div>
                                     <button onClick={() => editArticle(e.data.id)}>Edit</button>
                                     <button onClick={() => deleteArticle(e.data.id)}>Delete</button>

@@ -19,7 +19,7 @@ use App\Entity\User;
 class OrderController extends AbstractController
 {
     /**
-     * @Route("/all", name="order", methods={"GET"})
+     * @Route("/all", name="order_all", methods={"GET"})
      */
     public function index_order(): Response
     {
@@ -188,7 +188,7 @@ class OrderController extends AbstractController
     }
 
        /**
-     * @Route("/remove/{id}", name="order_remove", methods={"POST"})
+     * @Route("/remove/{id}", name="order_remove", methods={"GET"})
      */
     public function remove_order(Order $order,EntityManagerInterface $entityManager): Response
     {
