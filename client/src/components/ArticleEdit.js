@@ -4,8 +4,11 @@ const API_URL = process.env.REACT_APP_API_URL;
 
 export default function ArticleEdit() {
     const editForm = useRef();
+    const photoForm = useRef(); 
     const { id } = useParams();
     const [data, setData] = useState(null);
+    const [photoCounter, setPhotoCounter] = useState(0);
+
     /* eslint-disable */
     useEffect(() => {
         fetch(`${API_URL}/article/${id}`)
@@ -35,16 +38,17 @@ export default function ArticleEdit() {
 
     const addPhoto = e => {
         e.preventDefault();
-        const data = new FormData(photoForm.current);
-        fetch(`${API_URL}/article/add-photo/${id}`, {
+        const photos = []; 
+        for(let elt of document.getElementsByClassName("photo")){
+            photos.push(elt.value); 
+        }
+        fetch(`${API_URL}/article/add-photos/${id}`, {
             method: "POST",
-            body: data,
+            body: JSON.stringify(photos),
         })
             .then(res => res.json())
             .then(res => {
-                if (res.status == "ok") {
-
-                }
+                setData(res.data); 
             })
             .catch(err => console.error(err));
 
@@ -54,6 +58,7 @@ export default function ArticleEdit() {
         const input = document.createElement("input");
         input.type = "text";
         input.placeholder = "http://url_de_votre_image";
+        input.classList.add("photo");
         document.getElementById("photo-inputs").appendChild(input);
     }
 
@@ -81,9 +86,16 @@ export default function ArticleEdit() {
                         <input type="submit" value="Sauvegarder les modifications"></input>
                     </form>
                     <h3>Photos</h3>
+                    {
+                        data.photos.map(e =>{
+                            return(
+                                <img src={e}/>
+                            )
+                        })
+                    }
                     <form id="photo-form" encType="multipart/form-data" ref={photoForm} onSubmit={addPhoto} className="">
                         <div id="photo-inputs">
-                            <input type="text" name="photo" placeholder="http://url_de_votre_image"></input>
+                            <input type="text" name="photo" className="photo" placeholder="http://url_de_votre_image"></input>
                         </div>
                         <button onClick={addPhotoInput}>+</button>
                         <input type="submit" value="Ajouter au produit"></input>

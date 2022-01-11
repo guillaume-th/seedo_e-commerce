@@ -20,6 +20,7 @@ export default function ArticleListing() {
         fetch(`${API_URL}/article/all`)
             .then(res => res.json())
             .then(res => {
+                console.log(res); 
                 res.forEach((e) => {
                     let str = "";
                     e.data.categories.forEach((elt) => {

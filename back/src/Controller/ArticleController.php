@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Entity\Category;
+use App\Entity\Photo;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -141,11 +142,19 @@ class ArticleController extends AbstractController
     /**
      * @Route("/add-photos/{id}", name="add_photos", methods={"POST"})
      */
-    public function addPhoto(Request $request, Article $article): Response
+    public function addPhoto(Request $request, Article $article, EntityManagerInterface $entityManager): Response
     {
-        dump($request->request); 
-
-        return $this->json(["status" => "ok"]);
+        $array = json_decode($request->getContent());
+        foreach ($array as $photo) {
+            $p = new Photo();
+            $p->setImgLink($photo);
+            $article->addPhoto($p);
+            $entityManager->persist($p);
+        }
+        $entityManager->flush();
+        $data = $this->getArticleData($article);
+        $data["status"] = "ok"; 
+        return $this->json($data); 
     }
 
     /**
@@ -166,9 +175,10 @@ class ArticleController extends AbstractController
         $photos = [];
 
         foreach ($article->getPhotos() as $photo) {
-            array_push($photos, [
-                "img_link" => $photo->getImgLink(),
-            ]);
+            array_push(
+                $photos,
+                $photo->getImgLink(),
+            );
         }
         foreach ($article->getCategories() as $cat) {
             // dump($cat);
