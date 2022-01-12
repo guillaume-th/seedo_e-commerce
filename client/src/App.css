@@ -25,7 +25,7 @@
   margin-right: 10px;
 }
 
-#User, #Shop, #Admin {
+#User, #Shop, #Admin, .icon {
   width: 50px;
   height: 50px;
   cursor: pointer;
@@ -136,3 +136,4 @@ input:focus {
 .selected-tab {
   font-weight: 600;
 }
+

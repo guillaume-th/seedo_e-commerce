@@ -11,11 +11,8 @@ import Nav from "./components/Navigation";
 import Order from "./components/Order";
 import OrderConfirm from "./components/OrderConfirm";
 import AdminArticles from "./components/admin/AdminArticles";
-<<<<<<< HEAD
-import Category from "./components/Category";
-=======
+import Category from "./components/admin/AdminCategory";
 import AdminPanel from "./components/admin/AdminPanel";
->>>>>>> 42a8e31f0692db9fe29c7cd384abc8f390d114bb
 import { useSelector, useDispatch } from "react-redux";
 import { updateAdmin } from "./AdminSlice";
 import { useEffect } from "react";
