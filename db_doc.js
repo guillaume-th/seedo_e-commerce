@@ -29,8 +29,8 @@ ORDERS
     id : int, 
     user_id : int, 
     creation_date : int, 
-    order_article_id : int
-    status : string,
+    order_article_id : int, 
+    status : string, 
 }
 
 ORDERS_ARTICLES

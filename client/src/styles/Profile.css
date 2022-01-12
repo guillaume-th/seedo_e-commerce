@@ -1,16 +1,15 @@
 .e_com-footer{
-
   height: 100vh;
   background: linear-gradient(ellipse at bottom, rgba(255, 254, 234, 1) 0%, rgba(255, 254, 234, 1) 35%, #60e9bb 100%);
   overflow: hidden;
 }
 
-input[type="text"], input[type="password"], input[type="email"], input[type="number"], textarea {
+input[type="text"], input[type="password"], input[type="email"], textarea {
   margin: 1rem;
-  border: 2px solid white;
+  border: 1px solid #56752F;
   border-radius: .25rem;
-  padding: 10px 20px 5px 20px;
-  color: white;
+  padding: 10px;
+  color: #56752F;
   background-color: transparent;
   text-transform: uppercase;
 }
@@ -20,18 +19,21 @@ input {
 }
 
 input::placeholder {
-  text-transform: uppercase;
-  color: white;
+  /* text-transform: uppercase; */
+  color: #73C213;
 
 }
 
 input[type="submit"], button {
-  background-color: white;
-  color: green;
-  padding: 10px 20px 5px 20px;
-  text-transform: uppercase;
-  border-radius: .25rem;
-  outline: none;
+  background-color: #56752F;
+  color: whitesmoke;
+  padding: 10px;
+  font-weight: bold;
+  /* text-transform: uppercase; */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 5px auto 15px auto;
 }
 
 

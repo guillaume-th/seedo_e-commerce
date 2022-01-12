@@ -1,17 +1,23 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Placeholder from "./placeholder.png";
+import { useSelector, useDispatch } from "react-redux";
+import { updateCart } from "../CartSlice";
 const API_URL = process.env.REACT_APP_API_URL;
+
 
 
 export default function ArticleListing() {
     const [data, setData] = useState(null);
+    const cart = useSelector((state) => state.cart.value);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const form = useRef();
     const admin = localStorage.getItem("admin");
     const [refresh, setRefresh] = useState(null);
 
     useEffect(() => {
+
         fetch(`${API_URL}/article/all`)
             .then(res => res.json())
             .then(res => {
@@ -35,7 +41,6 @@ export default function ArticleListing() {
     const add = (e) => {
         e.preventDefault();
         const data = new FormData(form.current);
-        console.log(data.get("categories"));
         fetch(`${API_URL}/article/new`, {
             method: "POST",
             body: data,
@@ -66,6 +71,24 @@ export default function ArticleListing() {
             .catch((err) => console.error(err));
     }
 
+    const addToCart = (e, product) => {
+        e.preventDefault();
+        let cartTemp = [...cart];
+        // let cartTemp = JSON.parse(localStorage.getItem("cart")) || [];
+        let obj ={...product.data};
+        obj.selectedQuantity = Number(document.getElementById(product.data.id).value);
+
+        for (let i = cart.length - 1; i >= 0; i--) {
+            if (cart[i].id === obj.id) {
+                obj.selectedQuantity = Number(cart[i].selectedQuantity) + Number(obj.selectedQuantity);
+                cartTemp.splice(i, 1);
+            }
+        }
+        cartTemp.push(obj);
+        dispatch(updateCart(cartTemp));
+        localStorage.setItem("cart", JSON.stringify(cartTemp));
+    }
+
     if (data) {
         return (
             <div>
@@ -75,9 +98,9 @@ export default function ArticleListing() {
                         return (
                             <div key={e.data.id} className="thumbnail">
                                 <img src={Placeholder} alt="some seeds" />
-                                <h4>{e.data.name}</h4>
-                                <p>{e.data.price} €</p>
-                                <p>{e.data.categoriesName}</p>
+                                <h4 className="info">{e.data.name}</h4>
+                                <p className="info">{e.data.price} €</p>
+                                <p className="info">{e.data.categoriesName}</p>
                                 {console.log(e.data)}
                                 {admin === "true" &&
                                     <div>
@@ -85,6 +108,10 @@ export default function ArticleListing() {
                                         <button onClick={() => deleteArticle(e.data.id)}>Delete</button>
                                     </div>
                                 }
+                                <form onSubmit={(event) => addToCart(event, e)}>
+                                    <input type="number" id={e.data.id} defaultValue={1} className="number"></input>
+                                    <input type="submit" value="Add to Cart" className="buttonShop" />
+                                </form>
                             </div>
                         )
                     })
@@ -92,7 +119,7 @@ export default function ArticleListing() {
                 </div>
                 {admin === "true" &&
                     <div className="wrapper">
-                        <form encType="multipart/form-data" className="vertical-form" style={{ width: "50%", marginTop : "5rem" }} ref={form} onSubmit={add}>
+                        <form encType="multipart/form-data" className="vertical-form" style={{ width: "50%", marginTop: "5rem" }} ref={form} onSubmit={add}>
                             <label>Nom de l'article</label>
                             <input name="name" type="text"></input>
                             <label>Description</label>

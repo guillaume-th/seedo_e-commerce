@@ -2,10 +2,6 @@
 /******ALL***********/
 /********************/
 
-input:focus {
-  outline: solid greenyellow 3px;
-}
-
 .wrapper {
   width: 100%;
   display: flex;
@@ -14,13 +10,13 @@ input:focus {
   flex-direction: column;
 }
 
-.modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: rgb(166, 211, 155);
-  width : 50%; 
+.error{
+  color : red; 
+}
+
+input:focus {
+  outline: solid greenyellow 3px;
+  background-color: rgb(202, 233, 194);
 }
 
 /********************/
@@ -29,8 +25,8 @@ input:focus {
 
 #navbar {
   display: flex;
-  background: rgb(188, 222, 171);
-  padding: 10px;
+  background:rgb(188, 222, 171);
+  padding: 15px;
   justify-content: space-between;
 }
 
@@ -47,6 +43,11 @@ input:focus {
   left: -50px;
   top: 4px;
   cursor: pointer;
+}
+
+#logo {
+  cursor: pointer;
+  margin-right: 10px;
 }
 
 #User, #Shop {
@@ -73,6 +74,7 @@ input:focus {
 
 .search_bar {
   min-width: 200px;
+  width: 40vw;
 }
 
 /************************/
@@ -98,19 +100,88 @@ input:focus {
 .thumbnail {
   width: 200px;
   margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   overflow: hidden;
-  border: 2px solid honeydew;
+  border: 2px solid  #76DE62; 
+  border-radius: 10px;
   cursor: pointer;
-}
-
-.thumbnail p {
-  margin: 10px;
+  background-color: whitesmoke;
 }
 
 .thumbnail:hover {
-  -webkit-transform:scale(1.25); /* Safari and Chrome */
-  -moz-transform:scale(1.25); /* Firefox */
-  -ms-transform:scale(1.25); /* IE 9 */
-  -o-transform:scale(1.25); /* Opera */
-  transform:scale(1.25);
+  -webkit-transform:scale(1.1); /* Safari and Chrome */
+  -moz-transform:scale(1.1); /* Firefox */
+  -ms-transform:scale(1.1); /* IE 9 */
+  -o-transform:scale(1.1); /* Opera */
+  transform:scale(1.1);
+}
+
+/* .buttonShop {
+  max-width: 100px;
+  color: whitesmoke;
+  background-color: #76DE62; 
+  border: none;
+  margin: 5px auto;
+} */
+.number {
+  max-width: 50px;
+  margin: 0px;
+}
+
+.info {
+  margin: 10px;
+  width: 180px;
+}
+
+.thumbnail form {
+  max-width: 200px;
+  display: flex;
+  margin: auto;
+}
+/****************************/
+/**********CART**************/
+/****************************/
+
+.cart {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.719);
+  height: 50vh;
+  width: 300px;
+  top: 70px;
+  right: 50px;
+  font-size: 1.25rem;
+  border-radius: .5rem;
+  padding: .5rem;
+  color: rgb(130, 168, 121);
+  overflow-y: scroll;
+}
+
+.cart-total {
+  position: absolute;
+  bottom: 2rem;
+  width: 100%;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(166, 211, 155);
+  width : 50%; 
+}
+
+/***************************/
+/***********ORDER***********/
+/***************************/
+
+.order-adress:hover {
+  cursor: pointer;
+  background-color: rgb(188, 222, 171);
+}
+
+.selected-adress {
+  background-color: rgb(188, 222, 171);
 }
