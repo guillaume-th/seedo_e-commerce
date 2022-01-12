@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import Placeholder from "./placeholder.png";
 import { useSelector, useDispatch } from "react-redux";
 import { updateCart } from "../CartSlice";
 const API_URL = process.env.REACT_APP_API_URL;
@@ -96,34 +97,46 @@ export default function ArticleListing() {
     if (data) {
         return (
             <div>
+                <div id="gallery">
+                    <div id="filtres">
+                        ICI LES FILTRES DE RECHERCHE
+                    </div>
                 {
                     data.map((e) => {
                         return (
-                            <div key={e.data.id} onClick={()=> navigate("/article/" + e.data.id)}>
-                                <h3>{e.data.name}</h3>
+
+                            <div key={e.data.id} onClick={()=> navigate("/article/" + e.data.id)} className="thumbnail">
+                                 <div className="img-wrapper">
+                                    {e.data.photos[0] &&
+                                        <img src={e.data.photos[0].imgLink}/>
+                                    }
+                                </div>
                                 {e.data.new &&
                                     <span className="new">Nouveauté !</span>
                                 }
-                                {e.data.promo > 0
-                                    ? <div>
-                                        <p><strike>{e.data.price} €</strike><span className="promo"> -{e.data.promo}%</span></p>
-                                        <p>{computePrice(e.data)} €</p>
-                                    </div>
-                                    : <p>{e.data.price} €</p>
+                                <div className="infos">
+                                    <div className="sub-info">
+                                        <p className="name">{e.data.name}</p>
+                                        {e.data.promo > 0
+                                            ? <div>
+                                                <p><strike>{e.data.price} €</strike><span className="promo"> -{e.data.promo}%</span></p>
+                                                <p>{computePrice(e.data)} €</p>
+                                            </div>
+                                            : <p>{e.data.price} €</p>
 
-                                }
-                                <p>{e.data.categoriesName}</p>
-                                {e.data.photos[0] &&
-                                    <img src={e.data.photos[0].imgLink} />
-                                }
-                                <form onSubmit={(event) => addToCart(event, e)}>
-                                    <input type="number" id={e.data.id} defaultValue={1}></input>
-                                    <input type="submit" value="Acheter" />
-                                </form>
+                                        }
+                                    </div>
+                                    <p className="cat">{e.data.categoriesName}</p>
+                                    <form onSubmit={(event) => addToCart(event, e)}>
+                                        <input type="number" id={e.data.id} defaultValue={1} className="number"></input>
+                                        <input type="submit" value="Ajouter au panier" className="buttonShop" />
+                                    </form>
+                                </div>
                             </div>
                         )
                     })
                 }
+                </div>
             </div>
         );
     }
