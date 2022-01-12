@@ -45,12 +45,12 @@ export default function ArticleDetail() {
 
     if (data) {
         return (
-            <div>
-                <h2>{data.name}</h2>
+            <div id="ficheDetail">
+                <h2 className="titleName">{data.name}</h2>
                 <div key={data.id}>
                     <form onSubmit={(event) => addToCart(event, data)}>
                         <input type="number" id={data.id} defaultValue={1}></input>
-                        <input type="submit" value="Acheter" />
+                        <input type="submit" value="Ajouter au panier" />
                     </form>
                     <p>{data.categoriesName}</p>
                     <p>photo : </p>
