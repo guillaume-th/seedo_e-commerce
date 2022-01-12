@@ -145,7 +145,7 @@ input:focus {
   width: 270px;
   position: relative;
   z-index: 50;
-  top : -90px;
+  top : -160px;
   left : -10px;
   background-color: rgba(255, 255, 255, 0.9);
   border-bottom-left-radius: 10px;
@@ -153,7 +153,7 @@ input:focus {
 }
 
 .infos:hover {
-  top : -130px;
+  top : -225px;
 }
 
 .sub-info {
@@ -180,7 +180,7 @@ input:focus {
 }
 
 .cat {
-  min-height: 20px;
+  min-height: 40px;
   margin: 0px 10px 5px 10px;
   font-size: 0.6em;
   color: #22460D;
@@ -188,14 +188,32 @@ input:focus {
   text-align: right;
 }
 
-.new {
+.new, .promo, .firstPrice{
   background-color: rgba(255, 255, 255, 0.7);
   position: relative;
-  z-index: 50;
+  z-index: 60;
   padding : .25rem;
-  top: -150px;
+  top: -170px;
 }
 
+.promo {
+  font-weight: bold;
+  color: red;
+  top : -220px;
+  left : 21px;
+  font-size: 1.5em;
+}
+
+.firstPrice {
+  font-weight: bold;
+  left: 200px;
+  top : -230px;
+}
+
+.noPromo {
+  display: block;
+  height: 75px;
+}
 /****************************/
 /**********CART**************/
 /****************************/
@@ -264,9 +282,4 @@ input:focus {
 .category-item:hover {
   cursor: pointer;
   background-color: rgba(255, 255, 255, 0.52);
-}
-
-.promo {
-  border-radius: 100%;
-  font-weight: bold;
 }

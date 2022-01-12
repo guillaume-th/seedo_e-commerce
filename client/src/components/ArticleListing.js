@@ -113,12 +113,18 @@ export default function ArticleListing() {
                                 {e.data.new &&
                                     <span className="new">Nouveauté !</span>
                                 }
+                                {e.data.promo > 0
+                                    ? <><span className="promo"> -{e.data.promo}%</span>
+                                        <p className="firstPrice"><strike>{e.data.price} €</strike></p></>
+                                        
+                                    : <span className="noPromo"></span>
+
+                                }
                                 <div className="infos">
                                     <div className="sub-info">
                                         <p className="name">{e.data.name}</p>
                                         {e.data.promo > 0
-                                            ? <div>
-                                                <p><strike>{e.data.price} €</strike><span className="promo"> -{e.data.promo}%</span></p>
+                                            ? <div className="prices">
                                                 <p>{computePrice(e.data)} €</p>
                                             </div>
                                             : <p>{e.data.price} €</p>
