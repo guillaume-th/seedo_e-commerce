@@ -10,8 +10,8 @@
   flex-direction: column;
 }
 
-.error{
-  color : red; 
+.error {
+  color: red;
 }
 
 input:focus {
@@ -105,7 +105,8 @@ input:focus {
 }
 
 .thumbnail {
-  width: 250px; height: 250px;
+  width: 250px;
+  height: 250px;
   margin: 10px;
   padding: 10px;
   align-items: center;
@@ -116,11 +117,15 @@ input:focus {
 }
 
 .thumbnail:hover {
-  -webkit-transform:scale(1.1); /* Safari and Chrome */
-  -moz-transform:scale(1.1); /* Firefox */
-  -ms-transform:scale(1.1); /* IE 9 */
-  -o-transform:scale(1.1); /* Opera */
-  transform:scale(1.1);
+  -webkit-transform: scale(1.1);
+  /* Safari and Chrome */
+  -moz-transform: scale(1.1);
+  /* Firefox */
+  -ms-transform: scale(1.1);
+  /* IE 9 */
+  -o-transform: scale(1.1);
+  /* Opera */
+  transform: scale(1.1);
 }
 
 .img-wrapper {
@@ -138,22 +143,22 @@ input:focus {
 }
 
 .number, .buttonShop {
-  margin : 5px;
+  margin: 5px;
 }
 
 .infos {
   width: 270px;
   position: relative;
   z-index: 50;
-  top : -160px;
-  left : -10px;
+  top: -160px;
+  left: -10px;
   background-color: rgba(255, 255, 255, 0.9);
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }
 
 .infos:hover {
-  top : -225px;
+  top: -225px;
 }
 
 .sub-info {
@@ -200,11 +205,12 @@ input:focus {
   font-weight: bold;
   color: red;
   top : -220px;
-  left : 21px;
+  left : 22px;
   font-size: 1.5em;
 }
 
 .firstPrice {
+  width: 42px;
   font-weight: bold;
   left: 200px;
   top : -230px;
@@ -244,7 +250,7 @@ input:focus {
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: rgb(166, 211, 155);
-  width : 50%; 
+  width: 50%;
 }
 
 /***************************/
