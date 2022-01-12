@@ -1,6 +1,6 @@
 #navbar {
   display: flex;
-  background:rgb(188, 222, 171);
+  background: rgb(188, 222, 171);
   padding: 15px;
   justify-content: space-between;
 }
@@ -25,7 +25,7 @@
   margin-right: 10px;
 }
 
-#User, #Shop, #Admin {
+#User, #Shop, #Admin, .icon {
   width: 50px;
   height: 50px;
   cursor: pointer;
@@ -36,7 +36,7 @@
   background-color: rgb(166, 211, 155);
   border-radius: 20px;
   border: solid white 2px;
-  padding:.65rem;
+  padding: .65rem;
 }
 
 #icon {
@@ -60,7 +60,7 @@ input:focus {
   flex-direction: column;
 }
 
-.search{
+.search {
   width: 80%;
 }
 
@@ -100,10 +100,10 @@ input:focus {
   background-color: rgb(202, 233, 194);
 }
 
-.search_bar{
+.search_bar {
   margin-top: 10px;
   width: 40vw;
-  min-width:200px;
+  min-width: 200px;
 }
 
 #icon {
@@ -125,14 +125,26 @@ input:focus {
   background-color: rgb(188, 222, 171);
 }
 
-.error{
-  color : red; 
+.error {
+  color: red;
 }
 
-.admin-tab{
-  margin : .5rem; 
+.admin-tab {
+  margin: .5rem;
   cursor: pointer;
 }
+
 .selected-tab {
   font-weight: 600;
+}
+
+.category-item {
+  padding: .5rem;
+  width: max-content;
+  border-radius: .25rem;
+}
+
+.category-item:hover {
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.52);
 }

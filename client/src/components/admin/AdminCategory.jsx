@@ -1,12 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
+import  Delete  from "../../assets/delete.svg";
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default function Category() {
   const [data, setData] = useState(null);
   const createForm = useRef();
   const updateForm = useRef();
-  const deleteForm = useRef();
   const [refresh, setRefresh] = useState(null);
+  const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
     fetch(`${API_URL}/category/all`, {
@@ -16,6 +17,11 @@ export default function Category() {
       .then((res) => res.json())
       .then((res) => setData(res))
       .catch((error) => console.error(error));
+
+      window.addEventListener("keydown",(e)=>{
+        if(e.key === "Escape")
+          setOpenModal(false); 
+      } );
   }, [refresh]);
 
   function createCategory(name) {
@@ -28,22 +34,22 @@ export default function Category() {
       .catch((error) => console.error(error));
   }
 
-  function updateCategory(dataForm) {
-    const id = dataForm.get("id");
+  function updateCategory(dataForm, id) {
     fetch(`${API_URL}/category/${id}/edit`, {
       method: "POST",
       body: dataForm,
     })
       .then((res) => res.json())
-      .then(() => setRefresh(Math.random()))
+      .then(() => {
+        setOpenModal(false);
+        setRefresh(Math.random())
+      })
       .catch((error) => console.error(error));
   }
 
-  function deleteCategory(dataForm) {
-    const id = dataForm.get("id");
+  function deleteCategory(id) {
     fetch(`${API_URL}/category/delete/${id}`, {
       method: "POST",
-      body: dataForm,
     })
       .then((res) => res.json())
       .then(() => setRefresh(Math.random()))
@@ -77,51 +83,38 @@ export default function Category() {
               // eslint-disable-next-line
               return (
                 <>
-                  <li>
-                    Id : {e.id} &nbsp; Categorie : {e.name}
+                  <li className="category-item" onClick={() => setOpenModal(e)}>
+                    Categorie : {e.name}
+                    <img src={Delete} className="icon" onClick={(event) => {event.preventDefault(); event.stopPropagation(); deleteCategory(e.id)}}></img>
                   </li>
                 </>
               );
             })}
           </ul>
         </section>
-        <section>
-          <h2>Update</h2>
-          <form
-            ref={updateForm}
-            encType="multipart/form-data"
-            onSubmit={(e) => {
-              e.preventDefault();
-              let current = new FormData(updateForm.current);
-              updateCategory(current);
-            }}
-          >
-            <label htmlFor="id">
-              <input name="id" type="text" placeholder="id" />
-            </label>
-            <label htmlFor="name">
-              <input name="name" type="text" placeholder="Nouveau nom" />
-            </label>
-            <button type="submit"></button>
-          </form>
-        </section>
-        <section>
-          <h2>Delete</h2>
-          <form
-            ref={deleteForm}
-            encType="multipart/form-data"
-            onSubmit={(e) => {
-              e.preventDefault();
-              let current = new FormData(deleteForm.current);
-              deleteCategory(current);
-            }}
-          >
-            <label>
-              <input name="id" type="text" />
-            </label>
-            <button type="submit">Supprimer</button>
-          </form>
-        </section>
+        {openModal &&
+          <div className="modal">
+            <section>
+              <h2>Mettre à jour</h2>
+              <form
+                ref={updateForm}
+                encType="multipart/form-data"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  let current = new FormData(updateForm.current);
+                  updateCategory(current, openModal.id);
+                }}
+              >
+                <label htmlFor="name">
+                  <input name="name" type="text" placeholder="Nouveau nom" />
+                </label>
+                <input type="submit" value="Modifier"></input>
+                <button onClick={()=>setOpenModal(false)}>Annuler</button>
+              </form>
+            </section>
+          </div>
+        }
+
       </>
     );
   } else {
