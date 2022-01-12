@@ -76,7 +76,7 @@ export default function ArticleListing() {
         // let cartTemp = JSON.parse(localStorage.getItem("cart")) || [];
         let obj = { ...product.data };
         obj.selectedQuantity = Number(document.getElementById(product.data.id).value);
-
+        obj.price = computePrice(obj); 
         for (let i = cart.length - 1; i >= 0; i--) {
             if (cart[i].id === obj.id) {
                 obj.selectedQuantity = Number(cart[i].selectedQuantity) + Number(obj.selectedQuantity);
@@ -88,6 +88,11 @@ export default function ArticleListing() {
         localStorage.setItem("cart", JSON.stringify(cartTemp));
     }
 
+    const computePrice = (e) => {
+        console.log(e); 
+        return Math.round(parseFloat(e.promo > 0 ? e.price - (e.price * e.promo / 100) : e.price), 2);
+    }
+
     if (data) {
         return (
             <div>
@@ -96,10 +101,20 @@ export default function ArticleListing() {
                         return (
                             <div key={e.data.id}>
                                 <h3>{e.data.name}</h3>
-                                <p>{e.data.price} €</p>
+                                {e.data.new &&
+                                    <span className="new">Nouveauté !</span>
+                                }
+                                {e.data.promo > 0
+                                    ? <div>
+                                        <p><strike>{e.data.price} €</strike><span className="promo"> -{e.data.promo}%</span></p>
+                                        <p>{computePrice(e.data)} €</p>
+                                    </div>
+                                    : <p>{e.data.price} €</p>
+
+                                }
                                 <p>{e.data.categoriesName}</p>
                                 {e.data.photos[0] &&
-                                    <img src={e.data.photos[0].imgLink}/>
+                                    <img src={e.data.photos[0].imgLink} />
                                 }
                                 <form onSubmit={(event) => addToCart(event, e)}>
                                     <input type="number" id={e.data.id} defaultValue={1}></input>

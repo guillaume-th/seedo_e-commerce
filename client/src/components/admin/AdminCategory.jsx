@@ -106,7 +106,7 @@ export default function Category() {
                 }}
               >
                 <label htmlFor="name">
-                  <input name="name" type="text" placeholder="Nouveau nom" />
+                  <input name="name" type="text" placeholder="Nouveau nom" defaultValue={openModal.name} />
                 </label>
                 <input type="submit" value="Modifier"></input>
                 <button onClick={()=>setOpenModal(false)}>Annuler</button>

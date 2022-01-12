@@ -148,3 +148,14 @@ input:focus {
   cursor: pointer;
   background-color: rgba(255, 255, 255, 0.52);
 }
+
+.promo {
+  border-radius: 100%;
+  font-weight: bold;
+}
+
+.new{
+  border-radius: .25rem;
+  background-color: rgba(255, 255, 255, 0.52);
+  padding : .25rem
+}
