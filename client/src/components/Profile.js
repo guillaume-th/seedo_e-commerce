@@ -95,14 +95,13 @@ export default function Profile() {
                 {
                     user.adresses.map((e) => {
                         return (
-                            <div key={e.id}>
+                            <div key={e.id} className="edit-adress">
                                 <p>{e.number} {e.street} </p>
                                 <p>{e.city} {e.postal_code}, {e.country}</p>
                                 <button onClick={() => {
                                     setEditedAdress(e);
                                     setModalOpen(true);
                                 }}>Modifier</button>
-                                <hr></hr>
                             </div>
                         );
                     })
@@ -110,14 +109,16 @@ export default function Profile() {
                 {user.adresses.length < 1 &&
                     <p>Pas d'adresse enregistrée</p>
                 }
-                <form className="vertical-form" ref={newAdressForm} onSubmit={addAdress} encType="multipart/form-data">
-                    <input required type="text" className="input-profile" name="number" placeholder="Numéro"></input>
-                    <input required type="text" className="input-profile" name="street" placeholder="Rue"></input>
-                    <input required type="text" className="input-profile" name="city" placeholder="Ville"></input>
-                    <input required type="text" className="input-profile" name="postal_code" placeholder="Code Postal"></input>
-                    <input required type="text" className="input-profile" name="country" placeholder="Pays"></input>
-                    <input required type="submit" value="Ajouter cette adresse"></input>
-                </form>
+                <div className="adress-section">
+                    <form className="vertical-form" ref={newAdressForm} onSubmit={addAdress} encType="multipart/form-data">
+                        <input required type="text" className="input-profile" name="number" placeholder="Numéro"></input>
+                        <input required type="text" className="input-profile" name="street" placeholder="Rue"></input>
+                        <input required type="text" className="input-profile" name="city" placeholder="Ville"></input>
+                        <input required type="text" className="input-profile" name="postal_code" placeholder="Code Postal"></input>
+                        <input required type="text" className="input-profile" name="country" placeholder="Pays"></input>
+                        <input required type="submit" value="Ajouter cette adresse"></input>
+                    </form>
+                </div>
                 <button onClick={
                     () => {
                         localStorage.clear()
@@ -174,10 +175,7 @@ export default function Profile() {
                     </div>
                 )}
 
-                <div className="ocean">
-                    <div className="wave"></div>
-                    <div className="wave"></div>
-                </div>
+           
             </div>
             // </div>
         );

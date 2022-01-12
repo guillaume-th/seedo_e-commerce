@@ -4,11 +4,13 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background:rgba(246, 255, 241, 0.438);
+ 
   background-repeat: no-repeat;
   min-height : 100vh; 
   font-family: "Montserrat", "Segoe UI", sans-serif !important;
   font-size: 1.5rem;
+  /* background-color:#A1D37E; */
+  background: linear-gradient(180deg, rgba(131, 209, 94, 0.54) 0%, rgb(146, 199, 102)100%);
 }
 
 .clickable{

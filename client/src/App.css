@@ -1,8 +1,10 @@
 #navbar {
   display: flex;
-  background:rgba(224, 252, 209, 0.562);
+  background: #ffffff;
+  opacity: 0.6;
   padding: 15px;
   justify-content: space-between;
+  height: 120px;
 }
 
 #graine {
@@ -22,6 +24,8 @@
 
 #logo {
   cursor: pointer;
+  position: relative;
+  z-index: 50;
   margin-right: 10px;
 }
 
@@ -34,7 +38,7 @@
 
 #search {
   /* background-color: rgb(166, 211, 155); */
-  background-color:#22ff055b;
+  background-color:#A1D37E;
   border-radius: 20px;
   border: solid white 2px;
   padding:.65rem;
