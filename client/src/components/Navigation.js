@@ -1,15 +1,18 @@
 import React from "react";
-import User from "../assets/userGreen.png";
-import Shop from "../assets/shopGreen.png";
+import User from "../assets/user.svg";
+import Shop from "../assets/shop.svg";
 import Logo from "../assets/logoSeedo.png";
+import AdminLogo from "../assets/admin.svg";
 import Search from "../assets/searchWhite.png";
 import { useNavigate } from "react-router-dom";
 import Cart from "./Cart";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 export default function Navbar(props) {
   const navigate = useNavigate();
   const [openCart, setOpenCart] = useState(false);
+  const admin = useSelector(state => state.admin.value);
 
   const handleCart = () => {
     setOpenCart(!openCart);
@@ -29,7 +32,11 @@ export default function Navbar(props) {
         />
         <img id="loupe" src={Search} alt="search_logo" />
       </form>
+
       <div id="icon">
+        {admin &&
+          <img src={AdminLogo} alt="Admin-logo" id="Admin" onClick={()=>navigate("/admin-panel")}/>
+        }
         <img id="Shop" src={Shop} alt="Shop_logo" onClick={handleCart} />
         <img
           id="User"
@@ -37,7 +44,7 @@ export default function Navbar(props) {
           onClick={() => navigate("/profile")}
           alt="User_logo"
         />
-        {openCart && <Cart cart={props.cart} />}
+        {openCart && <Cart />}
       </div>
     </div>
   );

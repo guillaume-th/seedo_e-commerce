@@ -1,5 +1,7 @@
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import {updateAdmin} from "../AdminSlice"; 
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default function Connexion() {
@@ -7,6 +9,7 @@ export default function Connexion() {
   const connexionForm = useRef();
   const inscriptionForm = useRef();
   const navigate = useNavigate();
+  const dispatch = useDispatch(); 
 
   // if(localStorage.getItem("user_id")){
   //   console.log("CONNECTED");
@@ -133,7 +136,7 @@ export default function Connexion() {
         }
         if (res.status !== "fail") {
           localStorage.setItem("user_id", res.user_id);
-          localStorage.setItem("admin", res.admin);
+          dispatch(updateAdmin(res.admin)); 
         }
       })
       .catch((error) => console.error(error));

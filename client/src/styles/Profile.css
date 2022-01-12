@@ -6,12 +6,12 @@
 
 input[type="text"], input[type="password"], input[type="email"], textarea {
   margin: 1rem;
-  border: 1px solid #56752F;
   border-radius: .25rem;
   padding: 10px;
   color: #56752F;
-  background-color: transparent;
-  text-transform: uppercase;
+  border: 2px solid white;
+  border-radius: 25rem;
+  border-top: none;
 }
 
 input {
@@ -37,6 +37,38 @@ input[type="submit"], button {
 }
 
 
+
+.profile-section{
+  display: flex;
+  justify-content: space-evenly;
+  width: 80%;
+  
+  margin: 1rem;
+  
+  
+}
+
+.bank-details{
+
+  align-self: flex-end;
+  border-radius: 20px;
+  background: linear-gradient(60deg,#5bd63621,#d61f774b);
+  transform: perspective(1000px);
+  transform-style: preserve-3d;
+  box-shadow:  0 15px 40px rgba(0, 0, 0, 0.20),
+                        0 15px 12px rgba(0, 0, 0, 0.15);
+  margin: 1rem;
+  padding-top: 20px;
+  width: 40%;
+  
+}
+.user-details{
+
+  width: 50%;
+  border-radius: 20px;
+  background: rgba(80, 35, 165, 0.13);
+  margin: 1rem;
+}
 
 /* 
 .ocean {
