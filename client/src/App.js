@@ -7,6 +7,7 @@ import ArticleEdit from "./components/admin/ArticleEdit";
 import ArticleListing from "./components/ArticleListing";
 import Home from "./components/Home";
 import Connexion from "./components/Connexion";
+import ArticleDescription from "./components/ArticleDescription";
 import Nav from "./components/Navigation";
 import Order from "./components/Order";
 import OrderConfirm from "./components/OrderConfirm";
@@ -43,6 +44,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/article/edit/:id" element={<ArticleEdit />} />
+          <Route path="/article/:id" element={<ArticleDescription />} />
           <Route path="/articles" element={<ArticleListing />} />
           <Route path="/auth" element={<Connexion />} />
           <Route path="/order" element={<Order />} />

@@ -67,7 +67,9 @@ export default function ArticleListing() {
             })
             .catch((err) => console.error(err));
     }
-
+    const computePrice = (e) => {
+        return Math.round(parseFloat(e.promo > 0 ? e.price - (e.price * e.promo / 100) : e.price), 2);
+    }
 
     if (data) {
         return (
@@ -99,22 +101,35 @@ export default function ArticleListing() {
                         return (
                             <div key={e.data.id}>
                                 <h3>{e.data.name}</h3>
-                                <p>{e.data.price} €</p>
-                                <p>{e.data.categoriesName}</p>
-                                {e.data.photos[0] &&
-                                    <img src={e.data.photos[0].imgLink}></img>
-
+                                {e.data.new &&
+                                    <span className="new">Nouveauté !</span>
                                 }
-                                <div>
+                                {e.data.quantity > 0
+                                    ? <p>Etat du stock : {e.data.quantity}.</p>
+                                    : <p>En rupture de stock</p>
+                                }
+                                {e.data.promo > 0
+                                    ? <div>
+                                        <p><strike>{e.data.price} €</strike><span className="promo"> -{e.data.promo}%</span></p>
+                                        <p>{computePrice(e.data)} €</p>
+                                    </div>
+                                    : <p>{e.data.price} €</p>
+                                }
+                                <p>{e.data.categoriesName}</p>
+                                {
+                                    e.data.photos[0] &&
+                                    <img src={e.data.photos[0].imgLink}></img>
+                                }
+                                < div >
                                     <button onClick={() => editArticle(e.data.id)}>Edit</button>
                                     <button onClick={() => deleteArticle(e.data.id)}>Delete</button>
                                 </div>
-                            </div>
+                            </div >
                         )
                     })
                 }
 
-            </div>
+            </div >
         );
     }
     else {
