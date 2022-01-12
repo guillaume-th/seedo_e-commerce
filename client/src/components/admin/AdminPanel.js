@@ -1,5 +1,6 @@
 import AdminArticles from "./AdminArticles";
 import AdminOrders from "./AdminOrders";
+import AdminCategory from "./AdminCategory";
 import { useState, useEffect } from "react";
 
 export default function AdminPanel() {
@@ -25,8 +26,7 @@ export default function AdminPanel() {
                     <AdminArticles />
                 }
                 {activeTab === 2  &&
-                    <div></div>
-
+                    <AdminCategory/>
                 }
                 {activeTab === 3 &&
                     <AdminOrders/>

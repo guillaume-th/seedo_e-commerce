@@ -12,6 +12,7 @@ import Nav from "./components/Navigation";
 import Order from "./components/Order";
 import OrderConfirm from "./components/OrderConfirm";
 import AdminArticles from "./components/admin/AdminArticles";
+import Category from "./components/admin/AdminCategory";
 import AdminPanel from "./components/admin/AdminPanel";
 import { useSelector, useDispatch } from "react-redux";
 import { updateAdmin } from "./AdminSlice";
@@ -20,7 +21,7 @@ const API_URL = process.env.REACT_APP_API_URL;
 
 function App() {
   /* eslint-disable */
-  const admin = useSelector(state => state.admin.value);
+  const admin = useSelector((state) => state.admin.value);
   const dispatch = useDispatch();
   const user_id = localStorage.getItem("user_id");
 
@@ -31,7 +32,7 @@ function App() {
         .then((res) => res.json())
         .then((res) => {
           dispatch(updateAdmin(res.data.admin));
-        })
+        });
     }
   }, []);
 
@@ -48,6 +49,8 @@ function App() {
           <Route path="/auth" element={<Connexion />} />
           <Route path="/order" element={<Order />} />
           <Route path="/order-confirm" element={<OrderConfirm />} />
+          <Route path="/admin-articles" element={<AdminArticles />} />
+          <Route path="/admin-category" element={<Category />} />
           <Route path="/admin-panel" element={<AdminPanel/>}/>
         </Routes>
       </Router>

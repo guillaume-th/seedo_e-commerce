@@ -57,16 +57,18 @@ class ArticleController extends AbstractController
 
         foreach ($cat_arr as $value) {
             $value = trim(strtolower($value));
-            $existing_cat = $this->getDoctrine()->getRepository(Category::class)->findBy([
-                "name" => $value
-            ]);
-            if ($existing_cat) {
-                $article->addCategory($existing_cat[0]);
-            } else {
-                $category = new Category();
-                $category->setName($value);
-                $entityManager->persist($category);
-                $article->addCategory($category);
+            if ($value !== "") {
+                $existing_cat = $this->getDoctrine()->getRepository(Category::class)->findBy([
+                    "name" => $value
+                ]);
+                if ($existing_cat) {
+                    $article->addCategory($existing_cat[0]);
+                } else {
+                    $category = new Category();
+                    $category->setName($value);
+                    $entityManager->persist($category);
+                    $article->addCategory($category);
+                }
             }
         }
 
@@ -165,11 +167,12 @@ class ArticleController extends AbstractController
     /**
      * @Route("/remove-photo/{id}/{photo}", name="add_photos", methods={"GET"})
      */
-    public function deletePhoto(Article $article, EntityManagerInterface $entityManager, $photo):Response{
+    public function deletePhoto(Article $article, EntityManagerInterface $entityManager, $photo): Response
+    {
         $p = $this->getDoctrine()->getRepository(Photo::class)->find($photo);
-        $article->removePhoto($p); 
+        $article->removePhoto($p);
         $entityManager->remove($p);
-        $entityManager->flush(); 
+        $entityManager->flush();
         $data = $this->getArticleData($article);
         return $this->json($data);
     }
