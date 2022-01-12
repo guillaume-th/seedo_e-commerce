@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import Placeholder from "./placeholder.png";
 import { useSelector, useDispatch } from "react-redux";
 import { updateCart } from "../CartSlice";
 const API_URL = process.env.REACT_APP_API_URL;
