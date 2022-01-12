@@ -19,7 +19,6 @@ export default function Category() {
       .catch((error) => console.error(error));
 
       window.addEventListener("keydown",(e)=>{
-        console.log(e.key)
         if(e.key === "Escape")
           setOpenModal(false); 
       } );
@@ -84,7 +83,7 @@ export default function Category() {
               // eslint-disable-next-line
               return (
                 <>
-                  <li onClick={() => setOpenModal(e)}>
+                  <li className="category-item" onClick={() => setOpenModal(e)}>
                     Categorie : {e.name}
                     <img src={Delete} className="icon" onClick={(event) => {event.preventDefault(); event.stopPropagation(); deleteCategory(e.id)}}></img>
                   </li>
