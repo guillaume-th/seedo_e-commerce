@@ -93,20 +93,29 @@ export default function ArticleListing() {
         return (
             <div>
                 <div id="gallery">
+                    <div id="filtres">
+                        ICI LES FILTRES DE RECHERCHE
+                    </div>
                 {
                     data.map((e) => {
                         return (
                             <div key={e.data.id} className="thumbnail">
-                                <h3>{e.data.name}</h3>
-                                <p>{e.data.price} €</p>
-                                <p>{e.data.categoriesName}</p>
-                                {e.data.photos[0] &&
-                                    <img src={e.data.photos[0].imgLink}/>
-                                }
-                                <form onSubmit={(event) => addToCart(event, e)}>
-                                    <input type="number" id={e.data.id} defaultValue={1} className="number"></input>
-                                    <input type="submit" value="Add to Cart" className="buttonShop" />
-                                </form>
+                                <div className="img-wrapper">
+                                    {e.data.photos[0] &&
+                                        <img src={e.data.photos[0].imgLink}/>
+                                    }
+                                </div>
+                                <div className="infos">
+                                    <div className="sub-info">
+                                        <p className="name">{e.data.name}</p>
+                                        <p>{e.data.price} €</p>
+                                    </div>
+                                    <p className="cat">{e.data.categoriesName}</p>
+                                    <form onSubmit={(event) => addToCart(event, e)}>
+                                        <input type="number" id={e.data.id} defaultValue={1} className="number"></input>
+                                        <input type="submit" value="Ajouter au panier" className="buttonShop" />
+                                    </form>
+                                </div>
                             </div>
                         )
                     })

@@ -33,7 +33,7 @@ input[type="submit"], button {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin: 5px auto 15px auto;
+  /* margin: 5px auto 15px auto; */
 }
 
 
