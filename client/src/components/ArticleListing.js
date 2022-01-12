@@ -99,7 +99,7 @@ export default function ArticleListing() {
                 {
                     data.map((e) => {
                         return (
-                            <div key={e.data.id}>
+                            <div key={e.data.id} onClick={()=> navigate("/article/" + e.data.id)}>
                                 <h3>{e.data.name}</h3>
                                 {e.data.new &&
                                     <span className="new">Nouveauté !</span>
@@ -118,7 +118,7 @@ export default function ArticleListing() {
                                 }
                                 <form onSubmit={(event) => addToCart(event, e)}>
                                     <input type="number" id={e.data.id} defaultValue={1}></input>
-                                    <input type="submit" value="Add to Cart" />
+                                    <input type="submit" value="Acheter" />
                                 </form>
                             </div>
                         )

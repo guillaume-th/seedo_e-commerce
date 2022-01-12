@@ -7,7 +7,7 @@ import ArticleEdit from "./components/admin/ArticleEdit";
 import ArticleListing from "./components/ArticleListing";
 import Home from "./components/Home";
 import Connexion from "./components/Connexion";
-import ArticleDescription from "./components/articledescription";
+import ArticleDescription from "./components/ArticleDescription";
 import Nav from "./components/Navigation";
 import Order from "./components/Order";
 import OrderConfirm from "./components/OrderConfirm";
