@@ -15,7 +15,10 @@ input[type="text"], input[type="password"], input[type="email"], input[type="num
   margin: 15px 10px;
   border-radius: 10px;
   text-transform: uppercase;
-  border: solid 2px #22460D ;
+  border: none ;
+  height: 30px;
+  background: white;
+  
 }
 
 input {

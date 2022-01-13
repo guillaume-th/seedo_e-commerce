@@ -78,7 +78,7 @@ export default function Profile() {
                 <h1>PROFILE</h1>
                 <div className="profile-section">
 
-                    <form className="vertical-form" ref={userForm} onSubmit={submitUserData} encType="multipart/form-data">
+                    <form className="" ref={userForm} onSubmit={submitUserData} encType="multipart/form-data">
                         <div className="user-details">
                             <h3>Coordonnées</h3>
                            <label>Nom: <input type="text" name="firstname" placeholder="Prénom" defaultValue={user.firstname}></input></label>
@@ -114,7 +114,7 @@ export default function Profile() {
                     <p>Pas d'adresse enregistrée</p>
                 }
                 <div className="adress-section">
-                    <form className="vertical-form" ref={newAdressForm} onSubmit={addAdress} encType="multipart/form-data">
+                    <form className="" ref={newAdressForm} onSubmit={addAdress} encType="multipart/form-data">
                     <label>Numéro:<input required type="text" className="input-profile" name="number" placeholder="Numéro"></input></label>
                     <label>Rue:<input required type="text" className="input-profile" name="street" placeholder="Rue"></input></label>
                     <label>Ville: <input required type="text" className="input-profile" name="city" placeholder="Ville"></input></label>
