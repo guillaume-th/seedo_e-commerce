@@ -42,9 +42,11 @@ li {
 
 #navbar {
   display: flex;
-  background: rgb(188, 222, 171);
+  background: #ffffff;
+  opacity: 0.6;
   padding: 15px;
   justify-content: space-between;
+  height: 120px;
   max-height: 100px;
 
 }
@@ -73,6 +75,8 @@ li {
 
 #logo {
   cursor: pointer;
+  position: relative;
+  z-index: 50;
 
   margin-right: 10px;
 }
@@ -85,7 +89,8 @@ li {
 }
 
 #search {
-  background-color: rgb(166, 211, 155);
+  /* background-color: rgb(166, 211, 155); */
+  background-color:#A1D37E;
   border-radius: 20px;
   border: solid white 2px;
   padding: .65rem;
