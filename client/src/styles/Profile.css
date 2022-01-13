@@ -26,8 +26,8 @@ input {
 }
 
 input::placeholder {
-  text-transform: uppercase;
-  color:  black;
+  /* text-transform: uppercase; */
+  color:rgba(128, 128, 128, 0.801);
 
 }
 
@@ -35,7 +35,27 @@ input::placeholder {
 .profile-section{
   display: flex;
   justify-content: space-evenly;
-  /* width: 80%; */
+  /* 
+  
+  
+  +
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  .git */
   margin: 1rem;
   background-color: #ffffff;
   opacity: 0.5;
