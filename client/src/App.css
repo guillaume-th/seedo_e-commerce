@@ -19,6 +19,16 @@ input:focus {
   background-color: rgb(202, 233, 194);
 }
 
+button, input[type="submit"] {
+  background-color: #24460D;
+  border: 2px solid white;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  padding: .25rem .5rem;
+  font-size: 1rem;
+}
+
 /********************/
 /****NAVBARRE********/
 /********************/
@@ -28,20 +38,20 @@ input:focus {
   background: rgb(188, 222, 171);
   padding: 15px;
   justify-content: space-between;
-  max-height:100px;
-  
+  max-height: 100px;
+
 }
 
-.search_bar{
-  top:-100px;
+.search_bar {
+  top: -100px;
 }
 
 #graine {
   width: 200px;
- 
+
   margin-left: 10px;
   cursor: pointer;
-  position:relative;
+  position: relative;
   z-index: 50;
 }
 
@@ -56,7 +66,7 @@ input:focus {
 
 #logo {
   cursor: pointer;
- 
+
   margin-right: 10px;
 }
 
@@ -170,6 +180,7 @@ input:focus {
   background-color: rgba(255, 255, 255, 0.9);
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
+  height: 300px;
 }
 
 .infos:hover {
@@ -208,19 +219,19 @@ input:focus {
   text-align: right;
 }
 
-.new, .promo, .firstPrice{
+.new, .promo, .firstPrice {
   background-color: rgba(255, 255, 255, 0.7);
   position: relative;
   z-index: 60;
-  padding : .25rem;
+  padding: .25rem;
   top: -170px;
 }
 
 .promo {
   font-weight: bold;
   color: red;
-  top : -220px;
-  left : 22px;
+  top: -220px;
+  left: 22px;
   font-size: 1.5em;
 }
 
@@ -228,13 +239,14 @@ input:focus {
   width: 42px;
   font-weight: bold;
   left: 200px;
-  top : -230px;
+  top: -230px;
 }
 
 .noPromo {
   display: block;
   height: 75px;
 }
+
 /****************************/
 /**********CART**************/
 /****************************/
@@ -254,38 +266,39 @@ input:focus {
 }
 
 
-.formu{
-  padding:15px 15px;
+.formu {
+  padding: 15px 15px;
   border-radius: 20px;
   background-color: rgba(255, 255, 255, 0.600);
-  box-shadow:inset 0 0 20px rgb(238, 233, 233);
+  box-shadow: inset 0 0 20px rgb(238, 233, 233);
 }
 
-.btnRegister, .btnLogin{
-display:flex;
-justify-content: center;
+.btnRegister, .btnLogin {
+  display: flex;
+  justify-content: center;
 
 }
-label{
-   font-weight: bold;
-   color:rgb(13, 70, 13);
-   margin-left:3%;
- }
 
- .button_submit{
-   
-   border-radius:20px;
-   color:white;
-  background:rgb(13, 70, 13);
- }
+label {
+  font-weight: bold;
+  color: rgb(13, 70, 13);
+  margin-left: 3%;
+}
 
-#password, #lastname, #firstname, #confirm_password, #email{
-   background:rgb(255, 255, 255);
-   color : rgb(13, 70, 13);
-   border-top:none;
-   border-radius: 20px;
-  
- }
+.button_submit {
+
+  border-radius: 20px;
+  color: white;
+  background: rgb(13, 70, 13);
+}
+
+#password, #lastname, #firstname, #confirm_password, #email {
+  background: rgb(255, 255, 255);
+  color: rgb(13, 70, 13);
+  border-top: none;
+  border-radius: 20px;
+
+}
 
 
 .search:focus {
@@ -293,10 +306,10 @@ label{
   background-color: rgb(202, 233, 194);
 }
 
-.search_bar{
+.search_bar {
   margin-top: 10px;
   width: 40vw;
-  min-width:200px;
+  min-width: 200px;
 }
 
 #icon {
@@ -337,7 +350,7 @@ label{
 
 .admin-tab {
   margin: .5rem;
-/* .tabs{
+  /* .tabs{
 display:flex;
 justify-content: center;
 } */
@@ -351,13 +364,13 @@ justify-content: center;
 
 
 
-.add_article{
-  width:100%;
+.add_article {
+  width: 100%;
 }
 
 
-.admin-tab{
-  margin : .5rem; 
+.admin-tab {
+  margin: .5rem;
   cursor: pointer;
 }
 
@@ -376,10 +389,33 @@ justify-content: center;
   background-color: rgba(255, 255, 255, 0.52);
 }
 
-.vertical-form{
-  background:rgba(255, 255, 255, 0.600);
-  box-shadow:inset 0 0 30px rgb(255, 255, 255);
-  border-radius:20px;
-  padding:200px 450px  10px 10px;
-  margin:20px 20px;
+.vertical-form {
+  background: rgba(255, 255, 255, 0.600);
+  box-shadow: inset 0 0 30px rgb(255, 255, 255);
+  border-radius: 20px;
+  padding: 200px 450px 10px 10px;
+  margin: 20px 20px;
+}
+
+.orders-admin {
+  padding: 1.5rem;
+  background-color: rgba(255, 255, 255, 0.5);
+  width: 80vw;
+  border-radius: 20px;
+}
+
+.order-admin {
+  padding: 1.5rem;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.5);
+  margin: 1.5rem;
+  width: 350px;
+}
+
+.orders-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  /* display: grid; */
+  /* grid-template-columns: repeat(2, 1fr); */
 }
