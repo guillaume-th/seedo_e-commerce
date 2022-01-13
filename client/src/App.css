@@ -434,3 +434,13 @@ label {
 #category > ul > li {
   list-style: none;
 }
+.carteorder{
+  padding: 1.5rem;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.5);
+  margin : 1.5rem;
+}
+.ordernext{
+  display: flex;
+  justify-content: center;
+}
