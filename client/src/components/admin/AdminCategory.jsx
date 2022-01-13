@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import  Delete  from "../../assets/delete.svg";
+import Delete from "../../assets/delete.svg";
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default function Category() {
@@ -18,10 +18,9 @@ export default function Category() {
       .then((res) => setData(res))
       .catch((error) => console.error(error));
 
-      window.addEventListener("keydown",(e)=>{
-        if(e.key === "Escape")
-          setOpenModal(false); 
-      } );
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") setOpenModal(false);
+    });
   }, [refresh]);
 
   function createCategory(name) {
@@ -42,7 +41,7 @@ export default function Category() {
       .then((res) => res.json())
       .then(() => {
         setOpenModal(false);
-        setRefresh(Math.random())
+        setRefresh(Math.random());
       })
       .catch((error) => console.error(error));
   }
@@ -58,41 +57,46 @@ export default function Category() {
 
   if (data) {
     return (
-      <>
-        <section>
+      <div className="wrapper" id="category">
+        <form
+          ref={createForm}
+          encType="multipart/form-data"
+          onSubmit={(e) => {
+            e.preventDefault();
+            let name = new FormData(createForm.current);
+            createCategory(name);
+          }}
+          className="vertical-form"
+        >
           <h2>Create</h2>
-          <form
-            ref={createForm}
-            encType="multipart/form-data"
-            onSubmit={(e) => {
-              e.preventDefault();
-              let name = new FormData(createForm.current);
-              createCategory(name);
-            }}
-          >
-            <label htmlFor="name">
-              <input name="name" type="text" placeholder="Nom catégorie" />
-            </label>
-            <button type="submit">Creer</button>
-          </form>
-        </section>
-        <section>
+          <label htmlFor="name">
+            <input name="name" type="text" placeholder="Nom catégorie" />
+          </label>
+          <button type="submit">Creer</button>
+        </form>
+        <ul className=" vertical-form">
           <h2>Read</h2>
-          <ul>
-            {data.map((e) => {
-              // eslint-disable-next-line
-              return (
-                <>
-                  <li className="category-item" onClick={() => setOpenModal(e)}>
-                    Categorie : {e.name}
-                    <img src={Delete} className="icon" onClick={(event) => {event.preventDefault(); event.stopPropagation(); deleteCategory(e.id)}}></img>
-                  </li>
-                </>
-              );
-            })}
-          </ul>
-        </section>
-        {openModal &&
+          {data.map((e) => {
+            // eslint-disable-next-line
+            return (
+              <>
+                <li className="category-item" onClick={() => setOpenModal(e)}>
+                  Categorie : {e.name}
+                  <img
+                    src={Delete}
+                    className="icon"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      event.stopPropagation();
+                      deleteCategory(e.id);
+                    }}
+                  ></img>
+                </li>
+              </>
+            );
+          })}
+        </ul>
+        {openModal && (
           <div className="modal">
             <section>
               <h2>Mettre à jour</h2>
@@ -106,16 +110,20 @@ export default function Category() {
                 }}
               >
                 <label htmlFor="name">
-                  <input name="name" type="text" placeholder="Nouveau nom" defaultValue={openModal.name} />
+                  <input
+                    name="name"
+                    type="text"
+                    placeholder="Nouveau nom"
+                    defaultValue={openModal.name}
+                  />
                 </label>
                 <input type="submit" value="Modifier"></input>
-                <button onClick={()=>setOpenModal(false)}>Annuler</button>
+                <button onClick={() => setOpenModal(false)}>Annuler</button>
               </form>
             </section>
           </div>
-        }
-
-      </>
+        )}
+      </div>
     );
   } else {
     return <p>Chargement en cours...</p>;
