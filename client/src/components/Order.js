@@ -24,7 +24,7 @@ export default function Order() {
     if (cart.length > 0) {
         return (
             <div className="wrapper">
-                <div  className="order-wrapper">
+                <div className="order-wrapper">
                     <div className="order">
                         <h2 style={{ display: "flex", justifyContent: "center" }} >Récapitulatif de votre commande</h2>
                         {
@@ -47,9 +47,9 @@ export default function Order() {
                         <div className="order-total">
                             <p style={{ marginBottom: ".25rem", display: "flex", justifyContent: "center" }}> Total : {reduce()} €</p>
                             <div className="ordernext">
-                                <button style={{ fontSize: "1.25rem", width: "90%" }}
+                                <button
                                     onClick={() => navigate("/order-confirm")}
-                                    style={{ width: "80%", height: "20%", backgroundColor: "rgb(13,70,13)" }}
+                                    style={{ height: "20%", backgroundColor: "rgb(13,70,13)" }}
                                 >
                                     Passer à l'étape suivante
                                 </button>

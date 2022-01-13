@@ -1,12 +1,13 @@
-.e_com-footer{
+.e_com-footer {
   height: 100vh;
   overflow: hidden;
 }
-h3{
+
+h3 {
   color: #22460D;
 }
 
-.wrapper{
+.wrapper {
   display: flex;
 }
 
@@ -15,10 +16,10 @@ input[type="text"], input[type="password"], input[type="email"], input[type="num
   margin: 15px 10px;
   border-radius: 10px;
   text-transform: uppercase;
-  border: none ;
+  border: none;
   height: 30px;
   background: white;
-  
+
 }
 
 input {
@@ -27,66 +28,46 @@ input {
 
 input::placeholder {
   /* text-transform: uppercase; */
-  color:rgba(128, 128, 128, 0.801);
+  color: rgba(128, 128, 128, 0.801);
 
 }
 
 
-.profile-section{
+.profile-section {
   display: flex;
   justify-content: space-evenly;
-  /* 
-  
-  
-  +
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  .git */
   margin: 1rem;
   background-color: #ffffff;
   opacity: 0.5;
   border-radius: 10px;
 }
 
-.bank-details{
+.bank-details {
   border-radius: 20px;
   color: #ffffff;
   margin: 1rem;
   padding-top: 20px;
   width: 40%;
 }
-.user-details{
+
+.user-details {
   width: 50%;
   border-radius: 20px;
   margin: 1rem;
 }
 
-.adress-section{
- align-self: flex-start;
- margin-left: 260px;
- background-color: #ffffff;
- border-radius: 10px;
- opacity: 0.5;
+.adress-section {
+  align-self: flex-start;
+  margin-left: 260px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  opacity: 0.5;
 }
-.edit-adress{
+
+.edit-adress {
   position: absolute;
   color: #ffffff;
   align-self: center;
   margin-top: 30em;
   margin-left: 25em;
 }
-

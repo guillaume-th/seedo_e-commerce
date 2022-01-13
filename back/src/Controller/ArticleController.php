@@ -75,10 +75,6 @@ class ArticleController extends AbstractController
 
         $entityManager->persist($article);
         $entityManager->flush();
-        // foreach ($article->getCategories() as $value) {
-        //     dump($value->getName());
-        // }
-
         $articles =  $this->getDoctrine()->getRepository(Article::class)->findAll();
         $data = [];
         foreach ($articles as $article) {
