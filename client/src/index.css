@@ -4,22 +4,12 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-<<<<<<< HEAD
- 
-  background-repeat: no-repeat;
-  min-height : 100vh; 
-  font-family: "Montserrat", "Segoe UI", sans-serif !important;
-  font-size: 1.5rem;
-  /* background-color:#A1D37E; */
-  background: linear-gradient(180deg, rgba(131, 209, 94, 0.54) 0%, rgb(146, 199, 102)100%);
-=======
   /* background: linear-gradient(180deg, rgba(131, 209, 94, 0.54) 0%, rgb(146, 199, 102) 100%); */
   background: linear-gradient(180deg, rgba(131, 209, 94, 0.54) 0%, rgb(146, 199, 102) 100%);
   background-repeat: no-repeat;
   min-height : 100vh; 
   font-family: "Montserrat", "Segoe UI", sans-serif !important;
   font-size: 1.3rem;
->>>>>>> 03ec86e9e4064469a2b1f265010ee1d3e507e1bb
 }
 
 .clickable{

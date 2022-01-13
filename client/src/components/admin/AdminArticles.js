@@ -18,10 +18,6 @@ export default function ArticleListing() {
         fetch(`${API_URL}/article/all`)
             .then(res => res.json())
             .then(res => {
-<<<<<<< HEAD
-                console.log(res);
-=======
->>>>>>> 03ec86e9e4064469a2b1f265010ee1d3e507e1bb
                 res.forEach((e) => {
                     let str = "";
                     e.data.categories.forEach((elt) => {
@@ -71,62 +67,13 @@ export default function ArticleListing() {
             })
             .catch((err) => console.error(err));
     }
-<<<<<<< HEAD
-
-    const addToCart = (e, product) => {
-        e.preventDefault();
-        let cartTemp = [...cart];
-        // let cartTemp = JSON.parse(localStorage.getItem("cart")) || [];
-        let obj = { ...product.data };
-        obj.selectedQuantity = Number(document.getElementById(product.data.id).value);
-
-        for (let i = cart.length - 1; i >= 0; i--) {
-            if (cart[i].id === obj.id) {
-                obj.selectedQuantity = Number(cart[i].selectedQuantity) + Number(obj.selectedQuantity);
-                cartTemp.splice(i, 1);
-            }
-        }
-        cartTemp.push(obj);
-        dispatch(updateCart(cartTemp));
-        localStorage.setItem("cart", JSON.stringify(cartTemp));
-=======
     const computePrice = (e) => {
         return Math.round(parseFloat(e.promo > 0 ? e.price - (e.price * e.promo / 100) : e.price), 2);
->>>>>>> 03ec86e9e4064469a2b1f265010ee1d3e507e1bb
     }
 
     if (data) {
         return (
             <div>
-<<<<<<< HEAD
-                {
-                    data.map((e) => {
-                        return (
-                            <div key={e.data.id}>
-                                <h3>{e.data.name}</h3>
-                                <p>{e.data.price} €</p>
-                                <p>{e.data.categoriesName}</p>
-                                {e.data.photos[0] &&
-                                    <img src={e.data.photos[0].imgLink}></img>
-
-                                }
-                                {console.log(e.data)}
-                                {admin === "true" &&
-                                    <div>
-                                        <button onClick={() => editArticle(e.data.id)}>Edit</button>
-                                        <button onClick={() => deleteArticle(e.data.id)}>Delete</button>
-                                    </div>
-                                }
-                                <form onSubmit={(event) => addToCart(event, e)}>
-                                    <input type="number" id={e.data.id} defaultValue={1}></input>
-                                    <input type="submit" value="Add to Cart" />
-                                </form>
-                            </div>
-                        )
-                    })
-                }
-=======
->>>>>>> 03ec86e9e4064469a2b1f265010ee1d3e507e1bb
                 <div className="wrapper">
                     <form encType="multipart/form-data" className="vertical-form" style={{ width: "50%", marginTop: "5rem" }} ref={form} onSubmit={add}>
                         <label>Nom de l'article</label>
@@ -149,9 +96,6 @@ export default function ArticleListing() {
                         <input type="submit" value="Ajouter cet article"></input>
                     </form>
                 </div>
-<<<<<<< HEAD
-            </div>
-=======
                 {
                     data.map((e) => {
                         return (
@@ -186,7 +130,6 @@ export default function ArticleListing() {
                 }
 
             </div >
->>>>>>> 03ec86e9e4064469a2b1f265010ee1d3e507e1bb
         );
     }
     else {

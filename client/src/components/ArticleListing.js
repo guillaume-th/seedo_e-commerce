@@ -97,33 +97,6 @@ export default function ArticleListing() {
     if (data) {
         return (
             <div>
-<<<<<<< HEAD
-                {
-                    data.map((e) => {
-                        return (
-                            <div key={e.data.id}>
-                                <h3>{e.data.name}</h3>
-                                <p>{e.data.price} €</p>
-                                <p>{e.data.categoriesName}</p>
-                                {e.data.photos[0] &&
-                                    <img src={e.data.photos[0].imgLink}/>
-                                }
-                                {/* {console.log(e.data)} */}
-                                {admin === "true" &&
-                                    <div>
-                                        <button onClick={() => editArticle(e.data.id)}>Edit</button>
-                                        <button onClick={() => deleteArticle(e.data.id)}>Delete</button>
-                                    </div>
-                                }
-                                <form onSubmit={(event) => addToCart(event, e)}>
-                                    <input type="number" id={e.data.id} defaultValue={1}></input>
-                                    <input type="submit" value="Add to Cart" />
-                                </form>
-                            </div>
-                        )
-                    })
-                }
-=======
                 <div id="gallery">
                     <div id="filtres">
                         ICI LES FILTRES DE RECHERCHE
@@ -173,7 +146,6 @@ export default function ArticleListing() {
                         })
                     }
                 </div>
->>>>>>> 03ec86e9e4064469a2b1f265010ee1d3e507e1bb
             </div>
         );
     }

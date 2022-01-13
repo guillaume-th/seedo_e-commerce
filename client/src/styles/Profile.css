@@ -10,23 +10,12 @@ h3{
   display: flex;
 }
 
-<<<<<<< HEAD
 input[type="text"], input[type="password"], input[type="email"], input[type="number"], textarea {
   padding: 5px 5px;
   margin: 15px 10px;
   border-radius: 10px;
   text-transform: uppercase;
   border: solid 2px #22460D ;
-=======
-input[type="text"], input[type="password"], input[type="email"], textarea {
-  margin: 1rem;
-  border-radius: .25rem;
-  padding: 10px;
-  color: #56752F;
-  border: 2px solid white;
-  border-radius: 25rem;
-  border-top: none;
->>>>>>> 03ec86e9e4064469a2b1f265010ee1d3e507e1bb
 }
 
 input {
@@ -34,29 +23,12 @@ input {
 }
 
 input::placeholder {
-<<<<<<< HEAD
   text-transform: uppercase;
   color:  black;
-=======
-  /* text-transform: uppercase; */
-  color: #73C213;
->>>>>>> 03ec86e9e4064469a2b1f265010ee1d3e507e1bb
 
 }
 
 input[type="submit"], button {
-<<<<<<< HEAD
-  background:   #22460D;
-  color: #ffffff;
-  text-transform: uppercase;
-  border: solid 2px #ffffff ;
-  border-radius: 10px;
-  outline: none;
-  padding: 10px;
-  align-self: flex-end;
-  display: flex;
-  cursor: pointer;
-=======
   background-color: #56752F;
   color: whitesmoke;
   padding: 10px;
@@ -66,7 +38,6 @@ input[type="submit"], button {
   border-radius: 5px;
   cursor: pointer;
   /* margin: 5px auto 15px auto; */
->>>>>>> 03ec86e9e4064469a2b1f265010ee1d3e507e1bb
 }
 
 

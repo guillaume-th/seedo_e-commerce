@@ -130,10 +130,6 @@ export default function Profile() {
                         navigate("/");
                     }
                 }> Logout</button>
-<<<<<<< HEAD
-=======
-
->>>>>>> 03ec86e9e4064469a2b1f265010ee1d3e507e1bb
                 {modalOpen && (
                     <div id="adress-modal" class="modal">
                         <form
@@ -184,14 +180,7 @@ export default function Profile() {
                     </div>
                 )}
 
-<<<<<<< HEAD
            
-=======
-                <div className="ocean">
-                    <div className="wave"></div>
-                    <div className="wave"></div>
-                </div>
->>>>>>> 03ec86e9e4064469a2b1f265010ee1d3e507e1bb
             </div>
             // </div>
         );
