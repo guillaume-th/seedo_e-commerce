@@ -1,5 +1,7 @@
 import { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux"; 
+import { updateAdmin} from "../AdminSlice";
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default function Profile() {
@@ -11,6 +13,8 @@ export default function Profile() {
     const [modalOpen, setModalOpen] = useState(false);
     const [editedAdress, setEditedAdress] = useState(false);
     const navigate = useNavigate();
+    const dispatch = useDispatch(); 
+    const cart = useSelector(state => state.cart.value); 
 
     useEffect(() => {
         if (user_id === null) {
@@ -121,6 +125,7 @@ export default function Profile() {
                 <button onClick={
                     () => {
                         localStorage.clear()
+                        dispatch(updateAdmin(false)); 
                         navigate("/");
                     }
                 }> Logout</button>
