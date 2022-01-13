@@ -45,23 +45,31 @@ export default function ArticleDetail() {
 
     if (data) {
         return (
-            <div id="ficheDetail">
-                <h2 className="titleName">{data.name}</h2>
-                <div key={data.id}>
+            <div>
+                <div key={data.id} id="ficheDetail">
+                    <h2 className="titleName">{data.name}</h2>
                     <form onSubmit={(event) => addToCart(event, data)}>
                         <input type="number" id={data.id} defaultValue={1}></input>
                         <input type="submit" value="Ajouter au panier" />
                     </form>
                     <p>{data.categoriesName}</p>
                     <p>photo : </p>
-                    <ul>
+                    <ul className="photos">
                         {
                             data.photos.map(i => {
-                                return (
-                                    i &&
-                                    <img key={i.id} src={i.imgLink}></img>
-
-                                )
+                                console.log(i.id);
+                                if(i.id == 1){
+                                    return (
+                                        i &&
+                                        <img key={i.id} src={i.imgLink} className="imgPrincipal"></img>
+                                    )
+                                }else{
+                                    return (
+                                        i &&
+                                        <img key={i.id} src={i.imgLink} className="imgSecondaire"></img>
+                                    )
+                                }
+                                
                             })
                         }
                     </ul>
