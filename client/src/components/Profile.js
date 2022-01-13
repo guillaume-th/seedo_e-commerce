@@ -81,16 +81,16 @@ export default function Profile() {
                     <form className="vertical-form" ref={userForm} onSubmit={submitUserData} encType="multipart/form-data">
                         <div className="user-details">
                             <h3>Coordonnées</h3>
-                            <input type="text" name="firstname" placeholder="Prénom" defaultValue={user.firstname}></input>
-                            <input type="text" name="lastname" placeholder="Nom de famille" defaultValue={user.lastname}></input>
-                            <input type="text" name="email" placeholder="Email" defaultValue={user.email}></input>
-                            <input type="text" name="telephone" placeholder="Téléphone" defaultValue={user.telephone}></input>
+                           <label>Nom: <input type="text" name="firstname" placeholder="Prénom" defaultValue={user.firstname}></input></label>
+                            <label>Prenom:<input type="text" name="lastname" placeholder="Nom de famille" defaultValue={user.lastname}></input></label>
+                            <label> Email:<input type="text" name="email" placeholder="Email" defaultValue={user.email}></input></label>
+                            <label> Telephone: <input type="text" name="telephone" placeholder="Téléphone" defaultValue={user.telephone}></input></label>
                         </div>
                         <div className="bank-details">
                             <h3>Coordonnées bancaires</h3>
-                            <input type="text" name="number_CB" placeholder="Numéro de carte bancaire" minLength={16} maxLength={16} defaultValue={user.number_CB}></input>
-                            <input type="text" name="cvv" placeholder="CVV" minLength={3} maxLength={3} defaultValue={user.cvv}></input>
-                            <input type="text" name="expiration_CB" placeholder="Date d'expiration" minLength={5} maxLength={5} defaultValue={user.expiration_CB}></input>
+                            <label>Numéro CB<input type="text" name="number_CB" placeholder="Numéro de carte bancaire" minLength={16} maxLength={16} defaultValue={user.number_CB}></input></label>
+                            <label>CVV<input type="text" name="cvv" placeholder="CVV" minLength={3} maxLength={3} defaultValue={user.cvv}></input></label>
+                            <label>Date d'expiration<input type="text" name="expiration_CB" placeholder="Date d'expiration" minLength={5} maxLength={5} defaultValue={user.expiration_CB}></input></label>
                         </div>
                         <input type="submit" value="Sauvegarder les modifications"></input>
                     </form>
@@ -99,14 +99,13 @@ export default function Profile() {
                 {
                     user.adresses.map((e) => {
                         return (
-                            <div key={e.id}>
+                            <div key={e.id} className="edit-adress">
                                 <p>{e.number} {e.street} </p>
                                 <p>{e.city} {e.postal_code}, {e.country}</p>
                                 <button onClick={() => {
                                     setEditedAdress(e);
                                     setModalOpen(true);
                                 }}>Modifier</button>
-                                <hr></hr>
                             </div>
                         );
                     })
@@ -114,14 +113,16 @@ export default function Profile() {
                 {user.adresses.length < 1 &&
                     <p>Pas d'adresse enregistrée</p>
                 }
-                <form className="vertical-form" ref={newAdressForm} onSubmit={addAdress} encType="multipart/form-data">
-                    <input required type="text" className="input-profile" name="number" placeholder="Numéro"></input>
-                    <input required type="text" className="input-profile" name="street" placeholder="Rue"></input>
-                    <input required type="text" className="input-profile" name="city" placeholder="Ville"></input>
-                    <input required type="text" className="input-profile" name="postal_code" placeholder="Code Postal"></input>
-                    <input required type="text" className="input-profile" name="country" placeholder="Pays"></input>
-                    <input required type="submit" value="Ajouter cette adresse"></input>
-                </form>
+                <div className="adress-section">
+                    <form className="vertical-form" ref={newAdressForm} onSubmit={addAdress} encType="multipart/form-data">
+                    <label>Numéro:<input required type="text" className="input-profile" name="number" placeholder="Numéro"></input></label>
+                    <label>Rue:<input required type="text" className="input-profile" name="street" placeholder="Rue"></input></label>
+                    <label>Ville: <input required type="text" className="input-profile" name="city" placeholder="Ville"></input></label>
+                    <label>Code Postal: <input required type="text" className="input-profile" name="postal_code" placeholder="Code Postal"></input></label>
+                    <label>Pays:<input required type="text" className="input-profile" name="country" placeholder="Pays"></input></label>
+                     <input required type="submit" value="Ajouter cette adresse"></input>
+                    </form>
+                </div>
                 <button onClick={
                     () => {
                         localStorage.clear()
@@ -129,7 +130,6 @@ export default function Profile() {
                         navigate("/");
                     }
                 }> Logout</button>
-
                 {modalOpen && (
                     <div id="adress-modal" class="modal">
                         <form
@@ -180,10 +180,7 @@ export default function Profile() {
                     </div>
                 )}
 
-                <div className="ocean">
-                    <div className="wave"></div>
-                    <div className="wave"></div>
-                </div>
+           
             </div>
             // </div>
         );
