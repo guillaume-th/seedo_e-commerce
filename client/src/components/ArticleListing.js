@@ -72,11 +72,13 @@ export default function ArticleListing() {
 
     const addToCart = (e, product) => {
         e.preventDefault();
+        e.stopPropagation(); 
+        console.log(e); 
         let cartTemp = [...cart];
         // let cartTemp = JSON.parse(localStorage.getItem("cart")) || [];
         let obj = { ...product.data };
         obj.selectedQuantity = Number(document.getElementById(product.data.id).value);
-
+        obj.price = computePrice(obj);
         for (let i = cart.length - 1; i >= 0; i--) {
             if (cart[i].id === obj.id) {
                 obj.selectedQuantity = Number(cart[i].selectedQuantity) + Number(obj.selectedQuantity);
@@ -88,9 +90,14 @@ export default function ArticleListing() {
         localStorage.setItem("cart", JSON.stringify(cartTemp));
     }
 
+    const computePrice = (e) => {
+        return Math.round(parseFloat(e.promo > 0 ? e.price - (e.price * e.promo / 100) : e.price), 2);
+    }
+
     if (data) {
         return (
             <div>
+<<<<<<< HEAD
                 {
                     data.map((e) => {
                         return (
@@ -116,6 +123,57 @@ export default function ArticleListing() {
                         )
                     })
                 }
+=======
+                <div id="gallery">
+                    <div id="filtres">
+                        ICI LES FILTRES DE RECHERCHE
+                    </div>
+                    {
+                        data.map((e) => {
+                            return (
+
+                                <div key={e.data.id} onClick={(ev) => {
+                                    if(!ev.target.classList.contains("buttonShop")){
+                                        navigate("/article/" + e.data.id)
+                                    }}} className="thumbnail">
+                                        <div className="img-wrapper">
+                                            {e.data.photos[0] &&
+                                                <img src={e.data.photos[0].imgLink} />
+                                            }
+                                        </div>
+                                    {e.data.new &&
+                                        <span className="new">Nouveauté !</span>
+                                    }
+                               
+                                {e.data.promo > 0
+                                    ? <><span className="promo"> -{e.data.promo}%</span>
+                                        <p className="firstPrice"><strike>{e.data.price} €</strike></p></>
+                                        
+                                    : <span className="noPromo"></span>
+
+                                }
+                                <div className="infos">
+                                    <div className="sub-info">
+                                        <p className="name">{e.data.name}</p>
+                                        {e.data.promo > 0
+                                            ? <div className="prices">
+                                                <p>{computePrice(e.data)} €</p>
+                                            </div>
+                                            : <p>{e.data.price} €</p>
+                                        }
+                                        </div>
+                                        <p className="cat">{e.data.categoriesName}</p>
+                                        <form onSubmit={(event) => addToCart(event, e)}>
+                                            <input type="number" id={e.data.id} defaultValue={1} className="number"></input>
+                                            <input type="submit" value="Ajouter au panier" className="buttonShop" />
+                                        </form>
+                                    </div>
+                                </div>
+                            )
+                        })
+                    }
+                </div>
+>>>>>>> 03ec86e9e4064469a2b1f265010ee1d3e507e1bb
             </div>
         );
     }

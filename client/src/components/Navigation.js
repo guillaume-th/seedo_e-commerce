@@ -2,7 +2,11 @@ import React from "react";
 import User from "../assets/user.svg";
 import Shop from "../assets/shop.svg";
 import Logo from "../assets/logoSeedo.png";
+<<<<<<< HEAD
 import AdminLogo from "../assets/admin.svg";
+=======
+// import AdminLogo from "../assets/admin.svg";
+>>>>>>> 03ec86e9e4064469a2b1f265010ee1d3e507e1bb
 import Search from "../assets/searchWhite.png";
 import { useNavigate } from "react-router-dom";
 import Cart from "./Cart";
@@ -34,9 +38,15 @@ export default function Navbar(props) {
       </form>
 
       <div id="icon">
+<<<<<<< HEAD
         {admin &&
           <img src={AdminLogo} alt="Admin-logo" id="Admin"/>
         }
+=======
+        {/* {admin &&
+          <img src={AdminLogo} alt="Admin-logo" id="Admin" onClick={()=>navigate("/admin-panel")}/>
+        } */}
+>>>>>>> 03ec86e9e4064469a2b1f265010ee1d3e507e1bb
         <img id="Shop" src={Shop} alt="Shop_logo" onClick={handleCart} />
         <img
           id="User"

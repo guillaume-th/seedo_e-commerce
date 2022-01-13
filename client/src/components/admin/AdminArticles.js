@@ -18,7 +18,10 @@ export default function ArticleListing() {
         fetch(`${API_URL}/article/all`)
             .then(res => res.json())
             .then(res => {
+<<<<<<< HEAD
                 console.log(res);
+=======
+>>>>>>> 03ec86e9e4064469a2b1f265010ee1d3e507e1bb
                 res.forEach((e) => {
                     let str = "";
                     e.data.categories.forEach((elt) => {
@@ -68,6 +71,7 @@ export default function ArticleListing() {
             })
             .catch((err) => console.error(err));
     }
+<<<<<<< HEAD
 
     const addToCart = (e, product) => {
         e.preventDefault();
@@ -85,11 +89,16 @@ export default function ArticleListing() {
         cartTemp.push(obj);
         dispatch(updateCart(cartTemp));
         localStorage.setItem("cart", JSON.stringify(cartTemp));
+=======
+    const computePrice = (e) => {
+        return Math.round(parseFloat(e.promo > 0 ? e.price - (e.price * e.promo / 100) : e.price), 2);
+>>>>>>> 03ec86e9e4064469a2b1f265010ee1d3e507e1bb
     }
 
     if (data) {
         return (
             <div>
+<<<<<<< HEAD
                 {
                     data.map((e) => {
                         return (
@@ -116,6 +125,8 @@ export default function ArticleListing() {
                         )
                     })
                 }
+=======
+>>>>>>> 03ec86e9e4064469a2b1f265010ee1d3e507e1bb
                 <div className="wrapper">
                     <form encType="multipart/form-data" className="vertical-form" style={{ width: "50%", marginTop: "5rem" }} ref={form} onSubmit={add}>
                         <label>Nom de l'article</label>
@@ -138,7 +149,44 @@ export default function ArticleListing() {
                         <input type="submit" value="Ajouter cet article"></input>
                     </form>
                 </div>
+<<<<<<< HEAD
             </div>
+=======
+                {
+                    data.map((e) => {
+                        return (
+                            <div key={e.data.id}>
+                                <h3>{e.data.name}</h3>
+                                {e.data.new &&
+                                    <span className="new">Nouveauté !</span>
+                                }
+                                {e.data.quantity > 0
+                                    ? <p>Etat du stock : {e.data.quantity}.</p>
+                                    : <p>En rupture de stock</p>
+                                }
+                                {e.data.promo > 0
+                                    ? <div>
+                                        <p><strike>{e.data.price} €</strike><span className="promo"> -{e.data.promo}%</span></p>
+                                        <p>{computePrice(e.data)} €</p>
+                                    </div>
+                                    : <p>{e.data.price} €</p>
+                                }
+                                <p>{e.data.categoriesName}</p>
+                                {
+                                    e.data.photos[0] &&
+                                    <img src={e.data.photos[0].imgLink}></img>
+                                }
+                                < div >
+                                    <button onClick={() => editArticle(e.data.id)}>Edit</button>
+                                    <button onClick={() => deleteArticle(e.data.id)}>Delete</button>
+                                </div>
+                            </div >
+                        )
+                    })
+                }
+
+            </div >
+>>>>>>> 03ec86e9e4064469a2b1f265010ee1d3e507e1bb
         );
     }
     else {

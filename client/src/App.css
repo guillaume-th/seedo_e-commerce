@@ -1,3 +1,28 @@
+/********************/
+/******ALL***********/
+/********************/
+
+.wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.error {
+  color: red;
+}
+
+input:focus {
+  outline: solid greenyellow 3px;
+  background-color: rgb(202, 233, 194);
+}
+
+/********************/
+/****NAVBARRE********/
+/********************/
+
 #navbar {
   display: flex;
   background: #ffffff;
@@ -29,7 +54,7 @@
   margin-right: 10px;
 }
 
-#User, #Shop, #Admin {
+#User, #Shop, #Admin, .icon {
   width: 50px;
   height: 50px;
   cursor: pointer;
@@ -41,7 +66,7 @@
   background-color:#A1D37E;
   border-radius: 20px;
   border: solid white 2px;
-  padding:.65rem;
+  padding: .65rem;
 }
 
 #icon {
@@ -52,39 +77,157 @@
   margin-right: 30px;
 }
 
-input:focus {
-  outline: solid greenyellow 3px;
-}
-
 .search_bar {
   min-width: 200px;
+  width: 40vw;
 }
+
+/************************/
+/*******CONNECTION*******/
+/************************/
 
 #connexion, #inscription, .vertical-form {
   display: flex;
   flex-direction: column;
 }
 
-.search{
-  width: 80%;
-}
+/************************/
+/*******SHOP*************/
+/************************/
 
-.wrapper {
-  width: 100%;
+#gallery {
+  max-width: 1160px;
+  margin: 20px auto;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  flex-wrap: wrap;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 20px;
 }
 
-.modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: rgb(166, 211, 155);
-  width: 50%;
+#filtres {
+  min-width: 1000px;
+  min-height: 200px;
 }
+
+.thumbnail {
+  width: 250px;
+  height: 250px;
+  margin: 10px;
+  padding: 10px;
+  align-items: center;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.5);
+  overflow: hidden;
+}
+
+.thumbnail:hover {
+  -webkit-transform: scale(1.1);
+  /* Safari and Chrome */
+  -moz-transform: scale(1.1);
+  /* Firefox */
+  -ms-transform: scale(1.1);
+  /* IE 9 */
+  -o-transform: scale(1.1);
+  /* Opera */
+  transform: scale(1.1);
+}
+
+.img-wrapper {
+  height: 250px;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.number {
+  max-width: 50px;
+  max-height: 30px;
+  margin: 0px;
+  border: 1px solid #22460D;
+  border-radius: 5px;
+}
+
+.number, .buttonShop {
+  margin: 5px;
+}
+
+.infos {
+  width: 270px;
+  position: relative;
+  z-index: 50;
+  top: -160px;
+  left: -10px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.infos:hover {
+  top: -225px;
+}
+
+.sub-info {
+  display: flex;
+}
+
+.sub-info p {
+  margin: 5px 10px 0px 10px;
+}
+
+.name {
+  max-width: 200px;
+}
+
+.thumbnail p {
+  color: #22460D;
+  font-size: 0.8em;
+}
+
+.thumbnail form {
+  max-width: 200px;
+  display: flex;
+  margin: auto;
+}
+
+.cat {
+  min-height: 40px;
+  margin: 0px 10px 5px 10px;
+  font-size: 0.6em;
+  color: #22460D;
+  font-style: italic;
+  text-align: right;
+}
+
+.new, .promo, .firstPrice{
+  background-color: rgba(255, 255, 255, 0.7);
+  position: relative;
+  z-index: 60;
+  padding : .25rem;
+  top: -170px;
+}
+
+.promo {
+  font-weight: bold;
+  color: red;
+  top : -220px;
+  left : 22px;
+  font-size: 1.5em;
+}
+
+.firstPrice {
+  width: 42px;
+  font-weight: bold;
+  left: 200px;
+  top : -230px;
+}
+
+.noPromo {
+  display: block;
+  height: 75px;
+}
+/****************************/
+/**********CART**************/
+/****************************/
 
 .cart {
   position: absolute;
@@ -100,26 +243,24 @@ input:focus {
   overflow-y: scroll;
 }
 
-.search:focus {
-  outline: solid greenyellow 3px;
-  background-color: rgb(202, 233, 194);
-}
-
-.search_bar{
-  margin-top: 10px;
-  width: 40vw;
-  min-width:200px;
-}
-
-#icon {
-  position: relative;
-}
-
 .cart-total {
   position: absolute;
   bottom: 2rem;
   width: 100%;
 }
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(166, 211, 155);
+  width: 50%;
+}
+
+/***************************/
+/***********ORDER***********/
+/***************************/
 
 .order-adress:hover {
   cursor: pointer;
@@ -130,6 +271,26 @@ input:focus {
   background-color: rgb(188, 222, 171);
 }
 
-.error{
-  color : red; 
+.error {
+  color: red;
+}
+
+.admin-tab {
+  margin: .5rem;
+  cursor: pointer;
+}
+
+.selected-tab {
+  font-weight: 600;
+}
+
+.category-item {
+  padding: .5rem;
+  width: max-content;
+  border-radius: .25rem;
+}
+
+.category-item:hover {
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.52);
 }

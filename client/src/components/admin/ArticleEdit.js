@@ -1,11 +1,23 @@
 import { useEffect, useState, useRef } from "react";
+<<<<<<< HEAD
 import {useParams} from "react-router-dom"; 
 const API_URL = process.env.REACT_APP_API_URL;
 
+=======
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+const API_URL = process.env.REACT_APP_API_URL;
+
+
+>>>>>>> 03ec86e9e4064469a2b1f265010ee1d3e507e1bb
 export default function ArticleEdit() {
     const editForm = useRef();
     const { id } = useParams();
     const [data, setData] = useState(null);
+<<<<<<< HEAD
+=======
+    const admin = useSelector(state => state.admin.value);
+>>>>>>> 03ec86e9e4064469a2b1f265010ee1d3e507e1bb
 
     /* eslint-disable */
     useEffect(() => {
@@ -69,7 +81,11 @@ export default function ArticleEdit() {
             .catch(err => console.error(err));
     }
 
+<<<<<<< HEAD
     if (localStorage.getItem("admin") === "true") {
+=======
+    if (admin) {
+>>>>>>> 03ec86e9e4064469a2b1f265010ee1d3e507e1bb
         if (data) {
             return (
                 <div>
