@@ -2,12 +2,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { increaseQuantity, decreaseQuantity } from "../CartSlice";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { color } from "@mui/system";
 
 
 export default function Order() {
     const cart = useSelector((state) => state.cart.value);
     const dispatch = useDispatch();
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
 
     useEffect(() => {
     }, [cart]);
@@ -22,32 +23,39 @@ export default function Order() {
 
     if (cart.length > 0) {
         return (
-            <div className="order">
-                <h2>Récapitulatif de votre commande</h2>
-                {
-                    cart.map((e) => {
-                        return (
-                            <div key={e.id}>
-                                <p style={{ marginBottom: ".25rem" }}>{e.name}</p>
-                                <div style={{ display: "flex", justifyContent: "space-between" }}>
-                                    <div style={{ display: "flex" }}>
-                                        <button onClick={() => dispatch(decreaseQuantity(e.id))}>-</button>
-                                        <p>Quantité : {e.selectedQuantity}</p>
-                                        <button onClick={() => dispatch(increaseQuantity(e.id))}>+</button>
+            <div className="wrapper">
+                <div  className="order-wrapper">
+                    <div className="order">
+                        <h2 style={{ display: "flex", justifyContent: "center" }} >Récapitulatif de votre commande</h2>
+                        {
+                            cart.map((e) => {
+                                return (
+                                    <div key={e.id} className="carteorder">
+                                        <p style={{ marginBottom: ".25rem" }}>{e.name}</p>
+                                        <div style={{ display: "flex", justifyContent: "space-between" }}>
+                                            <div style={{ display: "flex" }}>
+                                                <button style={{ backgroundColor: "transparent", border: "none", color: "rgb(13,70,13)", fontSize: "20px" }} onClick={() => dispatch(decreaseQuantity(e.id))}>-</button>
+                                                <p>Quantité : {e.selectedQuantity}</p>
+                                                <button style={{ backgroundColor: "transparent", border: "none", color: "rgb(13,70,13)", fontSize: "20px" }} onClick={() => dispatch(increaseQuantity(e.id))}>+</button>
+                                            </div>
+                                            <p>{e.price * e.selectedQuantity} €</p>
+                                        </div>
                                     </div>
-                                    <p>{e.price * e.selectedQuantity} €</p>
-                                </div>
+                                )
+                            })
+                        }
+                        <div className="order-total">
+                            <p style={{ marginBottom: ".25rem", display: "flex", justifyContent: "center" }}> Total : {reduce()} €</p>
+                            <div className="ordernext">
+                                <button style={{ fontSize: "1.25rem", width: "90%" }}
+                                    onClick={() => navigate("/order-confirm")}
+                                    style={{ width: "80%", height: "20%", backgroundColor: "rgb(13,70,13)" }}
+                                >
+                                    Passer à l'étape suivante
+                                </button>
                             </div>
-                        )
-                    })
-                }
-                <div className="cart-total">
-                    <p style={{ marginBottom: ".25rem" }}> Total : {reduce()} €</p>
-                    <button style={{ fontSize: "1.25rem", width: "90%" }}
-                    onClick={()=> navigate("/order-confirm")}
-                    >
-                        Passer à l'étape suivante
-                    </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         );
