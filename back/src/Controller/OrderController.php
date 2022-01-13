@@ -56,7 +56,6 @@ class OrderController extends AbstractController
                 "article" => $orderarticle,
                 "OrderPrice" => $order->getOrderPrice()
             ]);
-
         }
         return $this->json(['result' => $data]);
     }
