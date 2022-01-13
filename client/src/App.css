@@ -255,8 +255,17 @@ input:focus {
   color: #22460D;
 }
 
-.photo {
+.photos {
   display: flex;
+  max-width: 65vw;
+}
+
+.imgPrincipal {
+  width: 500px; height: 500px;
+}
+
+.imgSecondaire {
+  width: 100px; height: 100px;
 }
 /****************************/
 /**********CART**************/
