@@ -16,9 +16,11 @@
 
 input:focus {
   outline: solid greenyellow 3px;
-  background-color: rgb(202, 233, 194);
+  background-color: rgb(255, 255, 255);
 }
-
+h1{
+  color:white;
+}
 button, input[type="submit"] {
   background-color: #24460D;
   border: 2px solid white;
@@ -35,7 +37,7 @@ button, input[type="submit"] {
 
 #navbar {
   display: flex;
-  background: rgb(188, 222, 171);
+  background: rgb(255, 255, 255);
   padding: 15px;
   justify-content: space-between;
   max-height: 100px;
@@ -92,7 +94,7 @@ button, input[type="submit"] {
   margin-right: 30px;
 }
 
-input:focus {
+input:focus, textarea:focus {
   outline: solid yellowgreen 3px;
 
 }
@@ -393,7 +395,7 @@ justify-content: center;
   background: rgba(255, 255, 255, 0.600);
   box-shadow: inset 0 0 30px rgb(255, 255, 255);
   border-radius: 20px;
-  padding: 200px 450px 10px 10px;
+  padding: 100px 400px 50px 10px;
   margin: 20px 20px;
 }
 

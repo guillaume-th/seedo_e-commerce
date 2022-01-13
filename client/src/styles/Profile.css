@@ -23,7 +23,7 @@ input {
 
 input::placeholder {
   /* text-transform: uppercase; */
-  color: #73C213;
+  color:rgba(128, 128, 128, 0.801);
 
 }
 
