@@ -52,7 +52,6 @@ export default function ArticleDetail() {
 
 
     if (data) {
-    // console.log(data.photos[0].imgLink);
         return (
             <div>
                 <div key={data.id} id="ficheDetail">
