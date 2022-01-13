@@ -145,7 +145,7 @@ export default function Connexion() {
   function ConnexionForm() {
     return (
       <div className="connexion-form">
-        <form
+        <form className="formu"
           id="connexion"
           encType="multipart/form-data"
           ref={connexionForm}
@@ -154,19 +154,24 @@ export default function Connexion() {
             let data = new FormData(connexionForm.current);
             sendFormConnexion(data);
           }}
-        >
-          <input name="email" type="email" id="email" placeholder="Email" />
-          <input
-            name="password"
-            type="password"
-            id="password"
-            placeholder="Mot de passe"
-          />
-          <button type="submit">Connexion</button>
+        >   
+            <label htmlFor="email">Email</label>
+            <input  name="email" type="email" id="email" placeholder="ex : toto@toto.toto" />
+            
+            <label style={{width:"200px"}} htmlFor="password">Mot de passe</label>
+            <input
+              name="password"
+              type="password"
+              id="password"
+              placeholder="Mot de passe"
+            />
+            <div className="btnLogin">
+          <button className="button_submit" type="submit">Connexion</button>
+          </div>
         </form>
         <p>
           Vous n'avez pas de compte ?{" "}
-          <button onClick={() => setOption("inscription")}>
+          <button className="button_submit" onClick={() => setOption("inscription")}>
             Inscrivez vous
           </button>
         </p>
@@ -177,7 +182,7 @@ export default function Connexion() {
   function InscriptionForm() {
     return (
       <div className="inscription-form">
-        <form
+        <form className="formu"
           encType="multipart/form-data"
           id="inscription"
           ref={inscriptionForm}
@@ -187,24 +192,28 @@ export default function Connexion() {
             console.log(data.get("password"));
             sendFormInscription(e, data);
           }}
-        >
-          <input
-            name="firstname"
-            type="text"
-            id="firstname"
-            placeholder="Prenom"
-            minLength={1}
-            maxLength={30}
-          />
-          <input
-            name="lastname"
-            type="text"
-            id="lastname"
-            placeholder="Nom"
-            minLength={1}
-            maxLength={30}
-          />
-          <input name="email" type="text" id="email" placeholder="Email" />
+        > 
+            <label htmlFor="firstname">Prénom</label>
+            <input
+              name="firstname"
+              type="text"
+              id="firstname"
+              placeholder="John"
+              minLength={1}
+              maxLength={30}
+            />
+            <label htmlFor="lastname">Nom</label>
+            <input 
+              name="lastname"
+              type="text"
+              id="lastname"
+              placeholder="Doe"
+              minLength={1}
+              maxLength={30}
+            />
+            <label htmlFor="email">Email</label>
+          <input name="email" type="text" id="email" placeholder="ex : toto@toto.toto" />
+          <label style={{width:"200px"}} htmlFor="password">Mot de passe</label>
           <input
             name="password"
             type="password"
@@ -214,17 +223,20 @@ export default function Connexion() {
               levelPassword(e.target.value);
             }}
           />
-          <input
+          <label style={{width:"400px"}} htmlFor="password">Comfirmer le mot de passe</label>
+          <input 
             name="confirm_password"
             type="password"
             id="confirm_password"
             placeholder="Confirmez le mot de passe"
           />
-          <button type="submit">Inscrire</button>
+          <div className="btnRegister">
+            <button className="button_submit" type="submit">Inscrire</button>
+          </div>
         </form>
         <p>
           Vous avez déjà un compte ?{" "}
-          <button onClick={() => setOption("connexion")}>Connectez vous</button>
+          <button className="button_submit" onClick={() => setOption("connexion")}>Connectez vous</button>
         </p>
       </div>
     );
