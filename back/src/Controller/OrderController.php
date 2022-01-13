@@ -5,10 +5,7 @@ namespace App\Controller;
 use App\Entity\Adress;
 use App\Entity\Article;
 use App\Entity\Order;
-<<<<<<< HEAD
-=======
 use App\Entity\Count;
->>>>>>> 03ec86e9e4064469a2b1f265010ee1d3e507e1bb
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,17 +20,6 @@ use App\Entity\User;
 class OrderController extends AbstractController
 {
     /**
-<<<<<<< HEAD
-     * @Route("/all", name="order", methods={"GET"})
-     */
-    public function index_order(): Response
-    {
-        $orders =  $this->getDoctrine()->getRepository(Order::class)->findAll();
-        $data = [];
-        $orderarticle = [];
-        foreach ($orders as $order) {
-            foreach ($order->getArticles() as $value) {
-=======
      * @Route("/all", name="order_all", methods={"GET"})
      */
     public function index_order(EntityManagerInterface $entityManager): Response
@@ -50,15 +36,11 @@ class OrderController extends AbstractController
                     ]
                 )[0]->getQuantity();
 
->>>>>>> 03ec86e9e4064469a2b1f265010ee1d3e507e1bb
                 array_push($orderarticle, [
                     'id' => $value->getId(),
                     'name' => $value->getName(),
                     'price' => $value->getPrice(),
-<<<<<<< HEAD
-=======
                     'quantity' => $count,
->>>>>>> 03ec86e9e4064469a2b1f265010ee1d3e507e1bb
                 ]);
             }
             array_push($data, [
@@ -74,10 +56,6 @@ class OrderController extends AbstractController
                 "article" => $orderarticle,
                 "OrderPrice" => $order->getOrderPrice()
             ]);
-<<<<<<< HEAD
-=======
-
->>>>>>> 03ec86e9e4064469a2b1f265010ee1d3e507e1bb
         }
         return $this->json(['result' => $data]);
     }
@@ -87,11 +65,7 @@ class OrderController extends AbstractController
      */
     public function addorder(Request $requests, EntityManagerInterface $entityManager): Response
     {
-<<<<<<< HEAD
-        $count=0;
-=======
         $count = 0;
->>>>>>> 03ec86e9e4064469a2b1f265010ee1d3e507e1bb
         $request = json_decode($requests->getContent(), true);
         $Order = new Order();
         $Order->setCreationDate(new \DateTime());
@@ -107,30 +81,14 @@ class OrderController extends AbstractController
             "city" => $request["adress"]["city"],
         ]);
         $Order->setAdress($adress);
-<<<<<<< HEAD
-=======
         $entityManager->persist($Order);
         $entityManager->flush();
 
->>>>>>> 03ec86e9e4064469a2b1f265010ee1d3e507e1bb
         foreach ($request["articles_id"] as $value) {
             $quantity = $this->getDoctrine()->getRepository(Article::class)->find($value['id']);
             if ($quantity->getQuantity() < $value['quantity']) {
                 $data["status"] = "out of stock";
                 return $this->json($data);
-<<<<<<< HEAD
-            }else{
-                $quantityfinal  = $quantity->getQuantity() - $value['quantity'];
-                $quantity->setQuantity($quantityfinal);
-            }
-            for ($i = 0; $i < $value['quantity']; $i++) {
-                $article = $this->getDoctrine()->getRepository(Article::class)->find($value['id']);
-                $Order->addArticle($article);
-                $count++;
-            }
-        }
-        $entityManager->persist($Order);
-=======
             } else {
                 $quantityfinal  = $quantity->getQuantity() - $value['quantity'];
                 $quantity->setQuantity($quantityfinal);
@@ -147,7 +105,6 @@ class OrderController extends AbstractController
             // }
         }
 
->>>>>>> 03ec86e9e4064469a2b1f265010ee1d3e507e1bb
         $entityManager->flush();
         $data["status"] = "ok";
         return $this->json($data);
@@ -161,28 +118,6 @@ class OrderController extends AbstractController
         $order =  $this->getDoctrine()->getRepository(Order::class)->find($order->getId());
         $data = [];
         $orderarticle = [];
-<<<<<<< HEAD
-            foreach ($order->getArticles() as $value) {
-                array_push($orderarticle, [
-                    'id' => $value->getId(),
-                    'name' => $value->getName(),
-                    'price' => $value->getPrice(),
-                ]);
-            }
-            array_push($data, [
-                "id" => $order->getId(),
-                "status" => $order->getStatus(),
-                "creation_date" => $order->getCreationDate(),
-                "user" => [
-                    "id_user" => $order->getUser()->getId(),
-                    "email_user" => $order->getUser()->getEmail(),
-                    "firstname_user" => $order->getUser()->getFirstname(),
-                    "lastname_user" => $order->getUser()->getLastname(),
-                ],
-                "article" => $orderarticle,
-                "OrderPrice" => $order->getOrderPrice()
-            ]);
-=======
         foreach ($order->getArticles() as $value) {
             array_push($orderarticle, [
                 'id' => $value->getId(),
@@ -203,7 +138,6 @@ class OrderController extends AbstractController
             "article" => $orderarticle,
             "OrderPrice" => $order->getOrderPrice()
         ]);
->>>>>>> 03ec86e9e4064469a2b1f265010ee1d3e507e1bb
         return $this->json(['result' => $data]);
     }
     /**
@@ -238,49 +172,6 @@ class OrderController extends AbstractController
         }
         return $this->json(['result' => $data]);
     }
-<<<<<<< HEAD
-      /**
-     * @Route("/edit/{id}", name="order", methods={"POST"})
-     */
-    public function order_edit(Order $order,Request $request): Response
-    {
-        $request = json_decode($request->getContent(), true); 
-        $order->setStatus($request["status"]);
-        $data = [];
-        $orderarticle = [];
-            foreach ($order->getArticles() as $value) {
-                array_push($orderarticle, [
-                    'id' => $value->getId(),
-                    'name' => $value->getName(),
-                    'price' => $value->getPrice(),
-                ]);
-            }
-            array_push($data, [
-                "id" => $order->getId(),
-                "status" => $order->getStatus(),
-                "creation_date" => $order->getCreationDate(),
-                "user" => [
-                    "id_user" => $order->getUser()->getId(),
-                    "email_user" => $order->getUser()->getEmail(),
-                    "firstname_user" => $order->getUser()->getFirstname(),
-                    "lastname_user" => $order->getUser()->getLastname(),
-                ],
-                "article" => $orderarticle,
-                "OrderPrice" => $order->getOrderPrice()
-            ]);
-        return $this->json(['result' => $data]);
-    }
-
-       /**
-     * @Route("/remove/{id}", name="order_remove", methods={"POST"})
-     */
-    public function remove_order(Order $order,EntityManagerInterface $entityManager): Response
-    {
-        $entityManager->remove($order);
-        $entityManager->flush();
-      
-        $data="ok";
-=======
     /**
      * @Route("/edit/{id}", name="order", methods={"POST"})
      */
@@ -322,7 +213,6 @@ class OrderController extends AbstractController
         $entityManager->flush();
 
         $data = "ok";
->>>>>>> 03ec86e9e4064469a2b1f265010ee1d3e507e1bb
         return $this->json(['result' => $data]);
     }
 }
