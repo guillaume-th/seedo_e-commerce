@@ -4,6 +4,7 @@
   /* background: rgb(188, 222, 171); */
   padding: 10px;
   justify-content: space-between;
+  max-height:100px;
   
 }
 
@@ -12,9 +13,12 @@
 }
 
 #graine {
-  width: 100px;
+  width: 200px;
+ 
   margin-left: 10px;
   cursor: pointer;
+  position:relative;
+  z-index: 50;
 }
 
 #loupe {
@@ -28,7 +32,7 @@
 
 #logo {
   cursor: pointer;
-  width:200px;
+ 
   margin-right: 10px;
 }
 
@@ -107,8 +111,8 @@ input:focus {
 .formu{
   padding:15px 15px;
   border-radius: 20px;
-  background-color: rgba(255, 255, 255, 0.589);
-  box-shadow:inset 0 20 20px rgb(238, 233, 233);
+  background-color: rgba(255, 255, 255, 0.600);
+  box-shadow:inset 0 0 20px rgb(238, 233, 233);
 }
 
 .btnRegister, .btnLogin{
@@ -170,4 +174,45 @@ justify-content: center;
 
 .error{
   color : red; 
+}
+
+/* .tabs{
+display:flex;
+justify-content: center;
+} */
+
+
+
+
+
+
+
+
+
+
+.add_article{
+  width:100%;
+  
+  
+}
+
+
+.admin-tab{
+  margin : .5rem; 
+  cursor: pointer;
+}
+.selected-tab {
+  font-weight: 600;
+}
+
+.button_submit_article{
+  
+}
+
+.vertical-form{
+  background:rgba(255, 255, 255, 0.600);
+  box-shadow:inset 0 0 30px rgb(255, 255, 255);
+  border-radius:20px;
+  padding:200px 450px  10px 10px;
+  margin:20px 20px;
 }
