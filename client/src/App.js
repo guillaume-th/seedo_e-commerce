@@ -51,7 +51,12 @@ function App() {
           <Route path="/order-confirm" element={<OrderConfirm />} />
           <Route path="/admin-articles" element={<AdminArticles />} />
           <Route path="/admin-category" element={<Category />} />
+<<<<<<< HEAD
           <Route path="/admin-panel" element={<AdminPanel />} />
+=======
+          <Route path="/admin-panel" element={<AdminPanel/>}/>
+          <Route path="/admin-articles" element={<AdminArticles/>}/>
+>>>>>>> b9c0ddf4f6c41a1405f07a564789698d138ddf61
         </Routes>
       </Router>
     </div>

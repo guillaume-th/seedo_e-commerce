@@ -1,17 +1,24 @@
 .e_com-footer{
   height: 100vh;
-  background: linear-gradient(ellipse at bottom, rgba(255, 254, 234, 1) 0%, rgba(255, 254, 234, 1) 35%, #60e9bb 100%);
   overflow: hidden;
 }
+h3{
+  color: #22460D;
+}
 
-input[type="text"], input[type="password"], input[type="email"], textarea {
-  margin: 1rem;
-  border-radius: .25rem;
-  padding: 10px;
-  color: #56752F;
-  border: 2px solid white;
-  border-radius: 25rem;
-  border-top: none;
+.wrapper{
+  display: flex;
+}
+
+input[type="text"], input[type="password"], input[type="email"], input[type="number"], textarea {
+  padding: 5px 5px;
+  margin: 15px 10px;
+  border-radius: 10px;
+  text-transform: uppercase;
+  border: none ;
+  height: 30px;
+  background: white;
+  
 }
 
 input {
@@ -19,99 +26,67 @@ input {
 }
 
 input::placeholder {
-  /* text-transform: uppercase; */
-  color: #73C213;
+  text-transform: uppercase;
+  color:  black;
 
 }
-
-input[type="submit"], button {
-  background-color: #56752F;
-  color: whitesmoke;
-  padding: 10px;
-  font-weight: bold;
-  /* text-transform: uppercase; */
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  /* margin: 5px auto 15px auto; */
-}
-
 
 
 .profile-section{
   display: flex;
   justify-content: space-evenly;
-  width: 80%;
+  /* 
   
+  
+  +
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  .git */
   margin: 1rem;
-  
-  
+  background-color: #ffffff;
+  opacity: 0.5;
+  border-radius: 10px;
 }
 
 .bank-details{
-
-  align-self: flex-end;
   border-radius: 20px;
-  background: linear-gradient(60deg,#5bd63621,#d61f774b);
-  transform: perspective(1000px);
-  transform-style: preserve-3d;
-  box-shadow:  0 15px 40px rgba(0, 0, 0, 0.20),
-                        0 15px 12px rgba(0, 0, 0, 0.15);
+  color: #ffffff;
   margin: 1rem;
   padding-top: 20px;
   width: 40%;
-  
 }
 .user-details{
-
   width: 50%;
   border-radius: 20px;
-  background: rgba(80, 35, 165, 0.13);
   margin: 1rem;
 }
 
-/* 
-.ocean {
-  height: 5%;
-  width: 100%;
+.adress-section{
+ align-self: flex-start;
+ margin-left: 260px;
+ background-color: #ffffff;
+ border-radius: 10px;
+ opacity: 0.5;
+}
+.edit-adress{
   position: absolute;
-  bottom: 0;
-  left: 0;
-  background: #015871;
+  color: #ffffff;
+  align-self: center;
+  margin-top: 30em;
+  margin-left: 25em;
 }
 
-.wave {
-  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/85486/wave.svg) repeat-x;
-  position: absolute;
-  top: -198px;
-  width: 6400px;
-  height: 198px;
-  animation: wave 7s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
-  transform: translate3d(0, 0, 0);
-}
-
-.wave:nth-of-type(2) {
-  top: -175px;
-  animation: wave 7s cubic-bezier(0.36, 0.45, 0.63, 0.53) -.125s infinite, swell 7s ease -1.25s infinite;
-  opacity: 1;
-}
-
-@keyframes wave {
-  0% {
-    margin-left: 0;
-  }
-
-  100% {
-    margin-left: -1600px;
-  }
-}
-
-@keyframes swell {
-  0%, 100% {
-    transform: translate3d(0, -25px, 0);
-  }
-
-  50% {
-    transform: translate3d(0, 5px, 0);
-  }
-} */
