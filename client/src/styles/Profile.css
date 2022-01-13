@@ -28,18 +28,6 @@ input::placeholder {
 
 }
 
-input[type="submit"], button {
-  background-color: #56752F;
-  color: whitesmoke;
-  padding: 10px;
-  font-weight: bold;
-  /* text-transform: uppercase; */
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  /* margin: 5px auto 15px auto; */
-}
-
 
 .profile-section{
   display: flex;
@@ -57,7 +45,6 @@ input[type="submit"], button {
   margin: 1rem;
   padding-top: 20px;
   width: 40%;
-  
 }
 .user-details{
   width: 50%;
