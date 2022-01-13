@@ -15,11 +15,11 @@ export default function AdminPanel() {
 
     return (
         <div>
-            <h3>Gérez votre e-commerce</h3>
+            <h1 style={{textAlign:"center"}}>Gérez votre e-commerce</h1>
             <div className="tabs">
-                <span className="admin-tab" id="tab-1"  onClick={() => setActiveTab(1)}>Articles</span>
-                <span className="admin-tab" id="tab-2" onClick={() => setActiveTab(2)}>Catégories</span>
-                <span className="admin-tab" id="tab-3" onClick={() => setActiveTab(3)}>Commandes</span>
+                <button><span className="admin-tab" id="tab-1"  onClick={() => setActiveTab(1)}>Articles</span></button>
+                <button><span className="admin-tab" id="tab-2" onClick={() => setActiveTab(2)}>Catégories</span></button>
+                <button><span className="admin-tab" id="tab-3" onClick={() => setActiveTab(3)}>Commandes</span></button>
             </div>
             <div className="admin-content">
                 {activeTab === 1 &&
