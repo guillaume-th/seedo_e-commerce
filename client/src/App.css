@@ -393,16 +393,6 @@ justify-content: center;
   cursor: pointer;
   background-color: rgba(255, 255, 255, 0.52);
 }
-.carteorder{
-  padding: 1.5rem;
-  border-radius: 20px;
-  background-color: rgba(255, 255, 255, 0.5);
-  margin : 1.5rem;
-}
-.ordernext{
-  display: flex;
-  justify-content: center;
-}
 
 .order-total{
 
@@ -449,4 +439,14 @@ justify-content: center;
   flex-wrap: wrap;
   /* display: grid; */
   /* grid-template-columns: repeat(2, 1fr); */
+}
+.carteorder{
+  padding: 1.5rem;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.5);
+  margin : 1.5rem;
+}
+.ordernext{
+  display: flex;
+  justify-content: center;
 }
