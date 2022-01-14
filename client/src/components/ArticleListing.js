@@ -94,7 +94,7 @@ export default function ArticleListing() {
     if (data) {
         return (
             <div>
-                <div id="gallery">
+                <div className="gallery">
                     <div id="filtres">
                         ICI LES FILTRES DE RECHERCHE
                     </div>

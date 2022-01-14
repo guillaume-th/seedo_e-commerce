@@ -75,44 +75,50 @@ export default function ArticleEdit() {
     if (admin) {
         if (data) {
             return (
-                <div>
-                    <form encType="multipart/form-data" ref={editForm} onSubmit={edit} className="vertical-form">
-                        <label>Nom de l'article</label>
-                        <input name="name" type="text" defaultValue={data.name}></input>
-                        <label>Description</label>
-                        <textarea name="description">{data.description}</textarea>
-                        <label>Poids</label>
-                        <input name="weight" type="text" defaultValue={data.weight}></input>
-                        <label>Couleur</label>
-                        <input name="color" type="text" defaultValue={data.color}></input>
-                        <label>Quantité</label>
-                        <input name="quantity" type="number" defaultValue={data.quantity}></input>
-                        <label>Promo</label>
-                        <input name="promo" type="number" defaultValue={data.promo} minLength={0} maxLength={100}></input>
-                        <label>Price</label>
-                        <input type="number" name="price" defaultValue={data.price}></input>
-                        <label>Catégorie(s)</label>
-                        <input name="categories" type="text" placeholder="Catégorie 1, catégorie 2" defaultValue={data.categoriesName} minLength={0} maxLength={100}></input>
-                        <input type="submit" value="Sauvegarder les modifications"></input>
-                    </form>
-                    <h3>Photos</h3>
-                    {
-                        data.photos.map(e => {
-                            return (
-                                <div>
-                                    <img src={e.imgLink} />
-                                    <button onClick={() => deletePhoto(e.id)}>Supprimer</button>
+                <div className="wrapper">
+                    <div className="std-colored-wrapper">
+                        <div className="wrapper">
+                            <form encType="multipart/form-data" ref={editForm} onSubmit={edit} className="std-vertical-form  edit-article-form" >
+                                <label>Nom de l'article</label>
+                                <input name="name" type="text" defaultValue={data.name}></input>
+                                <label>Description</label>
+                                <textarea name="description">{data.description}</textarea>
+                                <label>Poids</label>
+                                <input name="weight" type="text" defaultValue={data.weight}></input>
+                                <label>Couleur</label>
+                                <input name="color" type="text" defaultValue={data.color}></input>
+                                <label>Quantité</label>
+                                <input name="quantity" type="number" defaultValue={data.quantity}></input>
+                                <label>Promo</label>
+                                <input name="promo" type="number" defaultValue={data.promo} minLength={0} maxLength={100}></input>
+                                <label>Price</label>
+                                <input type="number" name="price" defaultValue={data.price}></input>
+                                <label>Catégorie(s)</label>
+                                <input name="categories" type="text" placeholder="Catégorie 1, catégorie 2" defaultValue={data.categoriesName} minLength={0} maxLength={100}></input>
+                                <input type="submit" value="Sauvegarder les modifications"></input>
+                            </form>
+                            <h3>Photos</h3>
+                            {
+                                data.photos.map(e => {
+                                    return (
+                                        <div>
+                                            <img src={e.imgLink} />
+                                            <button onClick={() => deletePhoto(e.id)}>Supprimer</button>
+                                        </div>
+                                    )
+                                })
+                            }
+                            <form id="photo-form" encType="multipart/form-data" onSubmit={addPhoto} className="">
+                                <div id="photo-inputs">
+                                    <input type="text" name="photo" className="photo" placeholder="http://url_de_votre_image"></input>
                                 </div>
-                            )
-                        })
-                    }
-                    <form id="photo-form" encType="multipart/form-data" onSubmit={addPhoto} className="">
-                        <div id="photo-inputs">
-                            <input type="text" name="photo" className="photo" placeholder="http://url_de_votre_image"></input>
+                                <button onClick={addPhotoInput}>+</button>
+                                <div className="wrapper">
+                                    <input className="centered-btn" type="submit" value="Ajouter au produit"></input>
+                                </div>
+                            </form>
                         </div>
-                        <button onClick={addPhotoInput}>+</button>
-                        <input type="submit" value="Ajouter au produit"></input>
-                    </form>
+                    </div>
                 </div>
             );
         }

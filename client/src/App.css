@@ -23,6 +23,10 @@
   padding: 1.5rem;
 }
 
+.std-vertical-form input, .std-vertical-form input, .std-vertical-form textarea {
+  display : block; 
+}
+
 .centered-btn {
   width: max-content !important;
 }
@@ -149,7 +153,7 @@ li {
 /*******SHOP*************/
 /************************/
 
-#gallery {
+.gallery {
   max-width: 1160px;
   margin: 20px auto;
   display: flex;
@@ -362,7 +366,7 @@ li {
 
 .cart {
   position: absolute;
-  background-color: rgba(255, 255, 255, 0.719);
+  background-color: white;
   height: 50vh;
   width: 300px;
   top: 70px;
@@ -372,6 +376,8 @@ li {
   padding: 0.5rem;
   color: rgb(130, 168, 121);
   overflow-y: scroll;
+  z-index: 100;
+  opacity: 100%;
 }
 
 .formu {
@@ -556,11 +562,15 @@ label {
   padding: 1.5rem;
 }
 
-.adress-form, .profile-form {
+.adress-form, .profile-form, .edit-article-form {
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 20px;
   padding: 1.5rem;
   margin-top: 3rem;
+}
+
+.edit-article-form input, .edit-article-form label, .edit-article-form textarea {
+  width : 50vw
 }
 
 .edit-adresse-form {
