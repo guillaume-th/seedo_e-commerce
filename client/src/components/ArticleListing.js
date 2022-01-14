@@ -4,8 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { updateCart } from "../CartSlice";
 const API_URL = process.env.REACT_APP_API_URL;
 
-
-
 export default function ArticleListing() {
     const [data, setData] = useState(null);
     const cart = useSelector((state) => state.cart.value);
@@ -16,7 +14,6 @@ export default function ArticleListing() {
     const [refresh, setRefresh] = useState(null);
 
     useEffect(() => {
-
         fetch(`${API_URL}/article/all`)
             .then(res => res.json())
             .then(res => {

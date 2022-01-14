@@ -78,7 +78,7 @@ export default function Profile() {
                 <h1>PROFILE</h1>
                 <div className="profile-section">
 
-                    <form className="vertical-form" ref={userForm} onSubmit={submitUserData} encType="multipart/form-data">
+                    <form className="profile-form" ref={userForm} onSubmit={submitUserData} encType="multipart/form-data">
                         <div className="user-details">
                             <h3>Coordonnées</h3>
                            <label>Nom: <input type="text" name="firstname" placeholder="Prénom" defaultValue={user.firstname}></input></label>
