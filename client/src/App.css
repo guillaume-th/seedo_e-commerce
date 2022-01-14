@@ -18,8 +18,9 @@ input:focus {
   outline: solid greenyellow 3px;
   background-color: rgb(255, 255, 255);
 }
-h1{
-  color:white;
+
+h1 {
+  color: white;
 }
 
 button,
@@ -344,6 +345,8 @@ label {
   transform: translate(-50%, -50%);
   background-color: rgb(166, 211, 155);
   width: 50%;
+  padding : 1rem; 
+  border-radius: .5rem;
 }
 
 /***************************/
@@ -364,11 +367,15 @@ label {
 }
 
 .admin-tab {
+  margin: .5rem;
+  font-size: 1.5rem;
+  padding: .5rem 1rem;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
   margin: 0.5rem;
-  /* .tabs{
-display:flex;
-justify-content: center;
-} */
 }
 
 .add_article {
@@ -390,6 +397,10 @@ justify-content: center;
   border-radius: 0.25rem;
 }
 
+.category-item > * {
+  margin: .5rem ;
+}
+
 .category-item:hover {
   cursor: pointer;
   background-color: rgba(255, 255, 255, 0.52);
@@ -407,6 +418,7 @@ justify-content: center;
   padding: 1.5rem;
   background-color: rgba(255, 255, 255, 0.5);
   width: 80vw;
+  margin-top: 5rem;
   border-radius: 20px;
 }
 
@@ -426,16 +438,28 @@ justify-content: center;
   /* grid-template-columns: repeat(2, 1fr); */
 }
 
-#category > ul > li {
+#category>ul>li {
   list-style: none;
 }
-.carteorder{
+
+.carteorder {
   padding: 1.5rem;
   border-radius: 20px;
   background-color: rgba(255, 255, 255, 0.5);
-  margin : 1.5rem;
+  margin: 1.5rem;
 }
-.ordernext{
+
+.ordernext {
   display: flex;
   justify-content: center;
 }
+
+
+.order-wrapper, .new-category-form, .categories-admin, .profile-form {
+  width: 80vw;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 20px;
+  margin-top: 5rem;
+  padding: 1.5rem;
+}
+

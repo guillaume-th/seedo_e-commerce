@@ -66,7 +66,7 @@ export default function Category() {
             let name = new FormData(createForm.current);
             createCategory(name);
           }}
-          className="vertical-form"
+          className="new-category-form"
         >
           <h2>Create</h2>
           <label htmlFor="name">
@@ -74,7 +74,7 @@ export default function Category() {
           </label>
           <button type="submit">Creer</button>
         </form>
-        <ul className=" vertical-form">
+        <ul className="categories-admin">
           <h2>Read</h2>
           {data.map((e) => {
             // eslint-disable-next-line
