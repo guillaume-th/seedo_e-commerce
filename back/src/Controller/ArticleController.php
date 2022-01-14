@@ -161,7 +161,7 @@ class ArticleController extends AbstractController
         return $this->json($data);
     }
     /**
-     * @Route("/remove-photo/{id}/{photo}", name="add_photos", methods={"GET"})
+     * @Route("/remove-photo/{id}/{photo}", name="remove_photos", methods={"GET"})
      */
     public function deletePhoto(Article $article, EntityManagerInterface $entityManager, $photo): Response
     {
