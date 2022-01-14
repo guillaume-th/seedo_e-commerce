@@ -119,7 +119,7 @@ export default function ArticleListing() {
                                     ? <><span className="promo"> -{e.data.promo}%</span>
                                         <p className="firstPrice"><strike>{e.data.price} €</strike></p></>
                                         
-                                    : <span className="noPromo"></span>
+                                    : <div className="noPromo"></div>
 
                                 }
                                 <div className="infos">

@@ -34,6 +34,13 @@ input[type="submit"] {
   font-size: 1rem;
 }
 
+.green {
+  color :rgb(13, 70, 13);
+}
+
+li {
+  list-style: none;
+}
 /********************/
 /****NAVBARRE********/
 /********************/
@@ -104,10 +111,6 @@ input[type="submit"] {
   margin-right: 30px;
 }
 
-input:focus, textarea:focus {
-  outline: solid yellowgreen 3px;
-}
-
 .search_bar {
   min-width: 200px;
   width: 40vw;
@@ -174,22 +177,25 @@ input:focus, textarea:focus {
 
 .number {
   max-width: 50px;
-  max-height: 30px;
   margin: 0px;
-  border: 1px solid #22460d;
+  border: none;
   border-radius: 5px;
 }
 
-.number,
-.buttonShop {
+/* .number, .buttonShop {
   margin: 5px;
+  max-height: 30px;
+} */
+
+.infos form {
+  max-height: 30px;
 }
 
 .infos {
   width: 270px;
   position: relative;
   z-index: 50;
-  top: -160px;
+  top: -225px;
   left: -10px;
   background-color: rgba(255, 255, 255, 0.9);
   border-bottom-left-radius: 10px;
@@ -198,7 +204,7 @@ input:focus, textarea:focus {
 }
 
 .infos:hover {
-  top: -225px;
+  top: -300px;
 }
 
 .sub-info {
@@ -207,10 +213,11 @@ input:focus, textarea:focus {
 
 .sub-info p {
   margin: 5px 10px 0px 10px;
+  max-height: 40px;
 }
 
 .name {
-  max-width: 200px;
+  max-width: 190px;
 }
 
 .thumbnail p {
@@ -239,15 +246,15 @@ input:focus, textarea:focus {
   background-color: rgba(255, 255, 255, 0.7);
   position: relative;
   z-index: 60;
-  padding: 0.25rem;
-  top: -170px;
+  padding: .25rem;
+  top: -200px;
 }
 
 .promo {
   font-weight: bold;
   color: red;
-  top: -220px;
-  left: 22px;
+  top: -280px;
+  left: 160px;
   font-size: 1.5em;
 }
 
@@ -255,14 +262,79 @@ input:focus, textarea:focus {
   width: 42px;
   font-weight: bold;
   left: 200px;
-  top: -230px;
+  top: -290px;
 }
 
 .noPromo {
-  display: block;
-  height: 75px;
+  height: 130px;
 }
 
+/************************/
+/*******FICHE DETAIL*****/
+/************************/
+
+#ficheDetail {
+  max-width: 70vw;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 20px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+.titleName {
+  color: #22460D;
+}
+
+.photos {
+  display: flex;
+  flex-direction: column;
+  max-width: 800px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid rgb(13, 70, 13);
+}
+
+.imgPrincipale {
+  width: 100%; height: 100%;
+}
+
+.imgSecondaire {
+  width: 100px; height: 100px;
+  margin: 5px;
+}
+
+.smPhotos {
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+  max-width: 60vw;
+}
+
+.lgPhoto {
+  max-width: 500px; 
+}
+
+.infoDetail {
+  display: flex;
+}
+
+#ficheDetail p {
+  max-width: 60vw;
+  margin: 10px;
+}
+
+#leaveComment {
+  /* width: 50vw;
+  min-height: 300px; */
+  border: none;
+  border-radius: 10px;
+  margin: 10px;
+}
 /****************************/
 /**********CART**************/
 /****************************/
