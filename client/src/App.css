@@ -177,6 +177,7 @@ li {
   cursor: pointer;
   background-color: rgba(255, 255, 255, 0.5);
   overflow: hidden;
+  transition: all .2s ease;
 }
 
 .thumbnail:hover {
@@ -223,6 +224,7 @@ li {
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   height: 300px;
+  transition: all .2s ease;
 }
 
 .infos:hover {
