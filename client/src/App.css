@@ -10,6 +10,23 @@
   flex-direction: column;
 }
 
+.std-input-label {
+  display: block;
+  width: 35vw;
+}
+
+.std-colored-wrapper {
+  width: 80vw;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 20px;
+  margin-top: 5rem;
+  padding: 1.5rem;
+}
+
+.centered-btn {
+  width: max-content !important;
+}
+
 .error {
   color: red;
 }
@@ -35,12 +52,13 @@ input[type="submit"] {
 }
 
 .green {
-  color :rgb(13, 70, 13);
+  color: rgb(13, 70, 13);
 }
 
 li {
   list-style: none;
 }
+
 /********************/
 /****NAVBARRE********/
 /********************/
@@ -300,11 +318,13 @@ li {
 }
 
 .imgPrincipale {
-  width: 100%; height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .imgSecondaire {
-  width: 100px; height: 100px;
+  width: 100px;
+  height: 100px;
   margin: 5px;
 }
 
@@ -316,7 +336,7 @@ li {
 }
 
 .lgPhoto {
-  max-width: 500px; 
+  max-width: 500px;
 }
 
 .infoDetail {
@@ -335,6 +355,7 @@ li {
   border-radius: 10px;
   margin: 10px;
 }
+
 /****************************/
 /**********CART**************/
 /****************************/
@@ -415,9 +436,9 @@ label {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgb(166, 211, 155);
+  background-color: rgb(130, 168, 121);
   width: 50%;
-  padding : 1rem; 
+  padding: 1rem;
   border-radius: .5rem;
 }
 
@@ -469,8 +490,8 @@ label {
   border-radius: 0.25rem;
 }
 
-.category-item > * {
-  margin: .5rem ;
+.category-item>* {
+  margin: .5rem;
 }
 
 .category-item:hover {
@@ -527,7 +548,7 @@ label {
 }
 
 
-.order-wrapper, .new-category-form, .categories-admin, .profile-form {
+.order-wrapper, .new-category-form, .categories-admin, .adress-wrapper {
   width: 80vw;
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 20px;
@@ -535,3 +556,26 @@ label {
   padding: 1.5rem;
 }
 
+.adress-form, .profile-form {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 20px;
+  padding: 1.5rem;
+  margin-top: 3rem;
+}
+
+.edit-adresse-form {
+  border-radius: 20px;
+  padding: 1.5rem;
+}
+
+.adress-form input[type="submit"] {
+  width: max-content
+}
+
+.edit-adress {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 20px;
+  margin: 2rem;
+  padding: 1.5rem;
+  width: 80%;
+}
