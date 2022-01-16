@@ -12,7 +12,7 @@ h3 {
 }
 
 input[type="text"], input[type="password"], input[type="email"], textarea {
-  padding: 5px 5px;
+  padding: 10px 10px;
   margin: 15px 10px;
   border-radius: 10px;
   background-color: white;
@@ -32,25 +32,23 @@ input::placeholder {
 
 
 .profile-section {
-  display: flex;
-  justify-content: space-evenly;
   margin: 1rem;
-  /* background-color: #ffffff; */
-  opacity: 0.5;
-  border-radius: 10px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  width: 80vw;
 }
 
 
 .bank-details {
   border-radius: 20px;
-  color: #ffffff;
   margin: 1rem;
   padding-top: 20px;
-  width: 40%;
 }
 
 .user-details {
-  width: 50%;
   border-radius: 20px;
   margin: 1rem;
 }

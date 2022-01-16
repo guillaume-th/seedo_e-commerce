@@ -94,7 +94,7 @@ export default function ArticleListing() {
     if (data) {
         return (
             <div>
-                <div id="gallery">
+                <div className="gallery">
                     <div id="filtres">
                         ICI LES FILTRES DE RECHERCHE
                     </div>
@@ -103,7 +103,7 @@ export default function ArticleListing() {
                             return (
 
                                 <div key={e.data.id} onClick={(ev) => {
-                                    if(!ev.target.classList.contains("buttonShop")){
+                                    if(!ev.target.classList.contains("buttonShop") && !ev.target.classList.contains("number")){
                                         navigate("/article/" + e.data.id)
                                     }}} className="thumbnail">
                                         <div className="img-wrapper">
