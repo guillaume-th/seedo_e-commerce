@@ -1,7 +1,8 @@
 import PaypalExpressBtn from 'react-paypal-express-checkout';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateCart } from "../CartSlice";
+import { useNavigate } from 'react-router-dom';
 const paypalClientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
 const client = {
     sandbox: paypalClientId,
@@ -14,8 +15,12 @@ export default function Payment(props) {
     const user_id = localStorage.getItem("user_id");
     const dispatch = useDispatch();
     const [error, setError] = useState(null);
+    const navigate = useNavigate(); 
 
-    const order = (address) => {
+    useEffect(() => {
+        console.log(props); 
+    }, [])
+    const order = () => {
         const array = [];
         cart.forEach((e) => {
             array.push({
@@ -26,13 +31,7 @@ export default function Payment(props) {
         });
         const data = {
             user_id,
-            adress: {
-                country: address.country_code,
-                city: address.city,
-                street: address.line1,
-                number: 1,
-                postal_code: address.postal_code,
-            },
+            adress:props.selectedAddress,
             order_price: reduce(),
             articles_id: array,
         };
@@ -67,10 +66,12 @@ export default function Payment(props) {
                 client={client}
                 currency={"EUR"}
                 total={props.total}
+                shipping={1}
+                style={{color : "white"}}
                 onSuccess={(data) => {
                     setSuccess(true);
-                    order(data.address);
-                    console.log(data);
+                    order();
+                    navigate("/order-success");
                 }}
                 onError={(err) => {
                     setError(err)

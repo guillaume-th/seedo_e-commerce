@@ -2,13 +2,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { increaseQuantity, decreaseQuantity } from "../CartSlice";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Payment from "./Payment";
 
 
 export default function Order() {
     const cart = useSelector((state) => state.cart.value);
-    const dispatch = useDispatch();
     const navigate = useNavigate();
+    const dispatch = useDispatch(); 
 
     useEffect(() => {
     }, [cart]);
@@ -47,7 +46,7 @@ export default function Order() {
                         <div className="order-total">
                             <p style={{ marginBottom: ".25rem", display: "flex", justifyContent: "center" }}> Total : {reduce()} €</p>
                             <div className="ordernext">
-                                    <Payment total= {reduce()}/>
+                                    <button onClick={()=>navigate("/order-confirm")}>Passer à l'étape suivante</button>
                             </div>
                         </div>
                     </div>
