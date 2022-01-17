@@ -10,7 +10,6 @@ import Connexion from "./components/Connexion";
 import ArticleDescription from "./components/ArticleDescription";
 import Nav from "./components/Navigation";
 import Order from "./components/Order";
-import OrderConfirm from "./components/OrderConfirm";
 import AdminArticles from "./components/admin/AdminArticles";
 import Category from "./components/admin/AdminCategory";
 import AdminPanel from "./components/admin/AdminPanel";
@@ -48,7 +47,6 @@ function App() {
           <Route path="/articles" element={<ArticleListing />} />
           <Route path="/auth" element={<Connexion />} />
           <Route path="/order" element={<Order />} />
-          <Route path="/order-confirm" element={<OrderConfirm />} />
           <Route path="/admin-category" element={<Category />} />
           <Route path="/admin-panel" element={<AdminPanel />} />
           <Route path="/admin-articles" element={<AdminArticles />} />

@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { increaseQuantity, decreaseQuantity } from "../CartSlice";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { color } from "@mui/system";
+import Payment from "./Payment";
 
 
 export default function Order() {
@@ -47,12 +47,7 @@ export default function Order() {
                         <div className="order-total">
                             <p style={{ marginBottom: ".25rem", display: "flex", justifyContent: "center" }}> Total : {reduce()} €</p>
                             <div className="ordernext">
-                                <button
-                                    onClick={() => navigate("/order-confirm")}
-                                    style={{ height: "20%", backgroundColor: "rgb(13,70,13)" }}
-                                >
-                                    Passer à l'étape suivante
-                                </button>
+                                    <Payment total= {reduce()}/>
                             </div>
                         </div>
                     </div>
