@@ -7,19 +7,18 @@ const API_URL = process.env.REACT_APP_API_URL;
 
 export default function OrderConfirm() {
     const [userData, setUserData] = useState(null);
-    const user_id = localStorage.getItem("user_id");
+    const [user_id, setUserId] = useState(localStorage.getItem("user_id"));
     const navigate = useNavigate();
     const [selectedAdress, setSelectedAdress] = useState(null);
     const newAdressForm = useRef();
+    const guestAdressForm = useRef();
     const CBForm = useRef();
     const cart = useSelector((state) => state.cart.value);
     const [error, setError] = useState(null);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (user_id === null) {
-            navigate("/auth");
-        } else {
+        if (user_id !== null) {
             fetch(`${API_URL}/user/${user_id}`)
                 .then((res) => res.json())
                 .then((res) => setUserData(res.data))
@@ -34,7 +33,7 @@ export default function OrderConfirm() {
                 .classList.add("selected-adress");
         }
         /* eslint-disable */
-    }, [selectedAdress]);
+    }, [selectedAdress, user_id]);
 
     const addAdress = (e) => {
         e.preventDefault();
@@ -55,23 +54,6 @@ export default function OrderConfirm() {
         }
     };
 
-    const submitCBData = (e) => {
-        e.preventDefault();
-        const data = new FormData(CBForm.current);
-
-        fetch(`${API_URL}/user/${user_id}/edit`, {
-            method: "POST",
-            body: data,
-        })
-            .then((res) => res.json())
-            .then((res) => {
-                if (res.status === "ok") {
-                    setUserData(res.data);
-                }
-            })
-            .catch((error) => console.error(error));
-    };
-
     const reduce = () => {
         let total = cart[0].price * cart[0].selectedQuantity;
         for (let i = 1; i < cart.length; i++) {
@@ -79,6 +61,27 @@ export default function OrderConfirm() {
         }
         return total;
     };
+
+    const addGuest = (e) => {
+        e.preventDefault();
+        const data = new FormData(guestAdressForm.current);
+        fetch(`${API_URL}/user/inscription`,
+            {
+                method: "POST",
+                body: data,
+            })
+            .then((res) => res.json())
+            .then((res) => {
+                console.log(res);
+                if (res.status !== "ok") {
+                    setError(res.status);
+                }
+                if (res.user_id) {
+                    setUserId(res.user_id);
+                }
+            })
+            .catch(err => console.error(err));
+    }
 
     if (userData) {
         return (
@@ -163,11 +166,97 @@ export default function OrderConfirm() {
                 {selectedAdress
 
                     ? <Payment total={reduce()} selectedAddress={selectedAdress} />
-                    :<p>Choisissez une adresse pour passer au paiement</p>
+                    : <p>Choisissez une adresse pour passer au paiement</p>
                 }
             </div>
         );
     } else {
-        return <p>Chargement en cours...</p>;
+        if (user_id) {
+            return <p>Chargement en cours...</p>;
+        }
+        else {
+            return (
+                <div>
+                    <p>Rentrez vos informations ou <span style={{ cursor: "pointer" }} onClick={() => navigate("/auth")}><strong>connectez-vous</strong></span></p>
+                    {error && <p className="error">{error}</p>}
+                    <form
+                        className="vertical-form"
+                        ref={guestAdressForm}
+                        onSubmit={addGuest}
+                        encType="multipart/form-data"
+                    >
+                        <label>Prénom</label>
+                        <input
+                            required
+                            type="text"
+                            className="input-profile"
+                            name="firstname"
+                            placeholder="John"
+                        ></input>
+                        <label>Nom</label>
+                        <input
+                            required
+                            type="text"
+                            className="input-profile"
+                            name="lastname"
+                            placeholder="Doe"
+                        ></input>
+                        <label>Email</label>
+                        <input
+                            required
+                            type="email"
+                            className="input-profile"
+                            name="email"
+                            placeholder="john.doe@mail.com"
+                        ></input>
+                        <label>Numéro de rue</label>
+                        <input
+                            required
+                            type="text"
+                            className="input-profile"
+                            name="number"
+                            placeholder="56"
+                        ></input>
+                        <label>Voie</label>
+                        <input
+                            required
+                            type="text"
+                            className="input-profile"
+                            name="street"
+                            placeholder="Rue de la Mare"
+                        ></input>
+                        <label>Ville</label>
+                        <input
+                            required
+                            type="text"
+                            className="input-profile"
+                            name="city"
+                            placeholder="Paris"
+                        ></input>
+                        <label>Code postal</label>
+                        <input
+                            required
+                            type="text"
+                            className="input-profile"
+                            name="postal_code"
+                            placeholder="75001"
+                        ></input>
+                        <label>Pays</label>
+                        <input
+                            required
+                            type="text"
+                            className="input-profile"
+                            name="country"
+                            placeholder="France"
+                        ></input>
+                        <input
+                            required
+                            type="submit"
+                            value="Utiliser cette adresse"
+                        ></input>
+                    </form>
+                </div>
+            );
+        }
     }
 }
