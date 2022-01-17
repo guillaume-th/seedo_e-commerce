@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Entity\Category;
+use App\Entity\User;
+use App\Entity\Comment;
 use App\Entity\Photo;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -89,7 +91,23 @@ class ArticleController extends AbstractController
      */
     public function show(Article $article): Response
     {
-        return $this->json($this->getArticleData($article));
+        $comment=[];
+        foreach ($article->getComments() as $value) {
+        $name_user = $this->getDoctrine()->getRepository(User::class)->find($value->getUser()->getId());
+      $firstname = $name_user->getFirstName();
+      $lastname =  $name_user->getLastName();
+            array_push($comment, [
+                'id' => $value->getId(),
+                'content' => $value->getContent(),
+                'CreationDate' => $value->getCreationDate(),
+                'firstname'=>$firstname,
+                'lastname'=>$lastname,
+            ]);
+        }
+
+        $data =  $this->getArticleData($article); 
+        $data["comments"] = $comment;
+        return $this->json($data);
     }
 
 
@@ -224,5 +242,37 @@ class ArticleController extends AbstractController
                 "updated_date" => $article->getUpdatedDate(),
             ]
         ];
+    }
+     /**
+     * @Route("/avis/add/{id}", name="add_avis", methods={"POST"})
+     */
+    public function avis_add(Article $article, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $avis = new comment;
+        $avis->setCreationDate(new \DateTime());
+        $avis->setContent($request->request->get("Content"));
+        $user = $this->getDoctrine()->getRepository(User::class)->find($request->request->get("user_id"));
+        $avis->setUser($user);
+        $avis->setArticle($article);
+
+        $entityManager->persist($avis);
+        $entityManager->flush();
+
+        return $this->json([
+            "status"=>"ok",
+        ]);
+    }
+
+    /**
+     * @Route("/avis/remove/{id}", name="remove_avis", methods={"POST"})
+     */
+    public function remove_comment(Comment $comment, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $entityManager->remove($comment);
+        $entityManager->flush();
+
+        return $this->json([
+            "status"=>"ok",
+        ]);
     }
 }
