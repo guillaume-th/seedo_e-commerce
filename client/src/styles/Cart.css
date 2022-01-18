@@ -1,0 +1,19 @@
+
+.cart-child{
+position: relative;
+height: 100%;
+background-color: white;
+opacity: 100%;
+
+}
+
+.cart-elm{
+    display: "flex";
+    justify-content: space-between;
+   
+}
+.cart-price>p{
+    margin-bottom: ".25rem";
+    color:"red";
+    font-style: large;
+}
