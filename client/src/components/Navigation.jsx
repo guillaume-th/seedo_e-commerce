@@ -13,13 +13,14 @@ export default function Navbar(props) {
   const navigate = useNavigate();
   const [openCart, setOpenCart] = useState(false);
   const admin = useSelector((state) => state.admin.value);
+  const [articles, setArticles] = useState(null);
 
   useEffect(() => {
     fetch(`${API_URL}/article/all`, {
       method: "GET",
     })
       .then((res) => res.json())
-      .then((res) => console.log(res))
+      .then((res) => setArticles(res))
       .catch((error) => console.error(error));
   }, []);
 
@@ -28,7 +29,13 @@ export default function Navbar(props) {
   };
 
   function search(string) {
-    console.log(string);
+    let result = [];
+    articles.map((e) => {
+      if (e.data.name.match(string) && string != "") {
+        result.push(e.data);
+      }
+    });
+    console.log(result);
   }
 
   return (
