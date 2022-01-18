@@ -24,14 +24,22 @@ export default function AdminOrders() {
     }
 
     const jsonToCsv = () => {
-        let csv = "data:text/csv;charset=utf-8,ID, Status, Price, Client\r\n";
+        let csv = "data:text/csv;charset=utf-8,ID, Status, Price, Articles, Client\r\n";
         data.forEach((e) => {
-            // csv += [e.id,e.status,e.OrderPrice, e.user.firstname_user + " " + e.user.lastname_user, "\r\n"].join(", ");
-            csv += `"${e.id}", "${e.status}", "${e.OrderPrice}", "${e.user.firstname_user} ${e.user.lastname_user}"\r\n`;
+            csv += `${e.id}, ${e.status}, ${e.OrderPrice}€, ${joinArticle(e.article)}, ${e.user.firstname_user} ${e.user.lastname_user}\r\n`;
         });
+        console.log(csv);
         let encodedURI = encodeURI(csv);
         window.open(encodedURI);
     }
+
+    const joinArticle = (array) =>{
+        let str = ""; 
+        array.forEach((e)=>{
+            str+= e.name + " - ";
+        });
+        return str.slice(0, -3); 
+    };
 
     if (data) {
         return (
