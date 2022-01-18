@@ -1,12 +1,4 @@
 
-.cart-child{
-position: relative;
-height: 100%;
-background-color: white;
-opacity: 100%;
-
-}
-
 .cart-elm{
     display: "flex";
     justify-content: space-between;

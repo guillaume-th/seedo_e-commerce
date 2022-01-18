@@ -441,12 +441,14 @@ label {
 }
 
 .cart-total {
-  position: relative;
+  position: static;
   bottom: 2rem;
   width: 100%;
   color: #4caf50;
   font-size: bold;
   background : white; 
+  
+
 }
 
 .modal {
