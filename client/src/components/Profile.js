@@ -96,6 +96,7 @@ export default function Profile() {
             // <div className="e_com-footer">
             <div className="wrapper">
                 <h1>PROFILE</h1>
+                <button onClick={(ev) => {navigate("/Profile/"+ user_id)}}> commande </button>
                 <form ref={userForm} onSubmit={submitUserData} encType="multipart/form-data">
                     <div className="profile-section">
                         <div className="user-details profile-form">
