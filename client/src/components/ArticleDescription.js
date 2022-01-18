@@ -74,88 +74,6 @@ export default function ArticleDetail() {
     const formData = new FormData(commentForm.current);
     formData.append("user_id", user_id);
 
-<<<<<<< HEAD
-        fetch(`${API_URL}/article/avis/add/${data.id}`,
-            {
-                method: "POST",
-                body: formData,
-            })
-            .then(res => res.json())
-            .then(res => {
-                console.log(res);
-                setRefresh(Math.random());
-            })
-            .catch(err => console.error(err));
-    }
-    const delete_comment = (id_comment) => {
-        fetch(`${API_URL}/article/avis/remove/${id_comment}`)
-            .then(res => res.json())
-            .then(res => {
-                setRefresh(Math.random());
-            })
-            .catch(err => console.error(err));
-    }
-    if (data) {
-        return (
-            <div>
-                <div key={data.id} id="ficheDetail">
-                    <h2 className="titleName">{data.name}</h2>
-                    <p>{data.description}</p>
-                    <p><strong className="green">Couleur : </strong>{data.color ? data.color : 'non renseignée'}</p>
-                    <div className="infoDetail">
-                        <p><strong className="green">Prix : </strong>{data.price} €</p>
-                        <p><strong className="green">Poids : </strong>{data.weight}g</p>
-                    </div>
-                    <form onSubmit={(event) => addToCart(event, data)}>
-                        <input type="number" id={data.id} defaultValue={1} className="number"></input>
-                        <input type="submit" value="Ajouter au panier" />
-                    </form>
-                    <p>{data.categoriesName}</p>
-                    <div className="photos">
-                        <div className="lgPhoto">
-                            <img src={imgFirstLink} className="imgPrincipale"></img>
-                        </div>
-                        <div className="smPhotos">
-                            {
-                                data.photos.map(i => {
-                                    if (i.imgLink !== imgFirstLink) {
-                                        return (
-                                            i &&
-                                            <div onClick={switchPhoto} className="imgSecondaire"><img key={i.id} src={i.imgLink} className="imgSecondaire"></img></div>
-                                        )
-                                    }
-                                })
-                            }
-                        </div>
-                    </div>
-                    <ul id="comments">
-                        {
-                            data.comments.map(i => {
-
-                                return (
-                                    <li>
-                                        <p>{i.firstname}{i.lastname}</p>
-                                        <p>{i.CreationDate.date}</p>
-                                        <p>{i.content}</p>
-                                        {user_id == i.user_id &&
-                                        <img
-                                        src={Delete}
-                                        className="icon" onClick={() => { delete_comment(i.id) }}></img>
-                                       
-                                        }
-                                    </li>
-
-                                )
-                            })
-                        }
-                    </ul>
-                    <p className="green">Laissez un commentaire à propos de l'article !</p>
-                    <form ref={commentForm} onSubmit={addcomment}>
-                        <input type="textarea" id="leaveComment" rows='30' cols='30' name="content"></input>
-                        <input type="submit" value="commenter"  ></input>
-                    </form >
-                </div>
-=======
     fetch(`${API_URL}/article/avis/add/${data.id}`, {
       method: "POST",
       body: formData,
@@ -209,7 +127,6 @@ export default function ArticleDetail() {
           <div className="photos">
             <div className="lgPhoto">
               <img src={imgFirstLink} className="imgPrincipale"></img>
->>>>>>> 50718321e5254ece7d72d9796cd9b805605cece4
             </div>
             <div className="smPhotos">
               {data.photos.map((i) => {
