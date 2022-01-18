@@ -15,7 +15,7 @@ export default function Navbar(props) {
   const [openCart, setOpenCart] = useState(false);
   const admin = useSelector((state) => state.admin.value);
   const [articles, setArticles] = useState(null);
-  const [foundSearch, setFoundSearch] = useState(null);
+  const [foundSearch, setFoundSearch] = useState([]);
 
   useEffect(() => {
     fetch(`${API_URL}/article/all`, {
@@ -25,6 +25,8 @@ export default function Navbar(props) {
       .then((res) => setArticles(res))
       .catch((error) => console.error(error));
   }, []);
+
+  useEffect((e) => {}, [foundSearch]);
 
   const handleCart = () => {
     setOpenCart(!openCart);
@@ -41,10 +43,8 @@ export default function Navbar(props) {
     setFoundSearch(result);
   }
 
-  function displayArticles(object) {
-    object.map((e) => {
-      return <li>{e.name}</li>;
-    });
+  function navigateById(id) {
+    navigate(`/article/${id}`);
   }
 
   return (
@@ -54,22 +54,31 @@ export default function Navbar(props) {
       </div>
       <form className="search_bar">
         <input
-          onChange={(e) => search(e.data)}
+          onChange={(e) => search(e.target.value)}
           className="search"
           id="search"
           type="text"
           placeholder="Search"
         />
         <img id="loupe" src={Search} alt="search_logo" />
-        <div className="found-result">
-          <ul>
-            {() => {
-              if (foundSearch != null) {
-                displayArticles(foundSearch);
-              }
-            }}
-          </ul>
-        </div>
+        <ul
+          id="article-container"
+          style={{ backgroundColor: "#b0dd95", opacity: "100%" }}
+        >
+          {foundSearch.map((e) => (
+            <li
+              className="list-article"
+              onClick={(element) => {
+                navigateById(e.id);
+                element.target.parentElement.parentElement.children[0].value =
+                  "";
+                setFoundSearch([]);
+              }}
+            >
+              {e.name}
+            </li>
+          ))}
+        </ul>
       </form>
       <div id="icon">
         {admin && (
