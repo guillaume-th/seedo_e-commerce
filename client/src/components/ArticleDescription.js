@@ -15,18 +15,6 @@ export default function ArticleDetail() {
   const commentForm = useRef();
   const [refresh, setRefresh] = useState(null);
 
-<<<<<<< HEAD
-    useEffect(() => {
-        fetch(`${API_URL}/article/${id}`)
-            .then(res => res.json())
-            .then(res => {
-                setData(res.data);
-                setImgFirstLink(res.data.photos[0].imgLink);
-                // console.log(res.data.photos[0].imgLink)
-            })
-            .catch(err => console.error(err));
-    }, [refresh]);
-=======
   useEffect(() => {
     fetch(`${API_URL}/article/${id}`)
       .then((res) => res.json())
@@ -37,7 +25,6 @@ export default function ArticleDetail() {
       })
       .catch((err) => console.error(err));
   }, [refresh, id]);
->>>>>>> 50718321e5254ece7d72d9796cd9b805605cece4
 
   const addToCart = (e, product) => {
     e.preventDefault();
