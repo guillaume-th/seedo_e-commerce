@@ -110,10 +110,8 @@ export default function OrderConfirm() {
 
     }
 
-    // const JsontoCsv = () => {
-    //     let csv = "data:text/csv;charset=utf-8," + 
 
-    // }
+
     if (userData) {
         return (
             <div>

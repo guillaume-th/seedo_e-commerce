@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import CsvDownload from 'react-json-to-csv';
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default function AdminOrders() {
@@ -24,13 +23,30 @@ export default function AdminOrders() {
             .catch(err => console.error(err));
     }
 
+    const jsonToCsv = () => {
+        let csv = "data:text/csv;charset=utf-8,ID, Status, Price, Articles, Client\r\n";
+        data.forEach((e) => {
+            csv += `${e.id}, ${e.status}, ${e.OrderPrice}€, ${joinArticle(e.article)}, ${e.user.firstname_user} ${e.user.lastname_user}\r\n`;
+        });
+        console.log(csv);
+        let encodedURI = encodeURI(csv);
+        window.open(encodedURI);
+    }
+
+    const joinArticle = (array) =>{
+        let str = ""; 
+        array.forEach((e)=>{
+            str+= e.name + " - ";
+        });
+        return str.slice(0, -3); 
+    };
+
     if (data) {
         return (
             <div className="wrapper">
                 <div className="orders-admin">
                     <h2>Commandes</h2>
-                    <CsvDownload data={data} filename={"Seedo_Orders" + Date.now() + ".csv"} />
-
+                    <button onClick={() => jsonToCsv()}>Télécharger au format Csv</button>
                     <div className="orders-wrapper">
                         {data.map(e => {
                             return (
