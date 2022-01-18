@@ -115,14 +115,21 @@ class OrderController extends AbstractController
      */
     public function SelectedOrder(Request $request, Order $order,  EntityManagerInterface $entityManager): Response
     {
-        $order =  $this->getDoctrine()->getRepository(Order::class)->find($order->getId());
         $data = [];
         $orderarticle = [];
         foreach ($order->getArticles() as $value) {
+            $count =  $this->getDoctrine()->getRepository(Count::class)->findBy(
+                [
+                    "article_id" => $value->getId(),
+                    "order_id" => $order->getId(),
+                ]
+            )[0]->getQuantity();
+
             array_push($orderarticle, [
                 'id' => $value->getId(),
                 'name' => $value->getName(),
                 'price' => $value->getPrice(),
+                'quantity' => $count,
             ]);
         }
         array_push($data, [
