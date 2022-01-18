@@ -70,7 +70,7 @@ li {
 #navbar {
   display: flex;
   background: #ffffff;
-  opacity: 0.6;
+  /* opacity: 0.6; */
   padding: 15px;
   justify-content: space-between;
   height: 120px;
@@ -384,8 +384,9 @@ li {
   padding: 0.5rem;
   color: rgb(130, 168, 121);
   overflow-y: scroll;
-  z-index: 100;
-  opacity: 100%;
+  scrollbar-width: none;
+  /* z-index: 100; */
+  
 }
 
 .formu {
@@ -440,9 +441,14 @@ label {
 }
 
 .cart-total {
-  position: absolute;
+  position: static;
   bottom: 2rem;
   width: 100%;
+  color: #4caf50;
+  font-size: bold;
+  background : white; 
+  
+
 }
 
 .modal {
