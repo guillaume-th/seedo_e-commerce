@@ -570,10 +570,10 @@ label {
 
 .order-wrapper, .new-category-form, .categories-admin, .adress-wrapper {
   width: 80vw;
-  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 20px;
   margin-top: 5rem;
   padding: 1.5rem;
-
 }
 
 .adress-form, .profile-form, .edit-article-form {
