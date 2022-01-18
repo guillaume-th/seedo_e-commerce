@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { updateCart } from "../CartSlice";
@@ -11,17 +11,19 @@ export default function ArticleDetail() {
     const { id } = useParams();
     const cart = useSelector((state => state.cart.value));
     const dispatch = useDispatch();
+    const commentForm = useRef();
+    const [refresh, setRefresh] = useState(null);
 
     useEffect(() => {
         fetch(`${API_URL}/article/${id}`)
             .then(res => res.json())
             .then(res => {
-                setData(res.data);
+               setData(res.data);
                 setImgFirstLink(res.data.photos[0].imgLink);
                 // console.log(res.data.photos[0].imgLink)
             })
             .catch(err => console.error(err));
-    }, []);
+    }, [refresh]);
 
     const addToCart = (e, product) => {
         e.preventDefault();
@@ -49,15 +51,39 @@ export default function ArticleDetail() {
     const switchPhoto = (e) => {
         setImgFirstLink(e.target.src);
     }
+    const addcomment = (e) => {
+        e.preventDefault();
+        const formData = new FormData(commentForm.current);
+        formData.append("user_id", id)
 
-
+        fetch(`${API_URL}/article/avis/add/${data.id}`,
+            {
+                method: "POST",
+                body: formData,
+            })
+            .then(res => res.json())
+            .then(res => {
+                console.log(res);
+                setRefresh(Math.random());
+            })
+            .catch(err => console.error(err));
+    }
+    const delete_comment = (id_comment) => {
+        fetch(`${API_URL}/article/avis/remove/${id_comment}`)
+            .then(res => res.json())
+            .then(res => {
+                console.log(res);
+                setRefresh(Math.random());
+            })
+            .catch(err => console.error(err));
+    }
     if (data) {
         return (
             <div>
                 <div key={data.id} id="ficheDetail">
                     <h2 className="titleName">{data.name}</h2>
                     <p>{data.description}</p>
-                    <p><strong className="green">Couleur : </strong>{data.color ? data.color : 'non renseignée' }</p>
+                    <p><strong className="green">Couleur : </strong>{data.color ? data.color : 'non renseignée'}</p>
                     <div className="infoDetail">
                         <p><strong className="green">Prix : </strong>{data.price} €</p>
                         <p><strong className="green">Poids : </strong>{data.weight}g</p>
@@ -72,29 +98,32 @@ export default function ArticleDetail() {
                             <img src={imgFirstLink} className="imgPrincipale"></img>
                         </div>
                         <div className="smPhotos">
-                        {
-                            data.photos.map(i => {
-                                if(i.imgLink !== imgFirstLink){
-                                    return (
-                                        i &&
-                                        <div onClick={switchPhoto} className="imgSecondaire"><img key={i.id} src={i.imgLink} className="imgSecondaire"></img></div>
-                                    )
-                                }
-                            })
-                        }
+                            {
+                                data.photos.map(i => {
+                                    if (i.imgLink !== imgFirstLink) {
+                                        return (
+                                            i &&
+                                            <div onClick={switchPhoto} className="imgSecondaire"><img key={i.id} src={i.imgLink} className="imgSecondaire"></img></div>
+                                        )
+                                    }
+                                })
+                            }
                         </div>
                     </div>
                     <ul id="comments">
-                        <li>Ceci est un commentaire</li>
-                        <li>Ceci est un commentaire</li>
-                        <li>Ceci est un commentaire</li>
-                        <li>Ceci est un commentaire</li>
-                        <li>Ceci est un commentaire</li>
-                        <li>Ceci est un commentaire</li>
+                        {
+                            data.comments.map(i => {
+                                return (
+                                    <li><p>{i.firstname}{i.lastname}</p><p>{i.CreationDate.date}</p><p>{i.content}</p><button onClick={()=> {delete_comment(i.id)}}>delete</button></li>
+                                )
+                            })
+                        }
                     </ul>
                     <p className="green">Laissez un commentaire à propos de l'article !</p>
-                    <input type="textarea" id="leaveComment" rows='30' cols='30' ></input>
-                    <input type="submit" value="commenter"></input>
+                    <form ref={commentForm} onSubmit={addcomment}>
+                        <input type="textarea" id="leaveComment" rows='30' cols='30' name="content"></input>
+                        <input type="submit" value="commenter"  ></input>
+                    </form >
                 </div>
             </div>
         );
