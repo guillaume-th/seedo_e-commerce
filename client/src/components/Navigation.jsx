@@ -7,6 +7,7 @@ import Search from "../assets/searchWhite.png";
 import { useNavigate } from "react-router-dom";
 import Cart from "./Cart";
 import { useSelector } from "react-redux";
+import { compose } from "redux";
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default function Navbar(props) {
@@ -14,6 +15,7 @@ export default function Navbar(props) {
   const [openCart, setOpenCart] = useState(false);
   const admin = useSelector((state) => state.admin.value);
   const [articles, setArticles] = useState(null);
+  const [foundSearch, setFoundSearch] = useState(null);
 
   useEffect(() => {
     fetch(`${API_URL}/article/all`, {
@@ -29,13 +31,20 @@ export default function Navbar(props) {
   };
 
   function search(string) {
+    const search = new RegExp(string, "gi");
     let result = [];
     articles.map((e) => {
-      if (e.data.name.match(string) && string != "") {
+      if (e.data.name.match(search) && string != "") {
         result.push(e.data);
       }
     });
-    console.log(result);
+    setFoundSearch(result);
+  }
+
+  function displayArticles(object) {
+    object.map((e) => {
+      return <li>{e.name}</li>;
+    });
   }
 
   return (
@@ -45,16 +54,23 @@ export default function Navbar(props) {
       </div>
       <form className="search_bar">
         <input
-          onChange={(e) => search(e.target.value)}
+          onChange={(e) => search(e.data)}
           className="search"
           id="search"
           type="text"
           placeholder="Search"
         />
         <img id="loupe" src={Search} alt="search_logo" />
-        div
+        <div className="found-result">
+          <ul>
+            {() => {
+              if (foundSearch != null) {
+                displayArticles(foundSearch);
+              }
+            }}
+          </ul>
+        </div>
       </form>
-
       <div id="icon">
         {admin && (
           <img
