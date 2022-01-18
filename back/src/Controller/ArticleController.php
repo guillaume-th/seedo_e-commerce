@@ -99,6 +99,7 @@ class ArticleController extends AbstractController
             array_push($comment, [
                 'id' => $value->getId(),
                 'content' => $value->getContent(),
+                'user_id' => $value->getUser()->getId(),
                 'CreationDate' => $value->getCreationDate(),
                 'firstname'=>$firstname,
                 'lastname'=>$lastname,

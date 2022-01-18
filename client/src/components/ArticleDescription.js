@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { updateCart } from "../CartSlice";
+import Delete from "../assets/delete.svg";
 const API_URL = process.env.REACT_APP_API_URL;
 
 
@@ -19,7 +20,7 @@ export default function ArticleDetail() {
         fetch(`${API_URL}/article/${id}`)
             .then(res => res.json())
             .then(res => {
-               setData(res.data);
+                setData(res.data);
                 setImgFirstLink(res.data.photos[0].imgLink);
                 // console.log(res.data.photos[0].imgLink)
             })
@@ -73,7 +74,6 @@ export default function ArticleDetail() {
         fetch(`${API_URL}/article/avis/remove/${id_comment}`)
             .then(res => res.json())
             .then(res => {
-                console.log(res);
                 setRefresh(Math.random());
             })
             .catch(err => console.error(err));
@@ -114,8 +114,20 @@ export default function ArticleDetail() {
                     <ul id="comments">
                         {
                             data.comments.map(i => {
+
                                 return (
-                                    <li><p>{i.firstname}{i.lastname}</p><p>{i.CreationDate.date}</p><p>{i.content}</p><button onClick={()=> {delete_comment(i.id)}}>delete</button></li>
+                                    <li>
+                                        <p>{i.firstname}{i.lastname}</p>
+                                        <p>{i.CreationDate.date}</p>
+                                        <p>{i.content}</p>
+                                        {user_id == i.user_id &&
+                                        <img
+                                        src={Delete}
+                                        className="icon" onClick={() => { delete_comment(i.id) }}></img>
+                                       
+                                        }
+                                    </li>
+
                                 )
                             })
                         }
