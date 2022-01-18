@@ -22,7 +22,6 @@ class UserController extends AbstractController
      */
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
-
         $email = $request->request->get('email');
         $password = $request->request->get('password');
         $confirm_password = $request->request->get('confirm_password');
