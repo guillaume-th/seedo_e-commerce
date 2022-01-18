@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateCart } from "../CartSlice";
 import Payment from "./Payment";
 const API_URL = process.env.REACT_APP_API_URL;
+const BING_API_KEY = process.env.REACT_APP_BING_API_KEY;
 
 export default function OrderConfirm() {
     const [userData, setUserData] = useState(null);
@@ -16,6 +17,7 @@ export default function OrderConfirm() {
     const cart = useSelector((state) => state.cart.value);
     const [error, setError] = useState(null);
     const dispatch = useDispatch();
+    const [shipping, setShipping] = useState(null);
 
     useEffect(() => {
         if (user_id !== null) {
@@ -32,6 +34,8 @@ export default function OrderConfirm() {
                 .getElementById(selectedAdress.id)
                 .classList.add("selected-adress");
         }
+
+        getShippingDistance();
         /* eslint-disable */
     }, [selectedAdress, user_id]);
 
@@ -82,6 +86,30 @@ export default function OrderConfirm() {
             })
             .catch(err => console.error(err));
     }
+
+    const getShippingDistance = () => {
+        console.log("in"); 
+        const origins = "48.864716,2.349014";
+        fetch(`http://dev.virtualearth.net/REST/v1/Locations?locality=${selectedAdress.city}&postalCode={${selectedAdress.postal_code}}&includeNeighborhood=0&maxResults=1&key=${BING_API_KEY}`)
+            .then(res => res.json())
+            .then(res => {
+                var destinations = `${res?.resourceSets[0]?.resources[0]?.geocodePoints[0]?.coordinates[0]},${res?.resourceSets[0]?.resources[0]?.geocodePoints[0]?.coordinates[1]}`
+                fetch(`https://dev.virtualearth.net/REST/v1/Routes/DistanceMatrix?origins=${origins}&destinations=${destinations}&travelMode=driving&key=${BING_API_KEY}`,
+                )
+                    .then((res) => res.json())
+                    .then((res) => {
+                        const distance = res?.resourceSets[0]?.resources[0]?.results[0]?.travelDistance;
+                        const priceBy100Km = 5;
+
+                        setShipping(Number((distance / 100 * priceBy100Km).toFixed(2)));
+                    })
+                    .catch(err => console.error(err));
+
+            })
+            .catch(err => console.error(err));
+
+    }
+
 
     if (userData) {
         return (
@@ -164,11 +192,17 @@ export default function OrderConfirm() {
                     )}
                 </div>
                 {selectedAdress
-
-                    ? <Payment total={reduce()} selectedAddress={selectedAdress} />
+                    ? <div>
+                        <div>
+                            <p>Prix de la commande : {reduce()}</p>
+                            <p>Frais de livraison: {shipping}</p>
+                            <p>Prix total :{reduce() + shipping}</p>
+                        </div>
+                        <Payment total={reduce() + shipping} selectedAddress={selectedAdress} />
+                    </div>
                     : <p>Choisissez une adresse pour passer au paiement</p>
                 }
-            </div>
+            </div >
         );
     } else {
         if (user_id) {
