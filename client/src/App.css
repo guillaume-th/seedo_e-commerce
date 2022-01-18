@@ -70,7 +70,7 @@ li {
 #navbar {
   display: flex;
   background: #ffffff;
-  opacity: 0.6;
+  /* opacity: 0.6; */
   padding: 15px;
   justify-content: space-between;
   height: 120px;
@@ -385,7 +385,7 @@ li {
   color: rgb(130, 168, 121);
   overflow-y: scroll;
   z-index: 100;
-  opacity: 100%;
+  opacity: 1 !important;
 }
 
 .formu {
