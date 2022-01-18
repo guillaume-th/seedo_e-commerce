@@ -15,10 +15,10 @@ export default function Payment(props) {
     const user_id = localStorage.getItem("user_id");
     const dispatch = useDispatch();
     const [error, setError] = useState(null);
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
 
     useEffect(() => {
-        console.log(props); 
+        console.log(props);
     }, [])
     const order = () => {
         const array = [];
@@ -30,8 +30,9 @@ export default function Payment(props) {
             });
         });
         const data = {
-            user_id,
-            adress:props.selectedAddress,
+            user_id:  user_id,
+            guestData : props.guest, 
+            adress: props.selectedAddress,
             order_price: reduce(),
             articles_id: array,
         };
@@ -67,7 +68,7 @@ export default function Payment(props) {
                 currency={"EUR"}
                 total={props.total}
                 shipping={1}
-                style={{color : "white"}}
+                style={{ color: "white" }}
                 onSuccess={(data) => {
                     setSuccess(true);
                     order();

@@ -53,18 +53,4 @@ input::placeholder {
   margin: 1rem;
 }
 
-.adress-section {
-  align-self: flex-start;
-  margin-left: 260px;
-  
-  border-radius: 10px;
-  opacity: 0.5;
-}
 
-.edit-adress {
-  position: absolute;
-  color: #ffffff;
-  align-self: center;
-  margin-top: 30em;
-  margin-left: 25em;
-}

@@ -5,6 +5,7 @@ import { Route, Routes, HashRouter as Router } from "react-router-dom";
 import Profile from "./components/Profile";
 import ArticleEdit from "./components/admin/ArticleEdit";
 import ArticleListing from "./components/ArticleListing";
+import OrderListing from "./components/OrdersListing";
 import OrderConfirm from "./components/OrderConfirm";
 import Home from "./components/Home";
 import Connexion from "./components/Connexion";
@@ -43,6 +44,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/:id" element={<OrderListing />} />
           <Route path="/article/edit/:id" element={<ArticleEdit />} />
           <Route path="/article/:id" element={<ArticleDescription />} />
           <Route path="/articles" element={<ArticleListing />} />
