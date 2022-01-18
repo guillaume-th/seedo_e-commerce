@@ -33,9 +33,9 @@ export default function OrderConfirm() {
             document
                 .getElementById(selectedAdress.id)
                 .classList.add("selected-adress");
+            getShippingDistance();
         }
 
-        getShippingDistance();
         /* eslint-disable */
     }, [selectedAdress, user_id]);
 
@@ -88,7 +88,7 @@ export default function OrderConfirm() {
     }
 
     const getShippingDistance = () => {
-        console.log("in"); 
+        console.log("in");
         const origins = "48.864716,2.349014";
         fetch(`http://dev.virtualearth.net/REST/v1/Locations?locality=${selectedAdress.city}&postalCode={${selectedAdress.postal_code}}&includeNeighborhood=0&maxResults=1&key=${BING_API_KEY}`)
             .then(res => res.json())
@@ -110,7 +110,10 @@ export default function OrderConfirm() {
 
     }
 
+    // const JsontoCsv = () => {
+    //     let csv = "data:text/csv;charset=utf-8," + 
 
+    // }
     if (userData) {
         return (
             <div>

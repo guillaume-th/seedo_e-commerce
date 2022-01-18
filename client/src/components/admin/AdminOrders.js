@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import CsvDownload from 'react-json-to-csv';
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default function AdminOrders() {
@@ -9,26 +10,10 @@ export default function AdminOrders() {
         fetch(`${API_URL}/order/all`)
             .then((res) => res.json())
             .then((res => {
-                console.log(res);
+                console.log(res.result);
                 setData(res.result);
             }))
     }, [refresh])
-
-    const transformData = (data) => {
-        const res = [];
-        data.forEach((e) => {
-            let found = res.find((elt) => elt.name === e.name);
-            console.log(found);
-            if (found !== undefined) {
-                res[res.indexOf(found)].quantity++;
-            }
-            else {
-                e.quantity = 1;
-                res.push(e);
-            }
-        })
-        return res;
-    }
 
     const deleteOrder = (id) => {
         fetch(`${API_URL}/order/remove/${id}`)
@@ -44,6 +29,8 @@ export default function AdminOrders() {
             <div className="wrapper">
                 <div className="orders-admin">
                     <h2>Commandes</h2>
+                    <CsvDownload data={data} filename={"Seedo_Orders" + Date.now() + ".csv"} />
+
                     <div className="orders-wrapper">
                         {data.map(e => {
                             return (
@@ -64,8 +51,8 @@ export default function AdminOrders() {
                                         }
                                     </ul>
                                     {/* <div st!yle={{ display: "flex" }}> */}
-                                        <p>Prix de la commande : <strong>{e.OrderPrice} €</strong></p>
-                                        <button onClick={() => deleteOrder(e.id)}>Annuler cette commande</button>
+                                    <p>Prix de la commande : <strong>{e.OrderPrice} €</strong></p>
+                                    <button onClick={() => deleteOrder(e.id)}>Annuler cette commande</button>
                                     {/* </div> */}
                                 </div>
                             )
