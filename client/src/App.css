@@ -453,13 +453,16 @@ label {
 
 .modal {
   position: fixed;
-  top: 50%;
+  top: 65%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: rgb(130, 168, 121);
   width: 50%;
-  padding: 1rem;
-  border-radius: .5rem;
+  height: 30%;
+  padding: 0px 20px;
+  border-radius: 20px;
+  box-shadow: 8px -3px 100px 20px rgba(161, 201, 168, 1);
+
 }
 
 /***************************/

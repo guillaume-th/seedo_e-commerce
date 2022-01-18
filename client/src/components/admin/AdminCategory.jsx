@@ -58,7 +58,7 @@ export default function Category() {
   if (data) {
     return (
       <div className="wrapper" id="category">
-        <form
+        <form 
           ref={createForm}
           encType="multipart/form-data"
           onSubmit={(e) => {
@@ -99,8 +99,11 @@ export default function Category() {
         {openModal && (
           <div className="modal">
             <section>
-              <h2>Mettre à jour</h2>
-              <form
+             <div style={{display:"flex", justifyContent:"space-between", alignItems:"center"}}>
+              <h2 style={{color:"white"}}>Mettre à jour</h2>
+              <button style={{height:"2rem"}} onClick={() => setOpenModal(false)}>X</button>
+              </div>
+              <form style={{width:"400px", margin:"auto"}}
                 ref={updateForm}
                 encType="multipart/form-data"
                 onSubmit={(e) => {
@@ -109,16 +112,17 @@ export default function Category() {
                   updateCategory(current, openModal.id);
                 }}
               >
+                <div>
                 <label htmlFor="name">
-                  <input
+                  <input 
                     name="name"
                     type="text"
                     placeholder="Nouveau nom"
                     defaultValue={openModal.name}
                   />
                 </label>
-                <input type="submit" value="Modifier"></input>
-                <button onClick={() => setOpenModal(false)}>Annuler</button>
+                <input style={{height:"2.8rem"}} type="submit" value="Modifier"></input>
+                </div>
               </form>
             </section>
           </div>
