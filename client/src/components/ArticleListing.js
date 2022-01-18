@@ -4,8 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { updateCart } from "../CartSlice";
 const API_URL = process.env.REACT_APP_API_URL;
 
-
-
 export default function ArticleListing() {
     const [data, setData] = useState(null);
     const cart = useSelector((state) => state.cart.value);
@@ -16,7 +14,6 @@ export default function ArticleListing() {
     const [refresh, setRefresh] = useState(null);
 
     useEffect(() => {
-
         fetch(`${API_URL}/article/all`)
             .then(res => res.json())
             .then(res => {
@@ -97,7 +94,7 @@ export default function ArticleListing() {
     if (data) {
         return (
             <div>
-                <div id="gallery">
+                <div className="gallery">
                     <div id="filtres">
                         ICI LES FILTRES DE RECHERCHE
                     </div>
@@ -106,7 +103,7 @@ export default function ArticleListing() {
                             return (
 
                                 <div key={e.data.id} onClick={(ev) => {
-                                    if(!ev.target.classList.contains("buttonShop")){
+                                    if(!ev.target.classList.contains("buttonShop") && !ev.target.classList.contains("number")){
                                         navigate("/article/" + e.data.id)
                                     }}} className="thumbnail">
                                         <div className="img-wrapper">
@@ -122,7 +119,7 @@ export default function ArticleListing() {
                                     ? <><span className="promo"> -{e.data.promo}%</span>
                                         <p className="firstPrice"><strike>{e.data.price} €</strike></p></>
                                         
-                                    : <span className="noPromo"></span>
+                                    : <div className="noPromo"></div>
 
                                 }
                                 <div className="infos">

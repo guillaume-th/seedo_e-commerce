@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import "../styles/Cart.css";
 
 export default function Cart() {
   const cart = useSelector((state) => state.cart.value);
@@ -21,23 +22,26 @@ export default function Cart() {
 
   if (cart.length > 0) {
     return (
+      
       <div className="cart">
-        <div style={{ position: "relative", height: "100%" }}>
+        <div className="cart-child">
           {cart.map((e) => {
             return (
               <div key={e.id}>
                 <p style={{ marginBottom: ".25rem" }}>{e.name}</p>
-                <div
-                  style={{ display: "flex", justifyContent: "space-between" }}
+                <div className="cart-elm"
+                 
                 >
-                  <p>{e.selectedQuantity}</p>
+                  <p>Qte : {e.selectedQuantity}</p>
                   <p>{e.price * e.selectedQuantity} €</p>
                 </div>
               </div>
             );
           })}
           <div className="cart-total">
-            <p style={{ marginBottom: ".25rem" }}> Total : {reduce()} €</p>
+            <div  className="cart-price">
+              <p>Total : {reduce()} €</p>
+            </div>
             <button
               style={{ fontSize: "1.25rem", width: "90%" }}
               onClick={() => navigate("/order")}

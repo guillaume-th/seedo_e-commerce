@@ -5,12 +5,12 @@ import { Route, Routes, HashRouter as Router } from "react-router-dom";
 import Profile from "./components/Profile";
 import ArticleEdit from "./components/admin/ArticleEdit";
 import ArticleListing from "./components/ArticleListing";
+import OrderConfirm from "./components/OrderConfirm";
 import Home from "./components/Home";
 import Connexion from "./components/Connexion";
 import ArticleDescription from "./components/ArticleDescription";
 import Nav from "./components/Navigation";
 import Order from "./components/Order";
-import OrderConfirm from "./components/OrderConfirm";
 import AdminArticles from "./components/admin/AdminArticles";
 import Category from "./components/admin/AdminCategory";
 import AdminPanel from "./components/admin/AdminPanel";
@@ -49,10 +49,10 @@ function App() {
           <Route path="/auth" element={<Connexion />} />
           <Route path="/order" element={<Order />} />
           <Route path="/order-confirm" element={<OrderConfirm />} />
-          <Route path="/admin-articles" element={<AdminArticles />} />
+          <Route path="/order-success" element={<p>Paiement effectué avec succès</p> } />
           <Route path="/admin-category" element={<Category />} />
-          <Route path="/admin-panel" element={<AdminPanel/>}/>
-          <Route path="/admin-articles" element={<AdminArticles/>}/>
+          <Route path="/admin-panel" element={<AdminPanel />} />
+          <Route path="/admin-articles" element={<AdminArticles />} />
         </Routes>
       </Router>
     </div>

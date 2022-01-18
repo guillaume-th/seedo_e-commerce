@@ -78,79 +78,103 @@ export default function ArticleListing() {
                     <form encType="multipart/form-data" className="vertical-form" style={{ width: "50%", marginTop: "5rem" }} ref={form} onSubmit={add}>
                         <div style={{ display: "flex" }}>
                             <div style={{ display: "flex", flexDirection: "column" }}>
-                                <label style={{ width: "300px" }}>Nom de l'article</label>
-                                <input name="name" type="text"></input>
-                                <label>Description</label>
+                                <label style={{ width: "300px" }}>Nom de l'article :</label>
+                                <input style={{ width: "600px" }} name="name" type="text"></input>
+                                <label>Catégorie(s) :</label>
+                                <input name="categories" type="text" placeholder="Catégorie 1, catégorie 2" minLength={0} maxLength={100}></input>
+                                <label>Description :</label>
                                 <textarea name="description"></textarea>
                             </div>
                             <div style={{ display: "flex", flexDirection: "column" }}>
                                 <div style={{ display: "flex" }}>
                                     <div>
-                                        <label>Poids</label>
-                                        <input name="weight" type="text" ></input>
+                                        <label style={{ marginLeft: "20px" }}>Poids :</label>
+                                        <input style={{ width: "270px" }} name="weight" type="text" ></input>
                                     </div>
                                     <div>
-                                        <label>Couleur</label>
-                                        <input name="color" type="text"></input>
+                                        <label style={{ marginLeft: "20px" }}>Couleur :</label>
+                                        <input style={{ width: "270px" }} name="color" type="text"></input>
                                     </div>
                                 </div>
-                                <label>Quantité</label>
-                                <input name="quantity" type="number"></input>
-                            </div>
-                            <div>
-                                <label>Price</label>
-                                <input type="number" name="price" ></input>
-                            </div>
-                            <div>
-                                <label>Promo</label>
-                                <input name="promo" type="number" min={0} max={100}></input>
-                            </div>
-                        </div>
-                        <div style={{ display: "flex", justifyContent: "center" }}>
-                            <label>Catégorie(s)</label>
-                            <input name="categories" type="text" placeholder="Catégorie 1, catégorie 2" minLength={0} maxLength={100}></input>
 
-                            <div style={{ display: "flex", width: "500px" }}>
+
+
                                 <div>
-                                    <input name="photo" type="text" placeholder="http://url_de_votre_image" defaultValue={""}></input>
-                                    <input type="submit" value="Ajouter cet article"></input>
+                                    <label>Photo(s) :</label>
+                                    <input style={{ width: "600px" }} name="photo" type="text" placeholder="http://url_de_votre_image" defaultValue={""}></input>
+
+                                </div>
+
+                                <div style={{ display: "flex", width: "600px", marginLeft: "2%", marginTop: "10px" }}>
+                                    <div>
+                                        <label>Quantité :</label>
+                                        <input style={{ borderRadius: "20px", height: "30px", width: "189px", border: "none", marginTop: "15px", marginRight: "15px" }} name="quantity" type="number"></input>
+                                    </div>
+                                    <div>
+                                        <label style={{ marginLeft: "6%" }}>Price :</label>
+                                        <input style={{ borderRadius: "20px", height: "30px", width: "189px", border: "none", marginTop: "15px", marginLeft: "10px" }} type="number" name="price" ></input>
+                                    </div>
+                                    <div>
+                                        <label style={{ marginLeft: "12%" }}>Promo :</label>
+                                        <input style={{ borderRadius: "20px", height: "30px", width: "189px", border: "none", marginTop: "15px", marginLeft: "25px" }} name="promo" type="number" min={0} max={100}></input>
+                                    </div>
                                 </div>
                             </div>
+
+                        </div>
+                        <div>
+                            <input style={{ borderRadius: "20px", marginLeft: "60%", fontSize: "25px", marginTop: "5%", padding: "10px 10px" }} type="submit" value="Ajouter cet article"></input>
                         </div>
                     </form>
                 </div>
-                {
-                    data.map((e) => {
-                        return (
-                            <div key={e.data.id}>
-                                <h3>{e.data.name}</h3>
-                                {e.data.new &&
-                                    <span className="new">Nouveauté !</span>
-                                }
-                                {e.data.quantity > 0
-                                    ? <p>Etat du stock : {e.data.quantity}.</p>
-                                    : <p>En rupture de stock</p>
-                                }
-                                {e.data.promo > 0
-                                    ? <div>
-                                        <p><strike>{e.data.price} €</strike><span className="promo"> -{e.data.promo}%</span></p>
-                                        <p>{computePrice(e.data)} €</p>
+                <div className="gallery">
+                    {
+                        data.map((e) => {
+                            return (
+                                <div key={e.data.id} className="thumbnail">
+                                    <div className="img-wrapper">
+                                        {
+                                            e.data.photos[0] &&
+                                            <img src={e.data.photos[0].imgLink}></img>
+                                        }
                                     </div>
-                                    : <p>{e.data.price} €</p>
-                                }
-                                <p>{e.data.categoriesName}</p>
-                                {
-                                    e.data.photos[0] &&
-                                    <img src={e.data.photos[0].imgLink}></img>
-                                }
-                                < div >
-                                    <button onClick={() => editArticle(e.data.id)}>Edit</button>
-                                    <button onClick={() => deleteArticle(e.data.id)}>Delete</button>
-                                </div>
-                            </div >
-                        )
-                    })
-                }
+                                    {e.data.new &&
+                                        <span className="new">Nouveauté !</span>
+                                    }
+                                    {e.data.promo > 0
+                                        ? <><span className="promo"> -{e.data.promo}%</span>
+                                            <p className="firstPrice"><strike>{e.data.price} €</strike></p></>
+
+                                        : <div className="noPromo"></div>
+                                    }
+                                    <div className="infos">
+                                        <div className="sub-info">
+                                            <p className="name">{e.data.name}</p>
+                                            {e.data.promo > 0
+                                                ? <div className="prices">
+                                                    <p>{computePrice(e.data)} €</p>
+                                                </div>
+                                                : <p>{e.data.price} €</p>
+                                            }
+                                            <p>{e.data.categoriesName}</p>
+                                            {/* {e.data.quantity > 0
+                                                ? <p>Etat du stock : {e.data.quantity}.</p>
+                                                : <p>En rupture de stock</p>
+                                            } */}
+                                            < div >
+                                                <button onClick={() => editArticle(e.data.id)}>Edit</button>
+                                                <button onClick={() => deleteArticle(e.data.id)}>Delete</button>
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+                                </div >
+                            )
+                        })
+                    }
+                </div>
             </div >
         );
     }

@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux"; 
-import { updateAdmin} from "../AdminSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { updateAdmin } from "../AdminSlice";
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default function Profile() {
@@ -13,8 +13,8 @@ export default function Profile() {
     const [modalOpen, setModalOpen] = useState(false);
     const [editedAdress, setEditedAdress] = useState(false);
     const navigate = useNavigate();
-    const dispatch = useDispatch(); 
-    const cart = useSelector(state => state.cart.value); 
+    const dispatch = useDispatch();
+    const cart = useSelector(state => state.cart.value);
 
     useEffect(() => {
         if (user_id === null) {
@@ -70,75 +70,115 @@ export default function Profile() {
         }
     };
 
+    const editAdress = (e) => {
+        e.preventDefault();
+        const data = new FormData(editAdressForm.current);
+
+        setModalOpen(false);
+        fetch(`${API_URL}/user/adress/${editedAdress.id}/edit`,
+            {
+                method: "POST",
+                body: data,
+            })
+            .then((res) => res.json())
+            .then((res) => {
+                if (res.status === "ok") {
+                    setUser(res.data);
+                }
+            })
+            .catch((error) => console.error(error));
+
+    }
+
     if (user) {
         return (
 
             // <div className="e_com-footer">
             <div className="wrapper">
                 <h1>PROFILE</h1>
-                <div className="profile-section">
-
-                    <form  ref={userForm} onSubmit={submitUserData} encType="multipart/form-data">
-                        <div className="user-details">
+                <form ref={userForm} onSubmit={submitUserData} encType="multipart/form-data">
+                    <div className="profile-section">
+                        <div className="user-details profile-form">
                             <h3>Coordonnées</h3>
-                           <label>Nom: <input type="text" name="firstname" placeholder="Prénom" defaultValue={user.firstname}></input></label>
-                            <label>Prenom:<input type="text" name="lastname" placeholder="Nom de famille" defaultValue={user.lastname}></input></label>
-                            <label> Email:<input type="text" name="email" placeholder="Email" defaultValue={user.email}></input></label>
-                            <label> Telephone: <input type="text" name="telephone" placeholder="Téléphone" defaultValue={user.telephone}></input></label>
+                            <label className="std-input-label">Nom: </label>
+                            <input className="std-input-label" type="text" name="firstname" placeholder="Prénom" defaultValue={user.firstname}></input>
+                            <label className="std-input-label">Prenom:</label>
+                            <input className="std-input-label" type="text" name="lastname" placeholder="Nom de famille" defaultValue={user.lastname}></input>
+                            <label className="std-input-label"> Email:</label>
+                            <input className="std-input-label" type="text" name="email" placeholder="Email" defaultValue={user.email}></input>
+                            <label className="std-input-label"> Telephone:</label>
+                            <input className="std-input-label" type="text" name="telephone" placeholder="Téléphone" defaultValue={user.telephone}></input>
                         </div>
-                        <div className="bank-details">
+                        <div className="bank-details profile-form">
                             <h3>Coordonnées bancaires</h3>
-                            <label>Numéro CB<input type="text" name="number_CB" placeholder="Numéro de carte bancaire" minLength={16} maxLength={16} defaultValue={user.number_CB}></input></label>
-                            <label>CVV<input type="text" name="cvv" placeholder="CVV" minLength={3} maxLength={3} defaultValue={user.cvv}></input></label>
-                            <label>Date d'expiration<input type="text" name="expiration_CB" placeholder="Date d'expiration" minLength={5} maxLength={5} defaultValue={user.expiration_CB}></input></label>
+                            <label className="std-input-label">Numéro CB</label>
+                            <input className="std-input-label" type="text" name="number_CB" placeholder="Numéro de carte bancaire" minLength={16} maxLength={16} defaultValue={user.number_CB}></input>
+                            <label className="std-input-label">CVV</label>
+                            <input className="std-input-label" type="text" name="cvv" placeholder="CVV" minLength={3} maxLength={3} defaultValue={user.cvv}></input>
+                            <label className="std-input-label">Date d'expiration</label>
+                            <input className="std-input-label" type="text" name="expiration_CB" placeholder="Date d'expiration" minLength={5} maxLength={5} defaultValue={user.expiration_CB}></input>
                         </div>
-                        <input type="submit" value="Sauvegarder les modifications"></input>
-                    </form>
+                    </div>
+                    <div className="wrapper">
+                        <input type="submit" className="centered-btn" value="Sauvegarder les modifications"></input>
+                    </div>
+                </form>
+                <div className="wrapper adress-wrapper">
+                    <h3>Vos adresses</h3>
+                    {
+                        user.adresses.map((e) => {
+                            return (
+                                <div key={e.id} className="edit-adress">
+                                    <p>{e.number} {e.street} </p>
+                                    <p>{e.city} {e.postal_code}, {e.country}</p>
+                                    <button onClick={() => {
+                                        setEditedAdress(e);
+                                        setModalOpen(true);
+                                    }}>Modifier</button>
+                                </div>
+                            );
+                        })
+                    }
+                    {user.adresses.length < 1 &&
+                        <p>Pas d'adresse enregistrée</p>
+                    }
                 </div>
-                <h3>Vos adresses</h3>
-                {
-                    user.adresses.map((e) => {
-                        return (
-                            <div key={e.id} className="edit-adress">
-                                <p>{e.number} {e.street} </p>
-                                <p>{e.city} {e.postal_code}, {e.country}</p>
-                                <button onClick={() => {
-                                    setEditedAdress(e);
-                                    setModalOpen(true);
-                                }}>Modifier</button>
-                            </div>
-                        );
-                    })
-                }
-                {user.adresses.length < 1 &&
-                    <p>Pas d'adresse enregistrée</p>
-                }
+
                 <div className="adress-section">
-                    <form ref={newAdressForm} onSubmit={addAdress} encType="multipart/form-data">
-                    <label>Numéro:<input required type="text" className="input-profile" name="number" placeholder="Numéro"></input></label>
-                    <label>Rue:<input required type="text" className="input-profile" name="street" placeholder="Rue"></input></label>
-                    <label>Ville: <input required type="text" className="input-profile" name="city" placeholder="Ville"></input></label>
-                    <label>Code Postal: <input required type="text" className="input-profile" name="postal_code" placeholder="Code Postal"></input></label>
-                    <label>Pays:<input required type="text" className="input-profile" name="country" placeholder="Pays"></input></label>
-                     <input required type="submit" value="Ajouter cette adresse"></input>
+                    <h3>Nouvelle adresse</h3>
+                    <form className="adress-form" ref={newAdressForm} onSubmit={addAdress} encType="multipart/form-data">
+                        <label className="std-input-label">Numéro:</label>
+                        <input required type="text" className="std-input-label" name="number" placeholder="Numéro"></input>
+                        <label className="std-input-label">Rue:</label>
+                        <input required type="text" className="std-input-label" name="street" placeholder="Rue"></input>
+                        <label className="std-input-label">Ville: </label>
+                        <input required type="text" className="std-input-label" name="city" placeholder="Ville"></input>
+                        <label className="std-input-label">Code Postal: </label>
+                        <input required type="text" className="std-input-label" name="postal_code" placeholder="Code Postal"></input>
+                        <label className="std-input-label">Pays:</label>
+                        <input required type="text" className="std-input-label" name="country" placeholder="Pays"></input>
+                        <div className="wrapper">
+                            <input required type="submit" value="Ajouter cette adresse"></input>
+                        </div>
                     </form>
                 </div>
                 <button onClick={
                     () => {
                         localStorage.clear()
-                        dispatch(updateAdmin(false)); 
+                        dispatch(updateAdmin(false));
                         navigate("/");
                     }
                 }> Logout</button>
                 {modalOpen && (
-                    <div id="adress-modal" class="modal">
+                    <div id="adress-modal " class="modal wrapper">
                         <form
-                            className=""
+                            className="edit-adresse-form"
                             ref={editAdressForm}
                             onSubmit={editAdress}
                             encType="multipart/form-data"
                         >
                             <input
+                                className="std-input-label"
                                 required
                                 type="text"
                                 name="number"
@@ -146,6 +186,7 @@ export default function Profile() {
                                 defaultValue={editedAdress.number}
                             ></input>
                             <input
+                                className="std-input-label"
                                 required
                                 type="text"
                                 name="street"
@@ -153,6 +194,7 @@ export default function Profile() {
                                 defaultValue={editedAdress.street}
                             ></input>
                             <input
+                                className="std-input-label"
                                 required
                                 type="text"
                                 name="city"
@@ -160,6 +202,7 @@ export default function Profile() {
                                 defaultValue={editedAdress.city}
                             ></input>
                             <input
+                                className="std-input-label"
                                 required
                                 type="text"
                                 name="postal_code"
@@ -167,22 +210,24 @@ export default function Profile() {
                                 defaultValue={editedAdress.postal_code}
                             ></input>
                             <input
+                                className="std-input-label"
                                 required
                                 type="text"
                                 name="country"
                                 placeholder="Pays"
                                 defaultValue={editedAdress.country}
                             ></input>
-                            <input required type="submit" value="Sauvegarder"></input>
+                            <div className="wrapper">
+                                <input className=" centered-btn" required type="submit" value="Sauvegarder"></input>
+                            </div>
                             <input type="hidden" name="user_id" value={user_id}></input>
                         </form>
                         <button onClick={() => setModalOpen(false)}>Annuler</button>
                     </div>
                 )}
 
-           
+
             </div>
-            // </div>
         );
     } else {
         return <p>Chargement en cours...</p>;

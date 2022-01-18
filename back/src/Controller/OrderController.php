@@ -77,10 +77,10 @@ class OrderController extends AbstractController
             "street" => $request["adress"]["street"],
             "country" => $request["adress"]["country"],
             "postal_code" => $request["adress"]["postal_code"],
-            "number" => $request["adress"]["number"],
             "city" => $request["adress"]["city"],
+            "number" => $request["adress"]["number"],
         ]);
-        $Order->setAdress($adress);
+        $Order->setAdress($adress); 
         $entityManager->persist($Order);
         $entityManager->flush();
 
