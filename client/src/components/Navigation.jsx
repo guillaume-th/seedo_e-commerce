@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import User from "../assets/user.svg";
 import Shop from "../assets/shop.svg";
 import Logo from "../assets/logoSeedo.png";
@@ -6,17 +6,30 @@ import AdminLogo from "../assets/admin.svg";
 import Search from "../assets/searchWhite.png";
 import { useNavigate } from "react-router-dom";
 import Cart from "./Cart";
-import { useState } from "react";
 import { useSelector } from "react-redux";
+const API_URL = process.env.REACT_APP_API_URL;
 
 export default function Navbar(props) {
   const navigate = useNavigate();
   const [openCart, setOpenCart] = useState(false);
-  const admin = useSelector(state => state.admin.value);
+  const admin = useSelector((state) => state.admin.value);
+
+  useEffect(() => {
+    fetch(`${API_URL}/article/all`, {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((res) => console.log(res))
+      .catch((error) => console.error(error));
+  }, []);
 
   const handleCart = () => {
     setOpenCart(!openCart);
   };
+
+  function search(string) {
+    console.log(string);
+  }
 
   return (
     <div id="navbar">
@@ -25,18 +38,25 @@ export default function Navbar(props) {
       </div>
       <form className="search_bar">
         <input
+          onChange={(e) => search(e.target.value)}
           className="search"
           id="search"
           type="text"
           placeholder="Search"
         />
         <img id="loupe" src={Search} alt="search_logo" />
+        div
       </form>
 
       <div id="icon">
-        {admin &&
-          <img src={AdminLogo} alt="Admin-logo" id="Admin" onClick={()=>navigate("/admin-panel")}/>
-        }
+        {admin && (
+          <img
+            src={AdminLogo}
+            alt="Admin-logo"
+            id="Admin"
+            onClick={() => navigate("/admin-panel")}
+          />
+        )}
         <img id="Shop" src={Shop} alt="Shop_logo" onClick={handleCart} />
         <img
           id="User"
