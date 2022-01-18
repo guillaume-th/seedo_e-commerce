@@ -9,6 +9,7 @@ export default function ArticleDetail() {
     const [data, setData] = useState(null);
     const [imgFirstLink, setImgFirstLink] = useState(null);
     const { id } = useParams();
+    const user_id = localStorage.getItem("user_id");
     const cart = useSelector((state => state.cart.value));
     const dispatch = useDispatch();
     const commentForm = useRef();
@@ -54,7 +55,7 @@ export default function ArticleDetail() {
     const addcomment = (e) => {
         e.preventDefault();
         const formData = new FormData(commentForm.current);
-        formData.append("user_id", id)
+        formData.append("user_id", user_id)
 
         fetch(`${API_URL}/article/avis/add/${data.id}`,
             {
