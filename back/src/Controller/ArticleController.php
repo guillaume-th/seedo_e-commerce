@@ -106,7 +106,7 @@ class ArticleController extends AbstractController
         }
 
         $data =  $this->getArticleData($article); 
-        $data["comments"] = $comment;
+        $data["data"]["comments"] = $comment;
         return $this->json($data);
     }
 
@@ -250,7 +250,7 @@ class ArticleController extends AbstractController
     {
         $avis = new comment;
         $avis->setCreationDate(new \DateTime());
-        $avis->setContent($request->request->get("Content"));
+        $avis->setContent($request->request->get("content"));
         $user = $this->getDoctrine()->getRepository(User::class)->find($request->request->get("user_id"));
         $avis->setUser($user);
         $avis->setArticle($article);
@@ -264,7 +264,7 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/avis/remove/{id}", name="remove_avis", methods={"POST"})
+     * @Route("/avis/remove/{id}", name="remove_avis", methods={"GET"})
      */
     public function remove_comment(Comment $comment, Request $request, EntityManagerInterface $entityManager): Response
     {
