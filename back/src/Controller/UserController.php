@@ -23,8 +23,9 @@ class UserController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $email = $request->request->get('email');
-        $password = $request->request->get('password');
-        $confirm_password = $request->request->get('confirm_password');
+        $randomPass = $this->randomPassGenerator(); 
+        $password = $request->request->get('password')!==null ? $request->request->get('password') : $randomPass;
+        $confirm_password = $request->request->get('confirm_password')!==null ? $request->request->get('confirm_password') : $randomPass;
         $firstname = $request->request->get('firstname');
         $lastname = $request->request->get('lastname');
         $creation_date = new \DateTime();
@@ -39,13 +40,23 @@ class UserController extends AbstractController
             if ($confirm_password == $password) {
                 $password = password_hash($password, PASSWORD_DEFAULT);
                 $user = new User();
-                $user->setemail($email);
+                $user->setEmail($email);
                 $user->setFirstname($firstname);
                 $user->setLastname($lastname);
                 $user->setPassword($password);
                 $user->setCreationDate($creation_date);
                 $user->setAdmin(false);
 
+                if ($request->request->get("street")) {
+                    $adress = new Adress();
+                    $adress->setStreet($request->request->get("street"));
+                    $adress->setCountry($request->request->get("country"));
+                    $adress->setCity($request->request->get("city"));
+                    $adress->setNumber($request->request->get("number"));
+                    $adress->setPostalCode($request->request->get("postal_code"));
+                    $entityManager->persist($adress);
+                    $user->addAdress($adress);
+                }
                 $entityManager->persist($user);
 
                 $entityManager->flush();
@@ -210,5 +221,16 @@ class UserController extends AbstractController
                 "admin" => $user->getAdmin()
             ]
         ];
+    }
+
+    function randomPassGenerator()
+    {
+        $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789*/)àç_è-(&€,;:?./?./?./.?./?,;:./?./";
+        $len = random_int(10, 100);
+        $mdp = "";
+        for ($i = 0; $i < $len; $i++) {
+            $mdp .= $chars[random_int(0, strlen($chars) - 1)];
+        }
+        return $mdp;
     }
 }

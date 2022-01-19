@@ -9,26 +9,10 @@ export default function AdminOrders() {
         fetch(`${API_URL}/order/all`)
             .then((res) => res.json())
             .then((res => {
-                console.log(res);
+                console.log(res.result);
                 setData(res.result);
             }))
     }, [refresh])
-
-    const transformData = (data) => {
-        const res = [];
-        data.forEach((e) => {
-            let found = res.find((elt) => elt.name === e.name);
-            console.log(found);
-            if (found !== undefined) {
-                res[res.indexOf(found)].quantity++;
-            }
-            else {
-                e.quantity = 1;
-                res.push(e);
-            }
-        })
-        return res;
-    }
 
     const deleteOrder = (id) => {
         fetch(`${API_URL}/order/remove/${id}`)
@@ -39,11 +23,30 @@ export default function AdminOrders() {
             .catch(err => console.error(err));
     }
 
+    const jsonToCsv = () => {
+        let csv = "data:text/csv;charset=utf-8,ID, Status, Price, Articles, Client\r\n";
+        data.forEach((e) => {
+            csv += `${e.id}, ${e.status}, ${e.OrderPrice}€, ${joinArticle(e.article)}, ${e.user.firstname_user} ${e.user.lastname_user}\r\n`;
+        });
+        console.log(csv);
+        let encodedURI = encodeURI(csv);
+        window.open(encodedURI);
+    }
+
+    const joinArticle = (array) =>{
+        let str = ""; 
+        array.forEach((e)=>{
+            str+= e.name + " - ";
+        });
+        return str.slice(0, -3); 
+    };
+
     if (data) {
         return (
             <div className="wrapper">
                 <div className="orders-admin">
                     <h2>Commandes</h2>
+                    <button onClick={() => jsonToCsv()}>Télécharger au format Csv</button>
                     <div className="orders-wrapper">
                         {data.map(e => {
                             return (
@@ -64,8 +67,8 @@ export default function AdminOrders() {
                                         }
                                     </ul>
                                     {/* <div st!yle={{ display: "flex" }}> */}
-                                        <p>Prix de la commande : <strong>{e.OrderPrice} €</strong></p>
-                                        <button onClick={() => deleteOrder(e.id)}>Annuler cette commande</button>
+                                    <p>Prix de la commande : <strong>{e.OrderPrice} €</strong></p>
+                                    <button onClick={() => deleteOrder(e.id)}>Annuler cette commande</button>
                                     {/* </div> */}
                                 </div>
                             )

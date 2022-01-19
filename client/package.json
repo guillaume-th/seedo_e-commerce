@@ -18,6 +18,8 @@
     "dotenv": "^10.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-json-csv": "^2.0.0",
+    "react-json-excel": "^1.1.0",
     "react-paypal-express-checkout": "^1.0.5",
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.2.1",
