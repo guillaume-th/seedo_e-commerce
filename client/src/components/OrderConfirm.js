@@ -113,8 +113,8 @@ export default function OrderConfirm() {
         fetch(`${API_URL}/shipping/all`)
             .then(res => res.json())
             .then(res => {
-                const priceBy100Km = res.distance;
-                const priceByKg = res.kg;
+                const priceBy100Km = Number(res.distance);
+                const priceByKg = Number(res.weight);
                 const weight = computeWeight();
                 setShipping(Number((distance / 100 * priceBy100Km + weight*priceByKg).toFixed(2)));
             });

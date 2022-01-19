@@ -10,7 +10,6 @@ export default function AdminOrders() {
         fetch(`${API_URL}/order/all`)
             .then((res) => res.json())
             .then((res => {
-                console.log(res.result);
                 setData(res.result);
             }))
     }, [refresh])

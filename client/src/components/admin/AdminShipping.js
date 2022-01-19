@@ -9,20 +9,21 @@ export default function AdminShipping() {
     useEffect(() => {
         fetch(`${API_URL}/shipping/all`)
             .then(res => res.json())
-            .then(res => setData(res))
+            .then(res => { setData(res); console.log(res) })
             .catch(err => console.error(err));
     }, []);
 
     const editDistance = (e) => {
         e.preventDefault();
         const formData = new FormData(distanceForm.current);
-        fetch(`${API_URL}/shipping/edit/kg`, {
+        fetch(`${API_URL}/shipping/edit/distance`, {
             method: "POST",
             body: formData,
         })
             .then(res => res.json())
             .then(res => {
-                if (res.status === "ok") {
+                console.log(res);
+                if (res.result === "ok") {
                     const temp = { ...data };
                     temp.distance = formData.get("distance");
                     setData(temp)
@@ -39,7 +40,7 @@ export default function AdminShipping() {
         })
             .then(res => res.json())
             .then(res => {
-                if (res.status === "ok") {
+                if (res.result === "ok") {
                     const temp = { ...data };
                     temp.kg = formData.get("kg");
                     setData(temp)
@@ -53,12 +54,16 @@ export default function AdminShipping() {
             <h3>Frais de livraison</h3>
             <form ref={distanceForm} onSubmit={editDistance}>
                 <label>Prix pour 100km </label>
-                <input type="number" defaultValue={data ? data.distance : 5}></input>
+                {data &&
+                    <input type="number" name="km" defaultValue={data.distance}></input>
+                }
                 <input type="submit" value="Changer"></input>
             </form>
             <form ref={weightForm} onSubmit={editWeight}>
                 <label>Prix pour 1kg </label>
-                <input type="number" defaultValue={data ? data.weight : 5}></input>
+                {data &&
+                    <input type="number" name="kg" defaultValue={data.weight}></input>
+                }
                 <input type="submit" value="Changer"></input>
             </form>
         </div>
