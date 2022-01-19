@@ -148,6 +148,46 @@ class OrderController extends AbstractController
         return $this->json(['result' => $data]);
     }
     /**
+     * @Route("/select/user/{id}", name="order_selected_user" , methods={"POST"})
+     */
+    public function SelectedAllOrder_user(Request $request, User $user,  EntityManagerInterface $entityManager): Response
+    {
+        $data = [];
+        $orderarticle = [];
+        $order =  $this->getDoctrine()->getRepository(Order::class)->findBy(["user" => $user]);
+        for ($i=0; $i < count($order) ; $i++) { 
+            foreach ($order[$i]->getArticles() as $value) {
+            $count =  $this->getDoctrine()->getRepository(Count::class)->findBy(
+                [
+                    "article_id" => $value->getId(),
+                    "order_id" => $order[$i]->getId(),
+                ]
+            )[0]->getQuantity();
+
+            array_push($orderarticle, [
+                'id' => $value->getId(),
+                'name' => $value->getName(),
+                'price' => $value->getPrice(),
+                'quantity' => $count,
+            ]);
+        }
+        array_push($data, [
+            "id" => $order[$i]->getId(),
+            "status" => $order[$i]->getStatus(),
+            "creation_date" => $order[$i]->getCreationDate(),
+            "user" => [
+                "id_user" => $order[$i]->getUser()->getId(),
+                "email_user" => $order[$i]->getUser()->getEmail(),
+                "firstname_user" => $order[$i]->getUser()->getFirstname(),
+                "lastname_user" => $order[$i]->getUser()->getLastname(),
+            ],
+            "article" => $orderarticle,
+            "OrderPrice" => $order[$i]->getOrderPrice()
+        ]);
+    }
+        return $this->json(['result' => $data]);
+    }
+    /**
      * @Route("/user/{id}", name="order_user" , methods={"GET"})
      */
     public function SelectedUser(Request $request, User $user): Response
