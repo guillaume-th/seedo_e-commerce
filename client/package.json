@@ -16,20 +16,16 @@
     "axios": "^0.24.0",
     "braintree": "^3.8.0",
     "braintree-web": "^3.85.1",
-    "craco": "0.0.3",
     "dotenv": "^10.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-json-csv": "^2.0.0",
-    "react-json-excel": "^1.1.0",
     "react-paypal-express-checkout": "^1.0.5",
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
     "redux": "^4.1.2",
     "stream": "0.0.2",
-    "web-vitals": "^2.1.2",
-    "zlib": "^1.0.5"
+    "web-vitals": "^2.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
