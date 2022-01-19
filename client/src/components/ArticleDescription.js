@@ -1,8 +1,7 @@
 import { useEffect, useState, useRef } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { updateCart } from "../CartSlice";
-import Delete from "../assets/delete.svg";
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default function ArticleDetail() {
@@ -21,7 +20,6 @@ export default function ArticleDetail() {
       .then((res) => {
         setData(res.data);
         setImgFirstLink(res.data.photos[0].imgLink);
-        // console.log(res.data.photos[0].imgLink)
       })
       .catch((err) => console.error(err));
   }, [refresh, id]);
@@ -29,7 +27,6 @@ export default function ArticleDetail() {
   const addToCart = (e, product) => {
     e.preventDefault();
     let cartTemp = [...cart];
-    // let cartTemp = JSON.parse(localStorage.getItem("cart")) || [];
     let obj = { ...product };
     obj.selectedQuantity = Number(document.getElementById(product.id).value);
     obj.price = computePrice(obj);
@@ -56,7 +53,7 @@ export default function ArticleDetail() {
   const switchPhoto = (e) => {
     setImgFirstLink(e.target.src);
   };
-  
+
   const addcomment = (e) => {
     e.preventDefault();
     const formData = new FormData(commentForm.current);
@@ -114,7 +111,7 @@ export default function ArticleDetail() {
           <p>{data.categoriesName}</p>
           <div className="photos">
             <div className="lgPhoto">
-              <img src={imgFirstLink} className="imgPrincipale"></img>
+              <img alt="main" src={imgFirstLink} className="imgPrincipale"></img>
             </div>
             <div className="smPhotos">
               {data.photos.map((i) => {
@@ -123,6 +120,7 @@ export default function ArticleDetail() {
                     i && (
                       <div onClick={switchPhoto} className="imgSecondaire">
                         <img
+                          alt="secondary"
                           key={i.id}
                           src={i.imgLink}
                           className="imgSecondaire"
