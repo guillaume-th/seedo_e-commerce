@@ -171,7 +171,9 @@ export default function Profile() {
                     }
                 }> Logout</button>
                 {modalOpen && (
+                    
                     <div id="adress-modal " class="modal wrapper">
+                        <h2>Adresse</h2>
                         <form
                             className="edit-adresse-form"
                             ref={editAdressForm}
@@ -219,6 +221,7 @@ export default function Profile() {
                                 defaultValue={editedAdress.country}
                             ></input>
                             <div className="wrapper">
+                                
                                 <input className=" centered-btn" required type="submit" value="Sauvegarder"></input>
                             </div>
                             <input type="hidden" name="user_id" value={user_id}></input>
