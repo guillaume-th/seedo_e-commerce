@@ -1,16 +1,11 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { updateCart } from "../../CartSlice";
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default function ArticleListing() {
     const [data, setData] = useState(null);
-    const cart = useSelector((state) => state.cart.value);
-    const dispatch = useDispatch();
     const navigate = useNavigate();
     const form = useRef();
-    const admin = localStorage.getItem("admin");
     const [refresh, setRefresh] = useState(null);
 
     useEffect(() => {
@@ -135,7 +130,7 @@ export default function ArticleListing() {
                                     <div className="img-wrapper">
                                         {
                                             e.data.photos[0] &&
-                                            <img src={e.data.photos[0].imgLink}></img>
+                                            <img alt="photo-article" src={e.data.photos[0].imgLink}></img>
                                         }
                                     </div>
                                     {e.data.new &&
