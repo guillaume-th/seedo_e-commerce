@@ -25,7 +25,7 @@ export default function OrderListing() {
     }
 
     useEffect(() => {
-        fetch(`${API_URL}/order/select/${id}`, {
+        fetch(`${API_URL}/order/select/user/${id}`, {
             method: "POST",
             body: data,
         })
