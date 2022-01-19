@@ -83,6 +83,7 @@ export default function Category() {
                 <li className="category-item" onClick={() => setOpenModal(e)}>
                   Categorie : {e.name}
                   <img
+                    alt="delete-category"
                     src={Delete}
                     className="icon"
                     onClick={(event) => {
