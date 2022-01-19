@@ -1,6 +1,6 @@
-#comments{
+/* #comments{
     border:  1px solid crimson;
-}
+} */
 .comment-body{
     display: flex;
     flex-direction: column;
@@ -35,7 +35,7 @@
     align-self: flex-end; */
 }
 .comment-content{
-    font-size: 20px;
+    font-size: 18px;
     color:#a1d37e;
     justify-content: center;
     display: flex;
