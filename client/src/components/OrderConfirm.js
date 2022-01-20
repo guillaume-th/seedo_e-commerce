@@ -119,7 +119,7 @@ export default function OrderConfirm() {
 
     const computeWeight = () => {
         let total = 0;
-        cart.forEach(e => total += e.weight);
+        cart.forEach(e => total += e.weight * e.selectedQuantity);
         return total;
     }
 
