@@ -70,56 +70,44 @@ export default function ArticleListing() {
         return (
             <div className="add_article">
                 <div className="wrapper">
-                    <form encType="multipart/form-data" className="vertical-form" style={{ width: "50%", marginTop: "5rem" }} ref={form} onSubmit={add}>
-                        <div style={{ display: "flex" }}>
-                            <div style={{ display: "flex", flexDirection: "column" }}>
-                                <label style={{ width: "300px" }}>Nom de l'article :</label>
-                                <input style={{ width: "600px" }} name="name" type="text" required></input>
-                                <label>Catégorie(s) :</label>
-                                <input name="categories" type="text" placeholder="Catégorie 1, catégorie 2" minLength={0} maxLength={100}></input>
-                                <label>Description :</label>
-                                <textarea name="description" required></textarea>
+                    <form encType="multipart/form-data" className="vertical-form wrap" ref={form} onSubmit={add}>
+                        <label>Nom de l'article :</label>
+                        <input name="name" type="text" required></input>
+                        <label>Catégorie(s) :</label>
+                        <input name="categories" type="text" placeholder="Catégorie 1, catégorie 2" minLength={0} maxLength={100}></input>
+                        <label>Description :</label>
+                        <textarea name="description" required></textarea>
+
+                        <div className="horizontal-flex wrap">
+                            <div className="vertical-flex">
+                                <label>Poids :</label>
+                                <input name="weight" required type="text" ></input>
                             </div>
-                            <div style={{ display: "flex", flexDirection: "column" }}>
-                                <div style={{ display: "flex" }}>
-                                    <div>
-                                        <label style={{ marginLeft: "20px" }}>Poids :</label>
-                                        <input style={{ width: "270px" }} name="weight" required type="text" ></input>
-                                    </div>
-                                    <div>
-                                        <label style={{ marginLeft: "20px" }}>Couleur :</label>
-                                        <input style={{ width: "270px" }} name="color" type="text" required></input>
-                                    </div>
-                                </div>
-
-
-
-                                <div>
-                                    <label>Photo(s) :</label>
-                                    <input style={{ width: "600px" }} name="photo" type="text" placeholder="http://url_de_votre_image" defaultValue={""}></input>
-
-                                </div>
-
-                                <div style={{ display: "flex", width: "600px", marginLeft: "2%", marginTop: "10px" }}>
-                                    <div>
-                                        <label>Quantité :</label>
-                                        <input required style={{ borderRadius: "20px", height: "30px", width: "189px", border: "none", marginTop: "15px", marginRight: "15px" }} name="quantity" type="number"></input>
-                                    </div>
-                                    <div>
-                                        <label style={{ marginLeft: "6%" }}>Price :</label>
-                                        <input required style={{ borderRadius: "20px", height: "30px", width: "189px", border: "none", marginTop: "15px", marginLeft: "10px" }} type="number" name="price" ></input>
-                                    </div>
-                                    <div>
-                                        <label style={{ marginLeft: "12%" }}>Promo :</label>
-                                        <input  required style={{ borderRadius: "20px", height: "30px", width: "189px", border: "none", marginTop: "15px", marginLeft: "25px" }} name="promo" type="number" min={0} max={100}></input>
-                                    </div>
-                                </div>
+                            <div className="vertical-flex">
+                                <label>Couleur :</label>
+                                <input name="color" type="text" required></input>
                             </div>
+                        </div>
 
+                        <label>Photo(s) :</label>
+                        <input name="photo" type="text" placeholder="http://url_de_votre_image" defaultValue={""}></input>
+
+                        <div className="horizontal-flex wrap">
+                            <div className="vertical-flex">
+                                <label>Quantité :</label>
+                                <input required name="quantity" type="number"></input>
+                            </div>
+                            <div className="vertical-flex">
+                                <label>Price :</label>
+                                <input required type="number" name="price"></input>
+                            </div>
+                            <div className="vertical-flex">
+                                <label>Promo :</label>
+                                <input  required name="promo" type="number" min={0} max={100}></input>
+                            </div>
                         </div>
-                        <div>
-                            <input style={{ borderRadius: "20px", marginLeft: "60%", fontSize: "25px", marginTop: "5%", padding: "10px 10px" }} type="submit" value="Ajouter cet article"></input>
-                        </div>
+                    
+                        <input type="submit" value="Ajouter cet article" className="marginAuto"></input>
                     </form>
                 </div>
                 <div className="gallery">
