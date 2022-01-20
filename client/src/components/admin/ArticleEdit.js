@@ -83,7 +83,7 @@ export default function ArticleEdit() {
                                 <input name="name" type="text" defaultValue={data.name}></input>
                                 <label>Description</label>
                                 <textarea name="description">{data.description}</textarea>
-                                <label>Poids</label>
+                                <label>Poids (kg)</label>
                                 <input name="weight" type="text" defaultValue={data.weight}></input>
                                 <label>Couleur</label>
                                 <input name="color" type="text" defaultValue={data.color}></input>
@@ -91,7 +91,7 @@ export default function ArticleEdit() {
                                 <input name="quantity" type="number" defaultValue={data.quantity}></input>
                                 <label>Promo</label>
                                 <input name="promo" type="number" defaultValue={data.promo} minLength={0} maxLength={100}></input>
-                                <label>Price</label>
+                                <label>Prix</label>
                                 <input type="number" name="price" defaultValue={data.price}></input>
                                 <label>Catégorie(s)</label>
                                 <input name="categories" type="text" placeholder="Catégorie 1, catégorie 2" defaultValue={data.categoriesName} minLength={0} maxLength={100}></input>
