@@ -57,6 +57,6 @@ class ShippingFeesController extends AbstractController
        $PriceBy100Km=$ShippingFees->getPriceBy100Km();
        $PriceByKg=$ShippingFees->getPriceByKg();
         }
-        return $this->json(['PriceBy100Km' => $PriceBy100Km,'PriceByKg' => $$PriceByKg]);
+        return $this->json(['PriceBy100Km' => $PriceBy100Km,'PriceByKg' => $PriceByKg]);
     }
 }
