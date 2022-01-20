@@ -151,7 +151,8 @@ export default function ArticleListing() {
                                                 </div>
                                                 : <p>{e.data.price} €</p>
                                             }
-                                            <p>{e.data.categoriesName}</p>
+                                            </div>
+                                            <p className="cat">{e.data.categoriesName}</p>
                                             {/* {e.data.quantity > 0
                                                 ? <p>Etat du stock : {e.data.quantity}.</p>
                                                 : <p>En rupture de stock</p>
@@ -160,10 +161,6 @@ export default function ArticleListing() {
                                                 <button onClick={() => editArticle(e.data.id)}>Edit</button>
                                                 <button onClick={() => deleteArticle(e.data.id)}>Delete</button>
                                             </div>
-                                        </div>
-
-
-
                                     </div>
                                 </div >
                             )
