@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { updateCart } from "../CartSlice";
+import "../styles/OrderConfirm.css";
 import Payment from "./Payment";
 const API_URL = process.env.REACT_APP_API_URL;
 const BING_API_KEY = process.env.REACT_APP_BING_API_KEY;
@@ -130,9 +131,9 @@ export default function OrderConfirm() {
 
     if (userData) {
         return (
-            <div>
+            <div className="order-confirm-style">
                 {error && <p className="error">{error}</p>}
-                <p>Choisissez une adresse de livraison</p>
+                <h3>Choisissez une adresse de livraison</h3>
                 <div className="order-confirm-adresses">
                     {userData.adresses.length > 0 ? (
                         <div>
@@ -143,12 +144,12 @@ export default function OrderConfirm() {
                                             id={e.id}
                                             key={e.id}
                                             onClick={() => setSelectedAdress(e)}
-                                            className="order-adress"
+                                            className="carteorder oui"
                                         >
-                                            <p>
+                                            <p className="">
                                                 {e.number} {e.street}{" "}
                                             </p>
-                                            <p>
+                                            <p  className="">
                                                 {e.city} {e.postal_code}, {e.country}
                                             </p>
                                         </div>
@@ -217,7 +218,7 @@ export default function OrderConfirm() {
                         </div>
                         <Payment total={reduce() + shipping} selectedAddress={selectedAdress} />
                     </div>
-                    : <p>Choisissez une adresse pour passer au paiement</p>
+                    : <p className="bill-message">Choisissez une adresse pour passer au paiement</p>
                 }
             </div >
         );

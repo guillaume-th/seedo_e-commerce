@@ -1,0 +1,27 @@
+.order-confirm-style{
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    /* align-items: center; */
+    margin: 0 auto;
+    width: 80vw;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    margin-top: 5rem;
+    padding: 1.5rem;
+}
+.oui{
+    cursor: pointer;
+}
+
+.oui:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
+.oui:focus {
+    background: rgba(0, 0, 0, 0.178);
+  }
+.bill-message{
+align-self: center;
+font-size: 20px;
+font-style: italic;
+}
