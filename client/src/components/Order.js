@@ -2,7 +2,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { increaseQuantity, decreaseQuantity } from "../CartSlice";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
+const BING_API_KEY = process.env.REACT_APP_BING_API_KEY;
+const API_URL = process.env.REACT_APP_API_URL;
 
 export default function Order() {
     const cart = useSelector((state) => state.cart.value);
@@ -17,6 +18,24 @@ export default function Order() {
         for (let i = 1; i < cart.length; i++) {
             total += cart[i].price * cart[i].selectedQuantity;
         }
+        return total;
+    }
+
+    const getShippingFees = () => {
+
+        fetch(`${API_URL}/shipping/all`)
+            .then(res => res.json())
+            .then(res => {
+                const priceBy100Km = Number(res.distance);
+                const priceByKg = Number(res.weight);
+                const weight = computeWeight();
+                setShipping(Number(weight * priceByKg).toFixed(2));
+            });
+    }
+
+    const computeWeight = () => {
+        let total = 0;
+        cart.forEach(e => total += e.weight * e.selectedQuantity);
         return total;
     }
 
