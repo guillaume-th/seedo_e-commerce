@@ -13,10 +13,10 @@ export const cartSlice = createSlice({
                     e.selectedQuantity++;
                 }
             });
-        }, 
+        },
         decreaseQuantity: (state, action) => {
             state.value.forEach((e) => {
-                if (e.id === action.payload) {
+                if (e.id === action.payload && e.selectedQuantity > 0) {
                     e.selectedQuantity--;
                 }
             });

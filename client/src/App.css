@@ -468,13 +468,9 @@ label {
 /***********ORDER***********/
 /***************************/
 
-.order-adress:hover {
-  cursor: pointer;
-  background-color: rgb(188, 222, 171);
-}
 
 .selected-adress {
-  background-color: rgb(188, 222, 171);
+  background-color: #a1d37e !important;
 }
 
 .error {
@@ -610,4 +606,26 @@ label {
   margin: 2rem;
   padding: 1.5rem;
   width: 80%;
+}
+
+#article-container {
+  opacity: 1;
+  z-index: 50;
+  border-radius: 20px;
+  position: absolute;
+  width: 30vw;
+  padding: .5rem;
+  top : 70px; 
+}
+
+.list-article {
+  cursor : pointer; 
+  transition: all .2s ease;
+  margin-top : .25rem; 
+  padding : .175rem; 
+  border-radius: 10px;;
+}
+
+.list-article:hover {
+  background-color: #ffffff5b;
 }

@@ -1,7 +1,8 @@
 import { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { updateAdmin } from "../AdminSlice";
+import Delete from "../assets/delete.svg";
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default function Profile() {
@@ -9,12 +10,12 @@ export default function Profile() {
     const newAdressForm = useRef();
     const editAdressForm = useRef();
     const [user, setUser] = useState(null);
+    const [refresh, setRefresh] = useState(null);
     const user_id = localStorage.getItem("user_id");
     const [modalOpen, setModalOpen] = useState(false);
     const [editedAdress, setEditedAdress] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const cart = useSelector(state => state.cart.value);
 
     useEffect(() => {
         if (user_id === null) {
@@ -31,7 +32,7 @@ export default function Profile() {
             }
         });
         /* eslint-disable */
-    }, []);
+    }, [refresh]);
 
     const submitUserData = (e) => {
         e.preventDefault();
@@ -83,7 +84,21 @@ export default function Profile() {
             .then((res) => res.json())
             .then((res) => {
                 if (res.status === "ok") {
-                    setUser(res.data);
+                }
+            })
+            .catch((error) => console.error(error));
+
+    }
+    const delete_adress = (id) => {
+
+        fetch(`${API_URL}/user/adress/${id}/remove`,
+            {
+                method: "POST",
+            })
+            .then((res) => res.json())
+            .then((res) => {
+                if (res.status === "ok") {
+                    setRefresh(Math.random());
                 }
             })
             .catch((error) => console.error(error));
@@ -132,6 +147,9 @@ export default function Profile() {
                                 <div key={e.id} className="edit-adress">
                                     <p>{e.number} {e.street} </p>
                                     <p>{e.city} {e.postal_code}, {e.country}</p>
+                                    <img
+                                        src={Delete}
+                                        className="comment-icon" onClick={() => { delete_adress(e.id) }}></img>
                                     <button onClick={() => {
                                         setEditedAdress(e);
                                         setModalOpen(true);

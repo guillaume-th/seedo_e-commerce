@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { updateCart } from "../CartSlice";
@@ -9,9 +9,6 @@ export default function ArticleListing() {
     const cart = useSelector((state) => state.cart.value);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const form = useRef();
-    const admin = localStorage.getItem("admin");
-    const [refresh, setRefresh] = useState(null);
 
     useEffect(() => {
         fetch(`${API_URL}/article/all`)
@@ -28,44 +25,8 @@ export default function ArticleListing() {
 
             })
             .catch(err => console.error(err));
-    }, [refresh]);
+    }, []);
 
-    const editArticle = (id) => {
-        navigate("/article/edit/" + id);
-    }
-
-    const add = (e) => {
-        e.preventDefault();
-        const data = new FormData(form.current);
-        fetch(`${API_URL}/article/new`, {
-            method: "POST",
-            body: data,
-        })
-            .then(res => res.json())
-            .then(res => {
-                res.forEach((e) => {
-                    let str = "";
-                    e.data.categories.forEach((elt) => {
-                        str += elt.name + ", ";
-                    });
-                    e.data.categoriesName = str.slice(0, str.length - 2);
-                });
-                setData(res);
-            })
-            .catch(err => console.error(err));
-
-    };
-
-    const deleteArticle = (id) => {
-        fetch(`${API_URL}/article/delete/${id}`)
-            .then((res) => res.json())
-            .then((res) => {
-                if (res.status === "ok") {
-                    setRefresh(Math.random());
-                }
-            })
-            .catch((err) => console.error(err));
-    }
 
     const addToCart = (e, product) => {
         e.preventDefault();
@@ -108,7 +69,7 @@ export default function ArticleListing() {
                                     }}} className="thumbnail">
                                         <div className="img-wrapper">
                                             {e.data.photos[0] &&
-                                                <img src={e.data.photos[0].imgLink} />
+                                                <img alt="main" src={e.data.photos[0].imgLink} />
                                             }
                                         </div>
                                     {e.data.new &&
