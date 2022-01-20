@@ -184,6 +184,7 @@ class OrderController extends AbstractController
             "article" => $orderarticle,
             "OrderPrice" => $order[$i]->getOrderPrice()
         ]);
+        $orderarticle=[];
     }
         return $this->json(['result' => $data]);
     }

@@ -100,15 +100,31 @@ export default function OrderConfirm() {
                     .then((res) => res.json())
                     .then((res) => {
                         const distance = res?.resourceSets[0]?.resources[0]?.results[0]?.travelDistance;
-                        const priceBy100Km = 5;
-
-                        setShipping(Number((distance / 100 * priceBy100Km).toFixed(2)));
+                        getShippingFees(distance);
                     })
                     .catch(err => console.error(err));
 
             })
             .catch(err => console.error(err));
+    }
 
+    const getShippingFees = (distance) => {
+        console.log(cart);
+
+        fetch(`${API_URL}/shipping/all`)
+            .then(res => res.json())
+            .then(res => {
+                const priceBy100Km = Number(res.distance);
+                const priceByKg = Number(res.weight);
+                const weight = computeWeight();
+                setShipping(Number((distance / 100 * priceBy100Km + weight*priceByKg).toFixed(2)));
+            });
+    }
+
+    const computeWeight = () => {
+        let total = 0;
+        cart.forEach(e=>total+=e.weight);
+        return total; 
     }
 
 
