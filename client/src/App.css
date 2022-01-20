@@ -2,6 +2,10 @@
 /******ALL***********/
 /********************/
 
+img {
+  max-width: 70vw;
+}
+
 .wrapper {
   width: 100%;
   display: flex;
@@ -46,7 +50,7 @@ h1 {
 
 button,
 input[type="submit"] {
-  max-width: 200px;
+  max-width: 250px;
   background-color: #24460d;
   border: 2px solid white;
   border-radius: 10px;
