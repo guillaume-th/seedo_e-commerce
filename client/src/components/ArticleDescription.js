@@ -51,10 +51,7 @@ export default function ArticleDetail() {
   };
 
   const computePrice = (e) => {
-    return Math.round(
-      parseFloat(e.promo > 0 ? e.updatedPrice - (e.updatedPrice * e.promo) / 100 : e.updatedPrice),
-      2
-    );
+    return e.promo > 0 ? (e.updatedPrice - (e.updatedPrice * e.promo) / 100).toFixed(2) : (e.updatedPrice).toFixed(2);
   };
 
   const switchPhoto = (e) => {
@@ -114,18 +111,18 @@ export default function ArticleDetail() {
             {data.updatedColor ? data.updatedColor : "Non renseignée"}
           </p>
           {colors &&
-              <div style={{ display: "flex", gap: ".25rem" }}>
-                {colors.map(e => {
-                  return (
-                    <div onClick={() => setColor(e)} className="color-choice" style={{ cursor: "pointer", backgroundColor: e.name, height: 50, width: 50 }}></div>
-                  )
-                })}
-              </div>
-            }
+            <div style={{ display: "flex", gap: ".25rem" }}>
+              {colors.map(e => {
+                return (
+                  <div onClick={() => setColor(e)} className="color-choice" style={{ cursor: "pointer", backgroundColor: e.name, height: 50, width: 50 }}></div>
+                )
+              })}
+            </div>
+          }
           <div className="infoDetail">
             <p>
               <strong className="green">Prix : </strong>
-              {data.updatedPrice} €
+              {(data.updatedPrice - data.updatedPrice * data.promo / 100).toFixed(2)} €
             </p>
             <p>
               <strong className="green">Poids : </strong>
