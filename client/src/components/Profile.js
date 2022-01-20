@@ -10,6 +10,7 @@ export default function Profile() {
     const newAdressForm = useRef();
     const editAdressForm = useRef();
     const [user, setUser] = useState(null);
+    const [refresh, setRefresh] = useState(null);
     const user_id = localStorage.getItem("user_id");
     const [modalOpen, setModalOpen] = useState(false);
     const [editedAdress, setEditedAdress] = useState(false);
@@ -31,7 +32,7 @@ export default function Profile() {
             }
         });
         /* eslint-disable */
-    }, []);
+    }, [refresh]);
 
     const submitUserData = (e) => {
         e.preventDefault();
@@ -97,6 +98,7 @@ export default function Profile() {
             .then((res) => res.json())
             .then((res) => {
                 if (res.status === "ok") {
+                    setRefresh(Math.random());
                 }
             })
             .catch((error) => console.error(error));
