@@ -15,15 +15,21 @@ export default function ArticleDetail() {
   const dispatch = useDispatch();
   const commentForm = useRef();
   const [refresh, setRefresh] = useState(null);
+  const [colors, setColors] = useState(null);
 
   useEffect(() => {
+
+
     fetch(`${API_URL}/article/${id}`)
       .then((res) => res.json())
       .then((res) => {
+        res.data.updatedPrice = res.data.price;
         setData(res.data);
         setImgFirstLink(res.data.photos[0].imgLink);
+        getColorPrices(res.data.color);
       })
       .catch((err) => console.error(err));
+
   }, [refresh, id]);
 
   const addToCart = (e, product) => {
@@ -45,9 +51,8 @@ export default function ArticleDetail() {
   };
 
   const computePrice = (e) => {
-    console.log(e);
     return Math.round(
-      parseFloat(e.promo > 0 ? e.price - (e.price * e.promo) / 100 : e.price),
+      parseFloat(e.promo > 0 ? e.updatedPrice - (e.updatedPrice * e.promo) / 100 : e.updatedPrice),
       2
     );
   };
@@ -67,11 +72,11 @@ export default function ArticleDetail() {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
         setRefresh(Math.random());
       })
       .catch((err) => console.error(err));
   };
+
   const delete_comment = (id_comment) => {
     fetch(`${API_URL}/article/avis/remove/${id_comment}`)
       .then((res) => res.json())
@@ -81,6 +86,23 @@ export default function ArticleDetail() {
       })
       .catch((err) => console.error(err));
   };
+
+  const getColorPrices = (colorToFind) => {
+    fetch(`${API_URL}/colors/all`)
+      .then((res) => res.json())
+      .then((res) => {
+        setColors(res);
+      })
+      .catch((err) => console.error(err));
+  };
+
+  const setColor = (color) => {
+    const article = { ...data };
+    article.updatedPrice = data.price + color.price * data.price / 100;
+    article.updatedColor = color.name;
+    setData(article);
+  }
+
   if (data) {
     return (
       <div>
@@ -89,12 +111,21 @@ export default function ArticleDetail() {
           <p>{data.description}</p>
           <p>
             <strong className="green">Couleur : </strong>
-            {data.color ? data.color : "non renseignée"}
+            {data.updatedColor ? data.updatedColor : "Non renseignée"}
           </p>
+          {colors &&
+              <div style={{ display: "flex", gap: ".25rem" }}>
+                {colors.map(e => {
+                  return (
+                    <div onClick={() => setColor(e)} className="color-choice" style={{ cursor: "pointer", backgroundColor: e.name, height: 50, width: 50 }}></div>
+                  )
+                })}
+              </div>
+            }
           <div className="infoDetail">
             <p>
               <strong className="green">Prix : </strong>
-              {data.price} €
+              {data.updatedPrice} €
             </p>
             <p>
               <strong className="green">Poids : </strong>
@@ -163,7 +194,7 @@ export default function ArticleDetail() {
               name="content"
               maxLength={255}
             ></input>
-            <input type="submit"  value="commenter"></input>
+            <input type="submit" value="commenter"></input>
           </form>
         </div>
       </div>
