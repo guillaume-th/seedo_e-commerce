@@ -16,9 +16,9 @@ body {
 }
 
 
-label{
-  width: 150px;
-}  
+/* label{
+  width: 230px;
+}   */
 
 input, input::placeholder, button, textarea{
   font-size: 1.25rem;

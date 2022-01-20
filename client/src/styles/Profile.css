@@ -11,13 +11,12 @@ h3 {
   display: flex;
 }
 
-input[type="text"], input[type="password"], input[type="email"], textarea {
+input[type="text"], input[type="password"], input[type="email"], input[type="number"], textarea {
   padding: 10px 10px;
   margin: 15px 10px;
   border-radius: 2rem;
   background-color: white;
   border: none;
-
 }
 
 input {

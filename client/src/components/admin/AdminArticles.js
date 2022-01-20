@@ -70,7 +70,7 @@ export default function ArticleListing() {
         return (
             <div className="add_article">
                 <div className="wrapper">
-                    <form encType="multipart/form-data" className="vertical-form" ref={form} onSubmit={add}>
+                    <form encType="multipart/form-data" className="vertical-form wrap" ref={form} onSubmit={add}>
                         <label>Nom de l'article :</label>
                         <input name="name" type="text" required></input>
                         <label>Catégorie(s) :</label>
@@ -107,7 +107,7 @@ export default function ArticleListing() {
                             </div>
                         </div>
                     
-                        <input type="submit" value="Ajouter cet article"></input>
+                        <input type="submit" value="Ajouter cet article" className="marginAuto"></input>
                     </form>
                 </div>
                 <div className="gallery">

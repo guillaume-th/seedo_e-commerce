@@ -46,6 +46,7 @@ h1 {
 
 button,
 input[type="submit"] {
+  max-width: 200px;
   background-color: #24460d;
   border: 2px solid white;
   border-radius: 10px;
@@ -190,7 +191,7 @@ form {
 .thumbnail {
   width: 250px;
   height: 250px;
-  margin: 10px;
+  margin: 10px auto;
   padding: 10px;
   align-items: center;
   border-radius: 10px;
@@ -425,7 +426,7 @@ form {
 label {
   font-weight: bold;
   color: rgb(13, 70, 13);
-  margin-left: 3%;
+  margin-left: 15px;
 }
 
 .button_submit {
