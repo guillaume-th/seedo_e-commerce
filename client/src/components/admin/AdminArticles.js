@@ -118,7 +118,7 @@ export default function ArticleListing() {
                                     <div className="img-wrapper">
                                         {
                                             e.data.photos[0] &&
-                                            <img alt="photo-article" src={e.data.photos[0].imgLink}></img>
+                                            <img alt="article" src={e.data.photos[0].imgLink}></img>
                                         }
                                     </div>
                                     {e.data.new &&
