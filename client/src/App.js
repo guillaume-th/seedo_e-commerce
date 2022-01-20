@@ -37,7 +37,6 @@ function App() {
     }
 
     window.addEventListener("keydown", (e) => {
-      console.log(e.key);
       if(e.key === "Escape"){
         dispatch(setOpenCart(false));
       }

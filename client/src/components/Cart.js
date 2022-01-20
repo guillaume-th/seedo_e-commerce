@@ -1,18 +1,21 @@
 /* eslint-disable */
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setOpenCart } from "../CartSlice";
+import { setOpenCart, updateCart } from "../CartSlice";
 import { useNavigate } from "react-router-dom";
 import "../styles/Cart.css";
 
 export default function Cart() {
   const cart = useSelector((state) => state.cart.value);
   const navigate = useNavigate();
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    // setData(JSON.parse(localStorage.getItem("cart")));
-  }, [cart]);
+    const savedCart = sessionStorage.getItem("cart");
+    if(savedCart){
+      dispatch(updateCart(JSON.parse(savedCart)));
+    }
+  }, []);
 
   const reduce = () => {
     let total = cart[0].price * cart[0].selectedQuantity;

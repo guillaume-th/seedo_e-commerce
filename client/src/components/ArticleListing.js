@@ -45,7 +45,7 @@ export default function ArticleListing() {
         }
         cartTemp.push(obj);
         dispatch(updateCart(cartTemp));
-        localStorage.setItem("cart", JSON.stringify(cartTemp));
+        sessionStorage.setItem("cart", JSON.stringify(cartTemp));
     }
 
     const computePrice = (e) => {
