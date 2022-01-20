@@ -6,14 +6,15 @@ import AdminLogo from "../assets/admin.svg";
 import Search from "../assets/searchWhite.png";
 import { useNavigate } from "react-router-dom";
 import Cart from "./Cart";
-import { useSelector } from "react-redux";
-import { compose } from "redux";
+import { setOpenCart } from "../CartSlice";
+import { useSelector, useDispatch } from "react-redux";
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default function Navbar(props) {
   const navigate = useNavigate();
-  const [openCart, setOpenCart] = useState(false);
+  const openCart = useSelector((state) => state.cart.open);
   const admin = useSelector((state) => state.admin.value);
+  const dispatch = useDispatch();
   const [articles, setArticles] = useState(null);
   const [foundSearch, setFoundSearch] = useState([]);
 
@@ -26,17 +27,17 @@ export default function Navbar(props) {
       .catch((error) => console.error(error));
   }, []);
 
-  useEffect((e) => {}, [foundSearch]);
+  useEffect((e) => { }, [foundSearch]);
 
   const handleCart = () => {
-    setOpenCart(!openCart);
+    dispatch(setOpenCart(!openCart));
   };
 
   function search(string) {
     const search = new RegExp(string, "gi");
     let result = [];
-    articles.map((e) => {
-      if (e.data.name.match(search) && string != "") {
+    articles.forEach((e) => {
+      if (e.data.name.match(search) && string !== "") {
         result.push(e.data);
       }
     });
@@ -61,24 +62,27 @@ export default function Navbar(props) {
           placeholder="Search"
         />
         <img id="loupe" src={Search} alt="search_logo" />
-        <ul
-          id="article-container"
-          style={{ backgroundColor: "#b0dd95", opacity: "100%" }}
-        >
-          {foundSearch.map((e) => (
-            <li
-              className="list-article"
-              onClick={(element) => {
-                navigateById(e.id);
-                element.target.parentElement.parentElement.children[0].value =
-                  "";
-                setFoundSearch([]);
-              }}
-            >
-              {e.name}
-            </li>
-          ))}
-        </ul>
+        {foundSearch.length > 0 &&
+          <ul
+            id="article-container"
+            style={{ backgroundColor: "#b0dd95", opacity: "100%" }}
+          >
+            {foundSearch.map((e) => (
+              <li
+                className="list-article"
+                onClick={(element) => {
+                  navigateById(e.id);
+                  element.target.parentElement.parentElement.children[0].value =
+                    "";
+                  setFoundSearch([]);
+                }}
+              >
+                {e.name}
+              </li>
+            ))}
+          </ul>
+        }
+
       </form>
       <div id="icon">
         {admin && (

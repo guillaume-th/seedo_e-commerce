@@ -14,7 +14,7 @@ h3 {
 input[type="text"], input[type="password"], input[type="email"], textarea {
   padding: 10px 10px;
   margin: 15px 10px;
-  border-radius: 10px;
+  border-radius: 2rem;
   background-color: white;
   border: none;
 
@@ -53,4 +53,10 @@ input::placeholder {
   margin: 1rem;
 }
 
+.hover_save:hover{
+  color:limegreen;
+}
 
+.hover_annuler:hover{
+  color:red;
+}
