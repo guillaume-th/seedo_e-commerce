@@ -2,6 +2,8 @@ import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { updateCart } from "../CartSlice";
+import Delete from "../assets/delete.svg";
+import "../styles/ArticleDetails.css";
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default function ArticleDetail() {
@@ -135,21 +137,17 @@ export default function ArticleDetail() {
           <ul id="comments">
             {data.comments.map((i) => {
               return (
-                <li>
-                  <p>
-                    {i.firstname}
-                    {i.lastname}
-                  </p>
-                  <p>{i.CreationDate.date}</p>
-                  <p>{i.content}</p>
-                  <button
-                    onClick={() => {
-                      delete_comment(i.id);
-                    }}
-                  >
-                    delete
-                  </button>
-                </li>
+                <li className="comment-body">
+                                        <p className="comment-name">{i.firstname}{i.lastname}</p>
+                                        <p className="comment-date">{i.CreationDate.date}</p>
+                                        <p className="comment-content">{i.content}</p>
+                                        {user_id == i.user_id &&
+                                        <img
+                                        src={Delete}
+                                        className="comment-icon" onClick={() => { delete_comment(i.id) }}></img>
+                                       
+                                        }
+                                    </li>
               );
             })}
           </ul>
