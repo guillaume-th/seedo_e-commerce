@@ -1,16 +1,19 @@
 import { useSelector, useDispatch } from "react-redux";
 import { increaseQuantity, decreaseQuantity } from "../CartSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 const BING_API_KEY = process.env.REACT_APP_BING_API_KEY;
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default function Order() {
+    const [shippingPriceDistance, setShippingPriceDistance] = useState(null);
     const cart = useSelector((state) => state.cart.value);
+    const [shipping, setShipping] = useState(null);
     const navigate = useNavigate();
-    const dispatch = useDispatch(); 
+    const dispatch = useDispatch();
 
     useEffect(() => {
+        getShippingFees();
     }, [cart]);
 
     const reduce = () => {
@@ -26,9 +29,9 @@ export default function Order() {
         fetch(`${API_URL}/shipping/all`)
             .then(res => res.json())
             .then(res => {
-                const priceBy100Km = Number(res.distance);
                 const priceByKg = Number(res.weight);
                 const weight = computeWeight();
+                setShippingPriceDistance(res.distance);
                 setShipping(Number(weight * priceByKg).toFixed(2));
             });
     }
@@ -64,8 +67,11 @@ export default function Order() {
                         }
                         <div className="order-total">
                             <p style={{ marginBottom: ".25rem", display: "flex", justifyContent: "center" }}> Total : {reduce()} €</p>
+                            <p style={{ marginBottom: ".25rem", display: "flex", justifyContent: "center" }}> Poids de la commande : {computeWeight()} kg</p>
+                            <p style={{ marginBottom: ".25rem", display: "flex", justifyContent: "center" }}> Livraison  : {shipping} €</p>
+                            <span>La livraison est susceptible de changer en fonction de votre adresse</span>
                             <div className="ordernext">
-                                    <button onClick={()=>navigate("/order-confirm")}>Passer à l'étape suivante</button>
+                                <button onClick={() => navigate("/order-confirm", { state: { distance: shippingPriceDistance, shippingWeight: shipping } })}>Passer à l'étape suivante</button>
                             </div>
                         </div>
                     </div>

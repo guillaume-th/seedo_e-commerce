@@ -466,13 +466,9 @@ label {
 /***********ORDER***********/
 /***************************/
 
-.order-adress:hover {
-  cursor: pointer;
-  background-color: rgb(188, 222, 171);
-}
 
 .selected-adress {
-  background-color: rgb(188, 222, 171);
+  background-color: #a1d37e !important;
 }
 
 .error {

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "../styles/OrderConfirm.css";
 import Payment from "./Payment";
@@ -16,6 +16,8 @@ export default function OrderConfirm() {
     const cart = useSelector((state) => state.cart.value);
     const [error, setError] = useState(null);
     const [shipping, setShipping] = useState(null);
+    const weightShipping = useLocation().state.shippingWeight;
+    const priceBy100Km = useLocation().state.distance;
 
     useEffect(() => {
         if (user_id !== null) {
@@ -106,23 +108,10 @@ export default function OrderConfirm() {
     }
 
     const getShippingFees = (distance) => {
-        console.log(cart);
-
-        fetch(`${API_URL}/shipping/all`)
-            .then(res => res.json())
-            .then(res => {
-                const priceBy100Km = Number(res.distance);
-                const priceByKg = Number(res.weight);
-                const weight = computeWeight();
-                setShipping(Number((distance / 100 * priceBy100Km + weight * priceByKg).toFixed(2)));
-            });
+        console.log(distance, priceBy100Km, weightShipping)
+        setShipping(Number((distance / 100 * Number(priceBy100Km) + Number(weightShipping)).toFixed(2)));
     }
 
-    const computeWeight = () => {
-        let total = 0;
-        cart.forEach(e => total += e.weight * e.selectedQuantity);
-        return total;
-    }
 
 
 
@@ -141,12 +130,12 @@ export default function OrderConfirm() {
                                             id={e.id}
                                             key={e.id}
                                             onClick={() => setSelectedAdress(e)}
-                                            className="carteorder oui"
+                                            className="carteorder oui order-adress"
                                         >
                                             <p className="">
                                                 {e.number} {e.street}{" "}
                                             </p>
-                                            <p  className="">
+                                            <p className="">
                                                 {e.city} {e.postal_code}, {e.country}
                                             </p>
                                         </div>
