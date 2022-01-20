@@ -4,26 +4,8 @@ import { jsPDF } from "jspdf";
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default function OrderListing() {
-    const user_id = localStorage.getItem("user_id");
     const [data, setData] = useState(null);
     const { id } = useParams();
-    const [refresh, setRefresh] = useState(null);
-
-    const transformData = (data) => {
-        const res = [];
-        data.forEach((e) => {
-            let found = res.find((elt) => elt.name === e.name);
-            console.log(found);
-            if (found !== undefined) {
-                res[res.indexOf(found)].quantity++;
-            }
-            else {
-                e.quantity = 1;
-                res.push(e);
-            }
-        })
-        return res;
-    }
 
     useEffect(() => {
         fetch(`${API_URL}/order/select/user/${id}`, {
@@ -35,7 +17,7 @@ export default function OrderListing() {
                 setData(res);
             })
             .catch(err => console.error(err));
-    }, [refresh]);
+    }, []);
 
     const createPdf = (data) => {
         const pdf = new jsPDF();

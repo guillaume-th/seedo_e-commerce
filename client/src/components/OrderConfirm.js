@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { updateCart } from "../CartSlice";
+import { useSelector } from "react-redux";
 import "../styles/OrderConfirm.css";
 import Payment from "./Payment";
 const API_URL = process.env.REACT_APP_API_URL;
@@ -14,10 +13,8 @@ export default function OrderConfirm() {
     const [selectedAdress, setSelectedAdress] = useState(null);
     const newAdressForm = useRef();
     const guestAdressForm = useRef();
-    const CBForm = useRef();
     const cart = useSelector((state) => state.cart.value);
     const [error, setError] = useState(null);
-    const dispatch = useDispatch();
     const [shipping, setShipping] = useState(null);
 
     useEffect(() => {
@@ -117,14 +114,14 @@ export default function OrderConfirm() {
                 const priceBy100Km = Number(res.distance);
                 const priceByKg = Number(res.weight);
                 const weight = computeWeight();
-                setShipping(Number((distance / 100 * priceBy100Km + weight*priceByKg).toFixed(2)));
+                setShipping(Number((distance / 100 * priceBy100Km + weight * priceByKg).toFixed(2)));
             });
     }
 
     const computeWeight = () => {
         let total = 0;
-        cart.forEach(e=>total+=e.weight);
-        return total; 
+        cart.forEach(e => total += e.weight * e.selectedQuantity);
+        return total;
     }
 
 

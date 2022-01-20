@@ -7,7 +7,6 @@ import Search from "../assets/searchWhite.png";
 import { useNavigate } from "react-router-dom";
 import Cart from "./Cart";
 import { useSelector } from "react-redux";
-import { compose } from "redux";
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default function Navbar(props) {
@@ -35,8 +34,8 @@ export default function Navbar(props) {
   function search(string) {
     const search = new RegExp(string, "gi");
     let result = [];
-    articles.map((e) => {
-      if (e.data.name.match(search) && string != "") {
+    articles.forEach((e) => {
+      if (e.data.name.match(search) && string !== "") {
         result.push(e.data);
       }
     });

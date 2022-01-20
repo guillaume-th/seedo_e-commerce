@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { updateCart } from "../CartSlice";
 import Delete from "../assets/delete.svg";
@@ -22,7 +22,6 @@ export default function ArticleDetail() {
       .then((res) => {
         setData(res.data);
         setImgFirstLink(res.data.photos[0].imgLink);
-        // console.log(res.data.photos[0].imgLink)
       })
       .catch((err) => console.error(err));
   }, [refresh, id]);
@@ -30,7 +29,6 @@ export default function ArticleDetail() {
   const addToCart = (e, product) => {
     e.preventDefault();
     let cartTemp = [...cart];
-    // let cartTemp = JSON.parse(localStorage.getItem("cart")) || [];
     let obj = { ...product };
     obj.selectedQuantity = Number(document.getElementById(product.id).value);
     obj.price = computePrice(obj);
@@ -57,7 +55,7 @@ export default function ArticleDetail() {
   const switchPhoto = (e) => {
     setImgFirstLink(e.target.src);
   };
-  
+
   const addcomment = (e) => {
     e.preventDefault();
     const formData = new FormData(commentForm.current);
@@ -115,7 +113,7 @@ export default function ArticleDetail() {
           <p>{data.categoriesName}</p>
           <div className="photos">
             <div className="lgPhoto">
-              <img src={imgFirstLink} className="imgPrincipale"></img>
+              <img alt="main" src={imgFirstLink} className="imgPrincipale"></img>
             </div>
             <div className="smPhotos">
               {data.photos.map((i) => {
@@ -124,6 +122,7 @@ export default function ArticleDetail() {
                     i && (
                       <div onClick={switchPhoto} className="imgSecondaire">
                         <img
+                          alt="secondary"
                           key={i.id}
                           src={i.imgLink}
                           className="imgSecondaire"
@@ -139,16 +138,16 @@ export default function ArticleDetail() {
             {data.comments.map((i) => {
               return (
                 <li className="comment-body">
-                                        <p className="comment-name">{i.firstname}{i.lastname}</p>
-                                        <p className="comment-date">{i.CreationDate.date}</p>
-                                        <p className="comment-content">{i.content}</p>
-                                        {user_id == i.user_id &&
-                                        <img
-                                        src={Delete}
-                                        className="comment-icon" onClick={() => { delete_comment(i.id) }}></img>
-                                       
-                                        }
-                                    </li>
+                  <p className="comment-name">{i.firstname}{i.lastname}</p>
+                  <p className="comment-date">{i.CreationDate.date.slice(0, 10)}</p>
+                  <p className="comment-content">{i.content}</p>
+                  {user_id == i.user_id &&
+                    <img
+                      src={Delete}
+                      className="comment-icon" onClick={() => { delete_comment(i.id) }}></img>
+
+                  }
+                </li>
               );
             })}
           </ul>
@@ -162,8 +161,9 @@ export default function ArticleDetail() {
               rows="30"
               cols="30"
               name="content"
+              maxLength={255}
             ></input>
-            <input type="submit" value="commenter"></input>
+            <input type="submit"  value="commenter"></input>
           </form>
         </div>
       </div>
