@@ -6,13 +6,15 @@ import AdminLogo from "../assets/admin.svg";
 import Search from "../assets/searchWhite.png";
 import { useNavigate } from "react-router-dom";
 import Cart from "./Cart";
-import { useSelector } from "react-redux";
+import { setOpenCart } from "../CartSlice";
+import { useSelector, useDispatch } from "react-redux";
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default function Navbar(props) {
   const navigate = useNavigate();
-  const [openCart, setOpenCart] = useState(false);
+  const openCart = useSelector((state) => state.cart.open);
   const admin = useSelector((state) => state.admin.value);
+  const dispatch = useDispatch();
   const [articles, setArticles] = useState(null);
   const [foundSearch, setFoundSearch] = useState([]);
 
@@ -28,7 +30,7 @@ export default function Navbar(props) {
   useEffect((e) => { }, [foundSearch]);
 
   const handleCart = () => {
-    setOpenCart(!openCart);
+    dispatch(setOpenCart(!openCart));
   };
 
   function search(string) {

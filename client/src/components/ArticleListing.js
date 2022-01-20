@@ -49,7 +49,7 @@ export default function ArticleListing() {
     }
 
     const computePrice = (e) => {
-        return Math.round(parseFloat(e.promo > 0 ? e.price - (e.price * e.promo / 100) : e.price), 2);
+        return e.promo > 0 ? e.price - (e.price * e.promo / 100).toFixed(2) : e.price.toFixed(2);
     }
 
     if (data) {
