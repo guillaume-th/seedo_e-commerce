@@ -1,6 +1,7 @@
-/* #comments{
-    border:  1px solid crimson;
-} */
+#comments{
+    width : 80%; 
+    padding-left: 0;
+}
 .comment-body{
     display: flex;
     flex-direction: column;
@@ -12,7 +13,8 @@
     box-shadow: 3px 3px 20px  insert rgba(48, 179, 150, 0.5);
     transition: 0.1s;
     height: max-content;
-   
+    width: 100%;
+    padding : .25rem; 
 }
 .comment-body:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
@@ -45,4 +47,5 @@
     width: 20px;
     display: flex;
     align-self: flex-end;
+    cursor : pointer; 
 }

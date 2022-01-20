@@ -138,16 +138,16 @@ export default function ArticleDetail() {
             {data.comments.map((i) => {
               return (
                 <li className="comment-body">
-                                        <p className="comment-name">{i.firstname}{i.lastname}</p>
-                                        <p className="comment-date">{i.CreationDate.date}</p>
-                                        <p className="comment-content">{i.content}</p>
-                                        {user_id == i.user_id &&
-                                        <img
-                                        src={Delete}
-                                        className="comment-icon" onClick={() => { delete_comment(i.id) }}></img>
-                                       
-                                        }
-                                    </li>
+                  <p className="comment-name">{i.firstname}{i.lastname}</p>
+                  <p className="comment-date">{i.CreationDate.date.slice(0, 10)}</p>
+                  <p className="comment-content">{i.content}</p>
+                  {user_id == i.user_id &&
+                    <img
+                      src={Delete}
+                      className="comment-icon" onClick={() => { delete_comment(i.id) }}></img>
+
+                  }
+                </li>
               );
             })}
           </ul>
@@ -161,8 +161,9 @@ export default function ArticleDetail() {
               rows="30"
               cols="30"
               name="content"
+              maxLength={255}
             ></input>
-            <input type="submit" value="commenter"></input>
+            <input type="submit"  value="commenter"></input>
           </form>
         </div>
       </div>

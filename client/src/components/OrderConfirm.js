@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useSelector } from "react-redux";
 import "../styles/OrderConfirm.css";
 import Payment from "./Payment";
 const API_URL = process.env.REACT_APP_API_URL;
