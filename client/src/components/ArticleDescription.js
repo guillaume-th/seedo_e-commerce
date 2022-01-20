@@ -56,6 +56,7 @@ export default function ArticleDetail() {
   const switchPhoto = (e) => {
     setImgFirstLink(e.target.src);
   };
+  
   const addcomment = (e) => {
     e.preventDefault();
     const formData = new FormData(commentForm.current);

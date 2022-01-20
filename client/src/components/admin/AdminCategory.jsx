@@ -83,6 +83,7 @@ export default function Category() {
                 <li className="category-item" onClick={() => setOpenModal(e)}>
                   Categorie : {e.name}
                   <img
+                    alt="delete-category"
                     src={Delete}
                     className="icon"
                     onClick={(event) => {
@@ -99,9 +100,9 @@ export default function Category() {
         {openModal && (
           <div className="modal">
             <section>
-             <div style={{display:"flex", justifyContent:"space-between", alignItems:"center"}}>
-              <h2 style={{color:"white"}}>Mettre à jour</h2>
-              <button style={{height:"2rem"}} onClick={() => setOpenModal(false)}>X</button>
+             <div style={{display:"flex", justifyContent:"space-between", marginTop:"-0.8rem"}}>
+              <h1 style={{color:"white", marginLeft:"0.5rem"}}>Mettre à jour</h1>
+              <button className="hover_annuler" style={{height:"1.8rem"}} onClick={() => setOpenModal(false)}>X</button>
               </div>
               <form style={{width:"400px", margin:"auto"}}
                 ref={updateForm}
@@ -112,16 +113,16 @@ export default function Category() {
                   updateCategory(current, openModal.id);
                 }}
               >
-                <div>
+                <div style={{ display:"flex", alignItems:"center"}}>
                 <label htmlFor="name">
-                  <input 
+                  <input style={{borderRadius:"2rem"}}
                     name="name"
                     type="text"
                     placeholder="Nouveau nom"
                     defaultValue={openModal.name}
                   />
                 </label>
-                <input style={{height:"2.8rem"}} type="submit" value="Modifier"></input>
+                <input className="hover_save" style={{height:"2.7rem", borderRadius:"2rem", position:"relative", left:"5rem"}} type="submit" value="Modifier"></input>
                 </div>
               </form>
             </section>

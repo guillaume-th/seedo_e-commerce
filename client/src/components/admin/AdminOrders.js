@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import AdminShipping from "./AdminShipping";
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default function AdminOrders() {
@@ -9,7 +10,6 @@ export default function AdminOrders() {
         fetch(`${API_URL}/order/all`)
             .then((res) => res.json())
             .then((res => {
-                console.log(res.result);
                 setData(res.result);
             }))
     }, [refresh])
@@ -33,18 +33,19 @@ export default function AdminOrders() {
         window.open(encodedURI);
     }
 
-    const joinArticle = (array) =>{
-        let str = ""; 
-        array.forEach((e)=>{
-            str+= e.name + " - ";
+    const joinArticle = (array) => {
+        let str = "";
+        array.forEach((e) => {
+            str += e.name + " - ";
         });
-        return str.slice(0, -3); 
+        return str.slice(0, -3);
     };
 
     if (data) {
         return (
             <div className="wrapper">
                 <div className="orders-admin">
+                    <AdminShipping />
                     <h2>Commandes</h2>
                     <button onClick={() => jsonToCsv()}>Télécharger au format Csv</button>
                     <div className="orders-wrapper">

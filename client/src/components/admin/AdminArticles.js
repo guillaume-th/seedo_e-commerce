@@ -1,16 +1,11 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { updateCart } from "../../CartSlice";
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default function ArticleListing() {
     const [data, setData] = useState(null);
-    const cart = useSelector((state) => state.cart.value);
-    const dispatch = useDispatch();
     const navigate = useNavigate();
     const form = useRef();
-    const admin = localStorage.getItem("admin");
     const [refresh, setRefresh] = useState(null);
 
     useEffect(() => {
@@ -79,21 +74,21 @@ export default function ArticleListing() {
                         <div style={{ display: "flex" }}>
                             <div style={{ display: "flex", flexDirection: "column" }}>
                                 <label style={{ width: "300px" }}>Nom de l'article :</label>
-                                <input style={{ width: "600px" }} name="name" type="text"></input>
+                                <input style={{ width: "600px" }} name="name" type="text" required></input>
                                 <label>Catégorie(s) :</label>
                                 <input name="categories" type="text" placeholder="Catégorie 1, catégorie 2" minLength={0} maxLength={100}></input>
                                 <label>Description :</label>
-                                <textarea name="description"></textarea>
+                                <textarea name="description" required></textarea>
                             </div>
                             <div style={{ display: "flex", flexDirection: "column" }}>
                                 <div style={{ display: "flex" }}>
                                     <div>
                                         <label style={{ marginLeft: "20px" }}>Poids :</label>
-                                        <input style={{ width: "270px" }} name="weight" type="text" ></input>
+                                        <input style={{ width: "270px" }} name="weight" required type="text" ></input>
                                     </div>
                                     <div>
                                         <label style={{ marginLeft: "20px" }}>Couleur :</label>
-                                        <input style={{ width: "270px" }} name="color" type="text"></input>
+                                        <input style={{ width: "270px" }} name="color" type="text" required></input>
                                     </div>
                                 </div>
 
@@ -108,15 +103,15 @@ export default function ArticleListing() {
                                 <div style={{ display: "flex", width: "600px", marginLeft: "2%", marginTop: "10px" }}>
                                     <div>
                                         <label>Quantité :</label>
-                                        <input style={{ borderRadius: "20px", height: "30px", width: "189px", border: "none", marginTop: "15px", marginRight: "15px" }} name="quantity" type="number"></input>
+                                        <input required style={{ borderRadius: "20px", height: "30px", width: "189px", border: "none", marginTop: "15px", marginRight: "15px" }} name="quantity" type="number"></input>
                                     </div>
                                     <div>
                                         <label style={{ marginLeft: "6%" }}>Price :</label>
-                                        <input style={{ borderRadius: "20px", height: "30px", width: "189px", border: "none", marginTop: "15px", marginLeft: "10px" }} type="number" name="price" ></input>
+                                        <input required style={{ borderRadius: "20px", height: "30px", width: "189px", border: "none", marginTop: "15px", marginLeft: "10px" }} type="number" name="price" ></input>
                                     </div>
                                     <div>
                                         <label style={{ marginLeft: "12%" }}>Promo :</label>
-                                        <input style={{ borderRadius: "20px", height: "30px", width: "189px", border: "none", marginTop: "15px", marginLeft: "25px" }} name="promo" type="number" min={0} max={100}></input>
+                                        <input  required style={{ borderRadius: "20px", height: "30px", width: "189px", border: "none", marginTop: "15px", marginLeft: "25px" }} name="promo" type="number" min={0} max={100}></input>
                                     </div>
                                 </div>
                             </div>
@@ -135,7 +130,7 @@ export default function ArticleListing() {
                                     <div className="img-wrapper">
                                         {
                                             e.data.photos[0] &&
-                                            <img src={e.data.photos[0].imgLink}></img>
+                                            <img alt="photo-article" src={e.data.photos[0].imgLink}></img>
                                         }
                                     </div>
                                     {e.data.new &&

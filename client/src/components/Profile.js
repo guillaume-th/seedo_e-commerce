@@ -172,14 +172,15 @@ export default function Profile() {
                 }> Logout</button>
                 {modalOpen && (
                     
-                    <div id="adress-modal " class="modal wrapper">
-                        <h2>Adresse</h2>
+                    <div id="adress-modal " class="modal wrapper" style={{color:"white"}}>
+                        <h2>ADRESSE</h2>
                         <form
                             className="edit-adresse-form"
                             ref={editAdressForm}
                             onSubmit={editAdress}
                             encType="multipart/form-data"
                         >
+                            <label htmlFor="number">Numéro :</label>
                             <input
                                 className="std-input-label"
                                 required
@@ -188,6 +189,7 @@ export default function Profile() {
                                 placeholder="Numéro"
                                 defaultValue={editedAdress.number}
                             ></input>
+                            <label htmlFor="street">Rue :</label>
                             <input
                                 className="std-input-label"
                                 required
@@ -196,6 +198,7 @@ export default function Profile() {
                                 placeholder="Rue"
                                 defaultValue={editedAdress.street}
                             ></input>
+                            <label htmlFor="city">Ville :</label>
                             <input
                                 className="std-input-label"
                                 required
@@ -204,6 +207,7 @@ export default function Profile() {
                                 placeholder="Ville"
                                 defaultValue={editedAdress.city}
                             ></input>
+                            <label htmlFor="postal_code">Code postal :</label>
                             <input
                                 className="std-input-label"
                                 required
@@ -212,6 +216,7 @@ export default function Profile() {
                                 placeholder="Code Postal"
                                 defaultValue={editedAdress.postal_code}
                             ></input>
+                            <label htmlFor="country">Pays :</label>
                             <input
                                 className="std-input-label"
                                 required
@@ -222,11 +227,12 @@ export default function Profile() {
                             ></input>
                             <div className="wrapper">
                                 
-                                <input className=" centered-btn" required type="submit" value="Sauvegarder"></input>
+                                <input className="centered-btn hover_save" required type="submit" style={{height:"2.3rem", borderRadius:"2rem", padding:"10px 30px 20px", marginTop:"20px"}} value="Sauvegarder"></input>
+                                <button className="hover_annuler" style={{height:"2.3rem", borderRadius:"2rem", padding:"10px 20px 20px"}} onClick={() => setModalOpen(false)}>Annuler</button>
                             </div>
                             <input type="hidden" name="user_id" value={user_id}></input>
                         </form>
-                        <button onClick={() => setModalOpen(false)}>Annuler</button>
+                        
                     </div>
                 )}
 
