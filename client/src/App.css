@@ -24,7 +24,7 @@
 }
 
 .std-vertical-form input, .std-vertical-form input, .std-vertical-form textarea {
-  display : block; 
+  display: block;
 }
 
 .centered-btn {
@@ -198,9 +198,9 @@ li {
   border-radius: 10px;
 }
 
-.img-wrapper img{
+.img-wrapper img {
   object-fit: cover;
-  width : 100%; 
+  width: 100%;
   height: 100%;
 }
 
@@ -446,8 +446,8 @@ label {
   width: 100%;
   color: #4caf50;
   font-size: bold;
-  background : white; 
-  
+  background: white;
+
 
 }
 
@@ -564,7 +564,7 @@ label {
 }
 
 
-.order-wrapper, .new-category-form, .categories-admin, .adress-wrapper{
+.order-wrapper, .new-category-form, .categories-admin, .adress-wrapper {
   width: 80vw;
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 20px;
@@ -580,7 +580,7 @@ label {
 }
 
 .edit-article-form input, .edit-article-form label, .edit-article-form textarea {
-  width : 50vw
+  width: 50vw
 }
 
 .edit-adresse-form {
@@ -598,4 +598,26 @@ label {
   margin: 2rem;
   padding: 1.5rem;
   width: 80%;
+}
+
+#article-container {
+  opacity: 1;
+  z-index: 50;
+  border-radius: 20px;
+  position: absolute;
+  width: 30vw;
+  padding: .5rem;
+  top : 70px; 
+}
+
+.list-article {
+  cursor : pointer; 
+  transition: all .2s ease;
+  margin-top : .25rem; 
+  padding : .175rem; 
+  border-radius: 10px;;
+}
+
+.list-article:hover {
+  background-color: #ffffff5b;
 }
