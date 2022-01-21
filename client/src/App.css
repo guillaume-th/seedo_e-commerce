@@ -60,6 +60,12 @@ input[type="submit"] {
   font-size: 1rem;
 }
 
+label {
+  font-weight: bold;
+  color: rgb(13, 70, 13);
+  margin-left: 15px;
+}
+
 .green {
   color: rgb(13, 70, 13);
 }
@@ -85,12 +91,20 @@ li {
   flex-wrap: wrap;
 }
 
+.noWrap {
+  flex-wrap: nowrap;
+}
+
 .marginAuto {
   margin: auto;
 }
 
 .noMargin {
   margin: 0px;
+}
+
+.width100 {
+  width: 100%;
 }
 /********************/
 /*****FILTER*********/
@@ -201,11 +215,12 @@ li {
   flex-wrap: wrap;
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 20px;
+  padding: 0.5rem;
 }
 
 #filtres {
-  min-width: 1000px;
-  min-height: 200px;
+  width: 100%;
+  padding: 20px;
 }
 
 .thumbnail {
@@ -435,12 +450,6 @@ li {
 .btnLogin {
   display: flex;
   justify-content: center;
-}
-
-label {
-  font-weight: bold;
-  color: rgb(13, 70, 13);
-  margin-left: 15px;
 }
 
 .button_submit {
