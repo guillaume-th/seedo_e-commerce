@@ -7,10 +7,13 @@ export default function Filter(props) {
     const [newProduct, setNewProduct] = useState(false);
     const [promo, setPromo] = useState(false);
     const [currentCategory, setCurrentCategory] = useState("all");
+    const [minPrice, setMinPrice] = useState(0);
+    const [maxPrice, setMaxPrice] = useState(300);
+
 
     useEffect(() => {
         transformData();
-    }, [currentCategory, newProduct, promo]);
+    }, [currentCategory, newProduct, promo, maxPrice, minPrice]);
 
 
     const transformData = () => {
@@ -36,9 +39,10 @@ export default function Filter(props) {
         }
         const promoBool = promo ? promo && e.data.promo !== 0 : true;
         const newBool = newProduct ? e.data.new === newProduct : true;
+        const minBool = minPrice ? e.data.price >= minPrice : true; 
+        const maxBool = maxPrice ? e.data.price <= maxPrice : true; 
 
-        console.log(promoBool, newBool)
-        if (catBool && newBool && promoBool) {
+        if (catBool && newBool && promoBool && minBool && maxBool) {
             return true;
         }
         else {
@@ -62,6 +66,12 @@ export default function Filter(props) {
             <input type="checkbox" value="on" name="new" checked={newProduct} onChange={() => setNewProduct(!newProduct)}></input>
             <label for="new">Promotions</label>
             <input type="checkbox" value="on" name="promo" checked={promo} onChange={() => setPromo(!promo)}></input>
+            <label>Prix compris entre : {minPrice} </label>
+            <br></br>
+            <input type="range"  name="min-price" min="0" max="300" step="10" defaultValue={0} onChange={(e)=>setMinPrice(e.target.value)}/>
+            <label>et : {maxPrice}</label>
+            <br></br>
+            <input type="range"  name="max-price" min="0" max="300" step="10" defaultValue={1000}onChange={(e)=>setMaxPrice(e.target.value)}/>
         </div>
     );
 
