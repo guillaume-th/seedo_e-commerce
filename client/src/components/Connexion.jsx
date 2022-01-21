@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { updateAdmin } from "../AdminSlice";
-import Feedback from "./Feedback";
+// import Feedback from "./Feedback";
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default function Connexion() {
@@ -261,7 +261,7 @@ export default function Connexion() {
 
       <h1>{option[0].toUpperCase() + option.slice(1, option.length)}</h1>
       {option === "connexion" ? <ConnexionForm /> : <InscriptionForm />}
-      <Feedback open={openFeedback} message={response} error={isError} setOpen={()=>setOpenFeedback(false)} />
+      {/* <Feedback open={openFeedback} message={response} error={isError} setOpen={()=>setOpenFeedback(false)} /> */}
     </div>
   );
 }
