@@ -108,12 +108,8 @@ export default function OrderConfirm() {
     }
 
     const getShippingFees = (distance) => {
-        console.log(distance, priceBy100Km, weightShipping)
         setShipping(Number((distance / 100 * Number(priceBy100Km) + Number(weightShipping)).toFixed(2)));
     }
-
-
-
 
     if (userData) {
         return (

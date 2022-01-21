@@ -1,7 +1,8 @@
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import {updateAdmin} from "../AdminSlice"; 
+import { updateAdmin } from "../AdminSlice";
+// import Feedback from "./Feedback";
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default function Connexion() {
@@ -9,7 +10,10 @@ export default function Connexion() {
   const connexionForm = useRef();
   const inscriptionForm = useRef();
   const navigate = useNavigate();
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
+  const [response, setResponse] = useState(null);
+  const [isError, setIsError] = useState(true);
+  const [openFeedback, setOpenFeedback] = useState(false);
 
   // if(localStorage.getItem("user_id")){
   //   console.log("CONNECTED");
@@ -118,6 +122,11 @@ export default function Connexion() {
           if (res.status === "ok") {
             navigate("/");
           }
+          else {
+            setIsError(true);
+            setResponse(res.status);
+            setOpenFeedback(true);
+          }
         })
         .catch((error) => console.error(error));
     }
@@ -136,7 +145,12 @@ export default function Connexion() {
         }
         if (res.status !== "fail") {
           localStorage.setItem("user_id", res.user_id);
-          dispatch(updateAdmin(res.admin)); 
+          dispatch(updateAdmin(res.admin));
+        }
+        else {
+          setIsError(true);
+          setResponse("Erreur de connexion");
+          setOpenFeedback(true);
         }
       })
       .catch((error) => console.error(error));
@@ -154,19 +168,19 @@ export default function Connexion() {
             let data = new FormData(connexionForm.current);
             sendFormConnexion(data);
           }}
-        >   
-            <label htmlFor="email">Email</label>
-            <input  name="email" type="email" id="email" placeholder="ex : toto@toto.toto" />
-            
-            <label style={{width:"200px"}} htmlFor="password">Mot de passe</label>
-            <input
-              name="password"
-              type="password"
-              id="password"
-              placeholder="Mot de passe"
-            />
-            <div className="btnLogin">
-          <button className="button_submit" type="submit">Connexion</button>
+        >
+          <label htmlFor="email">Email</label>
+          <input name="email" type="email" id="email" placeholder="ex : toto@toto.toto" />
+
+          <label style={{ width: "200px" }} htmlFor="password">Mot de passe</label>
+          <input
+            name="password"
+            type="password"
+            id="password"
+            placeholder="Mot de passe"
+          />
+          <div className="btnLogin">
+            <button className="button_submit" type="submit">Connexion</button>
           </div>
         </form>
         <p>
@@ -192,28 +206,28 @@ export default function Connexion() {
             console.log(data.get("password"));
             sendFormInscription(e, data);
           }}
-        > 
-            <label htmlFor="firstname">Prénom</label>
-            <input
-              name="firstname"
-              type="text"
-              id="firstname"
-              placeholder="John"
-              minLength={1}
-              maxLength={30}
-            />
-            <label htmlFor="lastname">Nom</label>
-            <input 
-              name="lastname"
-              type="text"
-              id="lastname"
-              placeholder="Doe"
-              minLength={1}
-              maxLength={30}
-            />
-            <label htmlFor="email">Email</label>
+        >
+          <label htmlFor="firstname">Prénom</label>
+          <input
+            name="firstname"
+            type="text"
+            id="firstname"
+            placeholder="John"
+            minLength={1}
+            maxLength={30}
+          />
+          <label htmlFor="lastname">Nom</label>
+          <input
+            name="lastname"
+            type="text"
+            id="lastname"
+            placeholder="Doe"
+            minLength={1}
+            maxLength={30}
+          />
+          <label htmlFor="email">Email</label>
           <input name="email" type="text" id="email" placeholder="ex : toto@toto.toto" />
-          <label style={{width:"200px"}} htmlFor="password">Mot de passe</label>
+          <label style={{ width: "200px" }} htmlFor="password">Mot de passe</label>
           <input
             name="password"
             type="password"
@@ -223,8 +237,8 @@ export default function Connexion() {
               levelPassword(e.target.value);
             }}
           />
-          <label style={{width:"400px"}} htmlFor="password">Comfirmer le mot de passe</label>
-          <input 
+          <label style={{ width: "400px" }} htmlFor="password">Comfirmer le mot de passe</label>
+          <input
             name="confirm_password"
             type="password"
             id="confirm_password"
@@ -244,8 +258,10 @@ export default function Connexion() {
 
   return (
     <div className="wrapper">
+
       <h1>{option[0].toUpperCase() + option.slice(1, option.length)}</h1>
       {option === "connexion" ? <ConnexionForm /> : <InscriptionForm />}
+      {/* <Feedback open={openFeedback} message={response} error={isError} setOpen={()=>setOpenFeedback(false)} /> */}
     </div>
   );
 }
