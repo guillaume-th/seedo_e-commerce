@@ -20,7 +20,7 @@ body {
   width: 230px;
 }   */
 
-input, input::placeholder, button, textarea{
+input, input::placeholder, button, textarea, select{
   font-size: 1.25rem;
   border-radius: .25rem;
 }
