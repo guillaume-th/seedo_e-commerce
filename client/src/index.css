@@ -20,7 +20,7 @@ body {
   width: 230px;
 }   */
 
-input, input::placeholder, button, textarea{
+input, input::placeholder, button, textarea, select{
   font-size: 1.25rem;
   border-radius: .25rem;
 }
@@ -33,9 +33,9 @@ h1, h3{
   color : white; 
   margin : 1rem; 
 }
-html {
-  /* background: linear-gradient(180deg, rgba(131, 209, 94, 0.54) 0%, rgba(255, 255, 255, 0) 100%); */
-}
+/* html {
+  background: linear-gradient(180deg, rgba(131, 209, 94, 0.54) 0%, rgba(255, 255, 255, 0) 100%);
+} */
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
