@@ -89,7 +89,21 @@ li {
   margin: auto;
 }
 
+.noMargin {
+  margin: 0px;
+}
+/********************/
+/*****FILTER*********/
+/********************/
 
+.range {
+  margin: 0px 0px 0px 20px;
+}
+
+#bottomRange {
+  position: relative;
+  left : 120px;
+}
 /********************/
 /****NAVBARRE********/
 /********************/
@@ -280,12 +294,6 @@ li {
 .thumbnail p {
   color: #22460d;
   font-size: 0.8em;
-}
-
-.thumbnail form {
-  max-width: 200px;
-  display: flex;
-  margin: auto;
 }
 
 .cat {

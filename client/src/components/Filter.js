@@ -62,33 +62,41 @@ export default function Filter(props) {
     }
 
     return (
-        <div id="filters">
-            <select value={currentCategory} onChange={(e) => { setCurrentCategory(e.target.value) }}>
-                <option value="all" selected>Toutes les catégories</option>
-                {
-                    props.categories.map(e => {
-                        return (
-                            <option value={e.name} key={e.id}>{e.name}</option>
-                        )
-                    })
-                }
-            </select>
-            <label for="new">Nouveautés</label>
-            <input type="checkbox" value="on" name="new" checked={newProduct} onChange={() => setNewProduct(!newProduct)}></input>
-            <label for="new">Promotions</label>
-            <input type="checkbox" value="on" name="promo" checked={promo} onChange={() => setPromo(!promo)}></input>
-            <label>Prix compris entre : {minPrice} </label>
-            <br></br>
-            <input type="range" name="min-price" min="0" max="300" step="10" defaultValue={0} onChange={(e) => setMinPrice(e.target.value)} />
-            <label>et : {maxPrice}</label>
-            <br></br>
-            <input type="range" name="max-price" min="0" max="300" step="10" defaultValue={1000} onChange={(e) => setMaxPrice(e.target.value)} />
-            <button>Trier par</button>
-            <select onChange={(e) => sortData(e.target.value)}>
-                <option value={"null"} selected>Pas de tri</option>
-                <option value={true} >Prix croissant</option>
-                <option value={false} >Prix décroissant</option>
-            </select>
+        <div id="filters" className="vertical-flex center-flex">
+            <div className="horizontal-flex center-flex">
+                <select value={currentCategory} onChange={(e) => { setCurrentCategory(e.target.value) }}>
+                    <option value="all" selected>Toutes les catégories</option>
+                    {
+                        props.categories.map(e => {
+                            return (
+                                <option value={e.name} key={e.id}>{e.name}</option>
+                            )
+                        })
+                    }
+                </select>
+                <label for="new">Nouveautés</label>
+                <input type="checkbox" value="on" name="new" checked={newProduct} onChange={() => setNewProduct(!newProduct)}></input>
+                <label for="new">Promotions</label>
+                <input type="checkbox" value="on" name="promo" checked={promo} onChange={() => setPromo(!promo)}></input>
+            </div>
+            <div className="horizontal-flex center-flex range">
+                <label>Prix compris entre :  </label>
+                <input className="range" type="range" name="min-price" min="0" max="300" step="10" defaultValue={0} onChange={(e) => setMinPrice(e.target.value)} />
+                <label>{minPrice} €</label>
+            </div>
+            <div className="horizontal-flex center-flex range" id="bottomRange">
+                <label>et :</label>
+                <input className="range" type="range" name="max-price" min="0" max="300" step="10" defaultValue={1000} onChange={(e) => setMaxPrice(e.target.value)} />
+                <label>{maxPrice} €</label>
+            </div>
+            <div className="horizontal-flex center-flex range" >
+                    <label>Trier par</label>
+                    <select onChange={(e) => sortData(e.target.value)}>
+                        <option value={"null"} selected>Pas de tri</option>
+                        <option value={true} >Prix croissant</option>
+                        <option value={false} >Prix décroissant</option>
+                    </select>
+                </div>
         </div>
     );
 
