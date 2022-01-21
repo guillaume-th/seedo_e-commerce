@@ -21,6 +21,7 @@ export default function ArticleListing() {
                     });
                     e.data.categoriesName = str.slice(0, str.length - 2);
                 });
+                console.log(res); 
                 setData(res);
 
             })
