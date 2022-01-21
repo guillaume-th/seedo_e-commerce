@@ -112,8 +112,8 @@ export default function ArticleListing() {
                 </div>
                 <div className="gallery">
                     {data.length > 0
-                        ? <div>
-                            {data.map((e) => {
+                        ? 
+                            data.map((e) => {
                                 return (
                                     <div key={e.data.id} className="thumbnail">
                                         <div className="img-wrapper">
@@ -153,8 +153,7 @@ export default function ArticleListing() {
                                         </div>
                                     </div >
                                 )
-                            })}
-                        </div>
+                            })
                         : <div>Pas de résultats</div>
                     }
                 </div>

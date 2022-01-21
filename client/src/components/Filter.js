@@ -17,7 +17,6 @@ export default function Filter(props) {
 
     const transformData = () => {
         const result = props.data.filter(filter);
-        console.log(result);
         props.onFilter(result);
         return result;
     }
