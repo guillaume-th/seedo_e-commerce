@@ -39,7 +39,7 @@ img {
   color: red;
 }
 
-input:focus {
+input:focus, textarea:focus {
   outline: solid greenyellow 3px;
   background-color: rgb(255, 255, 255);
 }
@@ -77,6 +77,10 @@ li {
   flex-direction: column;
 }
 
+.center-flex {
+  align-items: center;
+}
+
 .wrap {
   flex-wrap: wrap;
 }
@@ -85,9 +89,7 @@ li {
   margin: auto;
 }
 
-form {
-  min-width: 60vw;
-}
+
 /********************/
 /****NAVBARRE********/
 /********************/
