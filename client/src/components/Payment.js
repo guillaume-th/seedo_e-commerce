@@ -68,6 +68,8 @@ export default function Payment(props) {
                 style={{ color: "white" }}
                 onSuccess={(data) => {
                     order();
+                    dispatch(updateCart([])); 
+                    sessionStorage.setItem("cart", []); 
                     navigate("/order-success");
                 }}
                 onError={(err) => {
