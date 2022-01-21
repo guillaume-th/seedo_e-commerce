@@ -10,7 +10,6 @@ export default function Filter(props) {
     const [minPrice, setMinPrice] = useState(0);
     const [maxPrice, setMaxPrice] = useState(300);
 
-
     useEffect(() => {
         transformData();
     }, [currentCategory, newProduct, promo, maxPrice, minPrice]);
@@ -20,6 +19,7 @@ export default function Filter(props) {
         const result = props.data.filter(filter);
         console.log(result);
         props.onFilter(result);
+        return result;
     }
 
     const filter = (e) => {
@@ -39,8 +39,8 @@ export default function Filter(props) {
         }
         const promoBool = promo ? promo && e.data.promo !== 0 : true;
         const newBool = newProduct ? e.data.new === newProduct : true;
-        const minBool = minPrice ? e.data.price >= minPrice : true; 
-        const maxBool = maxPrice ? e.data.price <= maxPrice : true; 
+        const minBool = minPrice ? e.data.price >= minPrice : true;
+        const maxBool = maxPrice ? e.data.price <= maxPrice : true;
 
         if (catBool && newBool && promoBool && minBool && maxBool) {
             return true;
@@ -49,6 +49,18 @@ export default function Filter(props) {
             return false;
         }
     };
+
+    const sortData = (ascendingOrder) => {
+        if (ascendingOrder !== "null") {
+            let data = transformData();
+            if (ascendingOrder === "true") {
+                data.sort((a, b) => a.data.price > b.data.price);
+            }
+            else {
+                data.sort((a, b) => b.data.price > a.data.price);
+            }
+        }
+    }
 
     return (
         <div id="filters">
@@ -68,10 +80,16 @@ export default function Filter(props) {
             <input type="checkbox" value="on" name="promo" checked={promo} onChange={() => setPromo(!promo)}></input>
             <label>Prix compris entre : {minPrice} </label>
             <br></br>
-            <input type="range"  name="min-price" min="0" max="300" step="10" defaultValue={0} onChange={(e)=>setMinPrice(e.target.value)}/>
+            <input type="range" name="min-price" min="0" max="300" step="10" defaultValue={0} onChange={(e) => setMinPrice(e.target.value)} />
             <label>et : {maxPrice}</label>
             <br></br>
-            <input type="range"  name="max-price" min="0" max="300" step="10" defaultValue={1000}onChange={(e)=>setMaxPrice(e.target.value)}/>
+            <input type="range" name="max-price" min="0" max="300" step="10" defaultValue={1000} onChange={(e) => setMaxPrice(e.target.value)} />
+            <button>Trier par</button>
+            <select onChange={(e) => sortData(e.target.value)}>
+                <option value={"null"} selected>Pas de tri</option>
+                <option value={true} >Prix croissant</option>
+                <option value={false} >Prix décroissant</option>
+            </select>
         </div>
     );
 
