@@ -27,7 +27,6 @@ export default function Filter(props) {
         if (currentCategory && e.data.categories) {
             if (currentCategory !== "all") {
                 e.data.categories.forEach((elt) => {
-                    console.log(elt);
                     if (elt.name === currentCategory) {
                         catBool = true;
                     }
