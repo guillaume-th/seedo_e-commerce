@@ -70,11 +70,10 @@ export default function ArticleListing() {
         return (
             <div>
                 <div className="gallery">
-                    <div id="filtres">
-                        {categories &&
-                            <Filter data={data} onFilter={(d)=>setfilteredData(d)} categories={categories}/>
-                        }
-                    </div>
+                    {categories &&
+                        <Filter data={data} onFilter={(d)=>setfilteredData(d)} categories={categories}/>
+                    }
+                    
                     {
                         filteredData.map((e) => {
                             return (
