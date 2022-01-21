@@ -111,7 +111,7 @@ export default function ArticleListing() {
                                             }
                                         </div>
                                         <p className="cat">{e.data.categoriesName}</p>
-                                        <form onSubmit={(event) => addToCart(event, e)}>
+                                        <form onSubmit={(event) => addToCart(event, e)} className="horizontale-flex center-flex marginAuto">
                                             <input type="number" id={e.data.id} defaultValue={1} className="number"></input>
                                             <input type="submit" value="Ajouter au panier" className="buttonShop" />
                                         </form>
