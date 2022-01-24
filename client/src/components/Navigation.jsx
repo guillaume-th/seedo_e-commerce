@@ -4,14 +4,17 @@ import Shop from "../assets/shop.svg";
 import Logo from "../assets/logoSeedo.png";
 import AdminLogo from "../assets/admin.svg";
 import Search from "../assets/searchWhite.png";
+import Seeds from "../assets/seeds.svg";
 import { useNavigate } from "react-router-dom";
 import Cart from "./Cart";
 import { setOpenCart } from "../CartSlice";
 import { useSelector, useDispatch } from "react-redux";
+import ProductDropdown from "./ProductDropdown";
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default function Navbar(props) {
   const navigate = useNavigate();
+  const [productDropdown, setProductDropdown] = useState(false);
   const openCart = useSelector((state) => state.cart.open);
   const admin = useSelector((state) => state.admin.value);
   const dispatch = useDispatch();
@@ -27,7 +30,14 @@ export default function Navbar(props) {
       .catch((error) => console.error(error));
   }, []);
 
-  useEffect((e) => { }, [foundSearch]);
+  useEffect((e) => {
+    document.getElementById("products")?.addEventListener("mouseover", (e) => {
+      setProductDropdown(true);
+      document.getElementById("products")?.addEventListener("mouseleave", (e) => {
+        setProductDropdown(false);
+      });
+    });
+  }, [foundSearch]);
 
   const handleCart = () => {
     dispatch(setOpenCart(!openCart));
@@ -85,6 +95,13 @@ export default function Navbar(props) {
 
       </form>
       <div id="icon">
+        <div id="products">
+          <img id="products" className="icon" src={Seeds} onClick={() => /* navigate('/products') */ setProductDropdown(!productDropdown)} />
+          {productDropdown &&
+            <ProductDropdown />
+          }
+        </div>
+
         {admin && (
           <img
             src={AdminLogo}
@@ -101,6 +118,7 @@ export default function Navbar(props) {
           alt="User_logo"
         />
         {openCart && <Cart />}
+
       </div>
     </div>
   );
