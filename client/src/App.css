@@ -6,6 +6,11 @@ img {
   max-width: 70vw;
 }
 
+
+/* .app-wrapper{ */
+/* width : 90%;  */
+/* } */
+
 .wrapper {
   width: 100%;
   display: flex;
@@ -29,6 +34,18 @@ img {
 
 .std-vertical-form input, .std-vertical-form input, .std-vertical-form textarea {
   display: block;
+}
+
+legend {
+  border: 3px solid rgb(13, 70, 13);
+  padding: .5rem;
+  background-color: rgb(13, 70, 13);
+  color: white;
+}
+
+fieldset {
+  box-shadow: 5px 5px 12px 0px #ABABAB;
+  width : 80%;
 }
 
 .centered-btn {
@@ -113,21 +130,38 @@ li {
 /********************/
 
 #filters {
-  background-color: #ffff;
-  ;
+  background-color: white;
   left: 0px;
-  width: 25vw;
   z-index: 100;
-
+  position: sticky;
+  top : 20px; 
 }
 
-.range {
-  margin: 0px 0px 0px 20px;
+.filter-border {
+  border: 3px solid rgb(13, 70, 13);
+  padding: .5rem;
+  margin-bottom: 1.5rem;
 }
 
 #bottomRange {
   position: relative;
   left: 120px;
+}
+
+.filters-wrapper {
+  position: relative;
+  top: 2rem;
+  width: 25vw;
+  max-width: 400px;
+  min-width: 350px;
+}
+
+.range{
+  min-width: 0;
+}
+
+.filters-wrapper fieldset{
+  width : 80%; 
 }
 
 /********************/
@@ -250,25 +284,18 @@ li {
   margin: 20px auto;
   display: flex;
   flex-wrap: wrap;
-  gap : 1rem; 
+  gap: 1rem;
   border-radius: 20px;
-  padding : 1rem; 
+  padding: 1rem;
 }
 
-#filters-wrapper {
-  position: relative;
-  top: 2rem;
-}
 
-#filtres {
-  width: 100%;
-  padding: 20px;
-  position: fixed;
-}
 
 .articles-wrapper {
   display: flex;
+  margin-top: 3rem;
 }
+
 
 .thumbnail {
   width: 250px;
@@ -280,7 +307,6 @@ li {
   background-color: rgba(255, 255, 255, 0.5);
   overflow: hidden;
   transition: all .2s ease;
-  -webkit-box-shadow: 5px 5px 15px 5px #000000;
   box-shadow: 5px 5px 15px 0px #ABABAB;
 }
 
@@ -322,9 +348,9 @@ li {
 
 .infos form {
   max-height: 30px;
-  padding-right : 5px;
-  padding-left : 5px;
-  display : flex; 
+  padding-right: 5px;
+  padding-left: 5px;
+  display: flex;
   margin-top: 1.6rem;
 }
 
@@ -347,8 +373,8 @@ li {
 .sub-info {
   display: flex;
   justify-content: space-between;
-  padding-left : 5px;
-  padding-right : 5px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .sub-info p {
