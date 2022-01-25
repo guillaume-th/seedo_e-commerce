@@ -34,7 +34,6 @@ class ArticleController extends AbstractController
         return $this->json($data);
     }
 
-
     /**
      * @Route("/new", name="article_new", methods={"POST"})
      */
@@ -93,22 +92,22 @@ class ArticleController extends AbstractController
      */
     public function show(Article $article): Response
     {
-        $comment=[];
+        $comment = [];
         foreach ($article->getComments() as $value) {
-        $name_user = $this->getDoctrine()->getRepository(User::class)->find($value->getUser()->getId());
-      $firstname = $name_user->getFirstName();
-      $lastname =  $name_user->getLastName();
+            $name_user = $this->getDoctrine()->getRepository(User::class)->find($value->getUser()->getId());
+            $firstname = $name_user->getFirstName();
+            $lastname =  $name_user->getLastName();
             array_push($comment, [
                 'id' => $value->getId(),
                 'content' => $value->getContent(),
                 'user_id' => $value->getUser()->getId(),
                 'CreationDate' => $value->getCreationDate(),
-                'firstname'=>$firstname,
-                'lastname'=>$lastname,
+                'firstname' => $firstname,
+                'lastname' => $lastname,
             ]);
         }
 
-        $data =  $this->getArticleData($article); 
+        $data =  $this->getArticleData($article);
         $data["data"]["comments"] = $comment;
         return $this->json($data);
     }
@@ -152,13 +151,12 @@ class ArticleController extends AbstractController
             }
             foreach ($cat_arr as $value) {
                 $value = trim(strtolower($value));
-                $category = $this->getDoctrine()->getRepository(Category::class)->findBy(["name" => $value]); 
-                if(count($category) < 1){
+                $category = $this->getDoctrine()->getRepository(Category::class)->findBy(["name" => $value]);
+                if (count($category) < 1) {
                     $category = new Category();
                     $entityManager->persist($category);
-                }
-                else{
-                    $category=$category[0]; 
+                } else {
+                    $category = $category[0];
                 }
                 $category->setName($value);
                 $article->addCategory($category);
@@ -253,7 +251,7 @@ class ArticleController extends AbstractController
             ]
         ];
     }
-     /**
+    /**
      * @Route("/avis/add/{id}", name="add_avis", methods={"POST"})
      */
     public function avis_add(Article $article, Request $request, EntityManagerInterface $entityManager): Response
@@ -269,7 +267,7 @@ class ArticleController extends AbstractController
         $entityManager->flush();
 
         return $this->json([
-            "status"=>"ok",
+            "status" => "ok",
         ]);
     }
 
@@ -282,13 +280,13 @@ class ArticleController extends AbstractController
         $entityManager->flush();
 
         return $this->json([
-            "status"=>"ok",
+            "status" => "ok",
         ]);
     }
-     /**
+    /**
      * @Route("/mystery_new", name="mystery_new", methods={"POST"})
      */
-    public function mystery_new(Request $request,EntityManagerInterface $entityManager): Response
+    public function mystery_new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $article = new Article();
         $article->setName($request->request->get("name"));
@@ -356,11 +354,11 @@ class ArticleController extends AbstractController
         $entityManager->persist($Mystery);
         $entityManager->flush();
         return $this->json([
-            "status"=>"ok",
+            "status" => "ok",
         ]);
     }
 
-     /**
+    /**
      * @Route("/mystery_all", name="mystery_all", methods={"POST"})
      */
     public function mystery_all(EntityManagerInterface $entityManager): Response
@@ -371,7 +369,7 @@ class ArticleController extends AbstractController
             $UserMystery = [];
             $PhotoMystery = [];
             foreach ($Mystery->getUsers() as $value) {
-              
+
                 array_push($UserMystery, [
                     'id' => $value->getId(),
                     'firstname' => $value->getFirstName(),
@@ -380,7 +378,7 @@ class ArticleController extends AbstractController
             }
             foreach ($Mystery->getPhotos() as $key => $value) {
                 array_push($PhotoMystery, [
-              'image_link' =>  $Mystery->getImgLink(),
+                    'image_link' =>  $Mystery->getImgLink(),
                 ]);
             }
             array_push($data, [
@@ -393,8 +391,8 @@ class ArticleController extends AbstractController
         return $this->json(['result' => $data]);
     }
 
-   
-     /**
+
+    /**
      * @Route("/mystery_show/{id}", name="mystery_show", methods={"GET"})
      */
     public function mystery_Show(Article $Mystery,EntityManagerInterface $entityManager): Response
@@ -418,7 +416,7 @@ class ArticleController extends AbstractController
                 'link' => $value->getImgLink(),
             ]);
         };
-      
+
 
         return $this->json([
             "result"=>['user_info'=>$userinfo,'subscrition_price'=>$Mystery_price_subscrition,'name'=>$name,'description'=>$description,'photo'=>$photo],
