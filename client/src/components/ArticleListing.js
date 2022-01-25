@@ -6,15 +6,19 @@ import Filter from "./Filter";
 const API_URL = process.env.REACT_APP_API_URL;
 
 
-export default function ArticleListing() {
+export default function ArticleListing(props) {
     const [data, setData] = useState(null);
     const [filteredData, setfilteredData] = useState(null);
     const [categories, setCategories] = useState(null);
     const cart = useSelector((state) => state.cart.value);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [filterNew, setFilterNew] = useState(null);
+    const [filterPromo, setFilterPromo] = useState(null);
 
     useEffect(() => {
+      
+        console.log("in", "new-" + props.new, "promo-" +props.promo);
         fetch(`${API_URL}/article/all`)
             .then(res => res.json())
             .then(res => {
@@ -25,13 +29,14 @@ export default function ArticleListing() {
                     });
                     e.data.categoriesName = str.slice(0, str.length - 2);
                 });
-                console.log(res);
                 setData(res);
-                setfilteredData(res); 
+                setfilteredData(res);
+                setFilterNew(props.new !== undefined ? props.new : false);
+                setFilterPromo(props.promo !== undefined ? props.promo : false);
             })
             .catch(err => console.error(err));
-            getCategories(); 
-    }, []);
+        getCategories();
+    }, [props.new, props.promo]);
 
 
     const addToCart = (e, product) => {
@@ -59,21 +64,26 @@ export default function ArticleListing() {
 
     const getCategories = () => {
         fetch(`${API_URL}/category/all`)
-        .then((res) => res.json())
-        .then(res => {
-            setCategories(res);
-        })
-        .catch(err => console.error(err));
+            .then((res) => res.json())
+            .then(res => {
+                setCategories(res);
+            })
+            .catch(err => console.error(err));
     }
 
-    if (filteredData) {
+    if (filteredData && filterPromo !== null && filteredData !== null) {
         return (
             <div>
+                {filterNew + " " + filterPromo}
                 <div className="gallery">
-                    {categories &&
-                        <Filter data={data} onFilter={(d)=>setfilteredData(d)} categories={categories}/>
+                    {(categories ) &&
+                        <Filter data={data}
+                            onFilter={(d) => {setfilteredData(d)}}
+                            categories={categories}
+                            new={filterNew}
+                            promo={filterPromo}
+                        />
                     }
-                    
                     {
                         filteredData.map((e) => {
                             return (

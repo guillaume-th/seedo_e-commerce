@@ -19,6 +19,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { updateAdmin } from "./AdminSlice";
 import { setOpenCart } from "./CartSlice";
 import { useEffect } from "react";
+import MysteryBoxListing from "./components/MysteryBoxListing";
 const API_URL = process.env.REACT_APP_API_URL;
 
 function App() {
@@ -61,6 +62,9 @@ function App() {
           <Route path="/admin-category" element={<Category />} />
           <Route path="/admin-panel" element={<AdminPanel />} />
           <Route path="/admin-articles" element={<AdminArticles />} />
+          <Route path="/mystery-boxes" element={<MysteryBoxListing />} />
+          <Route path="/articles/new" element={<ArticleListing new={true}/>}/>
+          <Route path="/articles/promo" element={<ArticleListing promo={true} />}/>
         </Routes>
       </Router>
     </div>

@@ -23,7 +23,7 @@ img {
   width: 80vw;
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 20px;
-  margin-top: 5rem;
+  margin-top: 3rem;
   padding: 1.5rem;
 }
 
@@ -132,17 +132,44 @@ li {
   max-height: 100px;
 }
 
+.navbar-wrapper{
+  background-color: #ffffff;
+}
+
+.sub-nav{
+  display: flex;
+  justify-content: space-evenly;
+  border-top: 1px solid rgb(13, 70, 13);
+  border-bottom: 1px solid rgb(13, 70, 13);
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+}
+
+.sub-nav div{
+  cursor: pointer;
+  border-left : 1px solid transparent; 
+  border-right : 1px solid transparent; 
+  transition: all .2s ease;
+  width : 90%; 
+  text-align: center;
+  font-weight: 500;
+}
+
+.sub-nav div:hover{
+  border-color: rgb(13, 70, 13);
+  color :rgb(13, 70, 13);
+}
+
 .search_bar {
   top: -100px;
 }
 
 #graine {
-  width: 200px;
-
+  width: 130px;
   margin-left: 10px;
   cursor: pointer;
-  position: relative;
-  z-index: 50;
+  /* position: relative; */
+  /* z-index: 50; */
 }
 
 #loupe {
@@ -526,7 +553,7 @@ li {
 }
 
 .boxShadow:hover {
-  box-shadow: 8px -3px 100px 50px rgb(17, 26, 18);
+  /* box-shadow: 5px 5px 5px 5px rgb(17, 26, 18); */
 }
 
 .tabs {

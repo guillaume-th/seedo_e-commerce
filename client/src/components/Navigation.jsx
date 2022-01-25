@@ -59,66 +59,75 @@ export default function Navbar(props) {
   }
 
   return (
-    <div id="navbar">
-      <div id="logo" onClick={() => navigate("/")}>
-        <img id="graine" src={Logo} alt="Seed_logo" />
-      </div>
-      <form className="search_bar">
-        <input
-          onChange={(e) => search(e.target.value)}
-          className="search"
-          id="search"
-          type="text"
-          placeholder="Search"
-        />
-        <img id="loupe" src={Search} alt="search_logo" />
-        {foundSearch.length > 0 &&
-          <ul
-            id="article-container"
-            style={{ backgroundColor: "#b0dd95", opacity: "100%" }}
-          >
-            {foundSearch.map((e) => (
-              <li
-                className="list-article"
-                onClick={(element) => {
-                  navigateById(e.id);
-                  element.target.parentElement.parentElement.children[0].value =
-                    "";
-                  setFoundSearch([]);
-                }}
-              >
-                {e.name}
-              </li>
-            ))}
-          </ul>
-        }
-
-      </form>
-      <div id="icon">
-        <div id="products">
-          <img id="products" className="icon" src={Seeds} onClick={() => /* navigate('/products') */ setProductDropdown(!productDropdown)} />
-          {productDropdown &&
-            <ProductDropdown />
-          }
+    <div className="navbar-wrapper">
+      <div id="navbar">
+        <div id="logo" onClick={() => navigate("/")}>
+          <img id="graine" src={Logo} alt="Seed_logo" />
         </div>
-
-        {admin && (
-          <img
-            src={AdminLogo}
-            alt="Admin-logo"
-            id="Admin"
-            onClick={() => navigate("/admin-panel")}
+        <form className="search_bar">
+          <input
+            onChange={(e) => search(e.target.value)}
+            className="search"
+            id="search"
+            type="text"
+            placeholder="Search"
           />
-        )}
-        <img id="Shop" src={Shop} alt="Shop_logo" onClick={handleCart} />
-        <img
-          id="User"
-          src={User}
-          onClick={() => navigate("/profile")}
-          alt="User_logo"
-        />
-        {openCart && <Cart />}
+          <img id="loupe" src={Search} alt="search_logo" />
+          {foundSearch.length > 0 &&
+            <ul
+              id="article-container"
+              style={{ backgroundColor: "#b0dd95", opacity: "100%" }}
+            >
+              {foundSearch.map((e) => (
+                <li
+                  className="list-article"
+                  onClick={(element) => {
+                    navigateById(e.id);
+                    element.target.parentElement.parentElement.children[0].value =
+                      "";
+                    setFoundSearch([]);
+                  }}
+                >
+                  {e.name}
+                </li>
+              ))}
+            </ul>
+          }
 
+        </form>
+        <div id="icon">
+          <div id="products">
+            <img id="products" className="icon" src={Seeds} onClick={() => /* navigate('/products') */ setProductDropdown(!productDropdown)} />
+            {productDropdown &&
+              <ProductDropdown />
+            }
+          </div>
+
+          {admin && (
+            <img
+              src={AdminLogo}
+              alt="Admin-logo"
+              id="Admin"
+              onClick={() => navigate("/admin-panel")}
+            />
+          )}
+          <img id="Shop" src={Shop} alt="Shop_logo" onClick={handleCart} />
+          <img
+            id="User"
+            src={User}
+            onClick={() => navigate("/profile")}
+            alt="User_logo"
+          />
+          {openCart && <Cart />}
+
+        </div>
+      </div>
+      <div className="sub-nav">
+        <div onClick={() => navigate("/articles/new")}>Nouveautés</div>
+        <div onClick={() => navigate("/articles/promo")}>Promotions</div>
+        <div>Mystery box</div>
+        <div>Graines</div>
+        <div>Accessoires</div>
       </div>
     </div>
   );
