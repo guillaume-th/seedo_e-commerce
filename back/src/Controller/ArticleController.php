@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Abonnement;
 use App\Entity\Article;
 use App\Entity\Category;
 use App\Entity\User;
@@ -289,30 +290,69 @@ class ArticleController extends AbstractController
      */
     public function mystery_new(Request $request,EntityManagerInterface $entityManager): Response
     {
-        $array = json_decode($request->getContent());
-        $Mystery= new MysteryBox;
-        $Mystery->setName($array['name']);
-        $Mystery->setElements($array['elements']);
-        $Mystery->setDescription($array['description']);
-        $Mystery->setSubscriptionPrice($array['SubscriptionPrice']);
-        $Mystery->setUnitPrice($array['UnitPrice']);
-        foreach ($array['photo'] as $key => $value) {
-            $Mystery->addPhoto($value);
+        $article = new Article();
+        $article->setName($request->request->get("name"));
+        $article->setDescription($request->request->get("description"));
+        $article->setWeight($request->request->get("weight"));
+        $article->setColor($request->request->get("color"));
+        $article->setQuantity($request->request->get("quantity"));
+        $article->setPrice($request->request->get("price"));
+        $article->setPromo($request->request->get("promo"));
+        if ($request->request->get("photo") !== "") {
+            $photo = new Photo();
+            $photo->setImgLink($request->request->get("photo"));
+            $entityManager->persist($photo);
+            $article->addPhoto($photo);
         }
-        $entityManager->persist($Mystery);
+        $article->setCreationDate(new \Datetime());
+        $article->setUpdatedDate(new \Datetime());
+        $article->setNew(true);
+        $cat_arr = explode(",", $request->request->get("categories"));
+
+        foreach ($cat_arr as $value) {
+            $value = trim(strtolower($value));
+            if ($value !== "") {
+                $existing_cat = $this->getDoctrine()->getRepository(Category::class)->findBy([
+                    "name" => $value
+                ]);
+                if ($existing_cat) {
+                    $article->addCategory($existing_cat[0]);
+                } else {
+                    $category = new Category();
+                    $category->setName($value);
+                    $entityManager->persist($category);
+                    $article->addCategory($category);
+                }
+            }
+        }
+        $article->setMysteryBox(true);
+        $article->setSubscriptionPrice($request->request->get("subscriptionprice"));
+
+
+        $entityManager->persist($article);
         $entityManager->flush();
-        
-        return $this->json(['result' => "ok"]);
+        $articles =  $this->getDoctrine()->getRepository(Article::class)->findAll();
+        $data = [];
+        foreach ($articles as $article) {
+            array_push($data, $this->getArticleData($article));
+        }
+
+        return $this->json($data);
     }
-      /**
+
+    /**
      * @Route("/mystery_abonnement", name="mystery_abonnement", methods={"POST"})
      */
     public function mystery_abonnement(Request $request, EntityManagerInterface $entityManager): Response
     {
-        
         $User=$this->getDoctrine()->getRepository(User::class)->find($request->request->get("user"));
-        $Mystery=$this->getDoctrine()->getRepository(MysteryBox::class)->find($request->request->get("MysteryBox"));
-        $Mystery->addUser($User);
+        $MysteryBox=$this->getDoctrine()->getRepository(Article::class)->find($request->request->get("MysteryBox"));
+        $Mystery= new Abonnement;
+        $date = new \Datetime();
+        $Mystery->setDebutAbonnement($date);
+        $Mystery->setUser($User);
+        $Mystery->setMysterybox($MysteryBox);
+        $Mystery->setFinAbonnement($date);
         $entityManager->persist($Mystery);
         $entityManager->flush();
         return $this->json([
@@ -325,7 +365,7 @@ class ArticleController extends AbstractController
      */
     public function mystery_all(EntityManagerInterface $entityManager): Response
     {
-        $Mysterys =  $this->getDoctrine()->getRepository(MysteryBox::class)->findAll();
+        $Mysterys =  $this->getDoctrine()->getRepository(Article::class)->findBy(['mysteryBox' => true]);
         $data = [];
         foreach ($Mysterys as $Mystery) {
             $UserMystery = [];
@@ -357,12 +397,12 @@ class ArticleController extends AbstractController
      /**
      * @Route("/mystery_show/{id}", name="mystery_show", methods={"GET"})
      */
-    public function mystery_Show(MysteryBox $Mystery,EntityManagerInterface $entityManager): Response
+    public function mystery_Show(Article $Mystery,EntityManagerInterface $entityManager): Response
     {
         $userinfo=[];
         $photo=[];
        
-        foreach ($Mystery->getUsers() as $key => $value) {
+        foreach ($Mystery->getAbonnement() as $key => $value) {
             array_push($userinfo, [
                 'id' => $value->getId(),
                 'firstname' => $value->getFirstname(),
@@ -372,7 +412,6 @@ class ArticleController extends AbstractController
         $name = $Mystery->getName();
         $description = $Mystery->getDescription();
         $Mystery_price_subscrition=$Mystery->getSubscriptionPrice();
-        $Mystery_price_unite=$Mystery->getUnitPrice();
         foreach ($Mystery->getPhotos() as $key => $value) {
             array_push($photo, [
                 'id' => $value->getId(),
@@ -382,9 +421,70 @@ class ArticleController extends AbstractController
       
 
         return $this->json([
-            "result"=>['user_info'=>$userinfo,'subscrition_price'=>$Mystery_price_subscrition,'unite_price'=>$Mystery_price_unite,'name'=>$name,'description'=>$description,'photo'=>$photo],
+            "result"=>['user_info'=>$userinfo,'subscrition_price'=>$Mystery_price_subscrition,'name'=>$name,'description'=>$description,'photo'=>$photo],
             
         ]);
+    }
+
+
+
+    /**
+     * @Route("/mystery_edit/{id}", name="mystery_edit", methods={"POST"})
+     */
+    public function mystery_edit(Request $request,Article $article,EntityManagerInterface $entityManager): Response
+    {
+        $name = $request->request->get("name");
+        $description = $request->request->get("description");
+        $weight = $request->request->get("weight");
+        $color = $request->request->get("color");
+        $quantity = $request->request->get("quantity");
+        $price = $request->request->get("price");
+        $promo = $request->request->get("promo");
+        $cat = $request->request->get("categories");
+        $sub = $request->request->get("subscriptionprice");
+        $article->setUpdatedDate(new \Datetime());
+        $article->setNew(true);
+        if ($name !== "")
+            $article->setName($name);
+        if ($description !== "")
+            $article->setDescription($description);
+        if ($weight !== "")
+            $article->setWeight($weight);
+        if ($color !== "")
+            $article->setColor($color);
+        if ($quantity !== "")
+            $article->setQuantity($quantity);
+        if ($price !== "")
+            $article->setPrice($price);
+        if ($promo !== "")
+            $article->setPromo($promo);
+        if ($sub !== "")
+            $article->setSubscriptionPrice($sub);
+        if ($cat !== "") {
+            $cat_arr = explode(",", $cat);
+            foreach ($article->getCategories() as $existing_cat) {
+                $article->removeCategory($existing_cat);
+                // $entityManager->remove($existing_cat); 
+            }
+            foreach ($cat_arr as $value) {
+                $value = trim(strtolower($value));
+                $category = $this->getDoctrine()->getRepository(Category::class)->findBy(["name" => $value]); 
+                if(count($category) < 1){
+                    $category = new Category();
+                    $entityManager->persist($category);
+                }
+                else{
+                    $category=$category[0]; 
+                }
+                $category->setName($value);
+                $article->addCategory($category);
+            }
+        }
+        $entityManager->persist($article);
+        $entityManager->flush();
+        $data = $this->getArticleData($article);
+        $data["status"] = "ok";
+        return $this->json($data);
     }
 
     

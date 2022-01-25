@@ -89,6 +89,21 @@ class Article
      */
     private $orders;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $subscriptionPrice;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $mysteryBox;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Abonnement::class, mappedBy="mysterybox", cascade={"persist", "remove"})
+     */
+    private $abonnement;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -332,6 +347,47 @@ class Article
         if ($this->orders->removeElement($order)) {
             $order->removeArticle($this);
         }
+
+        return $this;
+    }
+
+    public function getSubscriptionPrice(): ?float
+    {
+        return $this->subscriptionPrice;
+    }
+
+    public function setSubscriptionPrice(?float $subscriptionPrice): self
+    {
+        $this->subscriptionPrice = $subscriptionPrice;
+
+        return $this;
+    }
+
+    public function getMysteryBox(): ?bool
+    {
+        return $this->mysteryBox;
+    }
+
+    public function setMysteryBox(?bool $mysteryBox): self
+    {
+        $this->mysteryBox = $mysteryBox;
+
+        return $this;
+    }
+
+    public function getAbonnement(): ?Abonnement
+    {
+        return $this->abonnement;
+    }
+
+    public function setAbonnement(Abonnement $abonnement): self
+    {
+        // set the owning side of the relation if necessary
+        if ($abonnement->getMysterybox() !== $this) {
+            $abonnement->setMysterybox($this);
+        }
+
+        $this->abonnement = $abonnement;
 
         return $this;
     }
