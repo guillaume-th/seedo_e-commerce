@@ -59,6 +59,8 @@ function App() {
           <Route path="/articles" element={<ArticleListing />} />
           <Route path="/articles/new" element={<ArticleListing new={true} />} />
           <Route path="/articles/promo" element={<ArticleListing promo={true} />} />
+          <Route path="/articles/graines" element={<ArticleListing graines={true} />} />
+          <Route path="/articles/accessoires" element={<ArticleListing accessoires={true} />} />
           <Route path="/auth" element={<Connexion />} />
           <Route path="/order" element={<Order />} />
           <Route path="/order-confirm" element={<OrderConfirm />} />

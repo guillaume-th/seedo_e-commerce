@@ -4,14 +4,29 @@ export default function Filter(props) {
     const [categories, setCategories] = useState(null);
     const [newProduct, setNewProduct] = useState(null);
     const [promo, setPromo] = useState(null);
-    const [currentCategory, setCurrentCategory] = useState("all");
+    const [currentCategory, setCurrentCategory] = useState(null);
     const [minPrice, setMinPrice] = useState(0);
     const [maxPrice, setMaxPrice] = useState(300);
 
-
     useEffect(() => {
+        const select = document.getElementById("cat-select");
+        console.log(props)
+        if (props.graines) {
+            select.value = "graines";
+        }
+        else if (props.accessoires) {
+            select.value = "accessoires";
+        }
+        else {
+            select.value = "all";
+        }
+        Array.from(select.options).forEach((elt, i) => {
+            console.log(elt.value, select.value);
+            if (elt.value === select.value)
+                select.selectedIndex = i;
+        });
         transformData();
-    }, [currentCategory, maxPrice, minPrice, newProduct, promo, props.new, props.promo, props.data]);
+    }, [currentCategory, maxPrice, minPrice, newProduct, promo, props.new, props.promo, props.data, props.graines, props.accessoires]);
 
 
     const transformData = () => {
@@ -23,10 +38,18 @@ export default function Filter(props) {
 
     const filter = (e) => {
         let catBool = false;
-        if (currentCategory && e.data.categories) {
-            if (currentCategory !== "all") {
+        let cat;
+        if (currentCategory === null) {
+            if (props.graines) cat = "graines";
+            if (props.accessoires) cat = "accessoires";
+        }
+        else {
+            cat = currentCategory;
+        }
+        if (cat && e.data.categories) {
+            if (cat !== "all") {
                 e.data.categories.forEach((elt) => {
-                    if (elt.name === currentCategory) {
+                    if (elt.name === cat) {
                         catBool = true;
                     }
                 })
@@ -34,6 +57,9 @@ export default function Filter(props) {
             else {
                 catBool = true;
             }
+        }
+        else {
+            catBool = true;
         }
         const tmpPromo = promo === null ? props.promo : promo;
         const tmpNew = newProduct === null ? props.new : newProduct;
@@ -60,7 +86,9 @@ export default function Filter(props) {
     return (
         <div id="filters" className="vertical-flex center-flex marginAuto width100">
             <div className="horizontal-flex center-flex wrap">
-                <select className="marginAuto" value={currentCategory} onChange={(e) => { setCurrentCategory(e.target.value) }}>
+                <select className="marginAuto" id="cat-select"
+                    value={currentCategory === null ? props.graines ? "graines" : "all" : currentCategory}
+                    onChange={(e) => { setCurrentCategory(e.target.value) }}>
                     <option value="all" selected>Toutes les catégories</option>
                     {
                         props.categories.map(e => {

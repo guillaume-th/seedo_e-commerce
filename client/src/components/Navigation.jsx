@@ -142,8 +142,8 @@ export default function Navbar(props) {
         <div onClick={() => navigate("/articles/new")}>Nouveautés</div>
         <div onClick={() => navigate("/articles/promo")}>Promotions</div>
         <div onClick={()=> navigate("/mystery-boxes")}>Mystery box </div>
-        <div>Graines</div>
-        <div>Accessoires</div>
+        <div onClick={()=>navigate("/articles/graines")}>Graines</div>
+        <div onClick={() => navigate("/articles/accessoires")}>Accessoires</div>
       </div>
     </div>
   );
