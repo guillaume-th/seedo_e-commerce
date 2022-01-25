@@ -182,6 +182,18 @@ class UserController extends AbstractController
     }
 
     /**
+     * @Route("/adress/{id}/remove", name="adress_delete", methods={"GET", "POST"})
+     */
+    public function delete_adress( Adress $adress,  EntityManagerInterface $entityManager): Response
+    {
+        $entityManager->remove($adress);
+        $entityManager->flush();
+        $data["status"] = "ok";
+        return $this->json($data);
+    }
+
+
+    /**
      * @Route("/delete/{id}", name="user_delete", methods={"POST"})
      */
     public function delete(User $user, EntityManagerInterface $entityManager): Response

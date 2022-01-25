@@ -1,5 +1,5 @@
 import PaypalExpressBtn from 'react-paypal-express-checkout';
-import { useState, useEffect } from "react";
+import { useState, } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateCart } from "../CartSlice";
 import { useNavigate } from 'react-router-dom';
@@ -10,16 +10,13 @@ const client = {
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default function Payment(props) {
-    const [success, setSuccess] = useState(null);
     const cart = useSelector((state) => state.cart.value);
     const user_id = localStorage.getItem("user_id");
     const dispatch = useDispatch();
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        console.log(props);
-    }, [])
+
     const order = () => {
         const array = [];
         cart.forEach((e) => {
@@ -30,8 +27,8 @@ export default function Payment(props) {
             });
         });
         const data = {
-            user_id:  user_id,
-            guestData : props.guest, 
+            user_id: user_id,
+            guestData: props.guest,
             adress: props.selectedAddress,
             order_price: reduce(),
             articles_id: array,
@@ -70,8 +67,9 @@ export default function Payment(props) {
                 shipping={1}
                 style={{ color: "white" }}
                 onSuccess={(data) => {
-                    setSuccess(true);
                     order();
+                    dispatch(updateCart([]));
+                    sessionStorage.setItem("cart", []);
                     navigate("/order-success");
                 }}
                 onError={(err) => {

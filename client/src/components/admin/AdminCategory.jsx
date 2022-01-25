@@ -58,7 +58,7 @@ export default function Category() {
   if (data) {
     return (
       <div className="wrapper" id="category">
-        <form
+        <form 
           ref={createForm}
           encType="multipart/form-data"
           onSubmit={(e) => {
@@ -83,6 +83,7 @@ export default function Category() {
                 <li className="category-item" onClick={() => setOpenModal(e)}>
                   Categorie : {e.name}
                   <img
+                    alt="delete-category"
                     src={Delete}
                     className="icon"
                     onClick={(event) => {
@@ -99,8 +100,11 @@ export default function Category() {
         {openModal && (
           <div className="modal">
             <section>
-              <h2>Mettre à jour</h2>
-              <form
+             <div style={{display:"flex", justifyContent:"space-between", marginTop:"-0.8rem"}}>
+              <h1 style={{color:"white", marginLeft:"0.5rem"}}>Mettre à jour</h1>
+              <button className="hover_annuler" style={{height:"1.8rem"}} onClick={() => setOpenModal(false)}>X</button>
+              </div>
+              <form style={{width:"400px", margin:"auto"}}
                 ref={updateForm}
                 encType="multipart/form-data"
                 onSubmit={(e) => {
@@ -109,16 +113,17 @@ export default function Category() {
                   updateCategory(current, openModal.id);
                 }}
               >
+                <div style={{ display:"flex", alignItems:"center"}}>
                 <label htmlFor="name">
-                  <input
+                  <input style={{borderRadius:"2rem"}}
                     name="name"
                     type="text"
                     placeholder="Nouveau nom"
                     defaultValue={openModal.name}
                   />
                 </label>
-                <input type="submit" value="Modifier"></input>
-                <button onClick={() => setOpenModal(false)}>Annuler</button>
+                <input className="hover_save" style={{height:"2.7rem", borderRadius:"2rem", position:"relative", left:"5rem"}} type="submit" value="Modifier"></input>
+                </div>
               </form>
             </section>
           </div>

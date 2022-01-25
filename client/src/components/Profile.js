@@ -1,7 +1,8 @@
 import { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { updateAdmin } from "../AdminSlice";
+// import { useDispatch } from "react-redux";
+// import { updateAdmin } from "../AdminSlice";
+import Delete from "../assets/delete.svg";
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default function Profile() {
@@ -9,12 +10,11 @@ export default function Profile() {
     const newAdressForm = useRef();
     const editAdressForm = useRef();
     const [user, setUser] = useState(null);
+    const [refresh, setRefresh] = useState(null);
     const user_id = localStorage.getItem("user_id");
     const [modalOpen, setModalOpen] = useState(false);
     const [editedAdress, setEditedAdress] = useState(false);
     const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const cart = useSelector(state => state.cart.value);
 
     useEffect(() => {
         if (user_id === null) {
@@ -31,7 +31,7 @@ export default function Profile() {
             }
         });
         /* eslint-disable */
-    }, []);
+    }, [refresh]);
 
     const submitUserData = (e) => {
         e.preventDefault();
@@ -83,7 +83,21 @@ export default function Profile() {
             .then((res) => res.json())
             .then((res) => {
                 if (res.status === "ok") {
-                    setUser(res.data);
+                }
+            })
+            .catch((error) => console.error(error));
+
+    }
+    const delete_adress = (id) => {
+
+        fetch(`${API_URL}/user/adress/${id}/remove`,
+            {
+                method: "POST",
+            })
+            .then((res) => res.json())
+            .then((res) => {
+                if (res.status === "ok") {
+                    setRefresh(Math.random());
                 }
             })
             .catch((error) => console.error(error));
@@ -96,7 +110,7 @@ export default function Profile() {
             // <div className="e_com-footer">
             <div className="wrapper">
                 <h1>PROFILE</h1>
-                <button onClick={(ev) => {navigate("/Profile/"+ user_id)}}> commande </button>
+                {/* <button onClick={(ev) => {navigate("/Profile/"+ user_id)}}> commande </button> */}
                 <form ref={userForm} onSubmit={submitUserData} encType="multipart/form-data">
                     <div className="profile-section">
                         <div className="user-details profile-form">
@@ -132,6 +146,9 @@ export default function Profile() {
                                 <div key={e.id} className="edit-adress">
                                     <p>{e.number} {e.street} </p>
                                     <p>{e.city} {e.postal_code}, {e.country}</p>
+                                    <img
+                                        src={Delete}
+                                        className="comment-icon" onClick={() => { delete_adress(e.id) }}></img>
                                     <button onClick={() => {
                                         setEditedAdress(e);
                                         setModalOpen(true);
@@ -163,21 +180,24 @@ export default function Profile() {
                         </div>
                     </form>
                 </div>
-                <button onClick={
+                {/* <button onClick={
                     () => {
                         localStorage.clear()
                         dispatch(updateAdmin(false));
                         navigate("/");
                     }
-                }> Logout</button>
+                }> Logout</button> */}
                 {modalOpen && (
-                    <div id="adress-modal " class="modal wrapper">
+                    
+                    <div id="adress-modal " class="modal wrapper" style={{color:"white"}}>
+                        <h2>ADRESSE</h2>
                         <form
                             className="edit-adresse-form"
                             ref={editAdressForm}
                             onSubmit={editAdress}
                             encType="multipart/form-data"
                         >
+                            <label htmlFor="number">Numéro :</label>
                             <input
                                 className="std-input-label"
                                 required
@@ -186,6 +206,7 @@ export default function Profile() {
                                 placeholder="Numéro"
                                 defaultValue={editedAdress.number}
                             ></input>
+                            <label htmlFor="street">Rue :</label>
                             <input
                                 className="std-input-label"
                                 required
@@ -194,6 +215,7 @@ export default function Profile() {
                                 placeholder="Rue"
                                 defaultValue={editedAdress.street}
                             ></input>
+                            <label htmlFor="city">Ville :</label>
                             <input
                                 className="std-input-label"
                                 required
@@ -202,6 +224,7 @@ export default function Profile() {
                                 placeholder="Ville"
                                 defaultValue={editedAdress.city}
                             ></input>
+                            <label htmlFor="postal_code">Code postal :</label>
                             <input
                                 className="std-input-label"
                                 required
@@ -210,6 +233,7 @@ export default function Profile() {
                                 placeholder="Code Postal"
                                 defaultValue={editedAdress.postal_code}
                             ></input>
+                            <label htmlFor="country">Pays :</label>
                             <input
                                 className="std-input-label"
                                 required
@@ -219,11 +243,13 @@ export default function Profile() {
                                 defaultValue={editedAdress.country}
                             ></input>
                             <div className="wrapper">
-                                <input className=" centered-btn" required type="submit" value="Sauvegarder"></input>
+                                
+                                <input className="centered-btn hover_save" required type="submit" style={{height:"2.3rem", borderRadius:"2rem", padding:"10px 30px 20px", marginTop:"20px"}} value="Sauvegarder"></input>
+                                <button className="hover_annuler" style={{height:"2.3rem", borderRadius:"2rem", padding:"10px 20px 20px"}} onClick={() => setModalOpen(false)}>Annuler</button>
                             </div>
                             <input type="hidden" name="user_id" value={user_id}></input>
                         </form>
-                        <button onClick={() => setModalOpen(false)}>Annuler</button>
+                        
                     </div>
                 )}
 

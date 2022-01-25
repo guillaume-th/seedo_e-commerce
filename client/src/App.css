@@ -2,6 +2,10 @@
 /******ALL***********/
 /********************/
 
+img {
+  max-width: 70vw;
+}
+
 .wrapper {
   width: 100%;
   display: flex;
@@ -24,7 +28,7 @@
 }
 
 .std-vertical-form input, .std-vertical-form input, .std-vertical-form textarea {
-  display : block; 
+  display: block;
 }
 
 .centered-btn {
@@ -35,7 +39,7 @@
   color: red;
 }
 
-input:focus {
+input:focus, textarea:focus {
   outline: solid greenyellow 3px;
   background-color: rgb(255, 255, 255);
 }
@@ -46,6 +50,7 @@ h1 {
 
 button,
 input[type="submit"] {
+  max-width: 250px;
   background-color: #24460d;
   border: 2px solid white;
   border-radius: 10px;
@@ -53,6 +58,12 @@ input[type="submit"] {
   cursor: pointer;
   padding: 0.25rem 0.5rem;
   font-size: 1rem;
+}
+
+label {
+  font-weight: bold;
+  color: rgb(13, 70, 13);
+  margin-left: 15px;
 }
 
 .green {
@@ -63,6 +74,50 @@ li {
   list-style: none;
 }
 
+.horizontal-flex {
+  display: flex;
+}
+
+.vertical-flex {
+  display: flex;
+  flex-direction: column;
+}
+
+.center-flex {
+  align-items: center;
+}
+
+.wrap {
+  flex-wrap: wrap;
+}
+
+.noWrap {
+  flex-wrap: nowrap;
+}
+
+.marginAuto {
+  margin: auto;
+}
+
+.noMargin {
+  margin: 0px;
+}
+
+.width100 {
+  width: 100%;
+}
+/********************/
+/*****FILTER*********/
+/********************/
+
+.range {
+  margin: 0px 0px 0px 20px;
+}
+
+#bottomRange {
+  position: relative;
+  left : 120px;
+}
 /********************/
 /****NAVBARRE********/
 /********************/
@@ -160,17 +215,18 @@ li {
   flex-wrap: wrap;
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 20px;
+  padding: 0.5rem;
 }
 
 #filtres {
-  min-width: 1000px;
-  min-height: 200px;
+  width: 100%;
+  padding: 20px;
 }
 
 .thumbnail {
   width: 250px;
   height: 250px;
-  margin: 10px;
+  margin: 10px auto;
   padding: 10px;
   align-items: center;
   border-radius: 10px;
@@ -198,9 +254,9 @@ li {
   border-radius: 10px;
 }
 
-.img-wrapper img{
+.img-wrapper img {
   object-fit: cover;
-  width : 100%; 
+  width: 100%;
   height: 100%;
 }
 
@@ -253,12 +309,6 @@ li {
 .thumbnail p {
   color: #22460d;
   font-size: 0.8em;
-}
-
-.thumbnail form {
-  max-width: 200px;
-  display: flex;
-  margin: auto;
 }
 
 .cat {
@@ -381,6 +431,7 @@ li {
   right: 50px;
   font-size: 1.25rem;
   border-radius: 0.5rem;
+  border: 1px solid #22460D;
   padding: 0.5rem;
   color: rgb(130, 168, 121);
   overflow-y: scroll;
@@ -400,12 +451,6 @@ li {
 .btnLogin {
   display: flex;
   justify-content: center;
-}
-
-label {
-  font-weight: bold;
-  color: rgb(13, 70, 13);
-  margin-left: 3%;
 }
 
 .button_submit {
@@ -446,8 +491,8 @@ label {
   width: 100%;
   color: #4caf50;
   font-size: bold;
-  background : white; 
-  
+  background: white;
+
 
 }
 
@@ -458,21 +503,19 @@ label {
   transform: translate(-50%, -50%);
   background-color: rgb(130, 168, 121);
   width: 50%;
-  padding: 1rem;
-  border-radius: .5rem;
+  padding: 0.5rem 0.1rem;
+  border-radius: 1rem;
+  box-shadow: 8px -3px 100px 50px rgba(161, 201, 168, 1);
+
 }
 
 /***************************/
 /***********ORDER***********/
 /***************************/
 
-.order-adress:hover {
-  cursor: pointer;
-  background-color: rgb(188, 222, 171);
-}
 
 .selected-adress {
-  background-color: rgb(188, 222, 171);
+  background-color: #a1d37e !important;
 }
 
 .error {
@@ -483,6 +526,10 @@ label {
   margin: .5rem;
   font-size: 1.5rem;
   padding: .5rem 1rem;
+}
+
+.boxShadow:hover {
+  box-shadow: 8px -3px 100px 50px rgb(17, 26, 18);
 }
 
 .tabs {
@@ -517,14 +564,16 @@ label {
 .category-item:hover {
   cursor: pointer;
   background-color: rgba(255, 255, 255, 0.52);
+
+
 }
 
 .vertical-form {
   background: rgba(255, 255, 255, 0.6);
   box-shadow: inset 0 0 30px rgb(255, 255, 255);
   border-radius: 20px;
-  padding: 100px 400px 50px 10px;
-  margin: 20px 20px;
+  padding: 50px;
+  margin: auto;
 }
 
 .orders-admin {
@@ -584,7 +633,7 @@ label {
 }
 
 .edit-article-form input, .edit-article-form label, .edit-article-form textarea {
-  width : 50vw
+  width: 50vw
 }
 
 .edit-adresse-form {
@@ -602,4 +651,49 @@ label {
   margin: 2rem;
   padding: 1.5rem;
   width: 80%;
+}
+
+#article-container {
+  opacity: 1;
+  z-index: 50;
+  border-radius: 20px;
+  position: absolute;
+  width: 30vw;
+  padding: .5rem;
+  top: 70px;
+}
+
+.list-article {
+  cursor: pointer;
+  transition: all .2s ease;
+  margin-top: .25rem;
+  padding: .175rem;
+  border-radius: 10px;
+  ;
+}
+
+.list-article:hover {
+  background-color: #ffffff5b;
+}
+
+.feedback-wrapper {
+  position: fixed;
+  bottom: 2rem;
+  left: 2rem;
+}
+
+.feedback-wrapper p {
+  border-radius: .5rem;
+  min-width: 25vw;
+  padding: .75rem;
+}
+
+.feedback-error {
+  background-color: rgb(223, 57, 57);
+
+}
+
+.feedback-success {
+  background-color: #4caf50;
+
 }

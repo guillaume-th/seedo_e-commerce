@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { updateCart } from "../CartSlice";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import "../styles/OrderConfirm.css";
 import Payment from "./Payment";
 const API_URL = process.env.REACT_APP_API_URL;
 const BING_API_KEY = process.env.REACT_APP_BING_API_KEY;
@@ -13,11 +13,11 @@ export default function OrderConfirm() {
     const [selectedAdress, setSelectedAdress] = useState(null);
     const newAdressForm = useRef();
     const guestAdressForm = useRef();
-    const CBForm = useRef();
     const cart = useSelector((state) => state.cart.value);
     const [error, setError] = useState(null);
-    const dispatch = useDispatch();
     const [shipping, setShipping] = useState(null);
+    const weightShipping = useLocation().state.shippingWeight;
+    const priceBy100Km = useLocation().state.distance;
 
     useEffect(() => {
         if (user_id !== null) {
@@ -99,24 +99,23 @@ export default function OrderConfirm() {
                     .then((res) => res.json())
                     .then((res) => {
                         const distance = res?.resourceSets[0]?.resources[0]?.results[0]?.travelDistance;
-                        const priceBy100Km = 5;
-
-                        setShipping(Number((distance / 100 * priceBy100Km).toFixed(2)));
+                        getShippingFees(distance);
                     })
                     .catch(err => console.error(err));
 
             })
             .catch(err => console.error(err));
-
     }
 
-
+    const getShippingFees = (distance) => {
+        setShipping(Number((distance / 100 * Number(priceBy100Km) + Number(weightShipping)).toFixed(2)));
+    }
 
     if (userData) {
         return (
-            <div>
+            <div className="order-confirm-style">
                 {error && <p className="error">{error}</p>}
-                <p>Choisissez une adresse de livraison</p>
+                <h3>Choisissez une adresse de livraison</h3>
                 <div className="order-confirm-adresses">
                     {userData.adresses.length > 0 ? (
                         <div>
@@ -127,12 +126,12 @@ export default function OrderConfirm() {
                                             id={e.id}
                                             key={e.id}
                                             onClick={() => setSelectedAdress(e)}
-                                            className="order-adress"
+                                            className="carteorder oui order-adress"
                                         >
-                                            <p>
+                                            <p className="">
                                                 {e.number} {e.street}{" "}
                                             </p>
-                                            <p>
+                                            <p className="">
                                                 {e.city} {e.postal_code}, {e.country}
                                             </p>
                                         </div>
@@ -201,7 +200,7 @@ export default function OrderConfirm() {
                         </div>
                         <Payment total={reduce() + shipping} selectedAddress={selectedAdress} />
                     </div>
-                    : <p>Choisissez une adresse pour passer au paiement</p>
+                    : <p className="bill-message">Choisissez une adresse pour passer au paiement</p>
                 }
             </div >
         );

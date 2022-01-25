@@ -1,8 +1,9 @@
 import { useEffect, useState, useRef } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { updateCart } from "../CartSlice";
 import Delete from "../assets/delete.svg";
+import "../styles/ArticleDetails.css";
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default function ArticleDetail() {
@@ -14,22 +15,26 @@ export default function ArticleDetail() {
   const dispatch = useDispatch();
   const commentForm = useRef();
   const [refresh, setRefresh] = useState(null);
+  const [colors, setColors] = useState(null);
 
   useEffect(() => {
+
+
     fetch(`${API_URL}/article/${id}`)
       .then((res) => res.json())
       .then((res) => {
+        res.data.updatedPrice = res.data.price;
         setData(res.data);
         setImgFirstLink(res.data.photos[0].imgLink);
-        // console.log(res.data.photos[0].imgLink)
+        getColorPrices(res.data.color);
       })
       .catch((err) => console.error(err));
+
   }, [refresh, id]);
 
   const addToCart = (e, product) => {
     e.preventDefault();
     let cartTemp = [...cart];
-    // let cartTemp = JSON.parse(localStorage.getItem("cart")) || [];
     let obj = { ...product };
     obj.selectedQuantity = Number(document.getElementById(product.id).value);
     obj.price = computePrice(obj);
@@ -42,20 +47,17 @@ export default function ArticleDetail() {
     }
     cartTemp.push(obj);
     dispatch(updateCart(cartTemp));
-    localStorage.setItem("cart", JSON.stringify(cartTemp));
+    sessionStorage.setItem("cart", JSON.stringify(cartTemp));
   };
 
   const computePrice = (e) => {
-    console.log(e);
-    return Math.round(
-      parseFloat(e.promo > 0 ? e.price - (e.price * e.promo) / 100 : e.price),
-      2
-    );
+    return e.promo > 0 ? (e.updatedPrice - (e.updatedPrice * e.promo) / 100).toFixed(2) : (e.updatedPrice).toFixed(2);
   };
 
   const switchPhoto = (e) => {
     setImgFirstLink(e.target.src);
   };
+
   const addcomment = (e) => {
     e.preventDefault();
     const formData = new FormData(commentForm.current);
@@ -67,11 +69,11 @@ export default function ArticleDetail() {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
         setRefresh(Math.random());
       })
       .catch((err) => console.error(err));
   };
+
   const delete_comment = (id_comment) => {
     fetch(`${API_URL}/article/avis/remove/${id_comment}`)
       .then((res) => res.json())
@@ -81,6 +83,23 @@ export default function ArticleDetail() {
       })
       .catch((err) => console.error(err));
   };
+
+  const getColorPrices = (colorToFind) => {
+    fetch(`${API_URL}/colors/all`)
+      .then((res) => res.json())
+      .then((res) => {
+        setColors(res);
+      })
+      .catch((err) => console.error(err));
+  };
+
+  const setColor = (color) => {
+    const article = { ...data };
+    article.updatedPrice = data.price + color.price * data.price / 100;
+    article.updatedColor = color.name;
+    setData(article);
+  }
+
   if (data) {
     return (
       <div>
@@ -89,19 +108,28 @@ export default function ArticleDetail() {
           <p>{data.description}</p>
           <p>
             <strong className="green">Couleur : </strong>
-            {data.color ? data.color : "non renseignée"}
+            {data.updatedColor ? data.updatedColor : "Non renseignée"}
           </p>
+          {colors &&
+            <div style={{ display: "flex", gap: ".25rem" }}>
+              {colors.map(e => {
+                return (
+                  <div onClick={() => setColor(e)} className="color-choice" style={{ cursor: "pointer", backgroundColor: e.name, height: 50, width: 50 }}></div>
+                )
+              })}
+            </div>
+          }
           <div className="infoDetail">
             <p>
               <strong className="green">Prix : </strong>
-              {data.price} €
+              {(data.updatedPrice - data.updatedPrice * data.promo / 100).toFixed(2)} €
             </p>
             <p>
               <strong className="green">Poids : </strong>
               {data.weight}g
             </p>
           </div>
-          <form onSubmit={(event) => addToCart(event, data)}>
+          <form onSubmit={(event) => addToCart(event, data)} className="horizontale-flex center-flex marginAuto">
             <input
               type="number"
               id={data.id}
@@ -113,7 +141,7 @@ export default function ArticleDetail() {
           <p>{data.categoriesName}</p>
           <div className="photos">
             <div className="lgPhoto">
-              <img src={imgFirstLink} className="imgPrincipale"></img>
+              <img alt="main" src={imgFirstLink} className="imgPrincipale"></img>
             </div>
             <div className="smPhotos">
               {data.photos.map((i) => {
@@ -122,6 +150,7 @@ export default function ArticleDetail() {
                     i && (
                       <div onClick={switchPhoto} className="imgSecondaire">
                         <img
+                          alt="secondary"
                           key={i.id}
                           src={i.imgLink}
                           className="imgSecondaire"
@@ -136,20 +165,16 @@ export default function ArticleDetail() {
           <ul id="comments">
             {data.comments.map((i) => {
               return (
-                <li>
-                  <p>
-                    {i.firstname}
-                    {i.lastname}
-                  </p>
-                  <p>{i.CreationDate.date}</p>
-                  <p>{i.content}</p>
-                  <button
-                    onClick={() => {
-                      delete_comment(i.id);
-                    }}
-                  >
-                    delete
-                  </button>
+                <li className="comment-body">
+                  <p className="comment-name">{i.firstname}{i.lastname}</p>
+                  <p className="comment-date">{i.CreationDate.date.slice(0, 10)}</p>
+                  <p className="comment-content">{i.content}</p>
+                  {user_id == i.user_id &&
+                    <img
+                      src={Delete}
+                      className="comment-icon" onClick={() => { delete_comment(i.id) }}></img>
+
+                  }
                 </li>
               );
             })}
@@ -157,14 +182,14 @@ export default function ArticleDetail() {
           <p className="green">
             Laissez un commentaire à propos de l'article !
           </p>
-          <form ref={commentForm} onSubmit={addcomment}>
-            <input
-              type="textarea"
+          <form ref={commentForm} onSubmit={addcomment} className="vertical-flex center-flex">
+            <textarea
               id="leaveComment"
-              rows="30"
-              cols="30"
+              rows={10}
+              cols={50}
               name="content"
-            ></input>
+              maxLength={255}
+            ></textarea>
             <input type="submit" value="commenter"></input>
           </form>
         </div>
