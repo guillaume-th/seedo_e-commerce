@@ -140,7 +140,7 @@ export default function Navbar(props) {
       <div className="sub-nav">
         <div onClick={() => navigate("/articles/new")}>Nouveautés</div>
         <div onClick={() => navigate("/articles/promo")}>Promotions</div>
-        <div>Mystery box</div>
+        <div>Mystery box onClick{()=> navigate("/mystery-boxes")}</div>
         <div>Graines</div>
         <div>Accessoires</div>
         <img id="Shop" src={Shop} alt="Shop_logo" onClick={handleCart} />
