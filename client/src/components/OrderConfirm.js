@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "../styles/OrderConfirm.css";
+import { reduce } from "../utils";
 import Payment from "./Payment";
 const API_URL = process.env.REACT_APP_API_URL;
 const BING_API_KEY = process.env.REACT_APP_BING_API_KEY;
@@ -14,6 +15,7 @@ export default function OrderConfirm() {
     const newAdressForm = useRef();
     const guestAdressForm = useRef();
     const cart = useSelector((state) => state.cart.value);
+    const fidel = useSelector((state) => state.fidel.value);
     const [error, setError] = useState(null);
     const [shipping, setShipping] = useState(null);
     const weightShipping = useLocation().state.shippingWeight;
@@ -58,13 +60,15 @@ export default function OrderConfirm() {
         }
     };
 
-    const reduce = () => {
-        let total = cart[0].price * cart[0].selectedQuantity;
-        for (let i = 1; i < cart.length; i++) {
-            total += cart[i].price * cart[i].selectedQuantity;
-        }
-        return total;
-    };
+    // const reduce = () => {
+    //     let total = cart[0].price * cart[0].selectedQuantity;
+    //     for (let i = 1; i < cart.length; i++) {
+    //       fidel ?
+    //       total += (cart[i].price * cart[i].selectedQuantity)*0.9
+    //       : total += cart[i].price * cart[i].selectedQuantity;
+    //     }
+    //     return total;
+    //   };
 
     const addGuest = (e) => {
         e.preventDefault();
@@ -194,11 +198,11 @@ export default function OrderConfirm() {
                 {selectedAdress
                     ? <div>
                         <div>
-                            <p>Prix de la commande : {reduce()}</p>
+                            <p>Prix de la commande : {reduce(cart, fidel)}</p>
                             <p>Frais de livraison: {shipping}</p>
-                            <p>Prix total :{reduce() + shipping}</p>
+                            <p>Prix total :{reduce(cart, fidel) + shipping}</p>
                         </div>
-                        <Payment total={reduce() + shipping} selectedAddress={selectedAdress} />
+                        <Payment total={reduce(cart, fidel) + shipping} selectedAddress={selectedAdress} />
                     </div>
                     : <p className="bill-message">Choisissez une adresse pour passer au paiement</p>
                 }

@@ -19,6 +19,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { updateAdmin } from "./AdminSlice";
 import { setOpenCart } from "./CartSlice";
 import { setOpenProfil } from "./ProfilSlice";
+import { updateFidel } from "./FidelSlice";
 import { useEffect } from "react";
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -34,6 +35,7 @@ function App() {
         .then((res) => res.json())
         .then((res) => {
           dispatch(updateAdmin(res.data.admin));
+          dispatch(updateFidel(res.data.fidel));
         });
     }
 

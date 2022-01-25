@@ -84,6 +84,11 @@ class User
      */
     private $admin;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $fidel;
+
     public function __construct()
     {
         $this->adresses = new ArrayCollection();
@@ -302,6 +307,18 @@ class User
     public function setAdmin(bool $admin): self
     {
         $this->admin = $admin;
+
+        return $this;
+    }
+
+    public function getFidel(): ?bool
+    {
+        return $this->fidel;
+    }
+
+    public function setFidel(?bool $fidel): self
+    {
+        $this->fidel = $fidel;
 
         return $this;
     }

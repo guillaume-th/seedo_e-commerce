@@ -36,7 +36,7 @@ export default function Profile() {
     const submitUserData = (e) => {
         e.preventDefault();
         const data = new FormData(userForm.current);
-
+        // console.log(userForm.current);
         fetch(`${API_URL}/user/${user_id}/edit`, {
             method: "POST",
             body: data,
@@ -101,9 +101,9 @@ export default function Profile() {
                 }
             })
             .catch((error) => console.error(error));
-
     }
-
+    
+    //console.log(user);
     if (user) {
         return (
 
@@ -123,6 +123,21 @@ export default function Profile() {
                             <input className="std-input-label" type="text" name="email" placeholder="Email" defaultValue={user.email}></input>
                             <label className="std-input-label"> Telephone:</label>
                             <input className="std-input-label" type="text" name="telephone" placeholder="Téléphone" defaultValue={user.telephone}></input>
+                            { user.fidel ? 
+                                <div className="fidelite">
+                                    <p className="lg-char green bold">Vous êtes un client fidèle !</p>
+                                    <p className="sm-char">(gratuite, remise de 10% sur chaque produits)</p>
+                                    <label className="sm-char">Arrêter ma carte de fidélité</label>
+                                    <input type="checkbox" name="fidel" value={false}></input>
+                                </div>
+                                :
+                                <div className="fidelite">
+                                    <p className="lg-char">Adhérez à notre programme de fidélité gratuit ! 10% de remise sur chaque produit !</p>
+                                    <p className="sm-char">(Cumulable avec une autre pomotion déjà présente sur le produit)</p>
+                                    <label className="lg-char">M'inscrire au programme de fidélité</label>
+                                    <input type="checkbox" name="fidel" defaultValue={true}></input>
+                                </div>
+                            }
                         </div>
                         <div className="bank-details profile-form">
                             <h3>Coordonnées bancaires</h3>

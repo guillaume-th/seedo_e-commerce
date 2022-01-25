@@ -70,6 +70,10 @@ label {
   color: rgb(13, 70, 13);
 }
 
+.bold {
+  font-weight: bold;
+}
+
 li {
   list-style: none;
 }
