@@ -41,6 +41,9 @@ export default function Order() {
         cart.forEach(e => total += e.weight * e.selectedQuantity);
         return total;
     }
+    const noel95 = new Date('december 22, 69 00:20:18' );
+    const mois = noel95.getMonth();
+    console.log(mois);
 
     if (cart.length > 0) {
         return (
@@ -57,15 +60,18 @@ export default function Order() {
                                             <div style={{ display: "flex" }}>
                                                 <button style={{ backgroundColor: "transparent", border: "none", color: "rgb(13,70,13)", fontSize: "20px" }} onClick={() => dispatch(decreaseQuantity(e.id))}>-</button>
                                                 <p>Quantité : {e.selectedQuantity}</p>
-                                                <button style={{ backgroundColor: "transparent", border: "none", color: "rgb(13,70,13)", fontSize: "20px" }} onClick={() => dispatch(increaseQuantity(e.id))}>+</button>
+                                                <button style={{ backgroundColor: "transparent", border: "none", color: "rgb(13,70,13)", fontSize: "20px" }} onClick={() => dispatch(increaseQuantity(e.id))}>+</button>        
                                             </div>
                                             <p>{e.price * e.selectedQuantity} €</p>
                                         </div>
                                     </div>
+                                  
                                 )
                             })
                         }
+
                         <div className="order-total">
+                        {(reduce() > 150 || reduce() === mois) && <span className="thumbnail"> Emballage cadeau offert ❤️‍🔥</span>}
                             <p style={{ marginBottom: ".25rem", display: "flex", justifyContent: "center" }}> Total : {reduce()} €</p>
                             <p style={{ marginBottom: ".25rem", display: "flex", justifyContent: "center" }}> Poids de la commande : {computeWeight()} kg</p>
                             <p style={{ marginBottom: ".25rem", display: "flex", justifyContent: "center" }}> Livraison  : {shipping} €</p>
