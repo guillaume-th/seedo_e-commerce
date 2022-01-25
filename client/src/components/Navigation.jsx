@@ -134,19 +134,18 @@ export default function Navbar(props) {
             alt="User_logo"
           />
           {openCart && <Cart />}
+          {openProfil && <ProfilDropdown />}
 
         </div>
       </div>
       <div className="sub-nav">
         <div onClick={() => navigate("/articles/new")}>Nouveautés</div>
         <div onClick={() => navigate("/articles/promo")}>Promotions</div>
-        <div>Mystery box onClick{()=> navigate("/mystery-boxes")}</div>
+        <div onClick={()=> navigate("/mystery-boxes")}>Mystery box </div>
         <div>Graines</div>
         <div>Accessoires</div>
         <img id="Shop" src={Shop} alt="Shop_logo" onClick={handleCart} />
         <img id="User" src={User} onClick={handleProfil} alt="User_logo" />
-        {openProfil && <ProfilDropdown />}
-        {openCart && <Cart />}
       </div>
     </div>
   );
