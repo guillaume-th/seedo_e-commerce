@@ -483,8 +483,8 @@ label {
   padding: .5rem 1rem;
 }
 
-.boxShadow:hover {
-  box-shadow: 8px -3px 100px 50px rgb(17, 26, 18);
+.admin-tab:hover {
+  box-shadow: 0px 0px 30px 10px rgba(255, 255, 255, 0.655);
 }
 
 .tabs {

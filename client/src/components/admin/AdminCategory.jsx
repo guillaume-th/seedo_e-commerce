@@ -70,9 +70,9 @@ export default function Category() {
         >
           <h2>Create</h2>
           <label htmlFor="name">
-            <input name="name" type="text" placeholder="Nom catégorie" />
+            <input name="name" type="text" placeholder="Nom catégorie"/>
           </label>
-          <button type="submit">Creer</button>
+          <button style={{height:"2.8rem", borderTopRightRadius: "50px",borderBottomRightRadius:"50px",position:"relative",right:"5.3rem",top:"-1.2px" }} type="submit">Creer</button>
         </form>
         <ul className="categories-admin">
           <h2>Read</h2>
