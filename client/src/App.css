@@ -138,7 +138,6 @@ li {
 
 #graine {
   width: 200px;
-
   margin-left: 10px;
   cursor: pointer;
   position: relative;
@@ -697,3 +696,14 @@ li {
   background-color: #4caf50;
 
 }
+
+
+/* ADMIN-ORDER */
+.submit-price-km-poid{
+  height:2.67rem;
+  width:7rem;
+  transform: translate(-42px, -1px);
+  
+}
+
+/* ADMIN-ORDER */

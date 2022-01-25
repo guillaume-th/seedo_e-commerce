@@ -68,11 +68,13 @@ export default function Category() {
           }}
           className="new-category-form"
         >
-          <h2>Create</h2>
-          <label htmlFor="name">
+          <h2 style={{transform:"translate(10px, -30px)"}}>Creer une nouvelle categorie</h2>
+          <div style={{width:"600px", margin:"auto"}}>
+          <label htmlFor="name"> Catégorie :
             <input name="name" type="text" placeholder="Nom catégorie"/>
           </label>
-          <button style={{height:"2.8rem", borderTopRightRadius: "50px",borderBottomRightRadius:"50px",position:"relative",right:"5.3rem",top:"-1.2px" }} type="submit">Creer</button>
+          <button style={{height:"2.7rem", width:"5rem", borderTopRightRadius: "50px",borderBottomRightRadius:"50px", transform: "translate(-45px, -1.5px)",border:"none"}} type="submit">Creer</button>
+        </div>
         </form>
         <ul className="categories-admin">
           <h2>Read</h2>

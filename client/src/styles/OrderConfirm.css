@@ -25,3 +25,13 @@ align-self: center;
 font-size: 20px;
 font-style: italic;
 }
+/* ADMIN COMMANDE KM ET POIDS */
+
+.submit-price-km{
+  height:2.7rem;
+  transform: translate(-40px, -2px);
+  border-top-right-radius:50px;
+  border-bottom-right-radius:50px;
+}
+
+/* ADMIN COMMANDE KM ET POIDS */
