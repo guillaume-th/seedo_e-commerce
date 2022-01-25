@@ -144,8 +144,6 @@ export default function Navbar(props) {
         <div onClick={()=> navigate("/mystery-boxes")}>Mystery box </div>
         <div>Graines</div>
         <div>Accessoires</div>
-        <img id="Shop" src={Shop} alt="Shop_logo" onClick={handleCart} />
-        <img id="User" src={User} onClick={handleProfil} alt="User_logo" />
       </div>
     </div>
   );
