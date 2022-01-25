@@ -84,9 +84,9 @@ export default function Filter(props) {
     }
 
     return (
-        <div id="filters" className="vertical-flex center-flex marginAuto width100">
-            <div className="vertical-flex filter-border">
-                <p>Catégorie</p>
+        <div id="filters" className="width100">
+            <fieldset className="vertical-flex filter-border">
+                <legend>Catégorie</legend>
                 <select className="marginAuto" id="cat-select"
                     value={currentCategory === null ? props.graines ? "graines" : "all" : currentCategory}
                     onChange={(e) => { setCurrentCategory(e.target.value) }}>
@@ -99,10 +99,10 @@ export default function Filter(props) {
                         })
                     }
                 </select>
-            </div>
+            </fieldset>
 
-            <div className="marginAuto horizontal-flex wrap center-flex filter-border">
-                <p>Filtres</p>
+            <fieldset className="horizontal-flex wrap center-flex filter-border">
+                <legend>Filtres</legend>
                 <div className="marginAuto">
                     <label for="new">Nouveautés</label>
                     <input type="checkbox" value="on" name="new"
@@ -117,30 +117,30 @@ export default function Filter(props) {
                         ></input>
                     </div>
                 </div>
-            </div>
-            <div className="filter-border">
-                <p>Prix</p>
-                <div className="horizontal-flex center-flex wrap marginAuto width50 ">
-                    <label className="marginAuto">Prix minimum : {minPrice}</label>
+            </fieldset>
+            <fieldset className="filter-border" id="price-fieldset">
+                <legend>Prix</legend>
+                <div className="horizontal-flex center-flex wrap ">
+                    <label className="marginAuto">Prix minimum : {minPrice} €</label>
                     <div className="horizontal-flex center-flex marginAuto">
                         <input className="range" type="range" name="min-price" min="0" max="300" step="10" defaultValue={0} onChange={(e) => setMinPrice(e.target.value)} />
                     </div>
                 </div>
-                <div className="horizontal-flex center-flex wrap marginAuto" >
-                    <label className="marginAuto">Prix maximum : {maxPrice}</label>
-                    <div className="horizontal-flex center-flex marginAuto">
+                <div className="horizontal-flex center-flex wrap " >
+                    <label className="marginAuto">Prix maximum : {maxPrice} €</label>
+                    <div className="horizontal-flex center-flex ">
                         <input className="range" type="range" name="max-price" min="0" max="300" step="10" defaultValue={1000} onChange={(e) => setMaxPrice(e.target.value)} />
                     </div>
                 </div>
-            </div>
-            <div className="horizontal-flex center-flex range filter-border" >
-                <label>Trier par</label>
+            </fieldset>
+            <fieldset className="filter-border" >
+                <legend>Trier par</legend>
                 <select onChange={(e) => sortData(e.target.value)}>
                     <option value={"null"} selected>Pas de tri</option>
                     <option value={true} >Prix croissant</option>
                     <option value={false} >Prix décroissant</option>
                 </select>
-            </div>
+            </fieldset>
         </div>
     );
 

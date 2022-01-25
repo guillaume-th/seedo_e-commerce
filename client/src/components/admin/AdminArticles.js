@@ -141,7 +141,6 @@ export default function ArticleListing() {
                                                     : <p>{e.data.price} €</p>
                                                 }
                                             </div>
-                                            <p className="cat">{e.data.categoriesName}</p>
                                             {/* {e.data.quantity > 0
                                                 ? <p>Etat du stock : {e.data.quantity}.</p>
                                                 : <p>En rupture de stock</p>
