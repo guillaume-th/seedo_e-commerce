@@ -21,7 +21,7 @@ input, textarea, select {
 }
 
 input {
-  outline: none;
+  outline: solid transparent 2px;
 }
 
 input::placeholder {
@@ -43,13 +43,13 @@ input::placeholder {
 
 
 .bank-details {
-  border-radius: 20px;
+  border-radius: .5rem;
   margin: 1rem;
   padding-top: 20px;
 }
 
 .user-details {
-  border-radius: 20px;
+  border-radius: .5rem;
   margin: 1rem;
 }
 

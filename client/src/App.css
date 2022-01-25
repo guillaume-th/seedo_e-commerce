@@ -45,7 +45,6 @@ legend {
 
 fieldset {
   box-shadow: 5px 5px 12px 0px #ABABAB;
-  width : 80%;
 }
 
 .centered-btn {
@@ -56,10 +55,6 @@ fieldset {
   color: red;
 }
 
-input:focus, textarea:focus {
-  outline: solid greenyellow 3px;
-  background-color: rgb(255, 255, 255);
-}
 
 h1 {
   color: white;
@@ -75,7 +70,19 @@ input[type="submit"] {
   cursor: pointer;
   padding: 0.25rem 0.5rem;
   font-size: 1rem;
+  transition: outline-color .2s ease;
 }
+
+input, textarea {
+  outline: solid transparent 2px;
+  transition: all .3s ease;
+}
+
+input:focus, textarea:focus {
+  outline-color: rgb(77, 121, 77);
+  background-color: rgb(255, 255, 255);
+}
+
 
 label {
   font-weight: bold;
@@ -134,7 +141,7 @@ li {
   left: 0px;
   z-index: 100;
   position: sticky;
-  top : 20px; 
+  top: 20px;
 }
 
 .filter-border {
@@ -156,12 +163,12 @@ li {
   min-width: 350px;
 }
 
-.range{
+.range {
   min-width: 0;
 }
 
-.filters-wrapper fieldset{
-  width : 80%; 
+.filters-wrapper fieldset {
+  width: 80%;
 }
 
 /********************/
@@ -706,7 +713,7 @@ li {
 
 .adress-form, .profile-form, .edit-article-form {
   background-color: rgba(255, 255, 255, 0.5);
-  border-radius: 20px;
+  border-radius: .25rem;
   padding: 1.5rem;
   margin-top: 3rem;
 }
