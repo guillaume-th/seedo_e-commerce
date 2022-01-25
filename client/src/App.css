@@ -431,6 +431,7 @@ li {
   right: 50px;
   font-size: 1.25rem;
   border-radius: 0.5rem;
+  border: 1px solid #22460D;
   padding: 0.5rem;
   color: rgb(130, 168, 121);
   overflow-y: scroll;

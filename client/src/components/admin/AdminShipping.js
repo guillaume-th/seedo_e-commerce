@@ -55,14 +55,14 @@ export default function AdminShipping() {
             <form ref={distanceForm} onSubmit={editDistance}>
                 <label>Prix pour 100km </label>
                 {data &&
-                    <input type="number" name="km" defaultValue={data.distance}></input>
+                    <input type="number" name="km" defaultValue={data.distance} min="0" step="any"></input>
                 }
                 <input type="submit" value="Changer"></input>
             </form>
             <form ref={weightForm} onSubmit={editWeight}>
                 <label>Prix pour 1kg </label>
                 {data &&
-                    <input type="number" name="kg" defaultValue={data.weight}></input>
+                    <input type="number" name="kg" defaultValue={data.weight} min="0" step="any"></input>
                 }
                 <input type="submit" value="Changer"></input>
             </form>
