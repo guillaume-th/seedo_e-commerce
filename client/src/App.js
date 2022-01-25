@@ -20,6 +20,7 @@ import { updateAdmin } from "./AdminSlice";
 import { setOpenCart } from "./CartSlice";
 import { setOpenProfil } from "./ProfilSlice";
 import { useEffect } from "react";
+import MysteryBoxListing from "./components/MysteryBoxListing";
 const API_URL = process.env.REACT_APP_API_URL;
 
 function App() {
@@ -38,7 +39,7 @@ function App() {
     }
 
     window.addEventListener("keydown", (e) => {
-      if(e.key === "Escape"){
+      if (e.key === "Escape") {
         dispatch(setOpenCart(false));
         dispatch(setOpenProfil(false));
       }
@@ -56,6 +57,10 @@ function App() {
           <Route path="/article/edit/:id" element={<ArticleEdit />} />
           <Route path="/article/:id" element={<ArticleDescription />} />
           <Route path="/articles" element={<ArticleListing />} />
+          <Route path="/articles/new" element={<ArticleListing new={true} />} />
+          <Route path="/articles/promo" element={<ArticleListing promo={true} />} />
+          <Route path="/articles/graines" element={<ArticleListing graines={true} />} />
+          <Route path="/articles/accessoires" element={<ArticleListing accessoires={true} />} />
           <Route path="/auth" element={<Connexion />} />
           <Route path="/order" element={<Order />} />
           <Route path="/order-confirm" element={<OrderConfirm />} />
@@ -63,6 +68,7 @@ function App() {
           <Route path="/admin-category" element={<Category />} />
           <Route path="/admin-panel" element={<AdminPanel />} />
           <Route path="/admin-articles" element={<AdminArticles />} />
+          <Route path="/mystery-boxes" element={<MysteryBoxListing />} />
         </Routes>
       </Router>
     </div>

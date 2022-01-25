@@ -27,11 +27,10 @@ export default function ArticleListing(props) {
                 });
                 setData(res);
                 setfilteredData(res);
-                console.log("in");
             })
             .catch(err => console.error(err));
         getCategories();
-    }, [props]);
+    }, [props.new, props.promo]);
 
 
     const addToCart = (e, product) => {
@@ -68,20 +67,15 @@ export default function ArticleListing(props) {
 
     if (filteredData) {
         return (
-            <div className="articles-wrapper">
-                {(categories) &&
-                    <div className="filters-wrapper">
-                        <Filter data={data}
-                            onFilter={(d) => { setfilteredData(d) }}
-                            categories={categories}
-                            new={props.new !== undefined ? true : false}
-                            promo={props.promo !== undefined ? true : false}
-                            graines={props.graines ? true : false}
-                            accessoires={props.accessoires ? true : false}
-                        />
-                    </div>
-                }
+            <div>
                 <div className="gallery">
+                    {(categories ) &&
+                        <Filter data={data}
+                            onFilter={(d) => {setfilteredData(d)}}
+                            categories={categories}
+                            new={true}
+                        />
+                    }
                     {
                         filteredData.map((e) => {
                             return (
@@ -117,7 +111,7 @@ export default function ArticleListing(props) {
                                                 : <p>{e.data.price} €</p>
                                             }
                                         </div>
-                                        {/* <p className="cat">{e.data.categoriesName}</p> */}
+                                        <p className="cat">{e.data.categoriesName}</p>
                                         <form onSubmit={(event) => addToCart(event, e)} className="horizontale-flex center-flex marginAuto">
                                             <input type="number" id={e.data.id} defaultValue={1} className="number"></input>
                                             <input type="submit" value="Ajouter au panier" className="buttonShop" />

@@ -19,6 +19,13 @@ class ArticleRepository extends ServiceEntityRepository
         parent::__construct($registry, Article::class);
     }
 
+    public function findAllPromo()
+    {
+        $qb = $this->createQueryBuilder('a');
+        $qb->where('a. != 0');
+        return $qb->getQuery()
+            ->getResult();
+    }
     // /**
     //  * @return Article[] Returns an array of Article objects
     //  */
