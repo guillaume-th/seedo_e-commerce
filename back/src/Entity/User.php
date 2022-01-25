@@ -84,11 +84,17 @@ class User
      */
     private $admin;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=MysteryBox::class, mappedBy="users")
+     */
+    private $mysteryBoxes;
+
     public function __construct()
     {
         $this->adresses = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->orders = new ArrayCollection();
+        $this->mysteryBoxes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -302,6 +308,33 @@ class User
     public function setAdmin(bool $admin): self
     {
         $this->admin = $admin;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|MysteryBox[]
+     */
+    public function getMysteryBoxes(): Collection
+    {
+        return $this->mysteryBoxes;
+    }
+
+    public function addMysteryBox(MysteryBox $mysteryBox): self
+    {
+        if (!$this->mysteryBoxes->contains($mysteryBox)) {
+            $this->mysteryBoxes[] = $mysteryBox;
+            $mysteryBox->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMysteryBox(MysteryBox $mysteryBox): self
+    {
+        if ($this->mysteryBoxes->removeElement($mysteryBox)) {
+            $mysteryBox->removeUser($this);
+        }
 
         return $this;
     }

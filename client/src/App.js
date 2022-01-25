@@ -18,6 +18,7 @@ import AdminPanel from "./components/admin/AdminPanel";
 import { useSelector, useDispatch } from "react-redux";
 import { updateAdmin } from "./AdminSlice";
 import { setOpenCart } from "./CartSlice";
+import { setOpenProfil } from "./ProfilSlice";
 import { useEffect } from "react";
 import MysteryBoxListing from "./components/MysteryBoxListing";
 const API_URL = process.env.REACT_APP_API_URL;
@@ -40,6 +41,7 @@ function App() {
     window.addEventListener("keydown", (e) => {
       if(e.key === "Escape"){
         dispatch(setOpenCart(false));
+        dispatch(setOpenProfil(false));
       }
     });
   }, []);

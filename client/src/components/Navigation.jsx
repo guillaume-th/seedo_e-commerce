@@ -7,15 +7,19 @@ import Search from "../assets/searchWhite.png";
 import Seeds from "../assets/seeds.svg";
 import { useNavigate } from "react-router-dom";
 import Cart from "./Cart";
+import ProfilDropdown from "./ProfilDropdown.js";
 import { setOpenCart } from "../CartSlice";
+import { setOpenProfil } from "../ProfilSlice";
 import { useSelector, useDispatch } from "react-redux";
 import ProductDropdown from "./ProductDropdown";
+
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default function Navbar(props) {
   const navigate = useNavigate();
   const [productDropdown, setProductDropdown] = useState(false);
   const openCart = useSelector((state) => state.cart.open);
+  const openProfil = useSelector((state) => state.profil.open);
   const admin = useSelector((state) => state.admin.value);
   const dispatch = useDispatch();
   const [articles, setArticles] = useState(null);
@@ -40,7 +44,18 @@ export default function Navbar(props) {
   }, [foundSearch]);
 
   const handleCart = () => {
+    if (openProfil) {
+      dispatch(setOpenProfil(false))
+    }
     dispatch(setOpenCart(!openCart));
+  };
+
+  const handleProfil = () => {
+    console.log(openProfil);
+    if (openCart) {
+      dispatch(setOpenCart(false))
+    }
+    dispatch(setOpenProfil(!openProfil));
   };
 
   function search(string) {
@@ -128,6 +143,10 @@ export default function Navbar(props) {
         <div>Mystery box</div>
         <div>Graines</div>
         <div>Accessoires</div>
+        <img id="Shop" src={Shop} alt="Shop_logo" onClick={handleCart} />
+        <img id="User" src={User} onClick={handleProfil} alt="User_logo" />
+        {openProfil && <ProfilDropdown />}
+        {openCart && <Cart />}
       </div>
     </div>
   );
