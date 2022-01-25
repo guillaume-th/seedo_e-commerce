@@ -16,7 +16,7 @@ export default function Payment(props) {
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
-  
+
     const order = () => {
         const array = [];
         cart.forEach((e) => {
@@ -27,8 +27,8 @@ export default function Payment(props) {
             });
         });
         const data = {
-            user_id:  user_id,
-            guestData : props.guest, 
+            user_id: user_id,
+            guestData: props.guest,
             adress: props.selectedAddress,
             order_price: reduce(),
             articles_id: array,
@@ -68,6 +68,8 @@ export default function Payment(props) {
                 style={{ color: "white" }}
                 onSuccess={(data) => {
                     order();
+                    dispatch(updateCart([]));
+                    sessionStorage.setItem("cart", []);
                     navigate("/order-success");
                 }}
                 onError={(err) => {

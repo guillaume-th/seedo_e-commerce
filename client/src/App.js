@@ -17,6 +17,8 @@ import Category from "./components/admin/AdminCategory";
 import AdminPanel from "./components/admin/AdminPanel";
 import { useSelector, useDispatch } from "react-redux";
 import { updateAdmin } from "./AdminSlice";
+import { setOpenCart } from "./CartSlice";
+import { setOpenProfil } from "./ProfilSlice";
 import { useEffect } from "react";
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -27,7 +29,6 @@ function App() {
   const user_id = localStorage.getItem("user_id");
 
   useEffect(() => {
-    console.log(admin, user_id);
     if (user_id) {
       fetch(`${API_URL}/user/${user_id}`)
         .then((res) => res.json())
@@ -35,6 +36,13 @@ function App() {
           dispatch(updateAdmin(res.data.admin));
         });
     }
+
+    window.addEventListener("keydown", (e) => {
+      if(e.key === "Escape"){
+        dispatch(setOpenCart(false));
+        dispatch(setOpenProfil(false));
+      }
+    });
   }, []);
 
   return (
@@ -51,7 +59,7 @@ function App() {
           <Route path="/auth" element={<Connexion />} />
           <Route path="/order" element={<Order />} />
           <Route path="/order-confirm" element={<OrderConfirm />} />
-          <Route path="/order-success" element={<p>Paiement effectué avec succès</p> } />
+          <Route path="/order-success" element={<p>Paiement effectué avec succès</p>} />
           <Route path="/admin-category" element={<Category />} />
           <Route path="/admin-panel" element={<AdminPanel />} />
           <Route path="/admin-articles" element={<AdminArticles />} />

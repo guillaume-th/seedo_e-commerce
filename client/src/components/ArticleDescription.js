@@ -47,7 +47,7 @@ export default function ArticleDetail() {
     }
     cartTemp.push(obj);
     dispatch(updateCart(cartTemp));
-    localStorage.setItem("cart", JSON.stringify(cartTemp));
+    sessionStorage.setItem("cart", JSON.stringify(cartTemp));
   };
 
   const computePrice = (e) => {
@@ -129,7 +129,7 @@ export default function ArticleDetail() {
               {data.weight}g
             </p>
           </div>
-          <form onSubmit={(event) => addToCart(event, data)}>
+          <form onSubmit={(event) => addToCart(event, data)} className="horizontale-flex center-flex marginAuto">
             <input
               type="number"
               id={data.id}
@@ -182,15 +182,14 @@ export default function ArticleDetail() {
           <p className="green">
             Laissez un commentaire à propos de l'article !
           </p>
-          <form ref={commentForm} onSubmit={addcomment}>
-            <input
-              type="textarea"
+          <form ref={commentForm} onSubmit={addcomment} className="vertical-flex center-flex">
+            <textarea
               id="leaveComment"
-              rows="30"
-              cols="30"
+              rows={10}
+              cols={50}
               name="content"
               maxLength={255}
-            ></input>
+            ></textarea>
             <input type="submit" value="commenter"></input>
           </form>
         </div>

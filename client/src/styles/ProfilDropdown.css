@@ -1,0 +1,21 @@
+.profilDropdown {
+    position: absolute;
+    z-index: 100;
+    background-color: rgba(255, 255, 255, 1);
+    border: 1px solid #22460D;
+    width: 150px;
+    top: 70px;
+    font-size: 1rem;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+}
+
+.profilDropdown p {
+    margin : 5px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.profilDropdown p:hover {
+    text-decoration: none;
+}

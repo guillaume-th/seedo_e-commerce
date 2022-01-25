@@ -6,13 +6,19 @@ import AdminLogo from "../assets/admin.svg";
 import Search from "../assets/searchWhite.png";
 import { useNavigate } from "react-router-dom";
 import Cart from "./Cart";
-import { useSelector } from "react-redux";
+import ProfilDropdown from "./ProfilDropdown.js";
+import { setOpenCart } from "../CartSlice";
+import { setOpenProfil } from "../ProfilSlice";
+import { useSelector, useDispatch } from "react-redux";
+
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default function Navbar(props) {
   const navigate = useNavigate();
-  const [openCart, setOpenCart] = useState(false);
+  const openCart = useSelector((state) => state.cart.open);
+  const openProfil = useSelector((state) => state.profil.open);
   const admin = useSelector((state) => state.admin.value);
+  const dispatch = useDispatch();
   const [articles, setArticles] = useState(null);
   const [foundSearch, setFoundSearch] = useState([]);
 
@@ -28,7 +34,18 @@ export default function Navbar(props) {
   useEffect((e) => { }, [foundSearch]);
 
   const handleCart = () => {
-    setOpenCart(!openCart);
+    if(openProfil){
+      dispatch(setOpenProfil(false))
+    }
+    dispatch(setOpenCart(!openCart));
+  };
+
+  const handleProfil = () => {
+    console.log(openProfil);
+    if(openCart){
+      dispatch(setOpenCart(false))
+    }
+    dispatch(setOpenProfil(!openProfil));
   };
 
   function search(string) {
@@ -92,12 +109,8 @@ export default function Navbar(props) {
           />
         )}
         <img id="Shop" src={Shop} alt="Shop_logo" onClick={handleCart} />
-        <img
-          id="User"
-          src={User}
-          onClick={() => navigate("/profile")}
-          alt="User_logo"
-        />
+        <img id="User" src={User} onClick={handleProfil}alt="User_logo"/>
+        {openProfil && <ProfilDropdown />}
         {openCart && <Cart />}
       </div>
     </div>
