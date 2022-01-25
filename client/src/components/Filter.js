@@ -110,7 +110,7 @@ export default function Filter(props) {
                         <label for="new">Promotions</label>
                         <input type="checkbox" value="on" name="promo"
                             checked={promo === null ? props.promo : promo}
-                            onChange={() => { setNewProduct(promo === null ? !props.promo : !promo); }}
+                            onChange={() => { setPromo(promo === null ? !props.promo : !promo); }}
                         ></input>
                     </div>
                 </div>

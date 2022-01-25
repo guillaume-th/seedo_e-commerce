@@ -68,9 +68,9 @@ export default function ArticleListing(props) {
 
     if (filteredData) {
         return (
-            <div>
-                <div className="gallery">
-                    {(categories) &&
+            <div className="articles-wrapper">
+                {(categories) &&
+                    <div className="filters-wrapper">
                         <Filter data={data}
                             onFilter={(d) => { setfilteredData(d) }}
                             categories={categories}
@@ -79,7 +79,9 @@ export default function ArticleListing(props) {
                             graines={props.graines ? true : false}
                             accessoires={props.accessoires ? true : false}
                         />
-                    }
+                    </div>
+                }
+                <div className="gallery">
                     {
                         filteredData.map((e) => {
                             return (
@@ -115,7 +117,7 @@ export default function ArticleListing(props) {
                                                 : <p>{e.data.price} €</p>
                                             }
                                         </div>
-                                        <p className="cat">{e.data.categoriesName}</p>
+                                        {/* <p className="cat">{e.data.categoriesName}</p> */}
                                         <form onSubmit={(event) => addToCart(event, e)} className="horizontale-flex center-flex marginAuto">
                                             <input type="number" id={e.data.id} defaultValue={1} className="number"></input>
                                             <input type="submit" value="Ajouter au panier" className="buttonShop" />
