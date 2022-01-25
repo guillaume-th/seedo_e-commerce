@@ -39,7 +39,7 @@ img {
   color: red;
 }
 
-input:focus {
+input:focus, textarea:focus {
   outline: solid greenyellow 3px;
   background-color: rgb(255, 255, 255);
 }
@@ -60,6 +60,12 @@ input[type="submit"] {
   font-size: 1rem;
 }
 
+label {
+  font-weight: bold;
+  color: rgb(13, 70, 13);
+  margin-left: 15px;
+}
+
 .green {
   color: rgb(13, 70, 13);
 }
@@ -77,16 +83,40 @@ li {
   flex-direction: column;
 }
 
+.center-flex {
+  align-items: center;
+}
+
 .wrap {
   flex-wrap: wrap;
+}
+
+.noWrap {
+  flex-wrap: nowrap;
 }
 
 .marginAuto {
   margin: auto;
 }
 
-form {
-  min-width: 60vw;
+.noMargin {
+  margin: 0px;
+}
+
+.width100 {
+  width: 100%;
+}
+/********************/
+/*****FILTER*********/
+/********************/
+
+.range {
+  margin: 0px 0px 0px 20px;
+}
+
+#bottomRange {
+  position: relative;
+  left : 120px;
 }
 /********************/
 /****NAVBARRE********/
@@ -185,11 +215,12 @@ form {
   flex-wrap: wrap;
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 20px;
+  padding: 0.5rem;
 }
 
 #filtres {
-  min-width: 1000px;
-  min-height: 200px;
+  width: 100%;
+  padding: 20px;
 }
 
 .thumbnail {
@@ -278,12 +309,6 @@ form {
 .thumbnail p {
   color: #22460d;
   font-size: 0.8em;
-}
-
-.thumbnail form {
-  max-width: 200px;
-  display: flex;
-  margin: auto;
 }
 
 .cat {
@@ -406,6 +431,7 @@ form {
   right: 50px;
   font-size: 1.25rem;
   border-radius: 0.5rem;
+  border: 1px solid #22460D;
   padding: 0.5rem;
   color: rgb(130, 168, 121);
   overflow-y: scroll;
@@ -425,12 +451,6 @@ form {
 .btnLogin {
   display: flex;
   justify-content: center;
-}
-
-label {
-  font-weight: bold;
-  color: rgb(13, 70, 13);
-  margin-left: 15px;
 }
 
 .button_submit {

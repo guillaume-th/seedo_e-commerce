@@ -103,42 +103,43 @@ export default function ArticleListing() {
                             </div>
                             <div className="vertical-flex">
                                 <label>Promo :</label>
-                                <input  required name="promo" type="number" min={0} max={100}></input>
+                                <input required name="promo" type="number" min={0} max={100}></input>
                             </div>
                         </div>
-                    
+
                         <input type="submit" value="Ajouter cet article" className="marginAuto"></input>
                     </form>
                 </div>
                 <div className="gallery">
-                    {
-                        data.map((e) => {
-                            return (
-                                <div key={e.data.id} className="thumbnail">
-                                    <div className="img-wrapper">
-                                        {
-                                            e.data.photos[0] &&
-                                            <img alt="article" src={e.data.photos[0].imgLink}></img>
-                                        }
-                                    </div>
-                                    {e.data.new &&
-                                        <span className="new">Nouveauté !</span>
-                                    }
-                                    {e.data.promo > 0
-                                        ? <><span className="promo"> -{e.data.promo}%</span>
-                                            <p className="firstPrice"><strike>{e.data.price} €</strike></p></>
-
-                                        : <div className="noPromo"></div>
-                                    }
-                                    <div className="infos">
-                                        <div className="sub-info">
-                                            <p className="name">{e.data.name}</p>
-                                            {e.data.promo > 0
-                                                ? <div className="prices">
-                                                    <p>{computePrice(e.data)} €</p>
-                                                </div>
-                                                : <p>{e.data.price} €</p>
+                    {data.length > 0
+                        ? 
+                            data.map((e) => {
+                                return (
+                                    <div key={e.data.id} className="thumbnail">
+                                        <div className="img-wrapper">
+                                            {
+                                                e.data.photos[0] &&
+                                                <img alt="article" src={e.data.photos[0].imgLink}></img>
                                             }
+                                        </div>
+                                        {e.data.new &&
+                                            <span className="new">Nouveauté !</span>
+                                        }
+                                        {e.data.promo > 0
+                                            ? <><span className="promo"> -{e.data.promo}%</span>
+                                                <p className="firstPrice"><strike>{e.data.price} €</strike></p></>
+
+                                            : <div className="noPromo"></div>
+                                        }
+                                        <div className="infos">
+                                            <div className="sub-info">
+                                                <p className="name">{e.data.name}</p>
+                                                {e.data.promo > 0
+                                                    ? <div className="prices">
+                                                        <p>{computePrice(e.data)} €</p>
+                                                    </div>
+                                                    : <p>{e.data.price} €</p>
+                                                }
                                             </div>
                                             <p className="cat">{e.data.categoriesName}</p>
                                             {/* {e.data.quantity > 0
@@ -149,10 +150,11 @@ export default function ArticleListing() {
                                                 <button onClick={() => editArticle(e.data.id)}>Edit</button>
                                                 <button onClick={() => deleteArticle(e.data.id)}>Delete</button>
                                             </div>
-                                    </div>
-                                </div >
-                            )
-                        })
+                                        </div>
+                                    </div >
+                                )
+                            })
+                        : <div>Pas de résultats</div>
                     }
                 </div>
             </div >

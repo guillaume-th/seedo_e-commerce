@@ -147,13 +147,20 @@ class ArticleController extends AbstractController
             $cat_arr = explode(",", $cat);
             foreach ($article->getCategories() as $existing_cat) {
                 $article->removeCategory($existing_cat);
+                // $entityManager->remove($existing_cat); 
             }
             foreach ($cat_arr as $value) {
                 $value = trim(strtolower($value));
-                $category = new Category();
+                $category = $this->getDoctrine()->getRepository(Category::class)->findBy(["name" => $value]); 
+                if(count($category) < 1){
+                    $category = new Category();
+                    $entityManager->persist($category);
+                }
+                else{
+                    $category=$category[0]; 
+                }
                 $category->setName($value);
                 $article->addCategory($category);
-                $entityManager->persist($category);
             }
         }
         $entityManager->persist($article);

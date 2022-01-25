@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { updateAdmin } from "../AdminSlice";
+// import { useDispatch } from "react-redux";
+// import { updateAdmin } from "../AdminSlice";
 import Delete from "../assets/delete.svg";
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -15,7 +15,6 @@ export default function Profile() {
     const [modalOpen, setModalOpen] = useState(false);
     const [editedAdress, setEditedAdress] = useState(false);
     const navigate = useNavigate();
-    const dispatch = useDispatch();
 
     useEffect(() => {
         if (user_id === null) {
@@ -111,7 +110,7 @@ export default function Profile() {
             // <div className="e_com-footer">
             <div className="wrapper">
                 <h1>PROFILE</h1>
-                <button onClick={(ev) => {navigate("/Profile/"+ user_id)}}> commande </button>
+                {/* <button onClick={(ev) => {navigate("/Profile/"+ user_id)}}> commande </button> */}
                 <form ref={userForm} onSubmit={submitUserData} encType="multipart/form-data">
                     <div className="profile-section">
                         <div className="user-details profile-form">
@@ -181,13 +180,13 @@ export default function Profile() {
                         </div>
                     </form>
                 </div>
-                <button onClick={
+                {/* <button onClick={
                     () => {
                         localStorage.clear()
                         dispatch(updateAdmin(false));
                         navigate("/");
                     }
-                }> Logout</button>
+                }> Logout</button> */}
                 {modalOpen && (
                     
                     <div id="adress-modal " class="modal wrapper" style={{color:"white"}}>
