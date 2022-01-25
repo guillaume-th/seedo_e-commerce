@@ -4,14 +4,13 @@ import Shop from "../assets/shop.svg";
 import Logo from "../assets/logoSeedo.png";
 import AdminLogo from "../assets/admin.svg";
 import Search from "../assets/searchWhite.png";
-import Seeds from "../assets/seeds.svg";
 import { useNavigate } from "react-router-dom";
 import Cart from "./Cart";
 import ProfilDropdown from "./ProfilDropdown.js";
 import { setOpenCart } from "../CartSlice";
 import { setOpenProfil } from "../ProfilSlice";
 import { useSelector, useDispatch } from "react-redux";
-import ProductDropdown from "./ProductDropdown";
+
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -51,7 +50,6 @@ export default function Navbar(props) {
   };
 
   const handleProfil = () => {
-    console.log(openProfil);
     if (openCart) {
       dispatch(setOpenCart(false))
     }
@@ -111,13 +109,6 @@ export default function Navbar(props) {
 
         </form>
         <div id="icon">
-          <div id="products">
-            <img id="products" className="icon" src={Seeds} onClick={() => /* navigate('/products') */ setProductDropdown(!productDropdown)} />
-            {productDropdown &&
-              <ProductDropdown />
-            }
-          </div>
-
           {admin && (
             <img
               src={AdminLogo}
@@ -130,12 +121,11 @@ export default function Navbar(props) {
           <img
             id="User"
             src={User}
-            onClick={() => navigate("/profile")}
+            onClick={handleProfil}
             alt="User_logo"
           />
           {openCart && <Cart />}
           {openProfil && <ProfilDropdown />}
-
         </div>
       </div>
       <div className="sub-nav">
