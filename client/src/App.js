@@ -39,7 +39,7 @@ function App() {
     }
 
     window.addEventListener("keydown", (e) => {
-      if(e.key === "Escape"){
+      if (e.key === "Escape") {
         dispatch(setOpenCart(false));
         dispatch(setOpenProfil(false));
       }
@@ -57,6 +57,8 @@ function App() {
           <Route path="/article/edit/:id" element={<ArticleEdit />} />
           <Route path="/article/:id" element={<ArticleDescription />} />
           <Route path="/articles" element={<ArticleListing />} />
+          <Route path="/articles/new" element={<ArticleListing new={true} />} />
+          <Route path="/articles/promo" element={<ArticleListing promo={true} />} />
           <Route path="/auth" element={<Connexion />} />
           <Route path="/order" element={<Order />} />
           <Route path="/order-confirm" element={<OrderConfirm />} />
@@ -65,8 +67,6 @@ function App() {
           <Route path="/admin-panel" element={<AdminPanel />} />
           <Route path="/admin-articles" element={<AdminArticles />} />
           <Route path="/mystery-boxes" element={<MysteryBoxListing />} />
-          <Route path="/articles/new" element={<ArticleListing new={true}/>}/>
-          <Route path="/articles/promo" element={<ArticleListing promo={true} />}/>
         </Routes>
       </Router>
     </div>

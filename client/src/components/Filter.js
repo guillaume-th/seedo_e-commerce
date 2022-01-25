@@ -9,16 +9,12 @@ export default function Filter(props) {
     const [maxPrice, setMaxPrice] = useState(300);
 
 
-    useEffect(() => {   
-        setNewProduct(props.new);
-        setPromo(props.promo);
-        console.log(newProduct, promo, props.new, props.promo); 
+    useEffect(() => {
         transformData();
-    }, [currentCategory, maxPrice, minPrice, props.new, props.promo]);
+    }, [currentCategory, maxPrice, minPrice, newProduct, promo, props.new, props.promo, props.data]);
 
 
     const transformData = () => {
-        console.log(newProduct, promo);
         const result = props.data.filter(filter);
         console.log(result);
         props.onFilter(result);
@@ -39,8 +35,10 @@ export default function Filter(props) {
                 catBool = true;
             }
         }
-        const promoBool = promo ? promo && e.data.promo !== 0 : true;
-        const newBool = newProduct ? e.data.new === newProduct : true;
+        const tmpPromo = promo === null ? props.promo : promo;
+        const tmpNew = newProduct === null ? props.new : newProduct;
+        const promoBool = tmpPromo ? tmpPromo && e.data.promo !== 0 : true;
+        const newBool = tmpNew ? e.data.new === tmpNew : true;
         const minBool = minPrice ? e.data.price >= minPrice : true;
         const maxBool = maxPrice ? e.data.price <= maxPrice : true;
 
@@ -61,9 +59,6 @@ export default function Filter(props) {
 
     return (
         <div id="filters" className="vertical-flex center-flex marginAuto width100">
-            {newProduct + ""}
-            {promo + "\n"}
-            {props.new + " " + props.promo}
             <div className="horizontal-flex center-flex wrap">
                 <select className="marginAuto" value={currentCategory} onChange={(e) => { setCurrentCategory(e.target.value) }}>
                     <option value="all" selected>Toutes les catégories</option>
@@ -78,11 +73,17 @@ export default function Filter(props) {
                 <div className="marginAuto horizontal-flex wrap center-flex">
                     <div className="marginAuto">
                         <label for="new">Nouveautés</label>
-                        <input type="checkbox" value="on" name="new" checked={newProduct} onChange={() => { setNewProduct(!newProduct, transformData); }}></input>
+                        <input type="checkbox" value="on" name="new"
+                            checked={newProduct === null ? props.new : newProduct}
+                            onChange={() => { setNewProduct(newProduct === null ? !props.new : !newProduct); }}
+                        ></input>
                     </div>
                     <div className="marginAuto">
                         <label for="new">Promotions</label>
-                        <input type="checkbox" value="on" name="promo" checked={promo} onChange={() => { setPromo(!promo, transformData) }}></input>
+                        <input type="checkbox" value="on" name="promo"
+                            checked={promo === null ? props.promo : promo}
+                            onChange={() => { setNewProduct(promo === null ? !props.promo : !promo); }}
+                        ></input>
                     </div>
                 </div>
             </div>
@@ -101,7 +102,7 @@ export default function Filter(props) {
             <div className="horizontal-flex center-flex range" >
                 <label>Trier par</label>
                 <select onChange={(e) => sortData(e.target.value)}>
-                    <option value={"null"} selected>Pas de tr   i</option>
+                    <option value={"null"} selected>Pas de tri</option>
                     <option value={true} >Prix croissant</option>
                     <option value={false} >Prix décroissant</option>
                 </select>

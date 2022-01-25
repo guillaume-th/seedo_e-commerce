@@ -27,11 +27,10 @@ export default function ArticleListing(props) {
                 });
                 setData(res);
                 setfilteredData(res);
-                console.log("in");  
             })
             .catch(err => console.error(err));
         getCategories();
-    }, [props]);
+    }, [props.new, props.promo]);
 
 
     const addToCart = (e, product) => {
@@ -69,14 +68,12 @@ export default function ArticleListing(props) {
     if (filteredData) {
         return (
             <div>
-                {props.promo + " " + props.new}
                 <div className="gallery">
                     {(categories ) &&
                         <Filter data={data}
                             onFilter={(d) => {setfilteredData(d)}}
                             categories={categories}
-                            new={props.new !== undefined ? true : false} 
-                            promo={props.promo !== undefined ? true : false} 
+                            new={true}
                         />
                     }
                     {
