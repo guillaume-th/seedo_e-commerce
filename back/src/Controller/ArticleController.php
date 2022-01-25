@@ -6,6 +6,7 @@ use App\Entity\Article;
 use App\Entity\Category;
 use App\Entity\User;
 use App\Entity\Comment;
+use App\Entity\MysteryBox;
 use App\Entity\Photo;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -276,4 +277,108 @@ class ArticleController extends AbstractController
             "status"=>"ok",
         ]);
     }
+     /**
+     * @Route("/mystery_new", name="mystery_new", methods={"POST"})
+     */
+    public function mystery_new(Request $request,EntityManagerInterface $entityManager): Response
+    {
+        $array = json_decode($request->getContent());
+        $Mystery= new MysteryBox;
+        $Mystery->setName($array['name']);
+        $Mystery->setElements($array['elements']);
+        $Mystery->setDescription($array['description']);
+        $Mystery->setSubscriptionPrice($array['SubscriptionPrice']);
+        $Mystery->setUnitPrice($array['UnitPrice']);
+        foreach ($array['photo'] as $key => $value) {
+            $Mystery->addPhoto($value);
+        }
+        $entityManager->persist($Mystery);
+        $entityManager->flush();
+        
+        return $this->json(['result' => "ok"]);
+    }
+      /**
+     * @Route("/mystery_abonnement", name="mystery_abonnement", methods={"POST"})
+     */
+    public function mystery_abonnement(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        
+        $User=$this->getDoctrine()->getRepository(User::class)->find($request->request->get("user"));
+        $Mystery=$this->getDoctrine()->getRepository(MysteryBox::class)->find($request->request->get("MysteryBox"));
+        $Mystery->addUser($User);
+        $entityManager->persist($Mystery);
+        $entityManager->flush();
+        return $this->json([
+            "status"=>"ok",
+        ]);
+    }
+
+     /**
+     * @Route("/mystery_all", name="mystery_all", methods={"POST"})
+     */
+    public function mystery_all(EntityManagerInterface $entityManager): Response
+    {
+        $Mysterys =  $this->getDoctrine()->getRepository(MysteryBox::class)->findAll();
+        $data = [];
+        foreach ($Mysterys as $Mystery) {
+            $UserMystery = [];
+            $PhotoMystery = [];
+            foreach ($Mystery->getUsers() as $value) {
+              
+                array_push($UserMystery, [
+                    'id' => $value->getId(),
+                    'firstname' => $value->getFirstName(),
+                    'lastname' => $value->getLastName(),
+                ]);
+            }
+            foreach ($Mystery->getPhotos() as $key => $value) {
+                array_push($PhotoMystery, [
+              'image_link' =>  $Mystery->getImgLink(),
+                ]);
+            }
+            array_push($data, [
+                "id" => $Mystery->getId(),
+                "firstname" => $Mystery->getName(),
+                "user" => $UserMystery,
+                'photo' => $PhotoMystery,
+            ]);
+        }
+        return $this->json(['result' => $data]);
+    }
+
+   
+     /**
+     * @Route("/mystery_show/{id}", name="mystery_show", methods={"GET"})
+     */
+    public function mystery_Show(MysteryBox $Mystery,EntityManagerInterface $entityManager): Response
+    {
+        $userinfo=[];
+        $photo=[];
+       
+        foreach ($Mystery->getUsers() as $key => $value) {
+            array_push($userinfo, [
+                'id' => $value->getId(),
+                'firstname' => $value->getFirstname(),
+                'lastname' => $value->getLastname(),
+            ]);
+        };
+        $name = $Mystery->getName();
+        $description = $Mystery->getDescription();
+        $Mystery_price_subscrition=$Mystery->getSubscriptionPrice();
+        $Mystery_price_unite=$Mystery->getUnitPrice();
+        foreach ($Mystery->getPhotos() as $key => $value) {
+            array_push($photo, [
+                'id' => $value->getId(),
+                'link' => $value->getImgLink(),
+            ]);
+        };
+      
+
+        return $this->json([
+            "result"=>['user_info'=>$userinfo,'subscrition_price'=>$Mystery_price_subscrition,'unite_price'=>$Mystery_price_unite,'name'=>$name,'description'=>$description,'photo'=>$photo],
+            
+        ]);
+    }
+
+    
 }

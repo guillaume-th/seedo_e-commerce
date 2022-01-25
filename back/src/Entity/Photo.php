@@ -28,6 +28,11 @@ class Photo
      */
     private $img_link;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=MysteryBox::class, inversedBy="photos")
+     */
+    private $mysteryBox;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -53,6 +58,18 @@ class Photo
     public function setImgLink(string $img_link): self
     {
         $this->img_link = $img_link;
+
+        return $this;
+    }
+
+    public function getMysteryBox(): ?MysteryBox
+    {
+        return $this->mysteryBox;
+    }
+
+    public function setMysteryBox(?MysteryBox $mysteryBox): self
+    {
+        $this->mysteryBox = $mysteryBox;
 
         return $this;
     }
