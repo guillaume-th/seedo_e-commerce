@@ -85,7 +85,8 @@ export default function Filter(props) {
 
     return (
         <div id="filters" className="vertical-flex center-flex marginAuto width100">
-            <div className="horizontal-flex center-flex wrap">
+            <div className="vertical-flex filter-border">
+                <p>Catégorie</p>
                 <select className="marginAuto" id="cat-select"
                     value={currentCategory === null ? props.graines ? "graines" : "all" : currentCategory}
                     onChange={(e) => { setCurrentCategory(e.target.value) }}>
@@ -98,14 +99,16 @@ export default function Filter(props) {
                         })
                     }
                 </select>
-                <div className="marginAuto horizontal-flex wrap center-flex">
-                    <div className="marginAuto">
-                        <label for="new">Nouveautés</label>
-                        <input type="checkbox" value="on" name="new"
-                            checked={newProduct === null ? props.new : newProduct}
-                            onChange={() => { setNewProduct(newProduct === null ? !props.new : !newProduct); }}
-                        ></input>
-                    </div>
+            </div>
+
+            <div className="marginAuto horizontal-flex wrap center-flex filter-border">
+                <p>Filtres</p>
+                <div className="marginAuto">
+                    <label for="new">Nouveautés</label>
+                    <input type="checkbox" value="on" name="new"
+                        checked={newProduct === null ? props.new : newProduct}
+                        onChange={() => { setNewProduct(newProduct === null ? !props.new : !newProduct); }}
+                    ></input>
                     <div className="marginAuto">
                         <label for="new">Promotions</label>
                         <input type="checkbox" value="on" name="promo"
@@ -115,19 +118,22 @@ export default function Filter(props) {
                     </div>
                 </div>
             </div>
-            <div className="horizontal-flex center-flex wrap marginAuto width50">
-                <label className="marginAuto">Prix minimum : {minPrice}</label>
-                <div className="horizontal-flex center-flex marginAuto">
-                    <input className="range" type="range" name="min-price" min="0" max="300" step="10" defaultValue={0} onChange={(e) => setMinPrice(e.target.value)} />
+            <div className="filter-border">
+                <p>Prix</p>
+                <div className="horizontal-flex center-flex wrap marginAuto width50 ">
+                    <label className="marginAuto">Prix minimum : {minPrice}</label>
+                    <div className="horizontal-flex center-flex marginAuto">
+                        <input className="range" type="range" name="min-price" min="0" max="300" step="10" defaultValue={0} onChange={(e) => setMinPrice(e.target.value)} />
+                    </div>
+                </div>
+                <div className="horizontal-flex center-flex wrap marginAuto" >
+                    <label className="marginAuto">Prix maximum : {maxPrice}</label>
+                    <div className="horizontal-flex center-flex marginAuto">
+                        <input className="range" type="range" name="max-price" min="0" max="300" step="10" defaultValue={1000} onChange={(e) => setMaxPrice(e.target.value)} />
+                    </div>
                 </div>
             </div>
-            <div className="horizontal-flex center-flex wrap marginAuto" >
-                <label className="marginAuto">Prix maximum : {maxPrice}</label>
-                <div className="horizontal-flex center-flex marginAuto">
-                    <input className="range" type="range" name="max-price" min="0" max="300" step="10" defaultValue={1000} onChange={(e) => setMaxPrice(e.target.value)} />
-                </div>
-            </div>
-            <div className="horizontal-flex center-flex range" >
+            <div className="horizontal-flex center-flex range filter-border" >
                 <label>Trier par</label>
                 <select onChange={(e) => sortData(e.target.value)}>
                     <option value={"null"} selected>Pas de tri</option>

@@ -6,6 +6,11 @@ img {
   max-width: 70vw;
 }
 
+
+/* .app-wrapper{ */
+  /* width : 90%;  */
+/* } */
+
 .wrapper {
   width: 100%;
   display: flex;
@@ -121,8 +126,11 @@ li {
 
 }
 
-.range {
-  margin: 0px 0px 0px 20px;
+.filter-border{
+ border : 3px solid rgb(13, 70, 13);
+ padding : .5rem; 
+ width : 80%; 
+ margin-bottom : 1.5rem; 
 }
 
 #bottomRange {
@@ -268,7 +276,9 @@ li {
 
 .articles-wrapper {
   display: flex;
+  margin-top: 3rem;
 }
+
 
 .thumbnail {
   width: 250px;
