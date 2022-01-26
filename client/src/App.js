@@ -17,7 +17,7 @@ import Category from "./components/admin/AdminCategory";
 import AdminPanel from "./components/admin/AdminPanel";
 import { useSelector, useDispatch } from "react-redux";
 import { updateAdmin } from "./AdminSlice";
-import { setOpenCart } from "./CartSlice";
+import { setOpenCart, updateCart } from "./CartSlice";
 import { setOpenProfil } from "./ProfilSlice";
 import { updateFidel } from "./FidelSlice";
 import { useEffect } from "react";
@@ -27,6 +27,7 @@ const API_URL = process.env.REACT_APP_API_URL;
 function App() {
   /* eslint-disable */
   const admin = useSelector((state) => state.admin.value);
+  const cart = useSelector((state) => state.cart.value);
   const dispatch = useDispatch();
   const user_id = localStorage.getItem("user_id");
 
@@ -46,32 +47,36 @@ function App() {
         dispatch(setOpenProfil(false));
       }
     });
+    const tmpCart = sessionStorage.getItem("cart");
+    if (tmpCart) {
+      dispatch(updateCart(JSON.parse(tmpCart)));
+    }
   }, []);
 
   return (
     <div className="App">
       <Router basename="/">
         <Nav />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/profile/:id" element={<OrderListing />} />
-              <Route path="/article/edit/:id" element={<ArticleEdit />} />
-              <Route path="/article/:id" element={<ArticleDescription />} />
-              <Route path="/articles" element={<ArticleListing />} />
-              <Route path="/articles/new" element={<ArticleListing new={true} />} />
-              <Route path="/articles/promo" element={<ArticleListing promo={true} />} />
-              <Route path="/articles/graines" element={<ArticleListing graines={true} />} />
-              <Route path="/articles/accessoires" element={<ArticleListing accessoires={true} />} />
-              <Route path="/auth" element={<Connexion />} />
-              <Route path="/order" element={<Order />} />
-              <Route path="/order-confirm" element={<OrderConfirm />} />
-              <Route path="/order-success" element={<p>Paiement effectué avec succès</p>} />
-              <Route path="/admin-category" element={<Category />} />
-              <Route path="/admin-panel" element={<AdminPanel />} />
-              <Route path="/admin-articles" element={<AdminArticles />} />
-              <Route path="/mystery-boxes" element={<MysteryBoxListing />} />
-            </Routes>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/:id" element={<OrderListing />} />
+          <Route path="/article/edit/:id" element={<ArticleEdit />} />
+          <Route path="/article/:id" element={<ArticleDescription />} />
+          <Route path="/articles" element={<ArticleListing />} />
+          <Route path="/articles/new" element={<ArticleListing new={true} />} />
+          <Route path="/articles/promo" element={<ArticleListing promo={true} />} />
+          <Route path="/articles/graines" element={<ArticleListing graines={true} />} />
+          <Route path="/articles/accessoires" element={<ArticleListing accessoires={true} />} />
+          <Route path="/auth" element={<Connexion />} />
+          <Route path="/order" element={<Order />} />
+          <Route path="/order-confirm" element={<OrderConfirm />} />
+          <Route path="/order-success" element={<p>Paiement effectué avec succès</p>} />
+          <Route path="/admin-category" element={<Category />} />
+          <Route path="/admin-panel" element={<AdminPanel />} />
+          <Route path="/admin-articles" element={<AdminArticles />} />
+          <Route path="/mystery-boxes" element={<MysteryBoxListing />} />
+        </Routes>
       </Router>
     </div>
   );

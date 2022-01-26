@@ -15,7 +15,6 @@ export default function Order() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log(cart);
         getShippingFees();
     }, [cart]);
 
@@ -38,7 +37,6 @@ export default function Order() {
     }
     const noel95 = new Date('december 22, 69 00:20:18' );
     const mois = noel95.getMonth();
-    console.log(mois);
 
     if (cart.length > 0) {
         return (
@@ -47,7 +45,7 @@ export default function Order() {
                     <div className="order">
                         <h2 style={{ display: "flex", justifyContent: "center" }} >Récapitulatif de votre commande</h2>
                         {fidel
-                            && <p>Vous faite parti de notre programme de fidélité ! profitez de 10% de réduction que chacun de vos articles !</p>
+                            && <p>Vous faites partie de notre programme de fidélité ! Profitez de 10% de réduction que chacun de vos articles !</p>
                         }
                         {
                             cart.map((e) => {
@@ -72,8 +70,8 @@ export default function Order() {
                         }
 
                         <div className="order-total">
-                        {(reduce() > 150 || reduce() === mois) && <span className="thumbnail"> Emballage cadeau offert ❤️‍🔥</span>}
-                            <p style={{ marginBottom: ".25rem", display: "flex", justifyContent: "center" }}> Total : {() => reduce(cart, fidel)} €</p>
+                        {(reduce(cart, fidel) > 150 || reduce(cart, fidel) === mois) && <span className="thumbnail"> Emballage cadeau offert ❤️‍🔥</span>}
+                            <p style={{ marginBottom: ".25rem", display: "flex", justifyContent: "center" }}> Total : {reduce(cart, fidel)} €</p>
                             <p style={{ marginBottom: ".25rem", display: "flex", justifyContent: "center" }}> Poids de la commande : {computeWeight()} kg</p>
                             <p style={{ marginBottom: ".25rem", display: "flex", justifyContent: "center" }}> Livraison  : {shipping} €</p>
                             <span>La livraison est susceptible de changer en fonction de votre adresse</span>
