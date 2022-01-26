@@ -115,22 +115,15 @@ export default function Profile() {
                     <div className="profile-section">
                         <fieldset className="user-details profile-form filter-border">
                             <legend>Coordonnées</legend>
-                            <label className="std-input-label">Nom: </label>
                             <input className="std-input-label" type="text" name="firstname" placeholder="Prénom" defaultValue={user.firstname}></input>
-                            <label className="std-input-label">Prenom:</label>
                             <input className="std-input-label" type="text" name="lastname" placeholder="Nom de famille" defaultValue={user.lastname}></input>
-                            <label className="std-input-label"> Email:</label>
                             <input className="std-input-label" type="text" name="email" placeholder="Email" defaultValue={user.email}></input>
-                            <label className="std-input-label"> Telephone:</label>
                             <input className="std-input-label" type="text" name="telephone" placeholder="Téléphone" defaultValue={user.telephone}></input>
                         </fieldset>
                         <fieldset className="bank-details profile-form filter-border">
                             <legend>Coordonnées bancaires</legend>
-                            <label className="std-input-label">Numéro CB</label>
                             <input className="std-input-label" type="text" name="number_CB" placeholder="Numéro de carte bancaire" minLength={16} maxLength={16} defaultValue={user.number_CB}></input>
-                            <label className="std-input-label">CVV</label>
                             <input className="std-input-label" type="text" name="cvv" placeholder="CVV" minLength={3} maxLength={3} defaultValue={user.cvv}></input>
-                            <label className="std-input-label">Date d'expiration</label>
                             <input className="std-input-label" type="text" name="expiration_CB" placeholder="Date d'expiration" minLength={5} maxLength={5} defaultValue={user.expiration_CB}></input>
                         </fieldset>
                     </div>
@@ -163,17 +156,12 @@ export default function Profile() {
                 </div>
 
                 <fieldset className="adress-section filter-border" style={{borderRadius : ".5rem"}}>
-                    <legend>Nouvelle adresse</legend>
-                    <form className="adress-form" ref={newAdressForm} onSubmit={addAdress} encType="multipart/form-data">
-                        <label className="std-input-label">Numéro:</label>
+                    <legend> + Nouvelle adresse</legend>
+                    <form className="adress-form" ref={newAdressForm} onSubmit={addAdress} encType="multipart/form-data">                        
                         <input required type="text" className="std-input-label" name="number" placeholder="Numéro"></input>
-                        <label className="std-input-label">Rue:</label>
                         <input required type="text" className="std-input-label" name="street" placeholder="Rue"></input>
-                        <label className="std-input-label">Ville: </label>
                         <input required type="text" className="std-input-label" name="city" placeholder="Ville"></input>
-                        <label className="std-input-label">Code Postal: </label>
                         <input required type="text" className="std-input-label" name="postal_code" placeholder="Code Postal"></input>
-                        <label className="std-input-label">Pays:</label>
                         <input required type="text" className="std-input-label" name="country" placeholder="Pays"></input>
                         <div className="wrapper">
                             <input required type="submit" value="Ajouter cette adresse"></input>
@@ -196,8 +184,7 @@ export default function Profile() {
                             ref={editAdressForm}
                             onSubmit={editAdress}
                             encType="multipart/form-data"
-                        >
-                            <label htmlFor="number">Numéro :</label>
+                        >                         
                             <input
                                 className="std-input-label"
                                 required
@@ -206,7 +193,6 @@ export default function Profile() {
                                 placeholder="Numéro"
                                 defaultValue={editedAdress.number}
                             ></input>
-                            <label htmlFor="street">Rue :</label>
                             <input
                                 className="std-input-label"
                                 required
@@ -215,7 +201,6 @@ export default function Profile() {
                                 placeholder="Rue"
                                 defaultValue={editedAdress.street}
                             ></input>
-                            <label htmlFor="city">Ville :</label>
                             <input
                                 className="std-input-label"
                                 required
@@ -224,7 +209,6 @@ export default function Profile() {
                                 placeholder="Ville"
                                 defaultValue={editedAdress.city}
                             ></input>
-                            <label htmlFor="postal_code">Code postal :</label>
                             <input
                                 className="std-input-label"
                                 required
@@ -233,7 +217,6 @@ export default function Profile() {
                                 placeholder="Code Postal"
                                 defaultValue={editedAdress.postal_code}
                             ></input>
-                            <label htmlFor="country">Pays :</label>
                             <input
                                 className="std-input-label"
                                 required
