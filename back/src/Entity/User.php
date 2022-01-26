@@ -89,6 +89,11 @@ class User
      */
     private $mysteryBoxes;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Abonnement::class, mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $abonnement;
+
     public function __construct()
     {
         $this->adresses = new ArrayCollection();
@@ -335,6 +340,23 @@ class User
         if ($this->mysteryBoxes->removeElement($mysteryBox)) {
             $mysteryBox->removeUser($this);
         }
+
+        return $this;
+    }
+
+    public function getAbonnement(): ?Abonnement
+    {
+        return $this->abonnement;
+    }
+
+    public function setAbonnement(Abonnement $abonnement): self
+    {
+        // set the owning side of the relation if necessary
+        if ($abonnement->getUser() !== $this) {
+            $abonnement->setUser($this);
+        }
+
+        $this->abonnement = $abonnement;
 
         return $this;
     }

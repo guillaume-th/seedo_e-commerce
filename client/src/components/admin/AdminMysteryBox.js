@@ -1,8 +1,8 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = process.env.REACT_APP_API_URL; 
 
-export default function ArticleListing() {
+export default function AdminMysteryBox() {
     const [data, setData] = useState(null);
     const navigate = useNavigate();
     const form = useRef();
@@ -10,18 +10,10 @@ export default function ArticleListing() {
 
     useEffect(() => {
 
-        fetch(`${API_URL}/article/all`)
+        fetch(`${API_URL}/article/mystery/all`)
             .then(res => res.json())
             .then(res => {
-                res.forEach((e) => {
-                    let str = "";
-                    e.data.categories.forEach((elt) => {
-                        str += elt.name + ", ";
-                    });
-                    e.data.categoriesName = str.slice(0, str.length - 2);
-                });
                 setData(res);
-
             })
             .catch(err => console.error(err));
     }, [refresh]);
@@ -112,47 +104,48 @@ export default function ArticleListing() {
                 </div>
                 <div className="gallery">
                     {data.length > 0
-                        ? 
-                            data.map((e) => {
-                                return (
-                                    <div key={e.data.id} className="thumbnail">
-                                        <div className="img-wrapper">
-                                            {
-                                                e.data.photos[0] &&
-                                                <img alt="article" src={e.data.photos[0].imgLink}></img>
+                        ?
+                        data.map((e) => {
+                            return (
+                                <div key={e.data.id} className="thumbnail">
+                                    <div className="img-wrapper">
+                                        {
+                                            e.data.photos[0] &&
+                                            <img alt="article" src={e.data.photos[0].imgLink}></img>
+                                        }
+                                    </div>
+                                    {e.data.new &&
+                                        <span className="new">Nouveauté !</span>
+                                    }
+                                    {e.data.promo > 0
+                                        ? <><span className="promo"> -{e.data.promo}%</span>
+                                            <p className="firstPrice"><strike>{e.data.price} €</strike></p></>
+
+                                        : <div className="noPromo"></div>
+                                    }
+                                    <div className="infos">
+                                        <div className="sub-info">
+                                            <p className="name">{e.data.name}</p>
+                                            {e.data.promo > 0
+                                                ? <div className="prices">
+                                                    <p>{computePrice(e.data)} €</p>
+                                                </div>
+                                                : <p>{e.data.price} €</p>
                                             }
                                         </div>
-                                        {e.data.new &&
-                                            <span className="new">Nouveauté !</span>
-                                        }
-                                        {e.data.promo > 0
-                                            ? <><span className="promo"> -{e.data.promo}%</span>
-                                                <p className="firstPrice"><strike>{e.data.price} €</strike></p></>
-
-                                            : <div className="noPromo"></div>
-                                        }
-                                        <div className="infos">
-                                            <div className="sub-info">
-                                                <p className="name">{e.data.name}</p>
-                                                {e.data.promo > 0
-                                                    ? <div className="prices">
-                                                        <p>{computePrice(e.data)} €</p>
-                                                    </div>
-                                                    : <p>{e.data.price} €</p>
-                                                }
-                                            </div>
-                                            {/* {e.data.quantity > 0
+                                        <p className="cat">{e.data.categoriesName}</p>
+                                        {/* {e.data.quantity > 0
                                                 ? <p>Etat du stock : {e.data.quantity}.</p>
                                                 : <p>En rupture de stock</p>
                                             } */}
-                                            < div >
-                                                <button onClick={() => editArticle(e.data.id)}>Edit</button>
-                                                <button onClick={() => deleteArticle(e.data.id)}>Delete</button>
-                                            </div>
+                                        < div >
+                                            <button onClick={() => editArticle(e.data.id)}>Edit</button>
+                                            <button onClick={() => deleteArticle(e.data.id)}>Delete</button>
                                         </div>
-                                    </div >
-                                )
-                            })
+                                    </div>
+                                </div >
+                            )
+                        })
                         : <div>Pas de résultats</div>
                     }
                 </div>

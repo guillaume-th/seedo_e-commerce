@@ -51,21 +51,23 @@ export default function AdminShipping() {
 
     return (
         <div>
-            <h3>Frais de livraison</h3>
+            <fieldset>
+            <legend>Frais de livraison</legend>
             <form ref={distanceForm} onSubmit={editDistance}>
                 <label>Prix pour 100km : </label>
                 {data &&
-                    <input type="number" name="km" defaultValue={data.distance} min="0" step="any"></input>
+                    <input style={{border:"2px solid darkgreen", borderRadius:"2rem", height:"1.17rem"}} type="number" name="km" defaultValue={data.distance} min="0" step="any"></input>
                 }
-                <input className="submit-price-km-poid" style={{ borderTopRightRadius:"50px",borderBottomRightRadius:"50px",border:"none"}} type="submit" value="Changer"></input>
+                <input className="submit-price-km-poid hover-save" style={{position:"absolute",borderTopRightRadius:"50px",borderBottomRightRadius:"50px",border:"none",  transform:"translate(-45px, -0.2px)", height:"2.69rem"}} type="submit" value="Changer"></input>
             </form>
             <form ref={weightForm} onSubmit={editWeight}>
                 <label>Prix pour 1kg : </label>
                 {data &&
-                    <input type="number" name="kg" defaultValue={data.weight} min="0" step="any"></input>
+                    <input style={{border:"2px solid darkgreen", borderRadius:"2rem", height:"1.17rem"}} type="number" name="kg" defaultValue={data.weight} min="0" step="any"></input>
                 }
-                <input className="submit-price-km-poid" style={{ borderTopRightRadius:"50px",borderBottomRightRadius:"50px",border:"none"}} type="submit" value="Changer"></input>
+                <input className="submit-price-km-poid hover-save" style={{position:"absolute", borderTopRightRadius:"50px",borderBottomRightRadius:"50px",border:"none"}} type="submit" value="Changer"></input>
             </form>
+            </fieldset>
         </div>
     );
 
