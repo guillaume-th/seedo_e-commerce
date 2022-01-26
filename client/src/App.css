@@ -81,8 +81,6 @@ input, textarea {
 }
 
 input:focus, textarea:focus {
-  /* outline-color: rgb(77, 121, 77); */
-  /* background-color: rgb(255, 255, 255); */
 }
 
 
@@ -94,6 +92,10 @@ label {
 
 .green {
   color: rgb(13, 70, 13);
+}
+
+.bold {
+  font-weight: bold;
 }
 
 li {
@@ -111,6 +113,7 @@ li {
 
 .center-flex {
   align-items: center;
+  justify-content: center;
 }
 
 .wrap {
@@ -810,4 +813,10 @@ li {
 .product-dropdown>* {
   cursor: pointer;
   font-size: 1.5rem;
+}
+
+.page-number {
+  cursor: pointer;
+  display: inline-block;
+  margin: .5rem;
 }

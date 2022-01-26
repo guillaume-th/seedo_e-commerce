@@ -2,12 +2,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { increaseQuantity, decreaseQuantity } from "../CartSlice";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { reduce } from "../utils";
 const BING_API_KEY = process.env.REACT_APP_BING_API_KEY;
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default function Order() {
     const [shippingPriceDistance, setShippingPriceDistance] = useState(null);
     const cart = useSelector((state) => state.cart.value);
+    const fidel = useSelector((state) => state.fidel.value);
     const [shipping, setShipping] = useState(null);
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -15,14 +17,6 @@ export default function Order() {
     useEffect(() => {
         getShippingFees();
     }, [cart]);
-
-    const reduce = () => {
-        let total = cart[0].price * cart[0].selectedQuantity;
-        for (let i = 1; i < cart.length; i++) {
-            total += cart[i].price * cart[i].selectedQuantity;
-        }
-        return total;
-    }
 
     const getShippingFees = () => {
 
@@ -51,6 +45,9 @@ export default function Order() {
                 <div className="order-wrapper">
                     <div className="order">
                         <h2 style={{ display: "flex", justifyContent: "center" }} >Récapitulatif de votre commande</h2>
+                        {fidel
+                            && <p>Vous faite parti de notre programme de fidélité ! profitez de 10% de réduction que chacun de vos articles !</p>
+                        }
                         {
                             cart.map((e) => {
                                 return (
@@ -62,7 +59,10 @@ export default function Order() {
                                                 <p>Quantité : {e.selectedQuantity}</p>
                                                 <button style={{ backgroundColor: "transparent", border: "none", color: "rgb(13,70,13)", fontSize: "20px" }} onClick={() => dispatch(increaseQuantity(e.id))}>+</button>        
                                             </div>
-                                            <p>{e.price * e.selectedQuantity} €</p>
+                                            { fidel ?
+                                                <p><strike>{e.price * e.selectedQuantity} €</strike> -10% ! <b>{(e.price * e.selectedQuantity)*0.9} €</b></p>
+                                                : <p>{e.price * e.selectedQuantity} €</p>
+                                            }
                                         </div>
                                     </div>
                                   
@@ -73,6 +73,7 @@ export default function Order() {
                         <div className="order-total">
                         {(reduce() > 150 || reduce() === mois) && <span className="thumbnail"> Emballage cadeau offert ❤️‍🔥</span>}
                             <p style={{ marginBottom: ".25rem", display: "flex", justifyContent: "center" }}> Total : {reduce()} €</p>
+                            <p style={{ marginBottom: ".25rem", display: "flex", justifyContent: "center" }}> Total : {reduce(cart, fidel)} €</p>
                             <p style={{ marginBottom: ".25rem", display: "flex", justifyContent: "center" }}> Poids de la commande : {computeWeight()} kg</p>
                             <p style={{ marginBottom: ".25rem", display: "flex", justifyContent: "center" }}> Livraison  : {shipping} €</p>
                             <span>La livraison est susceptible de changer en fonction de votre adresse</span>

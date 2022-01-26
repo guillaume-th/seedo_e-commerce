@@ -1,8 +1,10 @@
 import { useRef, useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 // import { useDispatch } from "react-redux";
 // import { updateAdmin } from "../AdminSlice";
 import Delete from "../assets/delete.svg";
+import { updateFidel } from "../FidelSlice";
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default function Profile() {
@@ -15,14 +17,20 @@ export default function Profile() {
     const [modalOpen, setModalOpen] = useState(false);
     const [editedAdress, setEditedAdress] = useState(false);
     const navigate = useNavigate();
+    const fidel = useSelector((state) => state.fidel.value);
+    const dispatch = useDispatch();
 
     useEffect(() => {
+        
         if (user_id === null) {
             navigate("/auth");
         } else {
             fetch(`${API_URL}/user/${user_id}`)
                 .then((res) => res.json())
-                .then((res) => setUser(res.data))
+                .then((res) => {
+                    setUser(res.data)
+                    dispatch(updateFidel(res.data.fidel))
+                })
                 .catch((err) => console.error(err));
         }
         window.addEventListener("keydown", (e) => {
@@ -36,7 +44,7 @@ export default function Profile() {
     const submitUserData = (e) => {
         e.preventDefault();
         const data = new FormData(userForm.current);
-
+        // console.log(userForm.current);
         fetch(`${API_URL}/user/${user_id}/edit`, {
             method: "POST",
             body: data,
@@ -45,6 +53,7 @@ export default function Profile() {
             .then((res) => {
                 if (res.status === "ok") {
                     setUser(res.data);
+                    setRefresh(Math.random());
                 }
             })
             .catch((error) => console.error(error));
@@ -65,7 +74,7 @@ export default function Profile() {
             })
             .catch((error) => console.error(error));
         for (const elt of document.getElementsByClassName("input-profile")) {
-            console.log(elt);
+            //console.log(elt);
             elt.value = "";
         }
     };
@@ -101,9 +110,9 @@ export default function Profile() {
                 }
             })
             .catch((error) => console.error(error));
-
     }
-
+    
+    //console.log(user);
     if (user) {
         return (
 
@@ -119,6 +128,21 @@ export default function Profile() {
                             <input className="std-input-label" type="text" name="lastname" placeholder="Nom de famille" defaultValue={user.lastname}></input>
                             <input className="std-input-label" type="text" name="email" placeholder="Email" defaultValue={user.email}></input>
                             <input className="std-input-label" type="text" name="telephone" placeholder="Téléphone" defaultValue={user.telephone}></input>
+                            { user.fidel ? 
+                                <div className="fidelite">
+                                    <p className="lg-char green bold">Vous êtes un client fidèle !</p>
+                                    <p className="sm-char">(gratuite, remise de 10% sur chaque produits)</p>
+                                    <label className="sm-char">Arrêter ma carte de fidélité</label>
+                                    <input type="checkbox" name="fidel" value={false}></input>
+                                </div>
+                                :
+                                <div className="fidelite">
+                                    <p className="lg-char">Adhérez à notre programme de fidélité gratuit ! 10% de remise sur chaque produit !</p>
+                                    <p className="sm-char">(Cumulable avec une autre pomotion déjà présente sur le produit)</p>
+                                    <label className="lg-char">M'inscrire au programme de fidélité</label>
+                                    <input type="checkbox" name="fidel" defaultValue={true}></input>
+                                </div>
+                            }
                         </fieldset>
                         <fieldset className="bank-details profile-form filter-border">
                             <legend>Coordonnées bancaires</legend>

@@ -63,6 +63,16 @@ input::placeholder {
   color:red;
 }
 
+.lg-char {
+  font-size: 1rem;
+  margin: 30px 0px 5px 10px;
+}
+
+.sm-char {
+  font-size: 0.9rem;
+  margin: 0px 0px 0px 10px;
+}
+
 ::placeholder{
   font-weight: bold;
 }
