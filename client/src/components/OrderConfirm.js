@@ -190,7 +190,7 @@ export default function OrderConfirm() {
                         <div>
                             <p>Prix de la commande : {reduce(cart, fidel)}</p>
                             <p>Frais de livraison: {shipping}</p>
-                            <p>Prix total :{reduce(cart, fidel) + shipping}</p>
+                            <p>Prix total :{parseFloat(reduce(cart, fidel)) + parseFloat(shipping)}</p>
                         </div>
                         <Payment total={reduce(cart, fidel) + shipping} selectedAddress={selectedAdress} />
                     </div>
