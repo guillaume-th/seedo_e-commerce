@@ -18,7 +18,7 @@ import AdminPanel from "./components/admin/AdminPanel";
 import SubscribeMysteryBox from "./components/SubscribeMysteryBox";
 import { useSelector, useDispatch } from "react-redux";
 import { updateAdmin } from "./AdminSlice";
-import { setOpenCart } from "./CartSlice";
+import { setOpenCart, updateCart } from "./CartSlice";
 import { setOpenProfil } from "./ProfilSlice";
 import { updateFidel } from "./FidelSlice";
 import { useEffect } from "react";
@@ -28,6 +28,7 @@ const API_URL = process.env.REACT_APP_API_URL;
 function App() {
   /* eslint-disable */
   const admin = useSelector((state) => state.admin.value);
+  const cart = useSelector((state) => state.cart.value);
   const dispatch = useDispatch();
   const user_id = localStorage.getItem("user_id");
 
@@ -47,6 +48,10 @@ function App() {
         dispatch(setOpenProfil(false));
       }
     });
+    const tmpCart = sessionStorage.getItem("cart");
+    if (tmpCart) {
+      dispatch(updateCart(JSON.parse(tmpCart)));
+    }
   }, []);
 
   return (

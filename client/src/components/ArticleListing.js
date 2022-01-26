@@ -14,19 +14,12 @@ export default function ArticleListing(props) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [pageNumber, setPageNumber] = useState(1);
-    const elementsByPage = 12   ;
+    const elementsByPage = 12;
 
     useEffect(() => {
         fetch(`${API_URL}/article/all`)
             .then(res => res.json())
             .then(res => {
-                res.forEach((e) => {
-                    let str = "";
-                    e.data.categories.forEach((elt) => {
-                        str += elt.name + ", ";
-                    });
-                    e.data.categoriesName = str.slice(0, str.length - 2);
-                });
                 setData(res);
                 setFilteredData(res);
             })
@@ -98,7 +91,6 @@ export default function ArticleListing(props) {
                         {
                             filteredData.slice(0, pageNumber * elementsByPage).map((e) => {
                                 return (
-
                                     <div key={e.data.id} onClick={(ev) => {
                                         if (!ev.target.classList.contains("buttonShop") && !ev.target.classList.contains("number")) {
                                             navigate("/article/" + e.data.id)
