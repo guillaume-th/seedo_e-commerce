@@ -24,12 +24,16 @@ export default function ArticleDetail() {
       .then((res) => res.json())
       .then((res) => {
         res.data.updatedPrice = res.data.price;
+        let str = "";
+        res.data.categories.forEach((elt) => {
+          str += elt.name[0].toUpperCase() + elt.name.slice(1, elt.name.length) + ", ";
+        });
+        res.data.categoriesName = str.slice(0, str.length - 2);
         setData(res.data);
         setImgFirstLink(res.data.photos[0].imgLink);
         getColorPrices(res.data.color);
       })
       .catch((err) => console.error(err));
-
   }, [refresh, id]);
 
   const addToCart = (e, product) => {
@@ -104,87 +108,94 @@ export default function ArticleDetail() {
     return (
       <div>
         <div key={data.id} id="ficheDetail">
-          <h2 className="titleName">{data.name}</h2>
-          <p>{data.description}</p>
-          <p>
-            <strong className="green">Couleur : </strong>
-            {data.updatedColor ? data.updatedColor : "Non renseignée"}
-          </p>
-          {colors &&
-            <div style={{ display: "flex", gap: ".25rem" }}>
-              {colors.map(e => {
-                return (
-                  <div onClick={() => setColor(e)} className="color-choice" style={{ cursor: "pointer", backgroundColor: e.name, height: 50, width: 50 }}></div>
-                )
-              })}
-            </div>
-          }
-          <div className="infoDetail">
-            <p>
-              <strong className="green">Prix : </strong>
-              {(data.updatedPrice - data.updatedPrice * data.promo / 100).toFixed(2)} €
-            </p>
-            <p>
-              <strong className="green">Poids : </strong>
-              {data.weight}g
-            </p>
-          </div>
-          <form onSubmit={(event) => addToCart(event, data)} className="horizontale-flex center-flex marginAuto">
-            <input
-              type="number"
-              id={data.id}
-              defaultValue={1}
-              className="number"
-            ></input>
-            <input type="submit" value="Ajouter au panier" />
-          </form>
-          <p>{data.categoriesName}</p>
-          <div className="photos">
-            <div className="lgPhoto">
-              <img alt="main" src={imgFirstLink} className="imgPrincipale"></img>
-            </div>
-            <div className="smPhotos">
-              {data.photos.map((i) => {
-                if (i.imgLink !== imgFirstLink) {
-                  return (
-                    i && (
-                      <div onClick={switchPhoto} className="imgSecondaire">
-                        <img
-                          alt="secondary"
-                          key={i.id}
-                          src={i.imgLink}
-                          className="imgSecondaire"
-                        ></img>
-                      </div>
-                    )
-                  );
-                }
-              })}
-            </div>
-          </div>
-          <ul id="comments">
-            {data.comments.map((i) => {
-              return (
-                <li className="comment-body">
-                  <p className="comment-name">{i.firstname}{i.lastname}</p>
-                  <p className="comment-date">{i.CreationDate.date.slice(0, 10)}</p>
-                  <p className="comment-content">{i.content}</p>
-                  {user_id == i.user_id &&
-                    <img
-                      src={Delete}
-                      className="comment-icon" onClick={() => { delete_comment(i.id) }}></img>
-
+          <div className="article-top">
+            <div className="photos">
+              <div className="lgPhoto">
+                <img alt="main" src={imgFirstLink} className="imgPrincipale"></img>
+              </div>
+              <div className="smPhotos">
+                {data.photos.map((i) => {
+                  if (i.imgLink !== imgFirstLink) {
+                    return (
+                      i && (
+                        <div onClick={switchPhoto} className="imgSecondaire">
+                          <img
+                            alt="secondary"
+                            key={i.id}
+                            src={i.imgLink}
+                            className="imgSecondaire"
+                          ></img>
+                        </div>
+                      )
+                    );
                   }
-                </li>
-              );
-            })}
-          </ul>
-          <p className="green">
+                })}
+              </div>
+            </div>
+            <div>
+              <h2 className="titleName">{data.name}</h2>
+              <p className="categories-detail">{data.categoriesName}</p>
+              <p>
+                <strong className="green">Couleur : </strong>
+                {data.updatedColor ? data.updatedColor : "Non renseignée"}
+              </p>
+              {colors &&
+                <div style={{ display: "flex", gap: ".25rem" }}>
+                  {colors.map(e => {
+                    return (
+                      <div onClick={() => setColor(e)} className="color-choice" style={{ cursor: "pointer", backgroundColor: e.name, height: 50, width: 50 }}></div>
+                    )
+                  })}
+                </div>
+              }
+              <form onSubmit={(event) => addToCart(event, data)} className="horizontale-flex center-flex marginAuto">
+                <input
+                  type="number"
+                  id={data.id}
+                  defaultValue={1}
+                  className="number"
+                ></input>
+                <input type="submit" value="Ajouter au panier" />
+              </form>
+              <div className="infoDetail">
+                <p>
+                  <strong className="green">Prix : </strong>
+                  {(data.updatedPrice - data.updatedPrice * data.promo / 100).toFixed(2)} €
+                </p>
+                <p>
+                  <strong className="green">Poids : </strong>
+                  {data.weight}kg
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="article-bottom">
+            <p style={{ width: "50%" }}>{data.description}</p>
+            <hr></hr>
+            <ul style={{ width: "50%" }} id="comments">
+              {data.comments.map((i) => {
+                return (
+                  <li className="comment-body">
+                    <p className="comment-name">{i.firstname}{i.lastname}</p>
+                    <p className="comment-date">{i.CreationDate.date.slice(0, 10)}</p>
+                    <p className="comment-content">{i.content}</p>
+                    {user_id == i.user_id &&
+                      <img
+                        src={Delete}
+                        className="comment-icon" onClick={() => { delete_comment(i.id) }}></img>
+                    }
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+          <p className="green" style={{ marginTop: "2rem" }}>
             Laissez un commentaire à propos de l'article !
           </p>
           <form ref={commentForm} onSubmit={addcomment} className="vertical-flex center-flex">
             <textarea
               id="leaveComment"
+              className="filter-border"
               rows={10}
               cols={50}
               name="content"
