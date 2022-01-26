@@ -1,6 +1,7 @@
 import AdminArticles from "./AdminArticles";
 import AdminOrders from "./AdminOrders";
 import AdminCategory from "./AdminCategory";
+import AdminMysteryBox from "./AdminMysteryBox";
 import { useState, useEffect } from "react";
 
 export default function AdminPanel() {
@@ -17,9 +18,10 @@ export default function AdminPanel() {
         <div>
             <h1 style={{ textAlign: "center" }}>Gérez votre e-commerce</h1>
             <div className="tabs">
-                <button className="boxShadow" onClick={() => setActiveTab(1)} className="admin-tab" id="tab-1" ><span   >Articles</span></button>
-                <button className="boxShadow" onClick={() => setActiveTab(2)} className="admin-tab" id="tab-2"><span  >Catégories</span></button>
-                <button className="boxShadow" onClick={() => setActiveTab(3)} className="admin-tab" id="tab-3"><span  >Commandes</span></button>
+                <button className="boxShadow  admin-tab" onClick={() => setActiveTab(1)} id="tab-1" ><span>Articles</span></button>
+                <button className="boxShadow admin-tab" onClick={() => setActiveTab(4)} id="tab-4" ><span>Mystery Box</span></button>
+                <button className="boxShadow admin-tab" onClick={() => setActiveTab(2)} id="tab-2"><span>Catégories</span></button>
+                <button className="boxShadow admin-tab" onClick={() => setActiveTab(3)} id="tab-3"><span>Commandes</span></button>
             </div>
             <div className="admin-content">
                 {activeTab === 1 &&
@@ -30,6 +32,9 @@ export default function AdminPanel() {
                 }
                 {activeTab === 3 &&
                     <AdminOrders />
+                }
+                {activeTab === 4 &&
+                    <AdminMysteryBox />
                 }
             </div>
         </div>

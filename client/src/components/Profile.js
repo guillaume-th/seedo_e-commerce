@@ -122,8 +122,8 @@ export default function Profile() {
                 {/* <button onClick={(ev) => {navigate("/Profile/"+ user_id)}}> commande </button> */}
                 <form ref={userForm} onSubmit={submitUserData} encType="multipart/form-data">
                     <div className="profile-section">
-                        <div className="user-details profile-form">
-                            <h3>Coordonnées</h3>
+                        <fieldset className="user-details profile-form filter-border">
+                            <legend>Coordonnées</legend>
                             <label className="std-input-label">Nom: </label>
                             <input className="std-input-label" type="text" name="firstname" placeholder="Prénom" defaultValue={user.firstname}></input>
                             <label className="std-input-label">Prenom:</label>
@@ -147,16 +147,16 @@ export default function Profile() {
                                     <input type="checkbox" name="fidel" defaultValue={true}></input>
                                 </div>
                             }
-                        </div>
-                        <div className="bank-details profile-form">
-                            <h3>Coordonnées bancaires</h3>
+                        </fieldset>
+                        <fieldset className="bank-details profile-form filter-border">
+                            <legend>Coordonnées bancaires</legend>
                             <label className="std-input-label">Numéro CB</label>
                             <input className="std-input-label" type="text" name="number_CB" placeholder="Numéro de carte bancaire" minLength={16} maxLength={16} defaultValue={user.number_CB}></input>
                             <label className="std-input-label">CVV</label>
                             <input className="std-input-label" type="text" name="cvv" placeholder="CVV" minLength={3} maxLength={3} defaultValue={user.cvv}></input>
                             <label className="std-input-label">Date d'expiration</label>
                             <input className="std-input-label" type="text" name="expiration_CB" placeholder="Date d'expiration" minLength={5} maxLength={5} defaultValue={user.expiration_CB}></input>
-                        </div>
+                        </fieldset>
                     </div>
                     <div className="wrapper">
                         <input type="submit" className="centered-btn" value="Sauvegarder les modifications"></input>
@@ -186,8 +186,8 @@ export default function Profile() {
                     }
                 </div>
 
-                <div className="adress-section">
-                    <h3>Nouvelle adresse</h3>
+                <fieldset className="adress-section filter-border" style={{borderRadius : ".5rem"}}>
+                    <legend>Nouvelle adresse</legend>
                     <form className="adress-form" ref={newAdressForm} onSubmit={addAdress} encType="multipart/form-data">
                         <label className="std-input-label">Numéro:</label>
                         <input required type="text" className="std-input-label" name="number" placeholder="Numéro"></input>
@@ -203,7 +203,7 @@ export default function Profile() {
                             <input required type="submit" value="Ajouter cette adresse"></input>
                         </div>
                     </form>
-                </div>
+                </fieldset>
                 {/* <button onClick={
                     () => {
                         localStorage.clear()
