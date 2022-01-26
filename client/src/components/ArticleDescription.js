@@ -109,7 +109,7 @@ export default function ArticleDetail() {
       <div>
         <div key={data.id} id="ficheDetail">
           <div className="article-top">
-            <div className="photos">
+            <div className="photos" style={{width : "50%"}}>
               <div className="lgPhoto">
                 <img alt="main" src={imgFirstLink} className="imgPrincipale"></img>
               </div>
@@ -132,7 +132,7 @@ export default function ArticleDetail() {
                 })}
               </div>
             </div>
-            <div>
+            <div style={{width : "50%"}}>
               <h2 className="titleName">{data.name}</h2>
               <p className="categories-detail">{data.categoriesName}</p>
               <p>
