@@ -11,6 +11,10 @@ body {
   font-size: 1.5rem;
 }
 
+html{
+  scroll-behavior: smooth;
+}
+
 .clickable{
   cursor: pointer;
 }

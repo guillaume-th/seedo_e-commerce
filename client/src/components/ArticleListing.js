@@ -8,26 +8,20 @@ const API_URL = process.env.REACT_APP_API_URL;
 
 export default function ArticleListing(props) {
     const [data, setData] = useState(null);
-    const [filteredData, setfilteredData] = useState(null);
+    const [filteredData, setFilteredData] = useState(null);
     const [categories, setCategories] = useState(null);
     const cart = useSelector((state) => state.cart.value);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [pageNumber, setPageNumber] = useState(1);
+    const elementsByPage = 12;
 
     useEffect(() => {
         fetch(`${API_URL}/article/all`)
             .then(res => res.json())
             .then(res => {
-                res.forEach((e) => {
-                    let str = "";
-                    e.data.categories.forEach((elt) => {
-                        str += elt.name + ", ";
-                    });
-                    e.data.categoriesName = str.slice(0, str.length - 2);
-                });
                 setData(res);
-                setfilteredData(res);
-                console.log("in");
+                setFilteredData(res);
             })
             .catch(err => console.error(err));
         getCategories();
@@ -66,13 +60,24 @@ export default function ArticleListing(props) {
             .catch(err => console.error(err));
     }
 
+    // const paginate = (data) => {
+    //     const pages = [];
+    //     const elementsByPage = 10
+    //     const numberOfPages = Math.ceil(data.length / elementsByPage);
+    //     for (let i = 0; i < data.length; i += elementsByPage) {
+    //         pages.push(data.slice(i, i + 10));
+    //     }
+    //     setPages([...Array(numberOfPages).keys()]);
+    //     return pages;
+    // }
+
     if (filteredData) {
         return (
             <div className="articles-wrapper">
                 {(categories) &&
                     <div className="filters-wrapper">
                         <Filter data={data}
-                            onFilter={(d) => { setfilteredData(d) }}
+                            onFilter={(d) => { setFilteredData(d) }}
                             categories={categories}
                             new={props.new !== undefined ? true : false}
                             promo={props.promo !== undefined ? true : false}
@@ -81,53 +86,62 @@ export default function ArticleListing(props) {
                         />
                     </div>
                 }
-                <div className="gallery">
-                    {
-                        filteredData.map((e) => {
-                            return (
-
-                                <div key={e.data.id} onClick={(ev) => {
-                                    if (!ev.target.classList.contains("buttonShop") && !ev.target.classList.contains("number")) {
-                                        navigate("/article/" + e.data.id)
-                                    }
-                                }} className="thumbnail">
-                                    <div className="img-wrapper">
-                                        {e.data.photos[0] &&
-                                            <img alt="main" src={e.data.photos[0].imgLink} />
+                <div className="gallery-wrapper">
+                    <div className="gallery">
+                        {
+                            filteredData.slice(0, pageNumber * elementsByPage).map((e) => {
+                                return (
+                                    <div key={e.data.id} onClick={(ev) => {
+                                        if (!ev.target.classList.contains("buttonShop") && !ev.target.classList.contains("number")) {
+                                            navigate("/article/" + e.data.id)
                                         }
-                                    </div>
-                                    {e.data.new &&
-                                        <span className="new">Nouveauté !</span>
-                                    }
-
-                                    {e.data.promo > 0
-                                        ? <><span className="promo"> -{e.data.promo}%</span>
-                                            <p className="firstPrice"><strike>{e.data.price} €</strike></p></>
-
-                                        : <div className="noPromo"></div>
-
-                                    }
-                                    <div className="infos">
-                                        <div className="sub-info">
-                                            <p className="name">{e.data.name}</p>
-                                            {e.data.promo > 0
-                                                ? <div className="prices">
-                                                    <p>{computePrice(e.data)} €</p>
-                                                </div>
-                                                : <p>{e.data.price} €</p>
+                                    }} className="thumbnail">
+                                        <div className="img-wrapper">
+                                            {e.data.photos[0] &&
+                                                <img alt="main" src={e.data.photos[0].imgLink} />
                                             }
                                         </div>
-                                        {/* <p className="cat">{e.data.categ    oriesName}</p> */}
-                                        <form onSubmit={(event) => addToCart(event, e)} className="horizontale-flex center-flex marginAuto">
-                                            <input type="number" id={e.data.id} defaultValue={1} className="number"></input>
-                                            <input type="submit" value="Ajouter au panier" className="buttonShop" />
-                                        </form>
+                                        {e.data.new &&
+                                            <span className="new">Nouveauté !</span>
+                                        }
+
+                                        {e.data.promo > 0
+                                            ? <><span className="promo"> -{e.data.promo}%</span>
+                                                <p className="firstPrice"><strike>{e.data.price} €</strike></p></>
+
+                                            : <div className="noPromo"></div>
+
+                                        }
+                                        <div className="infos">
+                                            <div className="sub-info">
+                                                <p className="name">{e.data.name}</p>
+                                                {e.data.promo > 0
+                                                    ? <div className="prices">
+                                                        <p>{computePrice(e.data)} €</p>
+                                                    </div>
+                                                    : <p>{e.data.price} €</p>
+                                                }
+                                            </div>
+                                            {/* <p className="cat">{e.data.categ    oriesName}</p> */}
+                                            <form onSubmit={(event) => addToCart(event, e)} className="horizontale-flex center-flex marginAuto">
+                                                <input type="number" id={e.data.id} defaultValue={1} className="number"></input>
+                                                <input type="submit" value="Ajouter au panier" className="buttonShop" />
+                                            </form>
+                                        </div>
                                     </div>
-                                </div>
-                            )
-                        })
-                    }
+                                )
+                            })
+                        }
+
+                    </div>
+                    <div className="horizontal-flex center-flex">
+                        {pageNumber * elementsByPage < filteredData.length
+                            ? <button onClick={() => setPageNumber(pageNumber + 1)}>Plus de produits</button>
+                            : filteredData.length > elementsByPage ? <button onClick={() => window.scroll(0, -100)}>Haut de page</button> : null
+                        }
+                    </div>
                 </div>
+
             </div>
         );
     }

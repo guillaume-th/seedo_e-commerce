@@ -35,6 +35,8 @@ export default function Order() {
         cart.forEach(e => total += e.weight * e.selectedQuantity);
         return total;
     }
+    const noel95 = new Date('december 22, 69 00:20:18' );
+    const mois = noel95.getMonth();
 
     if (cart.length > 0) {
         return (
@@ -43,7 +45,7 @@ export default function Order() {
                     <div className="order">
                         <h2 style={{ display: "flex", justifyContent: "center" }} >Récapitulatif de votre commande</h2>
                         {fidel
-                            && <p>Vous faite parti de notre programme de fidélité ! profitez de 10% de réduction que chacun de vos articles !</p>
+                            && <p>Vous faites partie de notre programme de fidélité ! Profitez de 10% de réduction que chacun de vos articles !</p>
                         }
                         {
                             cart.map((e) => {
@@ -54,7 +56,7 @@ export default function Order() {
                                             <div style={{ display: "flex" }}>
                                                 <button style={{ backgroundColor: "transparent", border: "none", color: "rgb(13,70,13)", fontSize: "20px" }} onClick={() => dispatch(decreaseQuantity(e.id))}>-</button>
                                                 <p>Quantité : {e.selectedQuantity}</p>
-                                                <button style={{ backgroundColor: "transparent", border: "none", color: "rgb(13,70,13)", fontSize: "20px" }} onClick={() => dispatch(increaseQuantity(e.id))}>+</button>
+                                                <button style={{ backgroundColor: "transparent", border: "none", color: "rgb(13,70,13)", fontSize: "20px" }} onClick={() => dispatch(increaseQuantity(e.id))}>+</button>        
                                             </div>
                                             { fidel ?
                                                 <p><strike>{e.price * e.selectedQuantity} €</strike> -10% ! <b>{(e.price * e.selectedQuantity)*0.9} €</b></p>
@@ -62,10 +64,13 @@ export default function Order() {
                                             }
                                         </div>
                                     </div>
+                                  
                                 )
                             })
                         }
+
                         <div className="order-total">
+                        {(reduce(cart, fidel) > 150 || reduce(cart, fidel) === mois) && <span className="thumbnail"> Emballage cadeau offert ❤️‍🔥</span>}
                             <p style={{ marginBottom: ".25rem", display: "flex", justifyContent: "center" }}> Total : {reduce(cart, fidel)} €</p>
                             <p style={{ marginBottom: ".25rem", display: "flex", justifyContent: "center" }}> Poids de la commande : {computeWeight()} kg</p>
                             <p style={{ marginBottom: ".25rem", display: "flex", justifyContent: "center" }}> Livraison  : {shipping} €</p>
