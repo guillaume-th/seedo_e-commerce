@@ -75,13 +75,12 @@ input[type="submit"] {
 
 
 input, textarea {
-  
-  border:2px solid green;
-  
+
+  border: 2px solid green;
+
 }
 
-input:focus, textarea:focus {
-}
+input:focus, textarea:focus {}
 
 
 label {
@@ -455,6 +454,15 @@ li {
   padding: 10px;
 }
 
+.article-top, .article-bottom {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 1rem;
+}
+
+.categories-detail{
+  font-style: italic;
+}
 .titleName {
   color: #22460D;
 }
@@ -504,7 +512,6 @@ li {
 #leaveComment {
   /* width: 50vw;
   min-height: 300px; */
-  border: none;
   border-radius: 10px;
   margin: 10px;
 }
@@ -791,11 +798,11 @@ li {
 
 
 /* ADMIN-ORDER */
-.submit-price-km-poid{
-  height:2.70rem;
-  width:7rem;
+.submit-price-km-poid {
+  height: 2.70rem;
+  width: 7rem;
   transform: translate(-45px, -0.3px);
-  
+
 }
 
 /* ADMIN-ORDER */
