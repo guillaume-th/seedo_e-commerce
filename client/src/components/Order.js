@@ -15,6 +15,7 @@ export default function Order() {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        console.log(cart);
         getShippingFees();
     }, [cart]);
 
@@ -72,7 +73,7 @@ export default function Order() {
 
                         <div className="order-total">
                         {(reduce() > 150 || reduce() === mois) && <span className="thumbnail"> Emballage cadeau offert ❤️‍🔥</span>}
-                            <p style={{ marginBottom: ".25rem", display: "flex", justifyContent: "center" }}> Total : {reduce()} €</p>
+                            <p style={{ marginBottom: ".25rem", display: "flex", justifyContent: "center" }}> Total : {() => reduce(cart, fidel)} €</p>
                             <p style={{ marginBottom: ".25rem", display: "flex", justifyContent: "center" }}> Poids de la commande : {computeWeight()} kg</p>
                             <p style={{ marginBottom: ".25rem", display: "flex", justifyContent: "center" }}> Livraison  : {shipping} €</p>
                             <span>La livraison est susceptible de changer en fonction de votre adresse</span>
