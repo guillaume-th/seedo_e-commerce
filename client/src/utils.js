@@ -4,6 +4,8 @@ export const reduce = (cart, fidel) => {
     for (let i = 0; i < cart.length; i++) {
         total += cart[i].price * cart[i].selectedQuantity;
     }
-    total *= 0.9;
+    if(fidel)
+        total *= 0.9 ;
+        
     return total.toFixed(2);
 };
