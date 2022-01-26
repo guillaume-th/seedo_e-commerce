@@ -2,9 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const fidelSlice = createSlice({
     name: "fidel",
-    initialState: { value: false },
+    initialState: { value: null },
     reducers: {
         updateFidel: (state, action) => {
+            //console.log("state");
+            //console.log(state);
             state.value = action.payload;
         },
     }

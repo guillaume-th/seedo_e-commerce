@@ -1,8 +1,10 @@
 import { useRef, useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 // import { useDispatch } from "react-redux";
 // import { updateAdmin } from "../AdminSlice";
 import Delete from "../assets/delete.svg";
+import { updateFidel } from "../FidelSlice";
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default function Profile() {
@@ -15,14 +17,20 @@ export default function Profile() {
     const [modalOpen, setModalOpen] = useState(false);
     const [editedAdress, setEditedAdress] = useState(false);
     const navigate = useNavigate();
+    const fidel = useSelector((state) => state.fidel.value);
+    const dispatch = useDispatch();
 
     useEffect(() => {
+        
         if (user_id === null) {
             navigate("/auth");
         } else {
             fetch(`${API_URL}/user/${user_id}`)
                 .then((res) => res.json())
-                .then((res) => setUser(res.data))
+                .then((res) => {
+                    setUser(res.data)
+                    dispatch(updateFidel(res.data.fidel))
+                })
                 .catch((err) => console.error(err));
         }
         window.addEventListener("keydown", (e) => {
@@ -45,6 +53,7 @@ export default function Profile() {
             .then((res) => {
                 if (res.status === "ok") {
                     setUser(res.data);
+                    setRefresh(Math.random());
                 }
             })
             .catch((error) => console.error(error));
@@ -65,7 +74,7 @@ export default function Profile() {
             })
             .catch((error) => console.error(error));
         for (const elt of document.getElementsByClassName("input-profile")) {
-            console.log(elt);
+            //console.log(elt);
             elt.value = "";
         }
     };

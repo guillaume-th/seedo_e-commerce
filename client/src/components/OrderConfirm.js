@@ -60,16 +60,6 @@ export default function OrderConfirm() {
         }
     };
 
-    // const reduce = () => {
-    //     let total = cart[0].price * cart[0].selectedQuantity;
-    //     for (let i = 1; i < cart.length; i++) {
-    //       fidel ?
-    //       total += (cart[i].price * cart[i].selectedQuantity)*0.9
-    //       : total += cart[i].price * cart[i].selectedQuantity;
-    //     }
-    //     return total;
-    //   };
-
     const addGuest = (e) => {
         e.preventDefault();
         const data = new FormData(guestAdressForm.current);
@@ -80,7 +70,7 @@ export default function OrderConfirm() {
             })
             .then((res) => res.json())
             .then((res) => {
-                console.log(res);
+                //console.log(res);
                 if (res.status !== "ok") {
                     setError(res.status);
                 }
@@ -92,7 +82,7 @@ export default function OrderConfirm() {
     }
 
     const getShippingDistance = () => {
-        console.log("in");
+        //console.log("in");
         const origins = "48.864716,2.349014";
         fetch(`http://dev.virtualearth.net/REST/v1/Locations?locality=${selectedAdress.city}&postalCode={${selectedAdress.postal_code}}&includeNeighborhood=0&maxResults=1&key=${BING_API_KEY}`)
             .then(res => res.json())

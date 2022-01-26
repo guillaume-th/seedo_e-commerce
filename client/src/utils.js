@@ -12,6 +12,6 @@ export const reduce = (cart, fidel) => {
             total += (cart[i].price * cart[i].selectedQuantity)*0.9
             : total += cart[i].price * cart[i].selectedQuantity;
         }
-    } 
-    return total;
+    }
+    return total.toFixed(2);
 };
