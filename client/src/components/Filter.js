@@ -10,7 +10,6 @@ export default function Filter(props) {
 
     useEffect(() => {
         const select = document.getElementById("cat-select");
-        console.log(props)
         if (props.graines) {
             select.value = "graines";
         }
@@ -21,7 +20,6 @@ export default function Filter(props) {
             select.value = "all";
         }
         Array.from(select.options).forEach((elt, i) => {
-            console.log(elt.value, select.value);
             if (elt.value === select.value)
                 select.selectedIndex = i;
         });
@@ -31,7 +29,6 @@ export default function Filter(props) {
 
     const transformData = () => {
         const result = props.data.filter(filter);
-        console.log(result);
         props.onFilter(result);
         return result;
     }
