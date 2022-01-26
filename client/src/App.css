@@ -73,14 +73,16 @@ input[type="submit"] {
   transition: outline-color .2s ease;
 }
 
+
 input, textarea {
-  outline: solid transparent 2px;
-  transition: all .3s ease;
+  
+  border:2px solid green;
+  
 }
 
 input:focus, textarea:focus {
-  outline-color: rgb(77, 121, 77);
-  background-color: rgb(255, 255, 255);
+  /* outline-color: rgb(77, 121, 77); */
+  /* background-color: rgb(255, 255, 255); */
 }
 
 
@@ -618,8 +620,8 @@ li {
   padding: .5rem 1rem;
 }
 
-.boxShadow:hover {
-  /* box-shadow: 5px 5px 5px 5px rgb(17, 26, 18); */
+.admin-tab:hover {
+  box-shadow: 0px 0px 30px 10px rgba(255, 255, 255, 0.655);
 }
 
 .tabs {
@@ -788,6 +790,16 @@ li {
 
 }
 
+
+/* ADMIN-ORDER */
+.submit-price-km-poid{
+  height:2.70rem;
+  width:7rem;
+  transform: translate(-45px, -0.3px);
+  
+}
+
+/* ADMIN-ORDER */
 .product-dropdown {
   position: absolute;
   top: 60px;
