@@ -132,7 +132,7 @@ export default function ArticleDetail() {
                 })}
               </div>
             </div>
-            <div style={{width : "50%"}}>
+            <div style={{width : "50%",}}>
               <h2 className="titleName">{data.name}</h2>
               <p className="categories-detail">{data.categoriesName}</p>
               <p>
