@@ -43,7 +43,7 @@ export default function Order() {
                     <div className="order">
                         <h2 style={{ display: "flex", justifyContent: "center" }} >Récapitulatif de votre commande</h2>
                         {fidel
-                            && <p>Vous faite parti de notre programme de fidélité ! profitez de 10% de réduction que chacun de vos articles !</p>
+                            && <p>Vous faite parti de notre programme de fidélité ! Profitez de -10% de réduction sur votre commande !</p>
                         }
                         {
                             cart.map((e) => {
@@ -56,17 +56,14 @@ export default function Order() {
                                                 <p>Quantité : {e.selectedQuantity}</p>
                                                 <button style={{ backgroundColor: "transparent", border: "none", color: "rgb(13,70,13)", fontSize: "20px" }} onClick={() => dispatch(increaseQuantity(e.id))}>+</button>
                                             </div>
-                                            { fidel ?
-                                                <p><strike>{e.price * e.selectedQuantity} €</strike> -10% ! <b>{(e.price * e.selectedQuantity)*0.9} €</b></p>
-                                                : <p>{e.price * e.selectedQuantity} €</p>
-                                            }
+                                            <p>{e.price * e.selectedQuantity} €</p>
                                         </div>
                                     </div>
                                 )
                             })
                         }
                         <div className="order-total">
-                            <p style={{ marginBottom: ".25rem", display: "flex", justifyContent: "center" }}> Total : {reduce(cart, fidel)} €</p>
+                            <p style={{ marginBottom: ".25rem", display: "flex", justifyContent: "center" }}> Total : {fidel ? (reduce(cart))*0.9 : reduce(cart)} €</p>
                             <p style={{ marginBottom: ".25rem", display: "flex", justifyContent: "center" }}> Poids de la commande : {computeWeight()} kg</p>
                             <p style={{ marginBottom: ".25rem", display: "flex", justifyContent: "center" }}> Livraison  : {shipping} €</p>
                             <span>La livraison est susceptible de changer en fonction de votre adresse</span>
