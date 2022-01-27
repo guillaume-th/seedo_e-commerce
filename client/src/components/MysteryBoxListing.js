@@ -99,9 +99,11 @@ export default function MysteryBoxListing() {
                             )}
                           </div>
                           <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              navigate("/mystery-subscription", { state: e });
+                            onClick={(event) => {
+                              event.stopPropagation();
+                              navigate("/mystery-subscription", {
+                                state: e,
+                              });
                             }}
                           >
                             S'abonner

@@ -5,11 +5,12 @@ import "../styles/OrderConfirm.css";
 import { reduce } from "../utils";
 import Payment from "./Payment";
 const API_URL = process.env.REACT_APP_API_URL;
+const paypalClientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
 
 export default function OrderConfirm(props) {
   const [userData, setUserData] = useState(null);
   const [user_id, setUserId] = useState(localStorage.getItem("user_id"));
-  const parent = useLocation().props;
+  const parent = useLocation().state;
   const navigate = useNavigate();
   const [selectedAdress, setSelectedAdress] = useState(null);
   const newAdressForm = useRef();
@@ -18,7 +19,7 @@ export default function OrderConfirm(props) {
   const fidel = useSelector((state) => state.fidel.value);
   const [error, setError] = useState(null);
   const [shipping, setShipping] = useState(null);
-  console.log(props);
+
   useEffect(() => {
     if (user_id !== null) {
       fetch(`${API_URL}/user/${user_id}`)
@@ -162,25 +163,18 @@ export default function OrderConfirm(props) {
                 Prix de la commande :{" "}
                 {fidel ? subscription * 0.9 : subscription}
               </p>
-              <p>Frais de livraison: {shipping}</p>
               <p>
                 Prix total :
                 {fidel
-                  ? (
-                      parseFloat(subscription) * 0.9 +
-                      parseFloat(shipping)
-                    ).toFixed(2)
-                  : parseFloat(subscription) + parseFloat(shipping)}
+                  ? (parseFloat(subscription) * 0.9).toFixed(2)
+                  : parseFloat(subscription)}
               </p>
             </div>
             <Payment
               total={
                 fidel
-                  ? (
-                      parseFloat(subscription) * 0.9 +
-                      parseFloat(shipping)
-                    ).toFixed(2)
-                  : parseFloat(subscription) + parseFloat(shipping)
+                  ? (parseFloat(subscription) * 0.9).toFixed(2)
+                  : parseFloat(subscription)
               }
               selectedAddress={selectedAdress}
             />

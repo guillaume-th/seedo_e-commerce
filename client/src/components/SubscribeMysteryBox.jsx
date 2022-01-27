@@ -6,6 +6,7 @@ export default function SubscribeMysteryBox(state) {
   const navigate = useNavigate();
   const prop = useLocation().state;
   const [data, setData] = useState(null);
+
   useEffect(() => {
     fetch(`${API_URL}/mystery/mystery_show/${prop.id}`, {
       method: "GET",
@@ -34,7 +35,9 @@ export default function SubscribeMysteryBox(state) {
             </span>
           </p>
         </div>
-        <button onClick={() => navigate("/PaymentSubscribe", { state: data })}>
+        <button
+          onClick={() => navigate("/subscribe-order-confirm", { state: data })}
+        >
           Procedez au paiement
         </button>
       </div>

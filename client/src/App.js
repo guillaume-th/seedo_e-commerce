@@ -17,7 +17,7 @@ import AdminArticles from "./components/admin/AdminArticles";
 import Category from "./components/admin/AdminCategory";
 import AdminPanel from "./components/admin/AdminPanel";
 import SubscribeMysteryBox from "./components/SubscribeMysteryBox";
-import PaymentSubscribe from "./components/PaymentSubscribe";
+import SubscribeOrderConfirm from "./components/SubscribeOrderConfirm";
 import Comments from "./components/Comments";
 import { useSelector, useDispatch } from "react-redux";
 import { updateAdmin } from "./AdminSlice";
@@ -99,7 +99,10 @@ function App() {
             path="/mystery-subscription"
             element={<SubscribeMysteryBox />}
           />
-          <Route path="/PaymentSubscribe" element={<PaymentSubscribe />} />
+          <Route
+            path="/subscribe-order-confirm"
+            element={<SubscribeOrderConfirm />}
+          />
           <Route path="/comments" element={<Comments />} />
         </Routes>
       </Router>
