@@ -17,6 +17,7 @@ import Category from "./components/admin/AdminCategory";
 import AdminPanel from "./components/admin/AdminPanel";
 import SubscribeMysteryBox from "./components/SubscribeMysteryBox";
 import PaymentSubscribe from "./components/PaymentSubscribe";
+import Comments from "./components/Comments";
 import { useSelector, useDispatch } from "react-redux";
 import { updateAdmin } from "./AdminSlice";
 import { setOpenCart, updateCart } from "./CartSlice";
@@ -24,6 +25,7 @@ import { setOpenProfil } from "./ProfilSlice";
 import { updateFidel } from "./FidelSlice";
 import { useEffect } from "react";
 import MysteryBoxListing from "./components/MysteryBoxListing";
+import MysteryEdit from "./components/admin/MysteryEdit";
 const API_URL = process.env.REACT_APP_API_URL;
 
 function App() {
@@ -64,6 +66,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/:id" element={<OrderListing />} />
           <Route path="/article/edit/:id" element={<ArticleEdit />} />
+          <Route path="/mystery/edit/:id" element={<MysteryEdit />} />
           <Route path="/article/:id" element={<ArticleDescription />} />
           <Route path="/articles" element={<ArticleListing />} />
           <Route path="/articles/new" element={<ArticleListing new={true} />} />
@@ -95,6 +98,7 @@ function App() {
             element={<SubscribeMysteryBox />}
           />
           <Route path="/PaymentSubscribe" element={<PaymentSubscribe />} />
+          <Route path="/comments" element={<Comments />} />
         </Routes>
       </Router>
     </div>

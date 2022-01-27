@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { updateCart } from "../CartSlice";
 import Delete from "../assets/delete.svg";
@@ -16,6 +16,7 @@ export default function ArticleDetail() {
   const commentForm = useRef();
   const [refresh, setRefresh] = useState(null);
   const [colors, setColors] = useState(null);
+  const navigate = useNavigate(); 
 
   useEffect(() => {
 
@@ -109,7 +110,7 @@ export default function ArticleDetail() {
       <div>
         <div key={data.id} id="ficheDetail">
           <div className="article-top">
-            <div className="photos" style={{width : "50%"}}>
+            <div className="photos" style={{ width: "50%" }}>
               <div className="lgPhoto">
                 <img alt="main" src={imgFirstLink} className="imgPrincipale"></img>
               </div>
@@ -132,7 +133,7 @@ export default function ArticleDetail() {
                 })}
               </div>
             </div>
-            <div style={{width : "50%"}}>
+            <div style={{ width: "50%", }}>
               <h2 className="titleName">{data.name}</h2>
               <p className="categories-detail">{data.categoriesName}</p>
               <p>
@@ -172,22 +173,29 @@ export default function ArticleDetail() {
           <div className="article-bottom">
             <p style={{ width: "50%" }}>{data.description}</p>
             <hr></hr>
-            <ul style={{ width: "50%" }} id="comments">
-              {data.comments.map((i) => {
-                return (
-                  <li className="comment-body">
-                    <p className="comment-name">{i.firstname}{i.lastname}</p>
-                    <p className="comment-date">{i.CreationDate.date.slice(0, 10)}</p>
-                    <p className="comment-content">{i.content}</p>
-                    {user_id == i.user_id &&
-                      <img
-                        src={Delete}
-                        className="comment-icon" onClick={() => { delete_comment(i.id) }}></img>
-                    }
-                  </li>
-                );
-              })}
-            </ul>
+            <div style={{ width: "50%" }}>
+              <ul id="comments" className="vertical-flex center-flex" style={{width : "100%"}}>
+                {data.comments.slice(0, 2).map((i) => {
+                  return (
+                    <li className="comment-body">
+                      <p className="comment-name">{i.firstname} {i.lastname}</p>
+                      <p className="comment-date">{i.CreationDate.date.slice(0, 10)}</p>
+                      <p className="comment-content">{i.content}</p>
+                      {user_id == i.user_id &&
+                        <img
+                          src={Delete}
+                          className="comment-icon" onClick={() => { delete_comment(i.id) }}></img>
+                      }
+                    </li>
+                  );
+                })}
+              </ul>
+              <div className="horizontal-flex center-flex">
+                {data.comments.length > 2 &&
+                  <button onClick={()=>navigate("/comments", {state : data})}>Voir plus</button>
+                }
+              </div>
+            </div>
           </div>
           <p className="green" style={{ marginTop: "2rem" }}>
             Laissez un commentaire à propos de l'article !

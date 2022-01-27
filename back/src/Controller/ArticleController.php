@@ -167,6 +167,7 @@ class ArticleController extends AbstractController
                 "color" => $article->getColor(),
                 "creation_date" => $article->getCreationDate(),
                 "updated_date" => $article->getUpdatedDate(),
+                "subprice" => $article->getSubscriptionPrice(),
             ]
         ];
     }
