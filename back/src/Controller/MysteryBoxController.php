@@ -70,6 +70,8 @@ class MysteryBoxController extends AbstractController
             array_push($data, [
                 "id" => $Mystery->getId(),
                 "name" => $Mystery->getName(),
+                "subprice" => $Mystery->getSubscriptionPrice(),
+                "promo" => $Mystery->getPromo(),
                 // "user" => $UserMystery,
                 'photo' => $PhotoMystery,
             ]);
@@ -282,6 +284,7 @@ class MysteryBoxController extends AbstractController
                 "color" => $article->getColor(),
                 "creation_date" => $article->getCreationDate(),
                 "updated_date" => $article->getUpdatedDate(),
+                "subscriceprice" => $article->getSubscriptionPrice(),
             ]
         ];
     }

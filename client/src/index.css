@@ -11,15 +11,6 @@ body {
   font-size: 1.5rem;
 }
 
-@keyframes roll {
-  from {
-    transform : rotate(0deg); 
-  }
-  to{
-    transform : rotate(360deg);
-  }
-}
-
 html {
   scroll-behavior: smooth;
 }
