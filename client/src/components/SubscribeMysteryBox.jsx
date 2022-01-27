@@ -35,11 +35,11 @@ export default function SubscribeMysteryBox(state) {
           </p>
         </div>
         <button onClick={() => navigate("/PaymentSubscribe", { state: data })}>
-          Procedez au payement
+          Procedez au paiement
         </button>
       </div>
     );
   } else {
-    return <p>Chargement en cour ...</p>;
+    return <p>Chargement en cours ...</p>;
   }
 }

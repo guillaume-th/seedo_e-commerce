@@ -5,22 +5,20 @@ import "../styles/OrderConfirm.css";
 import { reduce } from "../utils";
 import Payment from "./Payment";
 const API_URL = process.env.REACT_APP_API_URL;
-const BING_API_KEY = process.env.REACT_APP_BING_API_KEY;
 
-export default function OrderConfirm(state) {
+export default function OrderConfirm(props) {
   const [userData, setUserData] = useState(null);
   const [user_id, setUserId] = useState(localStorage.getItem("user_id"));
+  const parent = useLocation().props;
   const navigate = useNavigate();
   const [selectedAdress, setSelectedAdress] = useState(null);
   const newAdressForm = useRef();
   const guestAdressForm = useRef();
-  const cart = useSelector((state) => state.cart.value);
+  const subscription = parent.subscrition_price;
   const fidel = useSelector((state) => state.fidel.value);
   const [error, setError] = useState(null);
   const [shipping, setShipping] = useState(null);
-  const weightShipping = useLocation().state.shippingWeight;
-  const priceBy100Km = useLocation().state.distance;
-
+  console.log(props);
   useEffect(() => {
     if (user_id !== null) {
       fetch(`${API_URL}/user/${user_id}`)
@@ -35,7 +33,6 @@ export default function OrderConfirm(state) {
       document
         .getElementById(selectedAdress.id)
         .classList.add("selected-adress");
-      getShippingDistance();
     }
 
     /* eslint-disable */
@@ -78,40 +75,6 @@ export default function OrderConfirm(state) {
         }
       })
       .catch((err) => console.error(err));
-  };
-
-  const getShippingDistance = () => {
-    //console.log("in");
-    const origins = "48.864716,2.349014";
-    fetch(
-      `http://dev.virtualearth.net/REST/v1/Locations?locality=${selectedAdress.city}&postalCode={${selectedAdress.postal_code}}&includeNeighborhood=0&maxResults=1&key=${BING_API_KEY}`
-    )
-      .then((res) => res.json())
-      .then((res) => {
-        var destinations = `${res?.resourceSets[0]?.resources[0]?.geocodePoints[0]?.coordinates[0]},${res?.resourceSets[0]?.resources[0]?.geocodePoints[0]?.coordinates[1]}`;
-        fetch(
-          `https://dev.virtualearth.net/REST/v1/Routes/DistanceMatrix?origins=${origins}&destinations=${destinations}&travelMode=driving&key=${BING_API_KEY}`
-        )
-          .then((res) => res.json())
-          .then((res) => {
-            const distance =
-              res?.resourceSets[0]?.resources[0]?.results[0]?.travelDistance;
-            getShippingFees(distance);
-          })
-          .catch((err) => console.error(err));
-      })
-      .catch((err) => console.error(err));
-  };
-
-  const getShippingFees = (distance) => {
-    setShipping(
-      Number(
-        (
-          (distance / 100) * Number(priceBy100Km) +
-          Number(weightShipping)
-        ).toFixed(2)
-      )
-    );
   };
 
   if (userData) {
@@ -197,27 +160,27 @@ export default function OrderConfirm(state) {
             <div>
               <p>
                 Prix de la commande :{" "}
-                {fidel ? reduce(cart) * 0.9 : reduce(cart)}
+                {fidel ? subscription * 0.9 : subscription}
               </p>
               <p>Frais de livraison: {shipping}</p>
               <p>
                 Prix total :
                 {fidel
                   ? (
-                      parseFloat(reduce(cart)) * 0.9 +
+                      parseFloat(subscription) * 0.9 +
                       parseFloat(shipping)
                     ).toFixed(2)
-                  : parseFloat(reduce(cart)) + parseFloat(shipping)}
+                  : parseFloat(subscription) + parseFloat(shipping)}
               </p>
             </div>
             <Payment
               total={
                 fidel
                   ? (
-                      parseFloat(reduce(cart)) * 0.9 +
+                      parseFloat(subscription) * 0.9 +
                       parseFloat(shipping)
                     ).toFixed(2)
-                  : parseFloat(reduce(cart)) + parseFloat(shipping)
+                  : parseFloat(subscription) + parseFloat(shipping)
               }
               selectedAddress={selectedAdress}
             />
