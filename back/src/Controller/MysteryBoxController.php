@@ -97,6 +97,7 @@ class MysteryBoxController extends AbstractController
         // };
         $name = $Mystery->getName();
         $description = $Mystery->getDescription();
+        $Mystery_price = $Mystery->getPrice();
         $Mystery_price_subscrition=$Mystery->getSubscriptionPrice();
         foreach ($Mystery->getPhotos() as $key => $value) {
             array_push($photo, [
@@ -107,7 +108,7 @@ class MysteryBoxController extends AbstractController
 
 
         return $this->json([
-            "result"=>['subscrition_price'=>$Mystery_price_subscrition,'name'=>$name,'description'=>$description,'photo'=>$photo],
+            "result"=>['subscrition_price'=>$Mystery_price_subscrition,'price'=>$Mystery_price,'name'=>$name,'description'=>$description,'photo'=>$photo],
             
         ]);
     }
@@ -180,7 +181,7 @@ class MysteryBoxController extends AbstractController
         $abonnement =  $this->getDoctrine()->getRepository(Abonnement::class)->findBy(['mysterybox' => $article->getId()]);
         $UserMystery=[];
                 foreach ($abonnement as $value) {
-
+                    $value = $value->getUser();
                 array_push($UserMystery, [
                     'id' => $value->getId(),
                     'firstname' => $value->getFirstName(),
