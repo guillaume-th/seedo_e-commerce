@@ -93,7 +93,7 @@ export default function MysteryEdit() {
                                 <input name="promo" type="number" defaultValue={data.promo} minLength={0} maxLength={100}></input>
                                 <label>Prix</label>
                                 <input type="number" name="price" defaultValue={data.price}></input>
-                                <label>subscription Prix</label>
+                                <label>Prix de l'abonnement</label>
                                 <input type="number" name="subscriptionprice" defaultValue={data.subprice}></input>
                                 <label>Catégorie(s)</label>
                                 <input name="categories" type="text" placeholder="Catégorie 1, catégorie 2" defaultValue={data.categoriesName} minLength={0} maxLength={100}></input>

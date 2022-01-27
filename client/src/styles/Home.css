@@ -1,0 +1,37 @@
+.carousel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-height: 60vh;
+}
+
+.control-arrow {
+    max-height: 80%;
+    top : 30% !important;
+    height: 40%;
+    width: 30px;
+    /* border-radius: 50%; */
+    background-color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.carousel-status, .thumbs-wrapper {
+    display : none !important;
+}
+
+.slide div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden
+}
+
+.slide img {
+    flex-shrink: 0;
+    min-width: 100%;
+    min-height: 100%;
+}
+
+.carousel-root {
+    border-bottom: solid black 2px;
+    box-shadow: 0px 30px 30px 0px rgba(0, 0, 0, 0.1);;
+}
