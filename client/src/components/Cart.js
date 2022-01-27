@@ -24,6 +24,9 @@ export default function Cart() {
 
       <div className="cart">
         <div className="cart-child">
+          {fidel &&
+              <p>Vous bénéficiez de -10% sur votre panier !</p>
+          }
           {cart.map((e) => {
             return (
               <div key={e.id}>
@@ -32,17 +35,17 @@ export default function Cart() {
 
                 >
                   <p>Qte : {e.selectedQuantity}</p>
-                  { fidel ?
-                    <p><strike>{e.price * e.selectedQuantity} €</strike> -10% ! {(e.price * e.selectedQuantity)*0.9} €</p>
-                    : <p>{e.price * e.selectedQuantity} €</p>
-                  }
+                  <p>{e.price * e.selectedQuantity} €</p>
                 </div>
               </div>
             );
           })}
           <div className="cart-total">
             <div className="cart-price">
-              <p>Total : {reduce(cart, fidel)} €</p>
+              {fidel ?
+                <p>Total : {(reduce(cart))*0.9} €</p> :
+                <p>Total : {reduce(cart)} €</p>
+              }  
             </div>
             <button
               style={{ fontSize: "1.25rem", width: "90%" }}
