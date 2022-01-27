@@ -20,7 +20,7 @@ export default function AdminMysteryBox() {
     }, [refresh]);
 
     const editArticle = (id) => {
-        navigate("/article/edit/" + id);
+        navigate("/mystery/edit/" + id);
     }
 
     const add = (e) => {
@@ -122,7 +122,7 @@ export default function AdminMysteryBox() {
                                     }
                                     {e.promo > 0
                                         ? <><span className="promo"> -{e.promo}%</span>
-                                            <p className="firstPrice"><strike>{e.price} €</strike></p></>
+                                            <p className="firstPrice"><strike>{e.subprice} €</strike></p></>
 
                                         : <div className="noPromo"></div>
                                     }
@@ -133,7 +133,7 @@ export default function AdminMysteryBox() {
                                                 ? <div className="prices">
                                                     <p>{computePrice(e)} €</p>
                                                 </div>
-                                                : <p>{e.subsprice} €</p>
+                                                : <p>{e.subprice} €</p>
                                             }
                                         </div>
                                         <p className="cat">{e.categoriesName}</p>
