@@ -6,6 +6,10 @@ img {
   max-width: 70vw;
 }
 
+.center-text {
+  text-align: center;
+}
+
 
 /* .app-wrapper{ */
 /* width : 90%;  */
