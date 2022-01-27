@@ -18,21 +18,21 @@ export default function Payment(props) {
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
-
+    console.log(props); 
     const order = () => {
         const array = [];
         cart.forEach((e) => {
             array.push({
                 id: e.id,
                 quantity: e.selectedQuantity,
-                price: e.price,
+                price: e.updatedPrice,
             });
         });
         const data = {
             user_id: user_id,
             guestData: props.guest,
             adress: props.selectedAddress,
-            order_price: reduce(cart, fidel),
+            order_price: props.total,
             articles_id: array,
         };
         console.log(data);

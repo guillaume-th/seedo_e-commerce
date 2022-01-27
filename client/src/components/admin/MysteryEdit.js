@@ -85,7 +85,7 @@ export default function MysteryEdit() {
                 <div className="wrapper">
                     <div className="std-colored-wrapper">
                         <div className="wrapper">
-                        <button onClick={() => showuser(id)}>Voir les abonnée</button>                
+                        <button onClick={() => showuser(id)}>Voir les abonnés</button>                
                             <form encType="multipart/form-data" ref={editForm} onSubmit={edit} className="std-vertical-form  edit-article-form" >
                                 <label>Nom de l'article</label>
                                 <input name="name" type="text" defaultValue={data.name}></input>

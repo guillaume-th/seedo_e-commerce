@@ -35,7 +35,7 @@ export default function Order() {
         cart.forEach(e => total += e.weight * e.selectedQuantity);
         return total;
     }
-    const noel95 = new Date('december 22, 69 00:20:18' );
+    const noel95 = new Date('december 22, 69 00:20:18');
     const mois = noel95.getMonth();
 
     if (cart.length > 0) {
@@ -45,7 +45,7 @@ export default function Order() {
                     <div className="order">
                         <h2 style={{ display: "flex", justifyContent: "center" }} >Récapitulatif de votre commande</h2>
                         {fidel
-                            && <p>Vous faite parti de notre programme de fidélité ! Profitez de -10% de réduction sur votre commande !</p>
+                            && <p>Vous faites partie de notre programme de fidélité ! Profitez de -10% de réduction sur votre commande !</p>
                         }
                         {
                             cart.map((e) => {
@@ -56,21 +56,24 @@ export default function Order() {
                                             <div style={{ display: "flex" }}>
                                                 <button style={{ backgroundColor: "transparent", border: "none", color: "rgb(13,70,13)", fontSize: "20px" }} onClick={() => dispatch(decreaseQuantity(e.id))}>-</button>
                                                 <p>Quantité : {e.selectedQuantity}</p>
-                                                <button style={{ backgroundColor: "transparent", border: "none", color: "rgb(13,70,13)", fontSize: "20px" }} onClick={() => dispatch(increaseQuantity(e.id))}>+</button>        
+                                                <button style={{ backgroundColor: "transparent", border: "none", color: "rgb(13,70,13)", fontSize: "20px" }} onClick={() => dispatch(increaseQuantity(e.id))}>+</button>
                                             </div>
                                             <p>{e.price * e.selectedQuantity} €</p>
                                         </div>
                                     </div>
-                                  
+
                                 )
                             })
                         }
 
                         <div className="order-total">
-                            <p style={{ marginBottom: ".25rem", display: "flex", justifyContent: "center" }}> Total : {fidel ? (reduce(cart))*0.9 : reduce(cart)} €</p>
+                            <p style={{ display: "flex", justifyContent: "center" }}> Total : {reduce(cart)} €</p>
+                            {fidel &&
+                                <p style={{ marginBottom: ".25rem", display: "flex", justifyContent: "center" }}> Total (-10%) : {(reduce(cart)) * 0.9} €</p>
+                            }
                             {/* {(reduce(cart) > 150) && <span className="thumbnail"> Emballage cadeau offert ❤️‍🔥</span>} */}
                             <p style={{ marginBottom: ".25rem", display: "flex", justifyContent: "center" }}> Poids de la commande : {computeWeight()} kg</p>
-                            <p style={{ marginBottom: ".25rem", display: "flex", justifyContent: "center" }}> Livraison  : {shipping} €</p>
+                            <p style={{ marginBottom: ".25rem", display: "flex", justifyContent: "center" }}> Livraison : {shipping} €</p>
                             <span>La livraison est susceptible de changer en fonction de votre adresse</span>
                             <div className="ordernext">
                                 <button onClick={() => navigate("/order-confirm", { state: { distance: shippingPriceDistance, shippingWeight: shipping } })}>Passer à l'étape suivante</button>
