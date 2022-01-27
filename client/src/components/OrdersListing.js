@@ -61,7 +61,7 @@ export default function OrderListing() {
                             data.result.map((e) => {
                                 return (
 
-                                    <div key={e.id} className="order-admin">
+                                    <div key={e.id} className="order-admin card">
                                         <h3>Commande #{e.id}</h3>
                                         <button onClick={() => createPdf(e)}>Télécharger la facture</button>
                                         <p>par {e.user.firstname_user} {e.user.lastname_user}</p>
@@ -78,11 +78,8 @@ export default function OrderListing() {
                                                 })
                                             }
                                         </ul>
-
                                         <p>Prix de la commande : <strong>{e.OrderPrice} €</strong></p>
-
                                     </div>
-
                                 )
                             })
                         }

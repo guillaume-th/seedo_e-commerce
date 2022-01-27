@@ -82,7 +82,7 @@ export default function Category() {
             // eslint-disable-next-line
             return (
               <>
-                <li className="category-item" onClick={() => setOpenModal(e)}>
+                <li className="category-item card clickable-card" onClick={() => setOpenModal(e)}>
                   Categorie : {e.name}
                   <img
                     alt="delete-category"

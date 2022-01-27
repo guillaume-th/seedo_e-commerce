@@ -18,13 +18,13 @@ class Abonnement
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity=User::class, inversedBy="abonnement", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=User::class, inversedBy="abonnement", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 
     /**
-     * @ORM\OneToOne(targetEntity=Article::class, inversedBy="abonnement", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Article::class, inversedBy="abonnement", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $mysterybox;
