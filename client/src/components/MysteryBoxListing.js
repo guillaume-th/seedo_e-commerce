@@ -70,7 +70,10 @@ export default function MysteryBoxListing() {
                                                         : <p>{e.subprice} €</p>
                                                     }
                                                 </div>
-                                                <button onClick={() => navigate("/mystery-subscription", { state: e })} >S'abonner</button>
+                                                <button onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    navigate("/mystery-subscription", { state: e });
+                                                }} >S'abonner</button>
                                             </div>
                                         </div >
                                     )

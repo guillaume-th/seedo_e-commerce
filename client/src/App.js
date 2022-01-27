@@ -25,6 +25,7 @@ import { updateFidel } from "./FidelSlice";
 import { useEffect } from "react";
 import MysteryBoxListing from "./components/MysteryBoxListing";
 import MysteryEdit from "./components/admin/MysteryEdit";
+import MysteryUser from "./components/admin/MysteryUser";
 const API_URL = process.env.REACT_APP_API_URL;
 
 function App() {
@@ -64,6 +65,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/:id" element={<OrderListing />} />
+          <Route path="/mystery/user/:id" element={<MysteryUser />} />
           <Route path="/article/edit/:id" element={<ArticleEdit />} />
           <Route path="/mystery/edit/:id" element={<MysteryEdit />} />
           <Route path="/article/:id" element={<ArticleDescription />} />

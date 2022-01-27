@@ -51,7 +51,7 @@ export default function AdminOrders() {
                     <div className="orders-wrapper">
                         {data.map(e => {
                             return (
-                                <div key={e.id} className="order-admin">
+                                <div key={e.id} className="order-admin card">
                                     <h3>Commande #{e.id}</h3>
                                     <p>par {e.user.firstname_user} {e.user.lastname_user}</p>
                                     <p>Statut : {e.status}</p>

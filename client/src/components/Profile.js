@@ -160,7 +160,7 @@ export default function Profile() {
                     {
                         user.adresses.map((e) => {
                             return (
-                                <div key={e.id} className="edit-adress">
+                                <div key={e.id} className="edit-adress card">
                                     <p>{e.number} {e.street} </p>
                                     <p>{e.city} {e.postal_code}, {e.country}</p>
                                     <img
