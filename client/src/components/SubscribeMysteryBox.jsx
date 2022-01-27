@@ -36,7 +36,11 @@ export default function SubscribeMysteryBox(state) {
           </p>
         </div>
         <button
-          onClick={() => navigate("/subscribe-order-confirm", { state: data })}
+          onClick={() =>
+            navigate("/subscribe-order-confirm", {
+              state: { data: data, id: prop.id },
+            })
+          }
         >
           Procedez au paiement
         </button>

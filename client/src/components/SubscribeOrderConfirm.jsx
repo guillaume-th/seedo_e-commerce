@@ -3,9 +3,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "../styles/OrderConfirm.css";
 import { reduce } from "../utils";
-import Payment from "./Payment";
+import PaymentMystery from "./PaymentMystery";
 const API_URL = process.env.REACT_APP_API_URL;
-const paypalClientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
 
 export default function OrderConfirm(props) {
   const [userData, setUserData] = useState(null);
@@ -15,7 +14,7 @@ export default function OrderConfirm(props) {
   const [selectedAdress, setSelectedAdress] = useState(null);
   const newAdressForm = useRef();
   const guestAdressForm = useRef();
-  const subscription = parent.subscrition_price;
+  const subscription = parent.data.subscrition_price;
   const fidel = useSelector((state) => state.fidel.value);
   const [error, setError] = useState(null);
   const [shipping, setShipping] = useState(null);
@@ -170,13 +169,14 @@ export default function OrderConfirm(props) {
                   : parseFloat(subscription)}
               </p>
             </div>
-            <Payment
+            <PaymentMystery
               total={
                 fidel
                   ? (parseFloat(subscription) * 0.9).toFixed(2)
                   : parseFloat(subscription)
               }
               selectedAddress={selectedAdress}
+              mysteryBoxId={parent.id}
             />
           </div>
         ) : (
