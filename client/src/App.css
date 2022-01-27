@@ -213,11 +213,11 @@ li {
 
 .sub-nav div:hover {
   text-decoration:underline;
-  background-color: #5DB050;
+  /* background-color: #5db050b7; */
   text-decoration-color: rgb(105, 48, 48);
   border-color: rgb(13, 70, 13);
   color: #653D21;
-  font-size:30px;
+  font-size:25px;
   
 }
 
@@ -250,6 +250,8 @@ li {
   margin-right: 10px;
 }
 
+
+
 #User,
 #Shop,
 #Admin,
@@ -264,9 +266,11 @@ li {
   /* background-color: rgb(166, 211, 155); */
   background-color: #5DB050;
   border-radius: 20px;
-  border: solid white 2px;
+  border:none;
+  /* border: solid white 2px; */
   padding: 0.65rem;
   width:650px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 
 #icon {
@@ -591,7 +595,7 @@ li {
 }
 
 .search:focus {
-  outline: solid greenyellow 3px;
+  color:white;
   background-color: rgb(202, 233, 194);
 }
 
