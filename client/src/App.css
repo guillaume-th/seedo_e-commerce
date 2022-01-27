@@ -213,6 +213,7 @@ li {
 }
 
 .sub-nav div:hover {
+  text-decoration:underline;
   border-color: rgb(13, 70, 13);
   color: rgb(13, 70, 13);
 }
