@@ -1,13 +1,16 @@
 import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const API_URL = process.env.REACT_APP_API_URL;
 
 
 export default function MysteryEdit() {
     const editForm = useRef();
     const { id } = useParams();
+    const navigate = useNavigate();
     const [data, setData] = useState(null);
+    const [datauser, setDatauser] = useState(null);
     const admin = useSelector(state => state.admin.value);
 
     /* eslint-disable */
@@ -71,6 +74,10 @@ export default function MysteryEdit() {
             })
             .catch(err => console.error(err));
     }
+ 
+    const showuser = (id) => {
+        navigate("/mystery/user/" + id);
+    }
 
     if (admin) {
         if (data) {
@@ -78,6 +85,7 @@ export default function MysteryEdit() {
                 <div className="wrapper">
                     <div className="std-colored-wrapper">
                         <div className="wrapper">
+                        <button onClick={() => showuser(id)}>Voir les abonnée</button>                
                             <form encType="multipart/form-data" ref={editForm} onSubmit={edit} className="std-vertical-form  edit-article-form" >
                                 <label>Nom de l'article</label>
                                 <input name="name" type="text" defaultValue={data.name}></input>

@@ -176,17 +176,18 @@ class MysteryBoxController extends AbstractController
      /**
      * @Route("/mystery_user/{id}", name="mystery_user_list", methods={"GET"})
      */
-    public function mystery_user(Request $request, Article $article ,EntityManagerInterface $entityManager): Response
+    public function mystery_user(Article $article): Response
     {
         $abonnement =  $this->getDoctrine()->getRepository(Abonnement::class)->findBy(['mysterybox' => $article->getId()]);
         $UserMystery=[];
-                foreach ($abonnement as $value) {
-                    $value = $value->getUser();
+                foreach ($abonnement as $values) {
+                    $value = $values->getUser();
                 array_push($UserMystery, [
                     'id' => $value->getId(),
                     'firstname' => $value->getFirstName(),
                     'lastname' => $value->getLastName(),
                     'email' => $value->getEmail(),
+                    'abonnement'=> $values->getDebutAbonnement(),
                 ]);
             }
 
