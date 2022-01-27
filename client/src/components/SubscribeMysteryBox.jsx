@@ -21,7 +21,7 @@ export default function SubscribeMysteryBox(state) {
     return (
       <div id="subscription">
         <h2>{data.name}</h2>
-        {data.photo[0]}
+        {/* {data.photo[0]} */}
         <div className="description-mystery">
           <p>
             Description : <span>{data.description}</span>
