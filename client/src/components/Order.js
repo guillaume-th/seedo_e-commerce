@@ -35,8 +35,8 @@ export default function Order() {
         cart.forEach(e => total += e.weight * e.selectedQuantity);
         return total;
     }
-    const noel95 = new Date('december 22, 69 00:20:18' );
-    const mois = noel95.getMonth();
+    // const noel95 = new Date('december 22, 69 00:20' );
+    // const mois = noel95.getMonth();
 
     if (cart.length > 0) {
         return (
@@ -68,7 +68,7 @@ export default function Order() {
 
                         <div className="order-total">
                             <p style={{ marginBottom: ".25rem", display: "flex", justifyContent: "center" }}> Total : {fidel ? (reduce(cart))*0.9 : reduce(cart)} €</p>
-                            {/* {(reduce(cart) > 150) && <span className="thumbnail"> Emballage cadeau offert ❤️‍🔥</span>} */}
+                            {(reduce(cart) > 150 || new Date().getMonth() === 11) && <span className="thumbnail"> Emballage cadeau offert ❤️‍🔥</span>}
                             <p style={{ marginBottom: ".25rem", display: "flex", justifyContent: "center" }}> Poids de la commande : {computeWeight()} kg</p>
                             <p style={{ marginBottom: ".25rem", display: "flex", justifyContent: "center" }}> Livraison  : {shipping} €</p>
                             <span>La livraison est susceptible de changer en fonction de votre adresse</span>
