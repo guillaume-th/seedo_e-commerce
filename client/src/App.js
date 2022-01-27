@@ -15,6 +15,7 @@ import Order from "./components/Order";
 import AdminArticles from "./components/admin/AdminArticles";
 import Category from "./components/admin/AdminCategory";
 import AdminPanel from "./components/admin/AdminPanel";
+import Comments from "./components/Comments";
 import { useSelector, useDispatch } from "react-redux";
 import { updateAdmin } from "./AdminSlice";
 import { setOpenCart, updateCart } from "./CartSlice";
@@ -76,6 +77,7 @@ function App() {
           <Route path="/admin-panel" element={<AdminPanel />} />
           <Route path="/admin-articles" element={<AdminArticles />} />
           <Route path="/mystery-boxes" element={<MysteryBoxListing />} />
+          <Route path="/comments" element={<Comments />} />
         </Routes>
       </Router>
     </div>
