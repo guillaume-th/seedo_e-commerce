@@ -1,6 +1,7 @@
 import "./App.css";
 import "./index.css";
 import "./styles/Profile.css";
+import "./styles/Home.css";
 import { Route, Routes, HashRouter as Router } from "react-router-dom";
 import Profile from "./components/Profile";
 import ArticleEdit from "./components/admin/ArticleEdit";
