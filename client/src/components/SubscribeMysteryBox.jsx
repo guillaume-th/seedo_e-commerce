@@ -1,50 +1,45 @@
 import React, { useState, useEffect } from "react";
-// import Modal from "react-modal";
-import ReactDOM from "react-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+const API_URL = process.env.REACT_APP_API_URL;
 
-export default function SubscribeMysteryBox() {
-  const [option, setOption] = useState(null);
-  const [modalIsOpen, setIsOpen] = useState(false);
+export default function SubscribeMysteryBox(state) {
+  const navigate = useNavigate();
+  const prop = useLocation().state;
+  const [data, setData] = useState(null);
+  useEffect(() => {
+    fetch(`${API_URL}/mystery/mystery_show/${prop.id}`, {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((res) => setData(res.result))
+      .catch((error) => console.error(error));
+  }, []);
 
-  function openModal() {
-    setIsOpen(true);
+  if (data) {
+    const priceByMonth = data.subscrition_price / 12;
+    return (
+      <div id="subscription">
+        <h2>{data.name}</h2>
+        {data.photo[0]}
+        <div className="description-mystery">
+          <p>
+            Description : <span>{data.description}</span>
+          </p>
+        </div>
+        <div className="prix">
+          <p>
+            Prix a l'année : {data.subscrition_price}€ <br />
+            <span className="min">
+              (soit {priceByMonth.toFixed(2)}€/mois pendant 1 an)
+            </span>
+          </p>
+        </div>
+        <button onClick={() => navigate("/PaymentSubscribe", { state: data })}>
+          Procedez au payement
+        </button>
+      </div>
+    );
+  } else {
+    return <p>Chargement en cour ...</p>;
   }
-
-  function closeModal() {
-    setIsOpen(false);
-  }
-  return (
-    <div>
-      <div>
-        <h2>Abonnement 1</h2>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi alias
-          rerum laudantium unde dignissimos eius quas eaque, culpa illo amet,
-          molestiae quibusdam reprehenderit accusantium qui est dolorum dolore
-          quisquam. Quaerat.
-        </p>
-        <button>Abonne-toi</button>
-      </div>
-      <div>
-        <h2>Abonnement 2</h2>
-        <p>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Explicabo
-          dolor neque pariatur. Beatae perferendis rerum sequi consectetur
-          labore maiores explicabo voluptatibus dolores voluptas natus ut, atque
-          distinctio expedita quam ad?
-        </p>
-        <button>Abonne-toi</button>
-      </div>
-      <div>
-        <h2>Abonnement 3</h2>
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam
-          consectetur provident incidunt iste dolor accusantium cum distinctio
-          non, libero harum facere possimus veritatis? Eaque corporis quas quo
-          ipsam neque dignissimos.
-        </p>
-        <button>Abonne-toi</button>
-      </div>
-    </div>
-  );
 }

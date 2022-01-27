@@ -26,6 +26,7 @@ import { updateFidel } from "./FidelSlice";
 import { useEffect } from "react";
 import MysteryBoxListing from "./components/MysteryBoxListing";
 import MysteryEdit from "./components/admin/MysteryEdit";
+import Payment from "./components/Payment";
 const API_URL = process.env.REACT_APP_API_URL;
 
 function App() {
