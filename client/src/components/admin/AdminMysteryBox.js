@@ -9,36 +9,30 @@ export default function AdminMysteryBox() {
     const [refresh, setRefresh] = useState(null);
 
     useEffect(() => {
-
-        fetch(`${API_URL}/article/mystery/all`)
+        console.log("in"); 
+        fetch(`${API_URL}/mystery/mystery_all`)
             .then(res => res.json())
             .then(res => {
-                setData(res);
+                setData(res.result);
+                console.log(res.result);    
             })
             .catch(err => console.error(err));
     }, [refresh]);
 
     const editArticle = (id) => {
-        navigate("/article/edit/" + id);
+        navigate("/mystery/edit/" + id);
     }
 
     const add = (e) => {
         e.preventDefault();
         const data = new FormData(form.current);
-        fetch(`${API_URL}/article/new`, {
+        fetch(`${API_URL}/mystery/mystery_new`, {
             method: "POST",
             body: data,
         })
             .then(res => res.json())
             .then(res => {
-                res.forEach((e) => {
-                    let str = "";
-                    e.data.categories.forEach((elt) => {
-                        str += elt.name + ", ";
-                    });
-                    e.data.categoriesName = str.slice(0, str.length - 2);
-                });
-                setData(res);
+                setRefresh(Math.random()); 
             })
             .catch(err => console.error(err));
 
@@ -55,7 +49,7 @@ export default function AdminMysteryBox() {
             .catch((err) => console.error(err));
     }
     const computePrice = (e) => {
-        return Math.round(parseFloat(e.promo > 0 ? e.price - (e.price * e.promo / 100) : e.price), 2);
+        return Math.round(parseFloat(e.promo > 0 ? e.subsprice - (e.subsprice * e.promo / 100) : e.subsprice), 2);
     }
 
     if (data) {
@@ -69,6 +63,8 @@ export default function AdminMysteryBox() {
                         <input name="categories" type="text" placeholder="Catégorie 1, catégorie 2" minLength={0} maxLength={100}></input>
                         <label>Description :</label>
                         <textarea name="description" required></textarea>
+                        <label>Prix Abonnement :</label>
+                        <input required name="subscriptionprice" type="number"></input>
 
                         <div className="horizontal-flex wrap">
                             <div className="vertical-flex">
@@ -107,40 +103,40 @@ export default function AdminMysteryBox() {
                         ?
                         data.map((e) => {
                             return (
-                                <div key={e.data.id} className="thumbnail">
+                                <div key={e.id} className="thumbnail">
                                     <div className="img-wrapper">
                                         {
-                                            e.data.photos[0] &&
-                                            <img alt="article" src={e.data.photos[0].imgLink}></img>
+                                            e.photo[0] && 
+                                            <img alt="article" src={e.photo[0].image_link}></img>
                                         }
                                     </div>
-                                    {e.data.new &&
+                                    {e.new &&
                                         <span className="new">Nouveauté !</span>
                                     }
-                                    {e.data.promo > 0
-                                        ? <><span className="promo"> -{e.data.promo}%</span>
-                                            <p className="firstPrice"><strike>{e.data.price} €</strike></p></>
+                                    {e.promo > 0
+                                        ? <><span className="promo"> -{e.promo}%</span>
+                                            <p className="firstPrice"><strike>{e.subprice} €</strike></p></>
 
                                         : <div className="noPromo"></div>
                                     }
                                     <div className="infos">
                                         <div className="sub-info">
-                                            <p className="name">{e.data.name}</p>
-                                            {e.data.promo > 0
+                                            <p className="name">{e.name}</p>
+                                            {e.promo > 0
                                                 ? <div className="prices">
-                                                    <p>{computePrice(e.data)} €</p>
+                                                    <p>{() => computePrice(e)} €</p>
                                                 </div>
-                                                : <p>{e.data.price} €</p>
+                                                : <p>{e.subprice} €</p>
                                             }
                                         </div>
-                                        <p className="cat">{e.data.categoriesName}</p>
+                                        <p className="cat">{e.categoriesName}</p>
                                         {/* {e.data.quantity > 0
                                                 ? <p>Etat du stock : {e.data.quantity}.</p>
                                                 : <p>En rupture de stock</p>
                                             } */}
                                         < div >
-                                            <button onClick={() => editArticle(e.data.id)}>Edit</button>
-                                            <button onClick={() => deleteArticle(e.data.id)}>Delete</button>
+                                            <button onClick={() => editArticle(e.id)}>Edit</button>
+                                            <button onClick={() => deleteArticle(e.id)}>Delete</button>
                                         </div>
                                     </div>
                                 </div >

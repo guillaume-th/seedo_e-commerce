@@ -57,7 +57,7 @@ fieldset {
 
 
 h1 {
-  color: white;
+  color: #22460D;
 }
 
 button,
@@ -75,13 +75,8 @@ input[type="submit"] {
 
 
 input, textarea {
-
   border: 2px solid green;
-
 }
-
-input:focus, textarea:focus {}
-
 
 label {
   font-weight: bold;
@@ -134,7 +129,6 @@ li {
 .width100 {
   width: 100%;
 }
-
 
 /********************/
 /*****FILTER*********/
@@ -379,6 +373,14 @@ li {
 
 .infos:hover {
   top: -300px;
+}
+
+.mystery-infos{
+  top : -200px; 
+}
+
+.mystery-infos:hover{
+  top : -260px;
 }
 
 .sub-info {
@@ -832,3 +834,26 @@ li {
   display: inline-block;
   margin: .5rem;
 }
+
+.slide-mystery{
+  animation : slide-in 2s ease forwards;
+}
+
+@keyframes slide-in{
+  from {
+    opacity: 0;
+  }
+  to{
+    opacity: 1; 
+  }
+}
+
+.arrow{
+  height: 35px;
+  cursor: pointer;
+}
+
+.arrow-left{
+  transform : rotate(180deg); 
+}
+

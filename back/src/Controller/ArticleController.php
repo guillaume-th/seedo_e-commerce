@@ -26,7 +26,7 @@ class ArticleController extends AbstractController
      */
     public function readAll(): Response
     {
-        $articles =  $this->getDoctrine()->getRepository(Article::class)->findAll();
+        $articles =  $this->getDoctrine()->getRepository(Article::class)->findBy([], ["id" => "DESC"]);
         $data = [];
         foreach ($articles as $article) {
             array_push($data, $this->getArticleData($article));
@@ -87,7 +87,7 @@ class ArticleController extends AbstractController
         return $this->json($data);
     }
 
-   
+
     /**
      * @Route("/add-photos/{id}", name="add_photos", methods={"POST"})
      */
@@ -167,6 +167,7 @@ class ArticleController extends AbstractController
                 "color" => $article->getColor(),
                 "creation_date" => $article->getCreationDate(),
                 "updated_date" => $article->getUpdatedDate(),
+                "subprice" => $article->getSubscriptionPrice(),
             ]
         ];
     }
@@ -202,7 +203,7 @@ class ArticleController extends AbstractController
             "status" => "ok",
         ]);
     }
-     /**
+    /**
      * @Route("/{id}", name="article", methods={"GET"})
      */
     public function show(Article $article): Response
@@ -283,5 +284,4 @@ class ArticleController extends AbstractController
         $data["status"] = "ok";
         return $this->json($data);
     }
-
 }
