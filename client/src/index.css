@@ -4,14 +4,18 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(180deg, rgba(131, 209, 94, 0.54) 0%, rgb(146, 199, 102) 100%);
+  /* background: linear-gradient(180deg, rgba(131, 209, 94, 0.54) 0%, rgb(146, 199, 102) 100%); */
   background-repeat: no-repeat;
-  min-height : 100vh; 
+  min-height: 100vh;
   font-family: "Montserrat", "Segoe UI", sans-serif !important;
   font-size: 1.5rem;
 }
 
-.clickable{
+html {
+  scroll-behavior: smooth;
+}
+
+.clickable {
   cursor: pointer;
 }
 
@@ -20,19 +24,20 @@ body {
   width: 230px;
 }   */
 
-input, input::placeholder, button, textarea, select{
+input, input::placeholder, button, textarea, select {
   font-size: 1.25rem;
   border-radius: .25rem;
 }
 
-button{
-  margin : 1rem; 
+button {
+  margin: 1rem;
 }
 
-h1, h3{
-  color : white; 
-  margin : 1rem; 
+h3 {
+  color: white;
+  margin: 1rem;
 }
+
 /* html {
   background: linear-gradient(180deg, rgba(131, 209, 94, 0.54) 0%, rgba(255, 255, 255, 0) 100%);
 } */
@@ -40,4 +45,4 @@ h1, h3{
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
-} 
+}

@@ -70,7 +70,9 @@ export default function ArticleListing() {
         return (
             <div className="add_article">
                 <div className="wrapper">
-                    <form encType="multipart/form-data" className="vertical-form wrap" ref={form} onSubmit={add}>
+                <fieldset  className="adress-section filter-border" style={{borderRadius : ".5rem"}}>
+                <legend>Ajouter un  article</legend>
+                <form encType="multipart/form-data" className="vertical-form wrap" ref={form} onSubmit={add}>
                         <label>Nom de l'article :</label>
                         <input name="name" type="text" required></input>
                         <label>Catégorie(s) :</label>
@@ -109,6 +111,8 @@ export default function ArticleListing() {
 
                         <input type="submit" value="Ajouter cet article" className="marginAuto"></input>
                     </form>
+
+                </fieldset>
                 </div>
                 <div className="gallery">
                     {data.length > 0
@@ -141,7 +145,6 @@ export default function ArticleListing() {
                                                     : <p>{e.data.price} €</p>
                                                 }
                                             </div>
-                                            <p className="cat">{e.data.categoriesName}</p>
                                             {/* {e.data.quantity > 0
                                                 ? <p>Etat du stock : {e.data.quantity}.</p>
                                                 : <p>En rupture de stock</p>

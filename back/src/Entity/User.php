@@ -85,9 +85,19 @@ class User
     private $admin;
 
     /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $fidel;
+
+    /**
      * @ORM\ManyToMany(targetEntity=MysteryBox::class, mappedBy="users")
      */
     private $mysteryBoxes;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Abonnement::class, mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $abonnement;
 
     public function __construct()
     {
@@ -312,6 +322,17 @@ class User
         return $this;
     }
 
+    public function getFidel(): ?bool
+    {
+        return $this->fidel;
+    }
+
+    public function setFidel(?bool $fidel): self
+    {
+        $this->fidel = $fidel;
+        return $this;
+    }
+    
     /**
      * @return Collection|MysteryBox[]
      */
@@ -337,5 +358,20 @@ class User
         }
 
         return $this;
+    }
+
+    public function getAbonnement(): ?Abonnement
+    {
+        return $this->abonnement;
+    }
+
+    public function setAbonnement(Abonnement $abonnement): self
+    {
+        // set the owning side of the relation if necessary
+        if ($abonnement->getUser() !== $this) {
+            $abonnement->setUser($this);
+        }
+
+        $this->abonnement = $abonnement;
     }
 }

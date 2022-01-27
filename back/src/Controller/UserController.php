@@ -106,7 +106,7 @@ class UserController extends AbstractController
         $cvv = $request->request->get('cvv');
         $expiration = $request->request->get('expiration_CB');
         $number = $request->request->get('number_CB');
-
+        $fidel = $request->request->get('fidel');
 
         $adresses = [];
         foreach ($user->getAdresses() as $adress) {
@@ -135,6 +135,11 @@ class UserController extends AbstractController
             $user->setExpirationCB($expiration);
         if ($number !== "")
             $user->setNumberCB($number);
+        if ($fidel !== "")
+            $user->setFidel($fidel);
+        if ($fidel == "false")
+            $user->setFidel(false);
+
 
         $entityManager->flush();
         $data = $this->getUserData($user);
@@ -230,7 +235,8 @@ class UserController extends AbstractController
                 "expiration_CB" => $user->getExpirationCB(),
                 "number_CB" => $user->getNumberCB(),
                 "adresses" => $adresses,
-                "admin" => $user->getAdmin()
+                "admin" => $user->getAdmin(),
+                "fidel" => $user->getFidel(),
             ]
         ];
     }

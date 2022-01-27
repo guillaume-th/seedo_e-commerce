@@ -3,10 +3,12 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setOpenCart, updateCart } from "../CartSlice";
 import { useNavigate } from "react-router-dom";
+import { reduce } from "../utils";
 import "../styles/Cart.css";
 
 export default function Cart() {
   const cart = useSelector((state) => state.cart.value);
+  const fidel = useSelector((state) => state.fidel.value);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -17,19 +19,14 @@ export default function Cart() {
     }
   }, []);
 
-  const reduce = () => {
-    let total = cart[0].price * cart[0].selectedQuantity;
-    for (let i = 1; i < cart.length; i++) {
-      total += cart[i].price * cart[i].selectedQuantity;
-    }
-    return total;
-  };
-
   if (cart.length > 0) {
     return (
 
       <div className="cart">
         <div className="cart-child">
+          {fidel &&
+              <p>Vous bénéficiez de -10% sur votre panier !</p>
+          }
           {cart.map((e) => {
             return (
               <div key={e.id}>
@@ -45,7 +42,10 @@ export default function Cart() {
           })}
           <div className="cart-total">
             <div className="cart-price">
-              <p>Total : {reduce()} €</p>
+              {fidel ?
+                <p>Total : {(reduce(cart))*0.9} €</p> :
+                <p>Total : {reduce(cart)} €</p>
+              }  
             </div>
             <button
               style={{ fontSize: "1.25rem", width: "90%" }}

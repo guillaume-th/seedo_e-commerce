@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Abonnement;
 use App\Entity\Article;
 use App\Entity\Category;
 use App\Entity\User;
@@ -25,14 +26,13 @@ class ArticleController extends AbstractController
      */
     public function readAll(): Response
     {
-        $articles =  $this->getDoctrine()->getRepository(Article::class)->findAll();
+        $articles =  $this->getDoctrine()->getRepository(Article::class)->findBy([], ["id" => "DESC"]);
         $data = [];
         foreach ($articles as $article) {
             array_push($data, $this->getArticleData($article));
         }
         return $this->json($data);
     }
-
 
     /**
      * @Route("/new", name="article_new", methods={"POST"})
@@ -87,88 +87,6 @@ class ArticleController extends AbstractController
         return $this->json($data);
     }
 
-    /**
-     * @Route("/{id}", name="article", methods={"GET"})
-     */
-    public function show(Article $article): Response
-    {
-        $comment=[];
-        foreach ($article->getComments() as $value) {
-        $name_user = $this->getDoctrine()->getRepository(User::class)->find($value->getUser()->getId());
-      $firstname = $name_user->getFirstName();
-      $lastname =  $name_user->getLastName();
-            array_push($comment, [
-                'id' => $value->getId(),
-                'content' => $value->getContent(),
-                'user_id' => $value->getUser()->getId(),
-                'CreationDate' => $value->getCreationDate(),
-                'firstname'=>$firstname,
-                'lastname'=>$lastname,
-            ]);
-        }
-
-        $data =  $this->getArticleData($article); 
-        $data["data"]["comments"] = $comment;
-        return $this->json($data);
-    }
-
-
-    /**
-     * @Route("/{id}/edit", name="article_edit", methods={"GET", "POST"})
-     */
-    public function edit(Request $request, Article $article, EntityManagerInterface $entityManager): Response
-    {
-
-        $name = $request->request->get("name");
-        $description = $request->request->get("description");
-        $weight = $request->request->get("weight");
-        $color = $request->request->get("color");
-        $quantity = $request->request->get("quantity");
-        $price = $request->request->get("price");
-        $promo = $request->request->get("promo");
-        $cat = $request->request->get("categories");
-        $article->setUpdatedDate(new \Datetime());
-        $article->setNew(true);
-        if ($name !== "")
-            $article->setName($name);
-        if ($description !== "")
-            $article->setDescription($description);
-        if ($weight !== "")
-            $article->setWeight($weight);
-        if ($color !== "")
-            $article->setColor($color);
-        if ($quantity !== "")
-            $article->setQuantity($quantity);
-        if ($price !== "")
-            $article->setPrice($price);
-        if ($promo !== "")
-            $article->setPromo($promo);
-        if ($cat !== "") {
-            $cat_arr = explode(",", $cat);
-            foreach ($article->getCategories() as $existing_cat) {
-                $article->removeCategory($existing_cat);
-                // $entityManager->remove($existing_cat); 
-            }
-            foreach ($cat_arr as $value) {
-                $value = trim(strtolower($value));
-                $category = $this->getDoctrine()->getRepository(Category::class)->findBy(["name" => $value]); 
-                if(count($category) < 1){
-                    $category = new Category();
-                    $entityManager->persist($category);
-                }
-                else{
-                    $category=$category[0]; 
-                }
-                $category->setName($value);
-                $article->addCategory($category);
-            }
-        }
-        $entityManager->persist($article);
-        $entityManager->flush();
-        $data = $this->getArticleData($article);
-        $data["status"] = "ok";
-        return $this->json($data);
-    }
 
     /**
      * @Route("/add-photos/{id}", name="add_photos", methods={"POST"})
@@ -249,10 +167,11 @@ class ArticleController extends AbstractController
                 "color" => $article->getColor(),
                 "creation_date" => $article->getCreationDate(),
                 "updated_date" => $article->getUpdatedDate(),
+                "subprice" => $article->getSubscriptionPrice(),
             ]
         ];
     }
-     /**
+    /**
      * @Route("/avis/add/{id}", name="add_avis", methods={"POST"})
      */
     public function avis_add(Article $article, Request $request, EntityManagerInterface $entityManager): Response
@@ -268,7 +187,7 @@ class ArticleController extends AbstractController
         $entityManager->flush();
 
         return $this->json([
-            "status"=>"ok",
+            "status" => "ok",
         ]);
     }
 
@@ -281,111 +200,88 @@ class ArticleController extends AbstractController
         $entityManager->flush();
 
         return $this->json([
-            "status"=>"ok",
+            "status" => "ok",
         ]);
     }
-     /**
-     * @Route("/mystery_new", name="mystery_new", methods={"POST"})
+    /**
+     * @Route("/{id}", name="article", methods={"GET"})
      */
-    public function mystery_new(Request $request,EntityManagerInterface $entityManager): Response
+    public function show(Article $article): Response
     {
-        $array = json_decode($request->getContent());
-        $Mystery= new MysteryBox;
-        $Mystery->setName($array['name']);
-        $Mystery->setElements($array['elements']);
-        $Mystery->setDescription($array['description']);
-        $Mystery->setSubscriptionPrice($array['SubscriptionPrice']);
-        $Mystery->setUnitPrice($array['UnitPrice']);
-        foreach ($array['photo'] as $key => $value) {
-            $Mystery->addPhoto($value);
-        }
-        $entityManager->persist($Mystery);
-        $entityManager->flush();
-        
-        return $this->json(['result' => "ok"]);
-    }
-      /**
-     * @Route("/mystery_abonnement", name="mystery_abonnement", methods={"POST"})
-     */
-    public function mystery_abonnement(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        
-        $User=$this->getDoctrine()->getRepository(User::class)->find($request->request->get("user"));
-        $Mystery=$this->getDoctrine()->getRepository(MysteryBox::class)->find($request->request->get("MysteryBox"));
-        $Mystery->addUser($User);
-        $entityManager->persist($Mystery);
-        $entityManager->flush();
-        return $this->json([
-            "status"=>"ok",
-        ]);
-    }
-
-     /**
-     * @Route("/mystery_all", name="mystery_all", methods={"POST"})
-     */
-    public function mystery_all(EntityManagerInterface $entityManager): Response
-    {
-        $Mysterys =  $this->getDoctrine()->getRepository(MysteryBox::class)->findAll();
-        $data = [];
-        foreach ($Mysterys as $Mystery) {
-            $UserMystery = [];
-            $PhotoMystery = [];
-            foreach ($Mystery->getUsers() as $value) {
-              
-                array_push($UserMystery, [
-                    'id' => $value->getId(),
-                    'firstname' => $value->getFirstName(),
-                    'lastname' => $value->getLastName(),
-                ]);
-            }
-            foreach ($Mystery->getPhotos() as $key => $value) {
-                array_push($PhotoMystery, [
-              'image_link' =>  $Mystery->getImgLink(),
-                ]);
-            }
-            array_push($data, [
-                "id" => $Mystery->getId(),
-                "firstname" => $Mystery->getName(),
-                "user" => $UserMystery,
-                'photo' => $PhotoMystery,
+        $comment = [];
+        foreach ($article->getComments() as $value) {
+            $name_user = $this->getDoctrine()->getRepository(User::class)->find($value->getUser()->getId());
+            $firstname = $name_user->getFirstName();
+            $lastname =  $name_user->getLastName();
+            array_push($comment, [
+                'id' => $value->getId(),
+                'content' => $value->getContent(),
+                'user_id' => $value->getUser()->getId(),
+                'CreationDate' => $value->getCreationDate(),
+                'firstname' => $firstname,
+                'lastname' => $lastname,
             ]);
         }
-        return $this->json(['result' => $data]);
+
+        $data =  $this->getArticleData($article);
+        $data["data"]["comments"] = $comment;
+        return $this->json($data);
     }
 
-   
-     /**
-     * @Route("/mystery_show/{id}", name="mystery_show", methods={"GET"})
+
+    /**
+     * @Route("/{id}/edit", name="article_edit", methods={"GET", "POST"})
      */
-    public function mystery_Show(MysteryBox $Mystery,EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Article $article, EntityManagerInterface $entityManager): Response
     {
-        $userinfo=[];
-        $photo=[];
-       
-        foreach ($Mystery->getUsers() as $key => $value) {
-            array_push($userinfo, [
-                'id' => $value->getId(),
-                'firstname' => $value->getFirstname(),
-                'lastname' => $value->getLastname(),
-            ]);
-        };
-        $name = $Mystery->getName();
-        $description = $Mystery->getDescription();
-        $Mystery_price_subscrition=$Mystery->getSubscriptionPrice();
-        $Mystery_price_unite=$Mystery->getUnitPrice();
-        foreach ($Mystery->getPhotos() as $key => $value) {
-            array_push($photo, [
-                'id' => $value->getId(),
-                'link' => $value->getImgLink(),
-            ]);
-        };
-      
 
-        return $this->json([
-            "result"=>['user_info'=>$userinfo,'subscrition_price'=>$Mystery_price_subscrition,'unite_price'=>$Mystery_price_unite,'name'=>$name,'description'=>$description,'photo'=>$photo],
-            
-        ]);
+        $name = $request->request->get("name");
+        $description = $request->request->get("description");
+        $weight = $request->request->get("weight");
+        $color = $request->request->get("color");
+        $quantity = $request->request->get("quantity");
+        $price = $request->request->get("price");
+        $promo = $request->request->get("promo");
+        $cat = $request->request->get("categories");
+        $article->setUpdatedDate(new \Datetime());
+        $article->setNew(true);
+        if ($name !== "")
+            $article->setName($name);
+        if ($description !== "")
+            $article->setDescription($description);
+        if ($weight !== "")
+            $article->setWeight($weight);
+        if ($color !== "")
+            $article->setColor($color);
+        if ($quantity !== "")
+            $article->setQuantity($quantity);
+        if ($price !== "")
+            $article->setPrice($price);
+        if ($promo !== "")
+            $article->setPromo($promo);
+        if ($cat !== "") {
+            $cat_arr = explode(",", $cat);
+            foreach ($article->getCategories() as $existing_cat) {
+                $article->removeCategory($existing_cat);
+                // $entityManager->remove($existing_cat); 
+            }
+            foreach ($cat_arr as $value) {
+                $value = trim(strtolower($value));
+                $category = $this->getDoctrine()->getRepository(Category::class)->findBy(["name" => $value]);
+                if (count($category) < 1) {
+                    $category = new Category();
+                    $entityManager->persist($category);
+                } else {
+                    $category = $category[0];
+                }
+                $category->setName($value);
+                $article->addCategory($category);
+            }
+        }
+        $entityManager->persist($article);
+        $entityManager->flush();
+        $data = $this->getArticleData($article);
+        $data["status"] = "ok";
+        return $this->json($data);
     }
-
-    
 }

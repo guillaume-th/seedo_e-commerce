@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "../styles/OrderConfirm.css";
+import { reduce } from "../utils";
 import Payment from "./Payment";
 const API_URL = process.env.REACT_APP_API_URL;
 const BING_API_KEY = process.env.REACT_APP_BING_API_KEY;
@@ -14,6 +15,7 @@ export default function OrderConfirm() {
     const newAdressForm = useRef();
     const guestAdressForm = useRef();
     const cart = useSelector((state) => state.cart.value);
+    const fidel = useSelector((state) => state.fidel.value);
     const [error, setError] = useState(null);
     const [shipping, setShipping] = useState(null);
     const weightShipping = useLocation().state.shippingWeight;
@@ -58,14 +60,6 @@ export default function OrderConfirm() {
         }
     };
 
-    const reduce = () => {
-        let total = cart[0].price * cart[0].selectedQuantity;
-        for (let i = 1; i < cart.length; i++) {
-            total += cart[i].price * cart[i].selectedQuantity;
-        }
-        return total;
-    };
-
     const addGuest = (e) => {
         e.preventDefault();
         const data = new FormData(guestAdressForm.current);
@@ -76,7 +70,7 @@ export default function OrderConfirm() {
             })
             .then((res) => res.json())
             .then((res) => {
-                console.log(res);
+                //console.log(res);
                 if (res.status !== "ok") {
                     setError(res.status);
                 }
@@ -88,7 +82,7 @@ export default function OrderConfirm() {
     }
 
     const getShippingDistance = () => {
-        console.log("in");
+        //console.log("in");
         const origins = "48.864716,2.349014";
         fetch(`http://dev.virtualearth.net/REST/v1/Locations?locality=${selectedAdress.city}&postalCode={${selectedAdress.postal_code}}&includeNeighborhood=0&maxResults=1&key=${BING_API_KEY}`)
             .then(res => res.json())
@@ -194,11 +188,11 @@ export default function OrderConfirm() {
                 {selectedAdress
                     ? <div>
                         <div>
-                            <p>Prix de la commande : {reduce()}</p>
-                            <p>Frais de livraison: {shipping}</p>
-                            <p>Prix total :{reduce() + shipping}</p>
+                            <p>Prix de la commande : {fidel ? (reduce(cart))*0.9 : reduce(cart)} €</p>
+                            <p>Frais de livraison: {shipping} € (poids : {weightShipping} + distance : {shipping - weightShipping})</p>
+                            <p>Prix total : {fidel ? ((parseFloat(reduce(cart)))*0.9 + parseFloat(shipping)).toFixed(2) : parseFloat(reduce(cart)) + parseFloat(shipping)} €</p>
                         </div>
-                        <Payment total={reduce() + shipping} selectedAddress={selectedAdress} />
+                        <Payment total={fidel ? ((parseFloat(reduce(cart)))*0.9 + parseFloat(shipping)).toFixed(2) : parseFloat(reduce(cart)) + parseFloat(shipping)} selectedAddress={selectedAdress} />
                     </div>
                     : <p className="bill-message">Choisissez une adresse pour passer au paiement</p>
                 }

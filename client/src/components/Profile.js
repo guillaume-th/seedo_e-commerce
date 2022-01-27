@@ -1,8 +1,10 @@
 import { useRef, useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 // import { useDispatch } from "react-redux";
 // import { updateAdmin } from "../AdminSlice";
 import Delete from "../assets/delete.svg";
+import { updateFidel } from "../FidelSlice";
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default function Profile() {
@@ -15,14 +17,20 @@ export default function Profile() {
     const [modalOpen, setModalOpen] = useState(false);
     const [editedAdress, setEditedAdress] = useState(false);
     const navigate = useNavigate();
+    const fidel = useSelector((state) => state.fidel.value);
+    const dispatch = useDispatch();
 
     useEffect(() => {
+        
         if (user_id === null) {
             navigate("/auth");
         } else {
             fetch(`${API_URL}/user/${user_id}`)
                 .then((res) => res.json())
-                .then((res) => setUser(res.data))
+                .then((res) => {
+                    setUser(res.data)
+                    dispatch(updateFidel(res.data.fidel))
+                })
                 .catch((err) => console.error(err));
         }
         window.addEventListener("keydown", (e) => {
@@ -36,7 +44,7 @@ export default function Profile() {
     const submitUserData = (e) => {
         e.preventDefault();
         const data = new FormData(userForm.current);
-
+        // console.log(userForm.current);
         fetch(`${API_URL}/user/${user_id}/edit`, {
             method: "POST",
             body: data,
@@ -45,6 +53,7 @@ export default function Profile() {
             .then((res) => {
                 if (res.status === "ok") {
                     setUser(res.data);
+                    setRefresh(Math.random());
                 }
             })
             .catch((error) => console.error(error));
@@ -65,7 +74,7 @@ export default function Profile() {
             })
             .catch((error) => console.error(error));
         for (const elt of document.getElementsByClassName("input-profile")) {
-            console.log(elt);
+            //console.log(elt);
             elt.value = "";
         }
     };
@@ -101,9 +110,9 @@ export default function Profile() {
                 }
             })
             .catch((error) => console.error(error));
-
     }
-
+    
+    //console.log(user);
     if (user) {
         return (
 
@@ -113,26 +122,34 @@ export default function Profile() {
                 {/* <button onClick={(ev) => {navigate("/Profile/"+ user_id)}}> commande </button> */}
                 <form ref={userForm} onSubmit={submitUserData} encType="multipart/form-data">
                     <div className="profile-section">
-                        <div className="user-details profile-form">
-                            <h3>Coordonnées</h3>
-                            <label className="std-input-label">Nom: </label>
+                        <fieldset className="user-details profile-form filter-border">
+                            <legend>Coordonnées</legend>
                             <input className="std-input-label" type="text" name="firstname" placeholder="Prénom" defaultValue={user.firstname}></input>
-                            <label className="std-input-label">Prenom:</label>
                             <input className="std-input-label" type="text" name="lastname" placeholder="Nom de famille" defaultValue={user.lastname}></input>
-                            <label className="std-input-label"> Email:</label>
                             <input className="std-input-label" type="text" name="email" placeholder="Email" defaultValue={user.email}></input>
-                            <label className="std-input-label"> Telephone:</label>
                             <input className="std-input-label" type="text" name="telephone" placeholder="Téléphone" defaultValue={user.telephone}></input>
-                        </div>
-                        <div className="bank-details profile-form">
-                            <h3>Coordonnées bancaires</h3>
-                            <label className="std-input-label">Numéro CB</label>
+                            { user.fidel ? 
+                                <div className="fidelite">
+                                    <p className="lg-char green bold">Vous êtes un client fidèle !</p>
+                                    <p className="sm-char">(gratuite, remise de 10% sur chaque produits)</p>
+                                    <label className="sm-char">Arrêter ma carte de fidélité</label>
+                                    <input type="checkbox" name="fidel" value={false}></input>
+                                </div>
+                                :
+                                <div className="fidelite">
+                                    <p className="lg-char">Adhérez à notre programme de fidélité gratuit ! 10% de remise sur chaque produit !</p>
+                                    <p className="sm-char">(Cumulable avec une autre pomotion déjà présente sur le produit)</p>
+                                    <label className="lg-char">M'inscrire au programme de fidélité</label>
+                                    <input type="checkbox" name="fidel" defaultValue={true}></input>
+                                </div>
+                            }
+                        </fieldset>
+                        <fieldset className="bank-details profile-form filter-border">
+                            <legend>Coordonnées bancaires</legend>
                             <input className="std-input-label" type="text" name="number_CB" placeholder="Numéro de carte bancaire" minLength={16} maxLength={16} defaultValue={user.number_CB}></input>
-                            <label className="std-input-label">CVV</label>
                             <input className="std-input-label" type="text" name="cvv" placeholder="CVV" minLength={3} maxLength={3} defaultValue={user.cvv}></input>
-                            <label className="std-input-label">Date d'expiration</label>
                             <input className="std-input-label" type="text" name="expiration_CB" placeholder="Date d'expiration" minLength={5} maxLength={5} defaultValue={user.expiration_CB}></input>
-                        </div>
+                        </fieldset>
                     </div>
                     <div className="wrapper">
                         <input type="submit" className="centered-btn" value="Sauvegarder les modifications"></input>
@@ -143,7 +160,7 @@ export default function Profile() {
                     {
                         user.adresses.map((e) => {
                             return (
-                                <div key={e.id} className="edit-adress">
+                                <div key={e.id} className="edit-adress card">
                                     <p>{e.number} {e.street} </p>
                                     <p>{e.city} {e.postal_code}, {e.country}</p>
                                     <img
@@ -162,24 +179,19 @@ export default function Profile() {
                     }
                 </div>
 
-                <div className="adress-section">
-                    <h3>Nouvelle adresse</h3>
-                    <form className="adress-form" ref={newAdressForm} onSubmit={addAdress} encType="multipart/form-data">
-                        <label className="std-input-label">Numéro:</label>
+                <fieldset className="adress-section filter-border" style={{borderRadius : ".5rem"}}>
+                    <legend> + Nouvelle adresse</legend>
+                    <form className="adress-form" ref={newAdressForm} onSubmit={addAdress} encType="multipart/form-data">                        
                         <input required type="text" className="std-input-label" name="number" placeholder="Numéro"></input>
-                        <label className="std-input-label">Rue:</label>
                         <input required type="text" className="std-input-label" name="street" placeholder="Rue"></input>
-                        <label className="std-input-label">Ville: </label>
                         <input required type="text" className="std-input-label" name="city" placeholder="Ville"></input>
-                        <label className="std-input-label">Code Postal: </label>
                         <input required type="text" className="std-input-label" name="postal_code" placeholder="Code Postal"></input>
-                        <label className="std-input-label">Pays:</label>
                         <input required type="text" className="std-input-label" name="country" placeholder="Pays"></input>
                         <div className="wrapper">
                             <input required type="submit" value="Ajouter cette adresse"></input>
                         </div>
                     </form>
-                </div>
+                </fieldset>
                 {/* <button onClick={
                     () => {
                         localStorage.clear()
@@ -196,8 +208,7 @@ export default function Profile() {
                             ref={editAdressForm}
                             onSubmit={editAdress}
                             encType="multipart/form-data"
-                        >
-                            <label htmlFor="number">Numéro :</label>
+                        >                         
                             <input
                                 className="std-input-label"
                                 required
@@ -206,7 +217,6 @@ export default function Profile() {
                                 placeholder="Numéro"
                                 defaultValue={editedAdress.number}
                             ></input>
-                            <label htmlFor="street">Rue :</label>
                             <input
                                 className="std-input-label"
                                 required
@@ -215,7 +225,6 @@ export default function Profile() {
                                 placeholder="Rue"
                                 defaultValue={editedAdress.street}
                             ></input>
-                            <label htmlFor="city">Ville :</label>
                             <input
                                 className="std-input-label"
                                 required
@@ -224,7 +233,6 @@ export default function Profile() {
                                 placeholder="Ville"
                                 defaultValue={editedAdress.city}
                             ></input>
-                            <label htmlFor="postal_code">Code postal :</label>
                             <input
                                 className="std-input-label"
                                 required
@@ -233,7 +241,6 @@ export default function Profile() {
                                 placeholder="Code Postal"
                                 defaultValue={editedAdress.postal_code}
                             ></input>
-                            <label htmlFor="country">Pays :</label>
                             <input
                                 className="std-input-label"
                                 required

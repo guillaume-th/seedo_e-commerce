@@ -3,6 +3,7 @@ import { useState, } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateCart } from "../CartSlice";
 import { useNavigate } from 'react-router-dom';
+import { reduce } from "../utils";
 const paypalClientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
 const client = {
     sandbox: paypalClientId,
@@ -11,26 +12,27 @@ const API_URL = process.env.REACT_APP_API_URL;
 
 export default function Payment(props) {
     const cart = useSelector((state) => state.cart.value);
+    const fidel = useSelector((state) => state.fidel.value);
     const user_id = localStorage.getItem("user_id");
     const dispatch = useDispatch();
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
-
+    console.log(props); 
     const order = () => {
         const array = [];
         cart.forEach((e) => {
             array.push({
                 id: e.id,
                 quantity: e.selectedQuantity,
-                price: e.price,
+                price: e.updatedPrice,
             });
         });
         const data = {
             user_id: user_id,
             guestData: props.guest,
             adress: props.selectedAddress,
-            order_price: reduce(),
+            order_price: props.total,
             articles_id: array,
         };
         console.log(data);
@@ -46,13 +48,6 @@ export default function Payment(props) {
                 }
             })
             .catch((error) => console.error(error));
-    }
-    const reduce = () => {
-        let total = cart[0].price * cart[0].selectedQuantity;
-        for (let i = 1; i < cart.length; i++) {
-            total += cart[i].price * cart[i].selectedQuantity;
-        }
-        return total;
     }
 
     return (
