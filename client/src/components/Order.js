@@ -50,7 +50,7 @@ export default function Order() {
                         {
                             cart.map((e) => {
                                 return (
-                                    <div key={e.id} className="carteorder">
+                                    <div key={e.id} className="carteorder card">
                                         <p style={{ marginBottom: ".25rem" }}>{e.name}</p>
                                         <div style={{ display: "flex", justifyContent: "space-between" }}>
                                             <div style={{ display: "flex" }}>

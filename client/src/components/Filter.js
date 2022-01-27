@@ -71,12 +71,14 @@ export default function Filter(props) {
     const sortData = (ascendingOrder) => {
         if (ascendingOrder !== "null") {
             let data = transformData();
+            console.log(data); 
             if (ascendingOrder === "true") {
-                data.sort((a, b) => a.data.price > b.data.price);
+                data.sort((a, b) => Number(a.data.updatedPrice) > Number(b.data.updatedPrice));
             }
             else {
-                data.sort((a, b) => b.data.price > a.data.price);
+                data.sort((a, b) => Number(b.data.updatedPrice) > Number(a.data.updatedPrice));
             }
+            console.log(data); 
         }
     }
 
