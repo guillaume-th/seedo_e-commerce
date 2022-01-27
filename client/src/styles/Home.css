@@ -64,7 +64,7 @@
 }
 
 .content {
-    padding: 15px;
+    /* padding: 15px; */
     border-top: solid 1px black;
     border-bottom: solid 1px black;
     background-color: #ffff;
@@ -72,12 +72,23 @@
 }
 
 .content * {
-    margin : 10px;
 }
 
-.content img {
-    width: 50%; height: 50%;
-    flex-shrink: 0;
+.content p {
+    max-width: 40%;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 120px 50px 120px 30px;
+    margin: 100px 0px;
+    border-radius: 5px;
+    line-height: 1.7em;
+}
+
+.contentImg {
+    width: 80vw;
+    background-image: url('../assets/10-graines-bonnes-pour-la-sante.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    /* border: 2px solid white; */
 }
 
 .aboutTitle {

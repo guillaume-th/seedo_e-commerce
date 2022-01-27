@@ -37,17 +37,14 @@ export default function Home() {
             <section className="about vertical-flex marginAuto">
                 <h1 className='aboutTitle'>Qui sommes nous ?</h1>
                 <div className="content horizontal-flex">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas dignissim, sem id laoreet varius, 
-                        mauris sem porttitor orci, et vulputate leo ligula quis risus. Nam imperdiet imperdiet mollis. 
-                        Mauris elit leo, sollicitudin et elementum vitae, bibendum quis nulla. Lorem ipsum dolor sit amet, 
-                        consectetur adipiscing elit. Vivamus consequat eu nulla nec commodo. Praesent leo quam, luctus sit 
-                        amet libero in, mattis efficitur leo. Suspendisse sodales ex non vehicula sagittis. Nulla euismod 
-                        aliquam erat, ut viverra magna tristique in. In quis dolor a justo gravida sollicitudin. Maecenas 
-                        vehicula lectus at purus sagittis vulputate. Nunc lobortis nulla nunc, eu tristique erat suscipit 
-                        in. Quisque lacinia quam tincidunt, faucibus ligula sed, porta urna. Etiam dapibus mauris nulla, 
-                        eget egestas est varius vitae.
-                    </p>
-                    <img src={graines}/>
+                    <div className='contentImg'>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas dignissim, sem id laoreet varius, 
+                            mauris sem porttitor orci, et vulputate leo ligula quis risus. Nam imperdiet imperdiet mollis. 
+                            Mauris elit leo, sollicitudin et elementum vitae, bibendum quis nulla. Lorem ipsum dolor sit amet, 
+                            consectetur adipiscing elit. Vivamus consequat eu nulla nec commodo. Praesent leo quam, luctus sit 
+                            amet libero in, mattis efficitur leo. 
+                        </p>
+                    </div>
                 </div>
             </section>
 
