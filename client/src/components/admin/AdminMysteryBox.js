@@ -9,12 +9,12 @@ export default function AdminMysteryBox() {
     const [refresh, setRefresh] = useState(null);
 
     useEffect(() => {
-
+        console.log("in"); 
         fetch(`${API_URL}/mystery/mystery_all`)
             .then(res => res.json())
             .then(res => {
                 setData(res.result);
-                console.log(res.result);
+                console.log(res.result);    
             })
             .catch(err => console.error(err));
     }, [refresh]);
@@ -32,14 +32,7 @@ export default function AdminMysteryBox() {
         })
             .then(res => res.json())
             .then(res => {
-                res.forEach((e) => {
-                    let str = "";
-                    e.data.categories.forEach((elt) => {
-                        str += elt.name + ", ";
-                    });
-                    e.data.categoriesName = str.slice(0, str.length - 2);
-                });
-                setData(res.result);
+                setRefresh(Math.random()); 
             })
             .catch(err => console.error(err));
 
@@ -131,7 +124,7 @@ export default function AdminMysteryBox() {
                                             <p className="name">{e.name}</p>
                                             {e.promo > 0
                                                 ? <div className="prices">
-                                                    <p>{computePrice(e)} €</p>
+                                                    <p>{() => computePrice(e)} €</p>
                                                 </div>
                                                 : <p>{e.subprice} €</p>
                                             }
