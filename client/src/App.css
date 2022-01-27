@@ -208,8 +208,12 @@ li {
 
 .sub-nav div:hover {
   text-decoration:underline;
+  background-color: #5DB050;
+  text-decoration-color: rgb(105, 48, 48);
   border-color: rgb(13, 70, 13);
-  color: rgb(13, 70, 13);
+  color: #653D21;
+  font-size:30px;
+  
 }
 
 .search_bar {
@@ -253,10 +257,11 @@ li {
 
 #search {
   /* background-color: rgb(166, 211, 155); */
-  background-color: #a1d37e;
+  background-color: #5DB050;
   border-radius: 20px;
   border: solid white 2px;
   padding: 0.65rem;
+  width:650px;
 }
 
 #icon {
