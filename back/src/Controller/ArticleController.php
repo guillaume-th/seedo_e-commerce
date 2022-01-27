@@ -26,7 +26,7 @@ class ArticleController extends AbstractController
      */
     public function readAll(): Response
     {
-        $articles =  $this->getDoctrine()->getRepository(Article::class)->findAll();
+        $articles =  $this->getDoctrine()->getRepository(Article::class)->findBy([], ["id" => "DESC"]);
         $data = [];
         foreach ($articles as $article) {
             array_push($data, $this->getArticleData($article));

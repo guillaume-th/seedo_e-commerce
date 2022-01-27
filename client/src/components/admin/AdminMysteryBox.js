@@ -63,7 +63,7 @@ export default function AdminMysteryBox() {
                         <input name="categories" type="text" placeholder="Catégorie 1, catégorie 2" minLength={0} maxLength={100}></input>
                         <label>Description :</label>
                         <textarea name="description" required></textarea>
-                        <label>prix abonnement :</label>
+                        <label>Prix Abonnement :</label>
                         <input required name="subscriptionprice" type="number"></input>
 
                         <div className="horizontal-flex wrap">
