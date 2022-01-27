@@ -78,7 +78,9 @@ export default function MysteryEdit() {
                 <div className="wrapper">
                     <div className="std-colored-wrapper">
                         <div className="wrapper">
-                            <form encType="multipart/form-data" ref={editForm} onSubmit={edit} className="std-vertical-form  edit-article-form" >
+                          <fieldset className="adress-section filter-border" style={{borderRadius : ".5rem"}}>
+                              <legend>Modifier la Mystery Box</legend>
+                              <form encType="multipart/form-data" ref={editForm} onSubmit={edit} className="std-vertical-form  edit-article-form" >
                                 <label>Nom de l'article</label>
                                 <input name="name" type="text" defaultValue={data.name}></input>
                                 <label>Description</label>
@@ -99,6 +101,7 @@ export default function MysteryEdit() {
                                 <input name="categories" type="text" placeholder="Catégorie 1, catégorie 2" defaultValue={data.categoriesName} minLength={0} maxLength={100}></input>
                                 <input type="submit" value="Sauvegarder les modifications"></input>
                             </form>
+                          </fieldset>
                             <h3>Photos</h3>
                             {
                                 data.photos.map(e => {
