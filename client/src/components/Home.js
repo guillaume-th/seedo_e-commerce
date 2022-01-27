@@ -32,7 +32,7 @@ export default function Home() {
                 </div>
             </section>
             <hr className='hrGreen'></hr>
-            <section className="about">
+            <section className="about vertical-flex marginAuto">
                 <h1 className='aboutTitle'>Qui sommes nous ?</h1>
                 <div className="content horizontal-flex">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas dignissim, sem id laoreet varius, 
