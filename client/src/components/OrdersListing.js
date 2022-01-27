@@ -37,7 +37,7 @@ export default function OrderListing() {
         });
         content += `\n----------------------\nTotal : ${reduce(data.article, false)}€\n----------------------\n`;
         if(fidel)
-            content += `\n----------------------\nTotal après réduction : ${reduce(data.article, fidel)}€\n----------------------\n`;
+            content += `\n----------------------\nTotal après réduction : ${reduce(data.article)}€\n----------------------\n`;
         pdf.text(content, 10, 10);
         pdf.save(`facture-${Date.now()}.pdf`);
     };

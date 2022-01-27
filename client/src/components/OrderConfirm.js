@@ -188,11 +188,11 @@ export default function OrderConfirm() {
                 {selectedAdress
                     ? <div>
                         <div>
-                            <p>Prix de la commande : {reduce(cart, fidel)}</p>
+                            <p>Prix de la commande : {fidel ? (reduce(cart))*0.9 : reduce(cart)}</p>
                             <p>Frais de livraison: {shipping}</p>
-                            <p>Prix total :{parseFloat(reduce(cart, fidel)) + parseFloat(shipping)}</p>
+                            <p>Prix total :{fidel ? ((parseFloat(reduce(cart)))*0.9 + parseFloat(shipping)).toFixed(2) : parseFloat(reduce(cart)) + parseFloat(shipping)}</p>
                         </div>
-                        <Payment total={reduce(cart, fidel) + shipping} selectedAddress={selectedAdress} />
+                        <Payment total={fidel ? ((parseFloat(reduce(cart)))*0.9 + parseFloat(shipping)).toFixed(2) : parseFloat(reduce(cart)) + parseFloat(shipping)} selectedAddress={selectedAdress} />
                     </div>
                     : <p className="bill-message">Choisissez une adresse pour passer au paiement</p>
                 }
