@@ -97,6 +97,7 @@ class MysteryBoxController extends AbstractController
         // };
         $name = $Mystery->getName();
         $description = $Mystery->getDescription();
+        $Mystery_price = $Mystery->getPrice();
         $Mystery_price_subscrition=$Mystery->getSubscriptionPrice();
         foreach ($Mystery->getPhotos() as $key => $value) {
             array_push($photo, [
@@ -107,7 +108,7 @@ class MysteryBoxController extends AbstractController
 
 
         return $this->json([
-            "result"=>['subscrition_price'=>$Mystery_price_subscrition,'name'=>$name,'description'=>$description,'photo'=>$photo],
+            "result"=>['subscrition_price'=>$Mystery_price_subscrition,'price'=>$Mystery_price,'name'=>$name,'description'=>$description,'photo'=>$photo],
             
         ]);
     }
@@ -175,17 +176,18 @@ class MysteryBoxController extends AbstractController
      /**
      * @Route("/mystery_user/{id}", name="mystery_user_list", methods={"GET"})
      */
-    public function mystery_user(Request $request, Article $article ,EntityManagerInterface $entityManager): Response
+    public function mystery_user(Article $article): Response
     {
         $abonnement =  $this->getDoctrine()->getRepository(Abonnement::class)->findBy(['mysterybox' => $article->getId()]);
         $UserMystery=[];
-                foreach ($abonnement as $value) {
-
+                foreach ($abonnement as $values) {
+                    $value = $values->getUser();
                 array_push($UserMystery, [
                     'id' => $value->getId(),
                     'firstname' => $value->getFirstName(),
                     'lastname' => $value->getLastName(),
                     'email' => $value->getEmail(),
+                    'abonnement'=> $values->getDebutAbonnement(),
                 ]);
             }
 

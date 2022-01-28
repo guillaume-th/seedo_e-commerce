@@ -51,7 +51,7 @@ export default function AdminShipping() {
 
     return (
         <div>
-            <fieldset>
+            <fieldset   className="adress-section filter-border">
             <legend>Frais de livraison</legend>
             <form ref={distanceForm} onSubmit={editDistance}>
                 <label>Prix pour 100km : </label>
