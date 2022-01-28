@@ -5,8 +5,11 @@ import img2 from "../assets/2.jpeg";
 import img3 from "../assets/3.jpeg";
 import boxSeedo from "../assets/boxSeedo.jpg";
 import graines from "../assets/10-graines-bonnes-pour-la-sante.jpg";
+import { useEffect, useState} from 'react';
 
 export default function Home() {
+
+
     return (
         <div>
             <Carousel autoPlay={"true"} infiniteLoop={"true"} className="vertical-flex center-flex">
