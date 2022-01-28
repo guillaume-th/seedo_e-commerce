@@ -262,15 +262,24 @@ li {
   margin-right: 20px;
 }
 
-#search {
-  /* background-color: rgb(166, 211, 155); */
+/* #search {
+
   background-color: #5DB050;
   border-radius: 20px;
   border:none;
-  /* border: solid white 2px; */
   padding: 0.65rem;
   width:650px;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+} */
+#search {
+  /* background-color: rgb(166, 211, 155); */
+  
+  color:black;
+  border-bottom:2px solid #22460D;
+  /* border: solid white 2px; */
+  padding: 0.65rem;
+  width:650px;
+
 }
 
 #icon {
@@ -596,7 +605,7 @@ li {
 
 .search:focus {
   color:white;
-  background-color: rgb(202, 233, 194);
+  /* background-color: rgb(202, 233, 194); */
 }
 
 .search_bar {

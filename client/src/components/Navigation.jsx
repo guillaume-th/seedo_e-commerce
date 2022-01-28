@@ -3,7 +3,7 @@ import User from "../assets/user.svg";
 import Shop from "../assets/shop.svg";
 import Logo from "../assets/logoSeedo.png";
 import AdminLogo from "../assets/admin.svg";
-import Search from "../assets/searchWhite.png";
+import Search from "../assets/loupe-green.svg";
 import { useNavigate } from "react-router-dom";
 import Cart from "./Cart";
 import ProfilDropdown from "./ProfilDropdown.js";
@@ -89,7 +89,7 @@ export default function Navbar(props) {
           {foundSearch.length > 0 &&
             <ul
               id="article-container"
-              style={{ backgroundColor: "#b0dd95", opacity: "100%" }}
+              style={{ backgroundColor: "white", opacity: "100%", width:"35.5%", border:"2px solid darkgreen", borderTop:"none", borderRadius:"0px",transform:"translate(10px, -8px)" }}
             >
               {foundSearch.map((e) => (
                 <li
