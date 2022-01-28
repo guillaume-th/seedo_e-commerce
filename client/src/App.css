@@ -212,8 +212,12 @@ li {
 }
 
 .sub-nav div:hover {
+ 
+  text-decoration-color: rgb(105, 48, 48);
   border-color: rgb(13, 70, 13);
-  color: rgb(13, 70, 13);
+  /* color: #653D21;
+  font-size:25px; */
+  
 }
 
 .search_bar {
@@ -245,6 +249,8 @@ li {
   margin-right: 10px;
 }
 
+
+
 #User,
 #Shop,
 #Admin,
@@ -255,12 +261,24 @@ li {
   margin-right: 20px;
 }
 
+/* #search {
+
+  background-color: #5DB050;
+  border-radius: 20px;
+  border:none;
+  padding: 0.65rem;
+  width:650px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+} */
 #search {
   /* background-color: rgb(166, 211, 155); */
-  background-color: #a1d37e;
-  border-radius: 20px;
-  border: solid white 2px;
+  
+  color:black;
+  border-bottom:2px solid #22460D;
+  /* border: solid white 2px; */
   padding: 0.65rem;
+  width:650px;
+
 }
 
 #icon {
@@ -585,8 +603,8 @@ li {
 }
 
 .search:focus {
-  outline: solid greenyellow 3px;
-  background-color: rgb(202, 233, 194);
+  color:white;
+  /* background-color: rgb(202, 233, 194); */
 }
 
 .search_bar {
@@ -879,3 +897,30 @@ li {
 .clickable-card:hover{
   transform : scale(1.05);
 }
+
+
+
+/* TEST NAVLINK */
+
+
+/* .subnav-div:after{
+content:"";
+position:absolute;
+background-color:rgb(141, 88, 31);
+height:3px;
+width:0;
+transform: translate(-150px, 30px);
+transition:0.3s;
+}
+
+.subnav-div:hover:after{
+  width:10%;
+} */
+
+
+
+
+
+
+
+/* TEST NAVLINK */
