@@ -212,12 +212,11 @@ li {
 }
 
 .sub-nav div:hover {
-  text-decoration:underline;
-  /* background-color: #5db050b7; */
+ 
   text-decoration-color: rgb(105, 48, 48);
   border-color: rgb(13, 70, 13);
-  color: #653D21;
-  font-size:25px;
+  /* color: #653D21;
+  font-size:25px; */
   
 }
 
@@ -898,3 +897,30 @@ li {
 .clickable-card:hover{
   transform : scale(1.05);
 }
+
+
+
+/* TEST NAVLINK */
+
+
+/* .subnav-div:after{
+content:"";
+position:absolute;
+background-color:rgb(141, 88, 31);
+height:3px;
+width:0;
+transform: translate(-150px, 30px);
+transition:0.3s;
+}
+
+.subnav-div:hover:after{
+  width:10%;
+} */
+
+
+
+
+
+
+
+/* TEST NAVLINK */

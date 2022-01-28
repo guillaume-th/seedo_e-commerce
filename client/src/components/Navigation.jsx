@@ -129,11 +129,11 @@ export default function Navbar(props) {
         </div>
       </div>
       <div className="sub-nav">
-        <div onClick={() => navigate("/articles/new")}>Nouveautés</div>
-        <div onClick={() => navigate("/articles/promo")}>Promotions</div>
-        <div onClick={()=> navigate("/mystery-boxes")}>Mystery box </div>
-        <div onClick={()=>navigate("/articles/graines")}>Graines</div>
-        <div onClick={() => navigate("/articles/accessoires")}>Accessoires</div>
+        <div className="subnav-div" onClick={() => navigate("/articles/new")}>Nouveautés</div>
+        <div className="subnav-div" onClick={() => navigate("/articles/promo")}>Promotions</div>
+        <div className="subnav-div" onClick={()=> navigate("/mystery-boxes")}>Mystery box </div>
+        <div className="subnav-div" onClick={()=>navigate("/articles/graines")}>Graines</div>
+        <div className="subnav-div" onClick={() => navigate("/articles/accessoires")}>Accessoires</div>
       </div>
     </div>
   );
