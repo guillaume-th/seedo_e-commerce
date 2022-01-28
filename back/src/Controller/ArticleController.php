@@ -291,9 +291,8 @@ class ArticleController extends AbstractController
             // $UserMystery = [];
             $PhotoMystery = [];
             // foreach ($Mystery->getUsers() as $value) {
-
             //     array_push($UserMystery, [
-            //         'id' => $value->getId(),
+            //         'id' => $value->getId(), 
             //         'firstname' => $value->getFirstName(),
             //         'lastname' => $value->getLastName(),
             //     ]);
