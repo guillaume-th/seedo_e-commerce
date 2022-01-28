@@ -1,22 +1,24 @@
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import img1 from "../assets/1.jpeg";
-import img2 from "../assets/2.jpeg";
-import img3 from "../assets/3.jpeg";
+import img1 from "../assets/1.png";
+import img2 from "../assets/2.png";
+import img3 from "../assets/3.png";
 import boxSeedo from "../assets/boxSeedo.jpg";
 import seeds from "../assets/lineOfSeeds.png";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
+    const navigate = useNavigate();
     return (
         <div>
             <Carousel autoPlay={"true"} infiniteLoop={"true"} className="vertical-flex center-flex">
-                <div>
+                <div onClick={() => navigate("/articles/promo")}>
                     <img src={img1} />
                 </div>
-                <div>
+                <div onClick={() => navigate("/mystery-boxes")}>
                     <img src={img2} />
                 </div>
-                <div>
+                <div onClick={() => navigate("/articles/new")}>
                     <img src={img3} />
                 </div>
             </Carousel>
