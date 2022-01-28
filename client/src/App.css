@@ -212,12 +212,12 @@ li {
 }
 
 .sub-nav div:hover {
- 
+
   text-decoration-color: rgb(105, 48, 48);
   border-color: rgb(13, 70, 13);
-  /* color: #653D21;
-  font-size:25px; */
-  
+  color: rgb(13, 70, 13);
+  /* font-size:25px; */
+
 }
 
 .search_bar {
@@ -272,12 +272,12 @@ li {
 } */
 #search {
   /* background-color: rgb(166, 211, 155); */
-  
-  color:black;
-  border-bottom:2px solid #22460D;
+
+  color: black;
+  border-bottom: 2px solid #22460D;
   /* border: solid white 2px; */
   padding: 0.65rem;
-  width:650px;
+  width: 650px;
 
 }
 
@@ -603,7 +603,7 @@ li {
 }
 
 .search:focus {
-  color:white;
+  color: white;
   /* background-color: rgb(202, 233, 194); */
 }
 
@@ -687,8 +687,8 @@ li {
   padding: 0.5rem;
   width: 25vw;
   border-radius: 0.25rem;
-  margin-top : 2rem;
-  display : flex; 
+  margin-top: 2rem;
+  display: flex;
   justify-content: space-between;
   align-items: center;
 }
@@ -891,11 +891,11 @@ li {
 
 .card {
   box-shadow: 5px 5px 15px 0px #ABABAB;
-  transition : all .25s ease; 
+  transition: all .25s ease;
 }
 
-.clickable-card:hover{
-  transform : scale(1.05);
+.clickable-card:hover {
+  transform: scale(1.05);
 }
 
 
