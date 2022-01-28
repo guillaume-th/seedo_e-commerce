@@ -56,12 +56,14 @@ export default function AdminMysteryBox() {
         return (
             <div className="add_article">
                 <div className="wrapper">
-                    <form encType="multipart/form-data" className="vertical-form wrap" ref={form} onSubmit={add}>
+                 <fieldset  className="adress-section filter-border" style={{borderRadius : ".5rem"}}>
+                     <legend>Ajouter une Mystery Box</legend>
+                     <form encType="multipart/form-data" className="vertical-form wrap" ref={form} onSubmit={add}>
                         <label>Nom de l'article :</label>
                         <input name="name" type="text" required></input>
                         <label>Catégorie(s) :</label>
                         <input name="categories" type="text" placeholder="Catégorie 1, catégorie 2" minLength={0} maxLength={100}></input>
-                        <label>Description :</label>
+                        <label>Description : </label>
                         <textarea name="description" required></textarea>
                         <label>Prix Abonnement :</label>
                         <input required name="subscriptionprice" type="number"></input>
@@ -97,6 +99,7 @@ export default function AdminMysteryBox() {
 
                         <input type="submit" value="Ajouter cet article" className="marginAuto"></input>
                     </form>
+                 </fieldset>
                 </div>
                 <div className="gallery">
                     {data.length > 0

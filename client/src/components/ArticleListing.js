@@ -20,13 +20,19 @@ export default function ArticleListing(props) {
         fetch(`${API_URL}/article/all`)
             .then(res => res.json())
             .then(res => {
-                setData(res);
-                setFilteredData(res);
+                const updatedData = computeUpdatedPrices(res);
+                console.log(updatedData); 
+                setData(updatedData);
+                setFilteredData(updatedData);
             })
             .catch(err => console.error(err));
         getCategories();
     }, [props]);
 
+    const computeUpdatedPrices = (data) => {
+        data.forEach((e)=> e.data.updatedPrice = e.data.promo > 0 ? Number(e.data.price - e.data.price * e.data.promo / 100).toFixed(2) : e.data.price);
+        return data; 
+    }
 
     const addToCart = (e, product) => {
         e.preventDefault();

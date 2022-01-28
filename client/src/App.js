@@ -16,6 +16,8 @@ import Order from "./components/Order";
 import AdminArticles from "./components/admin/AdminArticles";
 import Category from "./components/admin/AdminCategory";
 import AdminPanel from "./components/admin/AdminPanel";
+import SubscribeMysteryBox from "./components/SubscribeMysteryBox";
+import SubscribeOrderConfirm from "./components/SubscribeOrderConfirm";
 import Comments from "./components/Comments";
 import { useSelector, useDispatch } from "react-redux";
 import { updateAdmin } from "./AdminSlice";
@@ -26,6 +28,7 @@ import { useEffect } from "react";
 import MysteryBoxListing from "./components/MysteryBoxListing";
 import MysteryEdit from "./components/admin/MysteryEdit";
 import MysteryUser from "./components/admin/MysteryUser";
+import Payment from "./components/Payment";
 const API_URL = process.env.REACT_APP_API_URL;
 
 function App() {
@@ -71,17 +74,37 @@ function App() {
           <Route path="/article/:id" element={<ArticleDescription />} />
           <Route path="/articles" element={<ArticleListing />} />
           <Route path="/articles/new" element={<ArticleListing new={true} />} />
-          <Route path="/articles/promo" element={<ArticleListing promo={true} />} />
-          <Route path="/articles/graines" element={<ArticleListing graines={true} />} />
-          <Route path="/articles/accessoires" element={<ArticleListing accessoires={true} />} />
+          <Route
+            path="/articles/promo"
+            element={<ArticleListing promo={true} />}
+          />
+          <Route
+            path="/articles/graines"
+            element={<ArticleListing graines={true} />}
+          />
+          <Route
+            path="/articles/accessoires"
+            element={<ArticleListing accessoires={true} />}
+          />
           <Route path="/auth" element={<Connexion />} />
           <Route path="/order" element={<Order />} />
           <Route path="/order-confirm" element={<OrderConfirm />} />
-          <Route path="/order-success" element={<p>Paiement effectué avec succès</p>} />
+          <Route
+            path="/order-success"
+            element={<p>Paiement effectué avec succès</p>}
+          />
           <Route path="/admin-category" element={<Category />} />
           <Route path="/admin-panel" element={<AdminPanel />} />
           <Route path="/admin-articles" element={<AdminArticles />} />
           <Route path="/mystery-boxes" element={<MysteryBoxListing />} />
+          <Route
+            path="/mystery-subscription"
+            element={<SubscribeMysteryBox />}
+          />
+          <Route
+            path="/subscribe-order-confirm"
+            element={<SubscribeOrderConfirm />}
+          />
           <Route path="/comments" element={<Comments />} />
         </Routes>
       </Router>
