@@ -26,22 +26,32 @@ export default function MysteryUser() {
 
     if (data) {
         return (
-            <div>
-                <button onClick={() => editmystery(id)}>retour</button>
+            <div className="wrapper">
+                <button onClick={() => editmystery(id)}>Retour</button>
+                <div className="orders-admin">
+                    <div>
+                        {
+                            data.map(e => {
+                                return (
+                                    <div className="order-admin card">
+                                        <h3>
+                                            {e.firstname + " "}
+                                            {e.lastname}
+                                        </h3>
 
-                <div>
-                    {
-                        data.map(e => {
-                            return (
-                                <div>
-                                    {e.firstname}
-                                    {e.lastname}
-                                    {e.email}
-                                    {e.abonnement.date}
-                                </div>
-                            )
-                        })
-                    }
+                                        <p>
+                                            {e.email}
+                                        </p>
+
+                                        <p>
+                                            {e.abonnement.date.slice(0, -10)}
+                                        </p>
+
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
                 </div>
 
             </div>
